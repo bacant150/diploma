@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Результат збірки</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-nav">
+      <a href="/" class="logo-link">
+        <div class="logo">PCColl</div>
+      </a>
+      <div class="topbar-actions">
+        <a href="/saved-builds" class="topbar-link-btn">Збережені збірки</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="result-page">
+    <div class="result-card">
+      <div class="section-eyebrow">Підсумок конфігурації</div>
+      <h1>Результат збірки</h1>
+
+      <div class="result-summary-grid">
+        <div class="summary-stat-card">
+          <span class="summary-stat-label">Призначення</span>
+          <strong>
+            {% if inputs.purpose == "gaming" %}Ігровий ПК
+            {% elif inputs.purpose == "office" %}Офісний ПК
+            {% elif inputs.purpose == "study" %}ПК для навчання
+            {% elif inputs.purpose == "creator" %}ПК для монтажу / 3D
+            {% else %}{{ inputs.purpose }}
+            {% endif %}
+          </strong>
+        </div>
+        <div class="summary-stat-card">
+          <span class="summary-stat-label">Рівень збірки</span>
+          <strong>
+            {% if result.tier == "budget" %}Бюджетний
+            {% elif result.tier == "mid" %}Середній
+            {% elif result.tier == "upper" %}Високий
+            {% else %}{{ result.tier }}
+            {% endif %}
+          </strong>
+        </div>
+        <div class="summary-stat-card summary-stat-card--accent">
+          <span class="summary-stat-label">Загальна вартість</span>
+          <strong>{{ result.total }} грн</strong>
+        </div>
+      </div>
+
+      {# Блок збереження має бути ПІД summary-grid, а не всередині неї,
+         інакше вся верхня частина результату роз'їжджається по колонках. #}
+      {% if saved_build_name %}
+      <div class="result-box">
+        <div class="saved-build-badge">Збережена збірка</div>
+        <p class="saved-build-name-note"><strong>Назва:</strong> {{ saved_build_name }}</p>
+        <div class="result-actions">
+          <a href="/saved-builds" class="hero-btn builder-btn">До збережених збірок</a>
+          <a href="/choose-purpose" class="topbar-link-btn">Створити нову збірку</a>
+        </div>
+      </div>
+      {% else %}
+      <div class="result-box">
+        <h2>Зберегти збірку</h2>
+        <p class="builder-hint">Вкажи назву, щоб зберегти цю конфігурацію і повернутися до неї пізніше.</p>
+        <form action="/saved-builds/save" method="post" class="save-build-form">
+          <div class="save-build-field">
+            <label for="build_name">Назва збірки</label>
+            <input
+              type="text"
+              id="build_name"
+              name="build_name"
+              maxlength="120"
+              placeholder="Наприклад: Ігровий ПК для 1440p"
+              required
+            >
+          </div>
+          <button type="submit" class="hero-btn builder-btn">Зберегти збірку</button>
+          <textarea name="inputs_json" hidden>{{ inputs_json }}</textarea>
+          <textarea name="result_json" hidden>{{ result_json }}</textarea>
+        </form>
+      </div>
+      {% endif %}
+
+
+      <div class="result-box">
+        <h2>Твої параметри</h2>
+        <ul>
+          <li><strong>Бюджет:</strong> {{ inputs.budget }} грн</li>
+          <li>
+            <strong>Пріоритет:</strong>
+            {% if inputs.priority == "balanced" %}Збалансовано (ціна / якість)
+            {% elif inputs.priority == "best" %}Максимально найкращий
+            {% else %}Автоматично
+            {% endif %}
+          </li>
+          <li>
+            <strong>Призначення:</strong>
+            {% if inputs.purpose == "gaming" %}Ігровий ПК
+            {% elif inputs.purpose == "office" %}Офісний ПК
+            {% elif inputs.purpose == "study" %}ПК для навчання
+            {% elif inputs.purpose == "creator" %}ПК для монтажу / 3D
+            {% else %}{{ inputs.purpose }}
+            {% endif %}
+          </li>
+          <li><strong>Роздільна здатність:</strong> {{ inputs.resolution }}</li>
+          <li><strong>Wi-Fi:</strong> {{ "Так" if inputs.wifi else "Ні" }}</li>
+
+          {% if inputs.purpose == "gaming" %}
+          <li><strong>Налаштування графіки:</strong> {% if inputs.graphics_quality == "low" %}Низькі{% elif inputs.graphics_quality == "medium" %}Середні{% elif inputs.graphics_quality == "high" %}Високі{% elif inputs.graphics_quality == "ultra" %}Ультра{% else %}{{ inputs.graphics_quality }}{% endif %}</li>
+          <li><strong>Бажаний FPS:</strong> {{ inputs.target_fps }}</li>
+          <li><strong>Відеокарта:</strong>
+            {% if inputs.gpu_mode == "dedicated" %}Обов’язково дискретна
+            {% elif inputs.gpu_mode == "integrated" %}Без дискретної відеокарти
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Процесор:</strong>
+            {% if inputs.cpu_brand == "amd" %}Тільки AMD
+            {% elif inputs.cpu_brand == "intel" %}Тільки Intel
+            {% else %}Автоматично{% endif %}
+          </li>
+          {% if inputs.gpu_mode != "integrated" %}
+          <li><strong>Бренд відеокарти:</strong>
+            {% if inputs.gpu_brand == "amd" %}Тільки AMD Radeon
+            {% elif inputs.gpu_brand == "nvidia" %}Тільки NVIDIA GeForce
+            {% else %}Автоматично{% endif %}
+          </li>
+          {% endif %}
+          <li><strong>Обсяг ОЗП:</strong> {% if inputs.ram_size == "auto" %}Автоматично{% else %}{{ inputs.ram_size }} ГБ{% endif %}</li>
+          <li><strong>Обсяг SSD:</strong>
+            {% if inputs.ssd_size == "auto" %}Автоматично
+            {% elif inputs.ssd_size == "1000" %}1 TB
+            {% elif inputs.ssd_size == "2000" %}2 TB
+            {% elif inputs.ssd_size == "4000" %}4 TB
+            {% else %}{{ inputs.ssd_size }} ГБ{% endif %}
+          </li>
+          <li><strong>Платформа пам’яті:</strong>
+            {% if inputs.memory_platform == "ddr4" %}Тільки DDR4
+            {% elif inputs.memory_platform == "ddr5" %}Тільки DDR5
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Обрані ігри:</strong>
+            {% if inputs.games_titles %}{{ inputs.games_titles|join(", ") }}
+            {% else %}Стандартний режим без вибору конкретних ігор{% endif %}
+          </li>
+          {% endif %}
+
+          {% if inputs.purpose == "office" %}
+          <li><strong>Графіка:</strong>
+            {% if inputs.gpu_mode == "dedicated" %}Дискретна відеокарта
+            {% elif inputs.gpu_mode == "integrated" %}Тільки вбудована графіка
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Процесор:</strong>
+            {% if inputs.cpu_brand == "amd" %}Тільки AMD
+            {% elif inputs.cpu_brand == "intel" %}Тільки Intel
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Обсяг ОЗП:</strong> {% if inputs.ram_size == "auto" %}Автоматично{% else %}{{ inputs.ram_size }} ГБ{% endif %}</li>
+          <li><strong>Обсяг SSD:</strong>
+            {% if inputs.ssd_size == "auto" %}Автоматично
+            {% elif inputs.ssd_size == "1000" %}1 TB
+            {% elif inputs.ssd_size == "2000" %}2 TB
+            {% elif inputs.ssd_size == "4000" %}4 TB
+            {% else %}{{ inputs.ssd_size }} ГБ{% endif %}
+          </li>
+          <li><strong>Платформа пам’яті:</strong>
+            {% if inputs.memory_platform == "ddr4" %}Тільки DDR4
+            {% elif inputs.memory_platform == "ddr5" %}Тільки DDR5
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Вкладки:</strong>
+            {% if inputs.office_tabs == "up_to_10" %}До 10
+            {% elif inputs.office_tabs == "10_30" %}10–30
+            {% elif inputs.office_tabs == "30_60" %}30–60
+            {% elif inputs.office_tabs == "60_plus" %}60+
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Монітори:</strong>
+            {% if inputs.office_monitors == "1" %}1 монітор
+            {% elif inputs.office_monitors == "2" %}2 монітори
+            {% elif inputs.office_monitors == "3_plus" %}3+ монітори
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Обрані програми:</strong>
+            {% if inputs.office_apps_titles %}{{ inputs.office_apps_titles|join(", ") }}
+            {% else %}Стандартний офісний сценарій{% endif %}
+          </li>
+          {% endif %}
+
+          {% if inputs.purpose == "study" %}
+          <li><strong>Графіка:</strong>
+            {% if inputs.gpu_mode == "dedicated" %}Дискретна відеокарта
+            {% elif inputs.gpu_mode == "integrated" %}Тільки вбудована графіка
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Процесор:</strong>
+            {% if inputs.cpu_brand == "amd" %}Тільки AMD
+            {% elif inputs.cpu_brand == "intel" %}Тільки Intel
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Обсяг ОЗП:</strong> {% if inputs.ram_size == "auto" %}Автоматично{% else %}{{ inputs.ram_size }} ГБ{% endif %}</li>
+          <li><strong>Обсяг SSD:</strong>
+            {% if inputs.ssd_size == "auto" %}Автоматично
+            {% elif inputs.ssd_size == "1000" %}1 TB
+            {% elif inputs.ssd_size == "2000" %}2 TB
+            {% elif inputs.ssd_size == "4000" %}4 TB
+            {% else %}{{ inputs.ssd_size }} ГБ{% endif %}
+          </li>
+          <li><strong>Платформа пам’яті:</strong>
+            {% if inputs.memory_platform == "ddr4" %}Тільки DDR4
+            {% elif inputs.memory_platform == "ddr5" %}Тільки DDR5
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Вкладки:</strong>
+            {% if inputs.study_tabs == "up_to_10" %}До 10
+            {% elif inputs.study_tabs == "10_30" %}10–30
+            {% elif inputs.study_tabs == "30_60" %}30–60
+            {% elif inputs.study_tabs == "60_plus" %}60+
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Монітори:</strong>
+            {% if inputs.study_monitors == "1" %}1 монітор
+            {% elif inputs.study_monitors == "2" %}2 монітори
+            {% elif inputs.study_monitors == "3_plus" %}3+ монітори
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Обрані програми:</strong>
+            {% if inputs.study_apps_titles %}{{ inputs.study_apps_titles|join(", ") }}
+            {% else %}Стандартний навчальний сценарій{% endif %}
+          </li>
+          {% endif %}
+
+          {% if inputs.purpose == "creator" %}
+          <li><strong>Графіка:</strong>
+            {% if inputs.gpu_mode == "dedicated" %}Дискретна відеокарта
+            {% elif inputs.gpu_mode == "integrated" %}Тільки вбудована графіка
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Процесор:</strong>
+            {% if inputs.cpu_brand == "amd" %}Тільки AMD
+            {% elif inputs.cpu_brand == "intel" %}Тільки Intel
+            {% else %}Автоматично{% endif %}
+          </li>
+          {% if inputs.gpu_mode != "integrated" %}
+          <li><strong>Бренд відеокарти:</strong>
+            {% if inputs.gpu_brand == "amd" %}Тільки AMD Radeon
+            {% elif inputs.gpu_brand == "nvidia" %}Тільки NVIDIA GeForce
+            {% else %}Автоматично{% endif %}
+          </li>
+          {% endif %}
+          <li><strong>Обсяг ОЗП:</strong> {% if inputs.ram_size == "auto" %}Автоматично{% else %}{{ inputs.ram_size }} ГБ{% endif %}</li>
+          <li><strong>Обсяг SSD:</strong>
+            {% if inputs.ssd_size == "auto" %}Автоматично
+            {% elif inputs.ssd_size == "1000" %}1 TB
+            {% elif inputs.ssd_size == "2000" %}2 TB
+            {% elif inputs.ssd_size == "4000" %}4 TB
+            {% elif inputs.ssd_size == "8000" %}8 TB
+            {% else %}{{ inputs.ssd_size }} ГБ{% endif %}
+          </li>
+          <li><strong>Платформа пам’яті:</strong>
+            {% if inputs.memory_platform == "ddr4" %}Тільки DDR4
+            {% elif inputs.memory_platform == "ddr5" %}Тільки DDR5
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Складність проєктів:</strong>
+            {% if inputs.creator_complexity == "light" %}Легкі
+            {% elif inputs.creator_complexity == "medium" %}Середні
+            {% elif inputs.creator_complexity == "heavy" %}Важкі
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Монітори:</strong>
+            {% if inputs.creator_monitors == "1" %}1 монітор
+            {% elif inputs.creator_monitors == "2" %}2 монітори
+            {% elif inputs.creator_monitors == "3_plus" %}3+ монітори
+            {% else %}Автоматично{% endif %}
+          </li>
+          <li><strong>Обрані програми:</strong>
+            {% if inputs.creator_apps_titles %}{{ inputs.creator_apps_titles|join(", ") }}
+            {% else %}Стандартний сценарій для монтажу / 3D{% endif %}
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <div class="result-box">
+        <h2>Комплектуючі</h2>
+        {% if result.parts %}
+          <div class="parts-grid">
+            {% for k, v in result.parts.items() %}
+              <div class="part-card">
+                {% if v.image %}
+                {# Кнопка відкриває модальне вікно з великим зображенням комплектуючої. #}
+                <button
+                  type="button"
+                  class="part-image-button"
+                  data-part-image="{{ v.image }}"
+                  data-part-name="{{ v.name }}"
+                  aria-label="Відкрити збільшене зображення {{ v.name }}"
+                >
+                  <div class="part-image-wrap">
+                    <img src="{{ v.image }}" alt="{{ v.name }}" class="part-image">
+                  </div>
+                </button>
+                {% endif %}
+                <div class="part-type">{% if k == "CPU" %}Процесор{% elif k == "GPU" %}Відеокарта{% elif k == "Motherboard" %}Материнська плата{% elif k == "RAM" %}Оперативна пам’ять{% elif k == "SSD" %}Накопичувач SSD{% elif k == "PSU" %}Блок живлення{% elif k == "Case" %}Корпус{% else %}{{ k }}{% endif %}</div>
+                <div class="part-model">{{ v.name }}</div>
+                <div class="part-price">{{ v.price }} грн</div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p>Нічого не підібрано.</p>
+        {% endif %}
+      </div>
+
+      {% if result.notes %}
+      <div class="result-box notes-box">
+        <h2>Примітки</h2>
+        <ul>
+          {% for n in result.notes %}
+            <li>{{ n }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      <a href="/choose-purpose" class="back-link">← Назад до вибору типу ПК</a>
+    </div>
+  </section>
+
+
+  {# Модальне вікно для перегляду збільшеного фото комплектуючої. #}
+  <div class="image-modal" id="imageModal" aria-hidden="true">
+    <div class="image-modal-backdrop" data-close-image-modal></div>
+
+    <div class="image-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle">
+      <button type="button" class="image-modal-close" id="imageModalClose" aria-label="Закрити перегляд">×</button>
+      <div class="image-modal-content">
+        <div class="image-modal-image-wrap">
+          <img src="" alt="" id="imageModalPreview" class="image-modal-image">
+        </div>
+        <div class="image-modal-caption" id="imageModalTitle"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Перегляд зображення по центру екрана: відкриття по кліку,
+    // закриття по кнопці, кліку на затемнений фон або клавіші Escape.
+    (function () {
+      const modal = document.getElementById('imageModal');
+      const preview = document.getElementById('imageModalPreview');
+      const title = document.getElementById('imageModalTitle');
+      const closeButton = document.getElementById('imageModalClose');
+      const triggers = document.querySelectorAll('[data-part-image]');
+      const backdrop = modal ? modal.querySelector('[data-close-image-modal]') : null;
+
+      if (!modal || !preview || !title || !closeButton || !triggers.length) {
+        return;
+      }
+
+      let lastFocusedElement = null;
+      let closeTimer = null;
+      const MODAL_ANIMATION_MS = 260;
+
+      function openImageModal(imageSrc, imageName) {
+        // Якщо попереднє закриття ще анімується — скасовуємо очищення,
+        // щоб нове зображення відкрилося плавно без мерехтіння.
+        if (closeTimer) {
+          window.clearTimeout(closeTimer);
+          closeTimer = null;
+        }
+
+        lastFocusedElement = document.activeElement;
+        preview.src = imageSrc;
+        preview.alt = imageName;
+        title.textContent = imageName;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+        closeButton.focus({ preventScroll: true });
+      }
+
+      function closeImageModal() {
+        const elementToRestoreFocus = lastFocusedElement;
+
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+
+        // Чекаємо завершення анімації, і лише потім очищаємо вміст модалки.
+        closeTimer = window.setTimeout(function () {
+          preview.src = '';
+          preview.alt = '';
+          title.textContent = '';
+          closeTimer = null;
+
+          if (elementToRestoreFocus) {
+            elementToRestoreFocus.focus({ preventScroll: true });
+          }
+        }, MODAL_ANIMATION_MS);
+      }
+
+      triggers.forEach((trigger) => {
+        trigger.addEventListener('click', function () {
+          openImageModal(this.dataset.partImage, this.dataset.partName || 'Зображення комплектуючої');
+        });
+      });
+
+      closeButton.addEventListener('click', closeImageModal);
+      if (backdrop) {
+        backdrop.addEventListener('click', closeImageModal);
+      }
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeImageModal();
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

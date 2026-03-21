@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Збережені збірки</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-nav">
+      <a href="/" class="logo-link">
+        <div class="logo">PCColl</div>
+      </a>
+      <div class="topbar-actions">
+        <a href="/saved-builds" class="topbar-link-btn">Збережені збірки</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="saved-builds-page">
+    <div class="saved-builds-shell">
+      <div class="section-eyebrow">Твої конфігурації</div>
+      <h1 class="pc-types-title">Збережені збірки</h1>
+      <p class="pc-types-subtitle">
+        Тут зберігаються конфігурації, які ти вирішив залишити. Їх можна переглянути,
+        перейменувати або видалити.
+      </p>
+
+      {% if status_message %}
+      <div class="status-message">{{ status_message }}</div>
+      {% endif %}
+
+      {% if saved_builds %}
+      <div class="saved-builds-grid">
+        {% for build in saved_builds %}
+        <article class="saved-build-card">
+          <h3>{{ build.name }}</h3>
+
+          <div class="saved-build-meta">
+            <div class="saved-build-meta-item">{{ build.purpose_title }}</div>
+            <div class="saved-build-meta-item">{{ build.total }} грн</div>
+            <div class="saved-build-meta-item">{{ build.saved_at_display }}</div>
+          </div>
+
+          <p><strong>Рівень:</strong> {{ build.tier_title }}</p>
+          <ul>
+            {% for part_type, part in build.result.parts.items() %}
+            {% if loop.index <= 4 %}
+            <li>{{ part.name }}</li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+
+          <div class="saved-build-actions">
+            <a href="/saved-builds/{{ build.id }}" class="hero-btn builder-btn">Відкрити</a>
+          </div>
+
+          <div class="saved-build-manage">
+            <form action="/saved-builds/{{ build.id }}/rename" method="post" class="inline-form">
+              <div class="inline-form-field">
+                <label for="rename-{{ build.id }}">Нова назва</label>
+                <input type="text" id="rename-{{ build.id }}" name="build_name" value="{{ build.name }}" maxlength="120" required>
+              </div>
+              <button type="submit" class="hero-btn builder-btn">Зберегти назву</button>
+            </form>
+
+            <form action="/saved-builds/{{ build.id }}/delete" method="post">
+              <button type="submit" class="hero-btn delete-btn">Видалити</button>
+            </form>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="empty-state">
+        <p>У тебе ще немає збережених збірок. Спочатку згенеруй конфігурацію, а потім збережи її на сторінці результату.</p>
+        <a href="/choose-purpose" class="hero-btn builder-btn">Почати підбір</a>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+</body>
+</html>
