@@ -10,6 +10,7 @@
 
 from __future__ import annotations
 
+from zoneinfo import ZoneInfo
 from datetime import datetime
 import json
 from pathlib import Path
@@ -25,6 +26,7 @@ from fastapi.templating import Jinja2Templates
 from builder import build_pc
 from parts_db import CREATOR_APPS_DB, GAMES_DB, OFFICE_APPS_DB, STUDY_APPS_DB
 
+KYIV_TZ = ZoneInfo("Europe/Kyiv")
 
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
@@ -228,7 +230,7 @@ def _write_saved_builds(saved_builds: list[dict[str, Any]]) -> None:
 def _default_build_name(inputs: dict[str, Any]) -> str:
     """Формує назву за замовчуванням, якщо користувач не ввів свою."""
     purpose_title = PURPOSE_TITLES.get(inputs.get("purpose", "gaming"), "Збірка ПК")
-    timestamp = datetime.now().strftime("%d.%m.%Y %H:%M")
+    timestamp = datetime.now(KYIV_TZ).strftime("%d.%m.%Y %H:%M")
     return f"{purpose_title} — {timestamp}"
 
 
@@ -352,7 +354,7 @@ async def save_build(request: Request) -> RedirectResponse:
         {
             "id": uuid4().hex,
             "name": build_name,
-            "saved_at": datetime.now().isoformat(timespec="seconds"),
+            "saved_at": datetime.now(KYIV_TZ).isoformat(timespec="seconds"),
             "inputs": inputs,
             "result": result,
         }
