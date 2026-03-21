@@ -31,54 +31,164 @@
       <div class="status-message">{{ status_message }}</div>
       {% endif %}
 
-      {% if saved_builds %}
-      <div class="saved-builds-grid">
-        {% for build in saved_builds %}
-        <article class="saved-build-card">
-          <h3>{{ build.name }}</h3>
+      <div id="savedBuildsContainer" class="saved-builds-grid"></div>
 
-          <div class="saved-build-meta">
-            <div class="saved-build-meta-item">{{ build.purpose_title }}</div>
-            <div class="saved-build-meta-item">{{ build.result.total }} грн</div>
-            <div class="saved-build-meta-item">{{ build.saved_at_display }}</div>
-          </div>
-
-          <p><strong>Рівень:</strong> {{ build.tier_title }}</p>
-          <ul>
-            {% for part_type, part in build.result.parts.items() %}
-            {% if loop.index <= 4 %}
-            <li>{{ part.name }}</li>
-            {% endif %}
-            {% endfor %}
-          </ul>
-
-          <div class="saved-build-actions">
-            <a href="/saved-builds/{{ build.id }}" class="hero-btn builder-btn">Відкрити</a>
-          </div>
-
-          <div class="saved-build-manage">
-            <form action="/saved-builds/{{ build.id }}/rename" method="post" class="inline-form">
-              <div class="inline-form-field">
-                <label for="rename-{{ build.id }}">Нова назва</label>
-                <input type="text" id="rename-{{ build.id }}" name="build_name" value="{{ build.name }}" maxlength="120" required>
-              </div>
-              <button type="submit" class="hero-btn builder-btn">Зберегти назву</button>
-            </form>
-
-            <form action="/saved-builds/{{ build.id }}/delete" method="post">
-              <button type="submit" class="hero-btn delete-btn">Видалити</button>
-            </form>
-          </div>
-        </article>
-        {% endfor %}
-      </div>
-      {% else %}
-      <div class="empty-state">
+      <div id="emptyState" class="empty-state" hidden>
         <p>У тебе ще немає збережених збірок. Спочатку згенеруй конфігурацію, а потім збережи її на сторінці результату.</p>
         <a href="/choose-purpose" class="hero-btn builder-btn">Почати підбір</a>
       </div>
-      {% endif %}
     </div>
   </section>
+
+  <script>
+    const STORAGE_KEY = 'pcoll_saved_builds';
+
+    const PURPOSE_TITLES = {
+      gaming: 'Ігровий ПК',
+      office: 'Офісний ПК',
+      study: 'ПК для навчання',
+      creator: 'ПК для монтажу / 3D',
+    };
+
+    const TIER_TITLES = {
+      budget: 'Бюджетний',
+      mid: 'Середній',
+      upper: 'Високий',
+    };
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function getSavedBuilds() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    }
+
+    function setSavedBuilds(builds) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(builds));
+    }
+
+    function formatDate(iso) {
+      try {
+        return new Date(iso).toLocaleString('uk-UA');
+      } catch (error) {
+        return iso || 'Без дати';
+      }
+    }
+
+    function toggleDetails(id) {
+      const box = document.getElementById(`details-${id}`);
+      if (!box) {
+        return;
+      }
+      box.hidden = !box.hidden;
+    }
+
+    function renameBuild(id) {
+      const input = document.getElementById(`rename-${id}`);
+      const newName = (input?.value || '').trim();
+
+      if (!newName) {
+        alert('Вкажи нову назву.');
+        return;
+      }
+
+      const builds = getSavedBuilds();
+      const build = builds.find((item) => item.id === id);
+
+      if (!build) {
+        return;
+      }
+
+      build.name = newName;
+      setSavedBuilds(builds);
+      renderSavedBuilds();
+    }
+
+    function deleteBuild(id) {
+      if (!confirm('Видалити цю збірку?')) {
+        return;
+      }
+
+      const builds = getSavedBuilds().filter((item) => item.id !== id);
+      setSavedBuilds(builds);
+      renderSavedBuilds();
+    }
+
+    function renderSavedBuilds() {
+      const container = document.getElementById('savedBuildsContainer');
+      const emptyState = document.getElementById('emptyState');
+      const builds = getSavedBuilds().slice().reverse();
+
+      container.innerHTML = '';
+
+      if (!builds.length) {
+        emptyState.hidden = false;
+        return;
+      }
+
+      emptyState.hidden = true;
+
+      builds.forEach((build) => {
+        const purposeTitle = PURPOSE_TITLES[build.inputs?.purpose] || 'Збірка';
+        const tierTitle = TIER_TITLES[build.result?.tier] || '—';
+        const total = build.result?.total ?? 0;
+        const savedAt = formatDate(build.saved_at);
+        const parts = Object.values(build.result?.parts || {});
+        const shortParts = parts.slice(0, 4).map((part) => `<li>${escapeHtml(part.name)}</li>`).join('');
+        const fullParts = parts.map((part) => `<li>${escapeHtml(part.name)} — ${escapeHtml(part.price)} грн</li>`).join('');
+        const notes = (build.result?.notes || []).map((note) => `<li>${escapeHtml(note)}</li>`).join('');
+
+        const card = document.createElement('article');
+        card.className = 'saved-build-card';
+        card.innerHTML = `
+          <h3>${escapeHtml(build.name)}</h3>
+
+          <div class="saved-build-meta">
+            <div class="saved-build-meta-item">${escapeHtml(purposeTitle)}</div>
+            <div class="saved-build-meta-item">${escapeHtml(total)} грн</div>
+            <div class="saved-build-meta-item">${escapeHtml(savedAt)}</div>
+          </div>
+
+          <p><strong>Рівень:</strong> ${escapeHtml(tierTitle)}</p>
+          <ul>${shortParts}</ul>
+
+          <div class="saved-build-actions">
+            <button type="button" class="hero-btn builder-btn" onclick="toggleDetails('${escapeHtml(build.id)}')">Відкрити</button>
+          </div>
+
+          <div id="details-${escapeHtml(build.id)}" hidden class="result-box">
+            <h2>Деталі збірки</h2>
+            <p><strong>Загальна вартість:</strong> ${escapeHtml(total)} грн</p>
+            <p><strong>Рівень:</strong> ${escapeHtml(tierTitle)}</p>
+            <h3>Комплектуючі</h3>
+            <ul>${fullParts || '<li>Немає даних.</li>'}</ul>
+            ${notes ? `<h3>Примітки</h3><ul>${notes}</ul>` : ''}
+          </div>
+
+          <div class="saved-build-manage">
+            <div class="inline-form">
+              <div class="inline-form-field">
+                <label for="rename-${escapeHtml(build.id)}">Нова назва</label>
+                <input type="text" id="rename-${escapeHtml(build.id)}" value="${escapeHtml(build.name)}" maxlength="120" required>
+              </div>
+              <button type="button" class="hero-btn builder-btn" onclick="renameBuild('${escapeHtml(build.id)}')">Зберегти назву</button>
+            </div>
+
+            <button type="button" class="hero-btn delete-btn" onclick="deleteBuild('${escapeHtml(build.id)}')">Видалити</button>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    renderSavedBuilds();
+  </script>
 </body>
 </html>

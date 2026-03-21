@@ -78,7 +78,7 @@
               required
             >
           </div>
-          <button type="submit" class="hero-btn builder-btn">Зберегти збірку</button>
+          <button type="button" id="saveBuildBtn" class="hero-btn builder-btn">Зберегти збірку</button>
           <textarea name="inputs_json" hidden>{{ inputs_json }}</textarea>
           <textarea name="result_json" hidden>{{ result_json }}</textarea>
         </form>
@@ -347,6 +347,53 @@
       </div>
     </div>
   </div>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'pcoll_saved_builds';
+      const saveBuildBtn = document.getElementById('saveBuildBtn');
+
+      if (!saveBuildBtn) {
+        return;
+      }
+
+      saveBuildBtn.addEventListener('click', function () {
+        const buildNameInput = document.getElementById('build_name');
+        const inputsJson = document.querySelector('textarea[name="inputs_json"]');
+        const resultJson = document.querySelector('textarea[name="result_json"]');
+        const buildName = (buildNameInput?.value || '').trim();
+
+        if (!buildName) {
+          alert('Вкажи назву збірки.');
+          return;
+        }
+
+        let inputs = {};
+        let result = {};
+
+        try {
+          inputs = JSON.parse(inputsJson?.value || '{}');
+          result = JSON.parse(resultJson?.value || '{}');
+        } catch (error) {
+          alert('Не вдалося зчитати дані збірки.');
+          return;
+        }
+
+        const savedBuilds = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        const build = {
+          id: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()),
+          name: buildName,
+          saved_at: new Date().toISOString(),
+          inputs,
+          result,
+        };
+
+        savedBuilds.push(build);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedBuilds));
+        window.location.href = '/saved-builds?status=saved';
+      });
+    })();
+  </script>
 
   <script>
     // Перегляд зображення по центру екрана: відкриття по кліку,
