@@ -98,6 +98,19 @@
 {"text": "системник для cs2 і diablo 4", "label": "gaming"}
 {"text": "ігровий комп'ютер для valorant і minecraft", "label": "gaming"}
 {"text": "комп для cs2 і minecraft", "label": "gaming"}
+{"text": "грати в майнкрафт", "label": "gaming"}
+{"text": "грати в ігри", "label": "gaming"}
+{"text": "грати в шутери", "label": "gaming"}
+{"text": "грати в стрилячкі", "label": "gaming"}
+{"text": "грати в рпг", "label": "gaming"}
+{"text": "грати в різні ігри", "label": "gaming"}
+{"text": "майнкрафт грати", "label": "gaming"}
+{"text": "ігровий пк для друзів", "label": "gaming"}
+{"text": "ігровий пк для дитини", "label": "gaming"}
+{"text": "ПК для ігор", "label": "gaming"}
+{"text": "Ігри", "label": "gaming"}
+{"text": "Гулятись в ігри на ПК", "label": "gaming"}
+{"text": "ПК для веселощів", "label": "gaming"}
 
 
 {"text": "системний блок для google docs і slack", "label": "office"}
@@ -199,7 +212,11 @@
 {"text": "системник для pdf і excel", "label": "office"}
 {"text": "комп'ютер для word і 1с", "label": "office"}
 {"text": "системник для кабінету клієнтів і онлайн-звітності", "label": "office"}
-{"text": "комп'ютер для google sheets і powerpoint", "label": "office"}
+{"text": "Тихий ПК для офісу", "label": "office"}
+{"text": "бюджетний пк для офісу", "label": "office"}
+{"text": "офісний пк", "label": "office"}
+{"text": "бухгалтерський пк", "label": "office"}
+{"text": "ПК для людини з офісу", "label": "office"}
 
 
 {"text": "навчальний пк для занять", "label": "study"}
@@ -301,7 +318,15 @@
 {"text": "збірка для навчання", "label": "study"}
 {"text": "збірка для школяра для pycharm і vscode", "label": "study"}
 {"text": "системник для занять", "label": "study"}
-{"text": "збірка для навчання вдома для google meet і python", "label": "study"}
+{"text": "ПК для репетиторства", "label": "study"}
+{"text": "ПК для інформатики", "label": "study"}
+{"text": "ПК тільки для навчання", "label": "study"}
+{"text": "збірка для предметів зі школи", "label": "study"}
+{"text": "збірка для географії", "label": "study"}
+{"text": "збірка для метаматики", "label": "study"}
+{"text": "збірка для точних наук", "label": "study"}
+{"text": "збірка для гуманітарних наук", "label": "study"}
+{"text": "збірка для презентацій для школяра", "label": "study"}
 
 
 {"text": "системник для solidworks і unity", "label": "creator"}
