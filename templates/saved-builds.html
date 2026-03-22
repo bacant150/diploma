@@ -27,10 +27,6 @@
         перейменувати або видалити.
       </p>
 
-      {% if status_message %}
-      <div class="status-message">{{ status_message }}</div>
-      {% endif %}
-
       <div id="savedBuildsContainer" class="saved-builds-grid"></div>
 
       <div id="emptyState" class="empty-state" hidden>
@@ -54,6 +50,12 @@
       budget: 'Бюджетний',
       mid: 'Середній',
       upper: 'Високий',
+    };
+
+    const STATUS_MESSAGES = {
+      saved: 'Збірку успішно збережено.',
+      renamed: 'Назву збірки оновлено.',
+      deleted: 'Збірку видалено.',
     };
 
     function escapeHtml(value) {
@@ -97,6 +99,21 @@
       }
       statusBox.textContent = message;
       statusBox.hidden = false;
+    }
+
+    function showStatusFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      const status = params.get('status');
+      const message = STATUS_MESSAGES[status];
+      if (!message) {
+        return;
+      }
+
+      showStatus(message);
+      params.delete('status');
+      const query = params.toString();
+      const nextUrl = `${window.location.pathname}${query ? `?${query}` : ''}`;
+      window.history.replaceState({}, '', nextUrl);
     }
 
     function openBuild(id) {
@@ -197,6 +214,7 @@
     }
 
     renderSavedBuilds();
+    showStatusFromQuery();
   </script>
 </body>
 </html>
