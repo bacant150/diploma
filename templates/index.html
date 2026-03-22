@@ -39,8 +39,17 @@
 
         <div class="form-group" id="budget-group">
           <label for="budget">Бюджет (грн)</label>
-          <input type="number" id="budget" name="budget" min="5000" required>
-          <p class="builder-hint" id="budget-mode-hint">У ручному режимі бюджет є обов’язковим полем.</p>
+          <input
+            type="number"
+            id="budget"
+            name="budget"
+            min="{{ budget_min }}"
+            max="{{ budget_max }}"
+            step="500"
+            placeholder="{{ budget_min }} – {{ budget_max }}"
+            required
+          >
+          <p class="builder-hint" id="budget-mode-hint">Доступний діапазон для цього сценарію: від {{ budget_min }} до {{ budget_max }} грн.</p>
         </div>
 
         <div class="form-group">
@@ -368,7 +377,8 @@
 
         <div class="form-group">
           <label for="target_fps">Бажаний FPS</label>
-          <input type="number" id="target_fps" name="target_fps" min="30" max="300" value="60" required>
+          <input type="number" id="target_fps" name="target_fps" min="{{ fps_min }}" max="{{ fps_max }}" value="60" required>
+          <p class="builder-hint">Допустимий діапазон: від {{ fps_min }} до {{ fps_max }} FPS.</p>
         </div>
 
         <div class="form-group">
@@ -469,6 +479,8 @@
     const budgetInput = document.getElementById("budget");
     const budgetGroup = document.getElementById("budget-group");
     const budgetHint = document.getElementById("budget-mode-hint");
+    const budgetMin = budgetInput ? budgetInput.min : "";
+    const budgetMax = budgetInput ? budgetInput.max : "";
 
     const gpuModeSelect = document.getElementById("gpu_mode");
     const gpuBrandGroup = document.getElementById("gpu-brand-group");
@@ -487,8 +499,8 @@
 
       if (budgetHint) {
         budgetHint.textContent = isAuto
-          ? "У цьому режимі система сама знайде рекомендований бюджет і сформує збірку."
-          : "У ручному режимі бюджет є обов’язковим полем.";
+          ? `У цьому режимі система сама підбере бюджет у межах ${budgetMin}–${budgetMax} грн.`
+          : `У ручному режимі доступний діапазон: ${budgetMin}–${budgetMax} грн.`;
       }
 
       if (isAuto) {

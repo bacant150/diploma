@@ -371,6 +371,7 @@ def _resolution_multiplier(resolution: str) -> float:
 
 
 def _fps_multiplier(target_fps: int) -> float:
+    target_fps = max(30, min(500, target_fps))
     if target_fps <= 60:
         return 1.00
     if target_fps <= 75:
@@ -385,7 +386,11 @@ def _fps_multiplier(target_fps: int) -> float:
         return 1.55
     if target_fps <= 240:
         return 1.80
-    return 2.00
+    if target_fps <= 300:
+        return 1.92
+    if target_fps <= 360:
+        return 2.08
+    return 2.28
 
 
 def _calculate_gaming_requirement(
@@ -395,6 +400,7 @@ def _calculate_gaming_requirement(
     target_fps: int,
 ) -> Dict[str, object]:
     """Розраховує мінімальні умовні вимоги до CPU/GPU під вибрані ігри."""
+    target_fps = max(30, min(500, target_fps))
     valid_games = [g for g in games if g in GAMES_DB]
 
     if not valid_games:
@@ -407,10 +413,20 @@ def _calculate_gaming_requirement(
 
     gpu_mult = _resolution_multiplier(resolution) * _quality_multiplier(graphics_quality) * _fps_multiplier(target_fps)
 
+    cpu_fps_mult = (
+        1.00 if target_fps <= 60 else
+        1.12 if target_fps <= 90 else
+        1.28 if target_fps <= 144 else
+        1.48 if target_fps <= 240 else
+        1.58 if target_fps <= 300 else
+        1.68 if target_fps <= 360 else
+        1.80
+    )
+
     cpu_mult = (
         (1.00 if resolution == "1080p" else 1.08 if resolution == "1440p" else 1.15)
         * (0.92 if graphics_quality == "low" else 0.98 if graphics_quality == "medium" else 1.00 if graphics_quality == "high" else 1.04)
-        * (1.00 if target_fps <= 60 else 1.12 if target_fps <= 90 else 1.28 if target_fps <= 144 else 1.48)
+        * cpu_fps_mult
     )
 
     gpu_reqs: List[float] = []

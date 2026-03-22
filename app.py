@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+from datetime import datetime
 import json
 from pathlib import Path
 import re
 from typing import Any
+from uuid import uuid4
 
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, PlainTextResponse
+from fastapi import FastAPI, Form, HTTPException, Request
+from fastapi.responses import HTMLResponse, PlainTextResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -17,6 +19,7 @@ from parts_db import CREATOR_APPS_DB, GAMES_DB, OFFICE_APPS_DB, STUDY_APPS_DB
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 TEMPLATES_DIR = BASE_DIR / "templates"
+SAVED_BUILDS_FILE = BASE_DIR / "saved_builds.json"
 
 # Єдина мапа назв сценаріїв. Вона використовується і для маршруту builder,
 # і для шаблонів, щоб не дублювати однакові значення в кількох місцях.
@@ -27,6 +30,22 @@ PURPOSE_TITLES = {
     "creator": "ПК для монтажу / 3D",
 }
 
+# Межі бюджету підібрані на основі поточної бази комплектуючих і реальних
+# конфігурацій, які система здатна зібрати для кожного сценарію.
+BUDGET_LIMITS = {
+    "gaming": {"min": 12500, "max": 225000},
+    "office": {"min": 15000, "max": 110000},
+    "study": {"min": 15000, "max": 120000},
+    "creator": {"min": 42500, "max": 235000},
+}
+
+FPS_LIMITS = {"min": 30, "max": 500}
+
+TIER_TITLES = {
+    "budget": "Бюджетний",
+    "mid": "Середній",
+    "upper": "Високий",
+}
 
 STATUS_MESSAGES = {
     "saved": "Збірку успішно збережено.",
@@ -77,9 +96,21 @@ def _normalize_purpose(purpose: str) -> str:
     return purpose if purpose in PURPOSE_TITLES else "gaming"
 
 
+def _budget_limits_for_purpose(purpose: str) -> dict[str, int]:
+    """Повертає межі бюджету для вибраного сценарію."""
+    normalized_purpose = _normalize_purpose(purpose)
+    return BUDGET_LIMITS.get(normalized_purpose, {"min": 15000, "max": 150000})
+
+
+def _clamp_int(value: int, minimum: int, maximum: int) -> int:
+    """Обмежує число заданим діапазоном."""
+    return max(minimum, min(maximum, value))
+
+
 def _builder_template_context(purpose: str) -> dict[str, Any]:
     """Формує контекст для сторінки конфігуратора."""
     normalized_purpose = _normalize_purpose(purpose)
+    budget_limits = _budget_limits_for_purpose(normalized_purpose)
     return {
         "selected_purpose": normalized_purpose,
         "purpose_title": PURPOSE_TITLES[normalized_purpose],
@@ -87,6 +118,10 @@ def _builder_template_context(purpose: str) -> dict[str, Any]:
         "office_apps_list": _build_option_list(OFFICE_APPS_DB),
         "study_apps_list": _build_option_list(STUDY_APPS_DB),
         "creator_apps_list": _build_option_list(CREATOR_APPS_DB),
+        "budget_min": budget_limits["min"],
+        "budget_max": budget_limits["max"],
+        "fps_min": FPS_LIMITS["min"],
+        "fps_max": FPS_LIMITS["max"],
     }
 
 
@@ -117,15 +152,27 @@ def _extract_user_inputs(form: Any) -> dict[str, Any]:
     study_apps = form.getlist("study_apps")
     creator_apps = form.getlist("creator_apps")
 
+    purpose = _normalize_purpose(_form_str(form, "purpose", "gaming"))
+    budget_mode = _form_str(form, "budget_mode", "manual")
+    budget_limits = _budget_limits_for_purpose(purpose)
+
+    budget = _form_int(form, "budget", budget_limits["min"])
+    if budget_mode == "manual":
+        budget = _clamp_int(budget, budget_limits["min"], budget_limits["max"])
+    else:
+        budget = 0
+
+    target_fps = _clamp_int(_form_int(form, "target_fps", 60), FPS_LIMITS["min"], FPS_LIMITS["max"])
+
     inputs: dict[str, Any] = {
-        "budget_mode": _form_str(form, "budget_mode", "manual"),
-        "budget": _form_int(form, "budget", 0),
-        "purpose": _normalize_purpose(_form_str(form, "purpose", "gaming")),
+        "budget_mode": budget_mode,
+        "budget": budget,
+        "purpose": purpose,
         "resolution": _form_str(form, "resolution", "1080p"),
         "wifi": _form_yes_no(form, "wifi", "no"),
         "games": games,
         "graphics_quality": _form_str(form, "graphics_quality", "high"),
-        "target_fps": _form_int(form, "target_fps", 60),
+        "target_fps": target_fps,
         "gpu_mode": _form_str(form, "gpu_mode", "auto"),
         "cpu_brand": _form_str(form, "cpu_brand", "auto"),
         "gpu_brand": _form_str(form, "gpu_brand", "auto"),
@@ -182,20 +229,84 @@ def _build_pc_payload(inputs: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+# ===== Допоміжні функції для збережених збірок =====
+
+def _ensure_saved_builds_file() -> None:
+    """Створює JSON-файл для збережених збірок, якщо його ще не існує."""
+    if not SAVED_BUILDS_FILE.exists():
+        SAVED_BUILDS_FILE.write_text("[]", encoding="utf-8")
+
+
+def _load_saved_builds() -> list[dict[str, Any]]:
+    """Читає всі збережені збірки з JSON-файлу."""
+    _ensure_saved_builds_file()
+    try:
+        raw = json.loads(SAVED_BUILDS_FILE.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        raw = []
+    return raw if isinstance(raw, list) else []
+
+
+def _write_saved_builds(saved_builds: list[dict[str, Any]]) -> None:
+    """Повністю перезаписує файл зі збереженими збірками."""
+    SAVED_BUILDS_FILE.write_text(
+        json.dumps(saved_builds, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def _default_build_name(inputs: dict[str, Any]) -> str:
+    """Формує назву за замовчуванням, якщо користувач не ввів свою."""
+    purpose_title = PURPOSE_TITLES.get(inputs.get("purpose", "gaming"), "Збірка ПК")
+    timestamp = datetime.now().strftime("%d.%m.%Y %H:%M")
+    return f"{purpose_title} — {timestamp}"
+
+
+def _normalize_build_name(build_name: str | None, inputs: dict[str, Any]) -> str:
+    """Очищає назву збірки від зайвих пробілів і ставить дефолтну, якщо потрібно."""
+    cleaned_name = (build_name or "").strip()
+    return cleaned_name[:120] if cleaned_name else _default_build_name(inputs)
+
 
 def _serialize_for_template(data: dict[str, Any]) -> str:
-    """Серіалізує словник у JSON для передачі в JavaScript через hidden textarea."""
+    """Серіалізує словник у JSON для передачі назад через hidden textarea."""
     return json.dumps(data, ensure_ascii=False)
 
 
-def _result_page_context(request: Request, inputs: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
-    """Готує контекст для шаблону result.html для нової збірки."""
+def _prepare_saved_build_for_list(build: dict[str, Any]) -> dict[str, Any]:
+    """Додає до збереженої збірки зручні поля для шаблону списку."""
+    prepared = dict(build)
+    inputs = prepared.get("inputs", {})
+    result = prepared.get("result", {})
+    prepared["purpose_title"] = PURPOSE_TITLES.get(inputs.get("purpose", ""), inputs.get("purpose", "Збірка"))
+    prepared["tier_title"] = TIER_TITLES.get(result.get("tier", ""), result.get("tier", "—"))
+
+    saved_at = prepared.get("saved_at")
+    try:
+        prepared["saved_at_display"] = datetime.fromisoformat(saved_at).strftime("%d.%m.%Y %H:%M") if saved_at else "Без дати"
+    except ValueError:
+        prepared["saved_at_display"] = saved_at or "Без дати"
+
+    return prepared
+
+
+def _find_saved_build(build_id: str) -> dict[str, Any] | None:
+    """Шукає одну збірку за її унікальним ідентифікатором."""
+    for build in _load_saved_builds():
+        if build.get("id") == build_id:
+            return build
+    return None
+
+
+def _result_page_context(request: Request, inputs: dict[str, Any], result: dict[str, Any], *, saved_build_name: str | None = None) -> dict[str, Any]:
+    """Готує контекст для шаблону result.html як для нової, так і для збереженої збірки."""
     return {
         "request": request,
         "inputs": inputs,
         "result": result,
         "inputs_json": _serialize_for_template(inputs),
         "result_json": _serialize_for_template(result),
+        "saved_build_name": saved_build_name,
     }
 
 
@@ -252,12 +363,14 @@ async def build(request: Request) -> HTMLResponse:
 
 @app.get("/saved-builds", response_class=HTMLResponse)
 def saved_builds_page(request: Request) -> HTMLResponse:
-    """Показує сторінку зі списком збережених збірок із localStorage браузера."""
+    """Показує список усіх збережених збірок."""
     status = request.query_params.get("status", "")
+    saved_builds = [_prepare_saved_build_for_list(build) for build in reversed(_load_saved_builds())]
     return templates.TemplateResponse(
         "saved-builds.html",
         {
             "request": request,
+            "saved_builds": saved_builds,
             "status_message": STATUS_MESSAGES.get(status, ""),
         },
     )
@@ -267,3 +380,64 @@ def saved_builds_page(request: Request) -> HTMLResponse:
 def saved_build_view_page(request: Request) -> HTMLResponse:
     """Показує окрему сторінку перегляду збереженої збірки з localStorage."""
     return templates.TemplateResponse("saved-build-view.html", {"request": request})
+
+
+@app.post("/saved-builds/save")
+async def save_build(request: Request) -> RedirectResponse:
+    """Зберігає поточну збірку разом з її входом і результатом."""
+    form = await request.form()
+    inputs = json.loads(str(form.get("inputs_json", "{}")))
+    result = json.loads(str(form.get("result_json", "{}")))
+    build_name = _normalize_build_name(str(form.get("build_name", "")), inputs)
+
+    saved_builds = _load_saved_builds()
+    saved_builds.append(
+        {
+            "id": uuid4().hex,
+            "name": build_name,
+            "saved_at": datetime.now().isoformat(timespec="seconds"),
+            "inputs": inputs,
+            "result": result,
+        }
+    )
+    _write_saved_builds(saved_builds)
+    return RedirectResponse(url="/saved-builds?status=saved", status_code=303)
+
+
+@app.get("/saved-builds/{build_id}", response_class=HTMLResponse)
+def open_saved_build(request: Request, build_id: str) -> HTMLResponse:
+    """Відкриває окрему збережену збірку на тій самій сторінці результату."""
+    saved_build = _find_saved_build(build_id)
+    if not saved_build:
+        raise HTTPException(status_code=404, detail="Збірку не знайдено.")
+
+    inputs = saved_build.get("inputs", {})
+    result = _attach_part_images(saved_build.get("result", {}))
+    return templates.TemplateResponse(
+        "result.html",
+        _result_page_context(request, inputs, result, saved_build_name=saved_build.get("name")),
+    )
+
+
+@app.post("/saved-builds/{build_id}/rename")
+def rename_saved_build(build_id: str, build_name: str = Form(...)) -> RedirectResponse:
+    """Оновлює назву вже збереженої збірки."""
+    saved_builds = _load_saved_builds()
+    for build in saved_builds:
+        if build.get("id") == build_id:
+            build["name"] = _normalize_build_name(build_name, build.get("inputs", {}))
+            _write_saved_builds(saved_builds)
+            return RedirectResponse(url="/saved-builds?status=renamed", status_code=303)
+    raise HTTPException(status_code=404, detail="Збірку не знайдено.")
+
+
+@app.post("/saved-builds/{build_id}/delete")
+def delete_saved_build(build_id: str) -> RedirectResponse:
+    """Видаляє збірку зі сховища."""
+    saved_builds = _load_saved_builds()
+    filtered_builds = [build for build in saved_builds if build.get("id") != build_id]
+    if len(filtered_builds) == len(saved_builds):
+        raise HTTPException(status_code=404, detail="Збірку не знайдено.")
+
+    _write_saved_builds(filtered_builds)
+    return RedirectResponse(url="/saved-builds?status=deleted", status_code=303)
