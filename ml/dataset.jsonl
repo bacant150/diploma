@@ -435,16 +435,56 @@
 {"text": "офісний системник для повсякденних задач", "label": "office"}
 {"text": "пк для роботи з документами, браузером та принтером", "label": "office"}
 {"text": "комп для таблиць, пошти та офісних нарад", "label": "office"}
-{"text":"комп для бухгалтера і medoc","label":"office"}
-{"text":"пк для me doc, excel і звітності","label":"office"}
-{"text":"комп'ютер для бухгалтера, bas і excel","label":"office"}
-{"text":"пк для 1с, медок і клієнт банку","label":"office"}
-{"text":"робочий комп для податкової звітності","label":"office"}
-{"text":"комп для рахунків, актів і накладних","label":"office"}
-{"text":"системник для офісу, medoc і word","label":"office"}
-{"text":"пк для бухобліку та електронної звітності","label":"office"}
-{"text":"комп'ютер для bas бухгалтерія і excel","label":"office"}
-{"text":"офісний пк для документів, crm і medoc","label":"office"}
+{"text":"комп для бухгалтера, excel, medoc і bas","label":"office"}
+{"text":"пк для бухгалтерії та електронної звітності","label":"office"}
+{"text":"комп'ютер для medoc, word і таблиць","label":"office"}
+{"text":"робочий пк для bas бухгалтерія","label":"office"}
+{"text":"системник для 1с, excel і друку документів","label":"office"}
+{"text":"пк для бухобліку, накладних і актів","label":"office"}
+{"text":"комп для клієнт банку, medoc і excel","label":"office"}
+{"text":"потрібен комп для рахунків, звітів і документів","label":"office"}
+{"text":"офісний комп для фінансового обліку","label":"office"}
+{"text":"комп'ютер для податкової звітності та excel","label":"office"}
+{"text":"пк для ведення первинної документації","label":"office"}
+{"text":"робоча машина для бухгалтера і офісних програм","label":"office"}
+{"text":"пк для 1с, medoc, pdf і браузера","label":"office"}
+{"text":"комп'ютер для роботи з договорами і актами","label":"office"}
+{"text":"системник для бухгалтерії, crm і пошти","label":"office"}
+{"text":"комп для офіс менеджера, word, excel і email","label":"office"}
+{"text":"офісний пк для таблиць, документів і звітності","label":"office"}
+{"text":"потрібен комп для медок, bas і word","label":"office"}
+{"text":"комп'ютер для офісу, рахунків і накладних","label":"office"}
+{"text":"пк для документів, клієнт банку і excel","label":"office"}
+{"text":"робота в medoc, bas і онлайн банкінгу","label":"office"}
+{"text":"комп для бухгалтера по зарплаті","label":"office"}
+{"text":"пк для кадровика, документів і таблиць","label":"office"}
+{"text":"комп'ютер для hr менеджера і офісної роботи","label":"office"}
+{"text":"офісний комп для вакансій, пошти і браузера","label":"office"}
+{"text":"пк для crm системи, excel і телефонії","label":"office"}
+{"text":"комп для call center і браузерної crm","label":"office"}
+{"text":"системник для менеджера з продажу","label":"office"}
+{"text":"комп'ютер для замовлень, рахунків і пошти","label":"office"}
+{"text":"офісний пк для закупівель і документів","label":"office"}
+{"text":"пк для тендерів, pdf файлів і excel","label":"office"}
+{"text":"комп для роботи з комерційними пропозиціями","label":"office"}
+{"text":"робочий комп для офісу і внутрішньої системи","label":"office"}
+{"text":"комп'ютер для документообігу та браузера","label":"office"}
+{"text":"пк для офісної роботи з двома моніторами","label":"office"}
+{"text":"комп для word, excel, zoom і email","label":"office"}
+{"text":"офісний системник для щоденної роботи","label":"office"}
+{"text":"комп'ютер для пошти, таблиць і друку","label":"office"}
+{"text":"пк для роботи в microsoft office","label":"office"}
+{"text":"комп для менеджера, crm, word і excel","label":"office"}
+{"text":"системник для секретаря і документів","label":"office"}
+{"text":"офісний комп для реєстрації договорів","label":"office"}
+{"text":"комп'ютер для архіву документів і pdf","label":"office"}
+{"text":"пк для звітності, браузера і таблиць","label":"office"}
+{"text":"робочий пк для підприємства","label":"office"}
+{"text":"комп для офісу, bas, medoc і excel","label":"office"}
+{"text":"пк для бухгалтера, 1с і електронного кабінету","label":"office"}
+{"text":"комп'ютер для накладних, рахунків і друку","label":"office"}
+{"text":"офісний пк для crm, телефонії і пошти","label":"office"}
+{"text":"потрібен системник для адміністративної роботи","label":"office"}
 
 
 {"text": "навчальний пк для занять", "label": "study"}
