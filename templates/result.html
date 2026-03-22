@@ -89,7 +89,13 @@
       <div class="result-box">
         <h2>Твої параметри</h2>
         <ul>
+          {% if inputs.budget_mode == "auto" %}
+          <li><strong>Режим бюджету:</strong> Автоматичний підбір</li>
+          <li><strong>Рекомендований бюджет:</strong> {{ result.recommended_budget }} грн</li>
+          {% else %}
+          <li><strong>Режим бюджету:</strong> Вказано вручну</li>
           <li><strong>Бюджет:</strong> {{ inputs.budget }} грн</li>
+          {% endif %}
           <li>
             <strong>Пріоритет:</strong>
             {% if inputs.priority == "balanced" %}Збалансовано (ціна / якість)

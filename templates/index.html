@@ -29,8 +29,18 @@
         <input type="hidden" name="purpose" value="{{ selected_purpose }}">
 
         <div class="form-group">
+          <label for="budget_mode">Режим бюджету</label>
+          <select id="budget_mode" name="budget_mode">
+            <option value="manual" selected>Вкажу бюджет самостійно</option>
+            <option value="auto">Підібрати бюджет автоматично</option>
+          </select>
+          <p class="builder-hint">Обери автоматичний режим, якщо не знаєш, який бюджет потрібен для твоїх параметрів.</p>
+        </div>
+
+        <div class="form-group" id="budget-group">
           <label for="budget">Бюджет (грн)</label>
           <input type="number" id="budget" name="budget" min="5000" required>
+          <p class="builder-hint" id="budget-mode-hint">У ручному режимі бюджет є обов’язковим полем.</p>
         </div>
 
         <div class="form-group">
@@ -442,8 +452,8 @@
         <div class="builder-note-card">
           <h3>Порада</h3>
           <p>
-            Для максимально точного результату вкажи бюджет, сценарій використання та бажані параметри.
-            Якщо якийсь пункт для тебе неважливий — залишай "Автоматично".
+            Для максимально точного результату вкажи сценарій використання та бажані параметри.
+            Бюджет можна задати вручну або доручити системі підібрати його автоматично.
           </p>
         </div>
 
@@ -455,6 +465,11 @@
   </section>
 
   <script>
+    const budgetModeSelect = document.getElementById("budget_mode");
+    const budgetInput = document.getElementById("budget");
+    const budgetGroup = document.getElementById("budget-group");
+    const budgetHint = document.getElementById("budget-mode-hint");
+
     const gpuModeSelect = document.getElementById("gpu_mode");
     const gpuBrandGroup = document.getElementById("gpu-brand-group");
     const gpuBrandSelect = document.getElementById("gpu_brand");
@@ -463,11 +478,34 @@
     const gpuBrandCreatorGroup = document.getElementById("gpu-brand-group-creator");
     const gpuBrandCreatorSelect = document.getElementById("gpu_brand_creator");
 
+    function syncBudgetMode() {
+      if (!budgetModeSelect || !budgetInput || !budgetGroup) return;
+      const isAuto = budgetModeSelect.value === "auto";
+      budgetInput.required = !isAuto;
+      budgetInput.disabled = isAuto;
+      budgetGroup.style.opacity = isAuto ? "0.65" : "1";
+
+      if (budgetHint) {
+        budgetHint.textContent = isAuto
+          ? "У цьому режимі система сама знайде рекомендований бюджет і сформує збірку."
+          : "У ручному режимі бюджет є обов’язковим полем.";
+      }
+
+      if (isAuto) {
+        budgetInput.value = "";
+      }
+    }
+
     function toggleGroup(modeSelect, brandGroup, brandSelect) {
       if (!modeSelect || !brandGroup || !brandSelect) return;
       const hide = modeSelect.value === "integrated";
       brandGroup.style.display = hide ? "none" : "flex";
       if (hide) brandSelect.value = "auto";
+    }
+
+    if (budgetModeSelect) {
+      budgetModeSelect.addEventListener("change", syncBudgetMode);
+      syncBudgetMode();
     }
 
     if (gpuModeSelect) {

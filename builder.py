@@ -2148,6 +2148,177 @@ def build_creator_pc(
     return _result(best_config, notes, tier, budget, meta={"creator_requirement": requirement})
 
 
+def _find_part_by_name(name: str) -> Optional[Part]:
+    """Повертає першу комплектуючу з бази за точною назвою."""
+    for part in PARTS:
+        if part.name == name:
+            return part
+    return None
+
+
+def _rebuild_parts_from_result(result: Dict[str, object]) -> Dict[str, Part]:
+    """
+    Відновлює словник комплектуючих у форматі {role: Part} з результату шаблону.
+    Це потрібно для повторної оцінки зібраної конфігурації під час авто-підбору бюджету.
+    """
+    rebuilt: Dict[str, Part] = {}
+    raw_parts = result.get("parts", {})
+    if not isinstance(raw_parts, dict):
+        return rebuilt
+
+    for role, part_data in raw_parts.items():
+        if not isinstance(part_data, dict):
+            continue
+        name = str(part_data.get("name", ""))
+        part = _find_part_by_name(name)
+        if part:
+            rebuilt[str(role)] = part
+    return rebuilt
+
+
+def _is_result_acceptable_for_auto_budget(result: Dict[str, object], purpose: str) -> bool:
+    """
+    Перевіряє, чи підходить знайдена збірка як мінімально достатня для авто-бюджету.
+    """
+    if not result.get("parts"):
+        return False
+
+    parts = _rebuild_parts_from_result(result)
+
+    if purpose == "gaming":
+        requirement = result.get("game_requirement", {})
+        match_info = result.get("match_info", {})
+        if isinstance(requirement, dict) and requirement.get("is_active"):
+            return str(match_info.get("match_status")) in {"excellent", "good", "near", "integrated"}
+        return True
+
+    if purpose == "office":
+        requirement = result.get("office_requirement", {})
+        if isinstance(requirement, dict):
+            return _office_match_status(parts, requirement) in {"excellent", "good", "near"}
+        return True
+
+    if purpose == "study":
+        requirement = result.get("study_requirement", {})
+        if isinstance(requirement, dict):
+            return _study_match_status(parts, requirement) in {"excellent", "good", "near"}
+        return True
+
+    if purpose == "creator":
+        requirement = result.get("creator_requirement", {})
+        if isinstance(requirement, dict):
+            return _creator_match_status(parts, requirement) in {"excellent", "good", "near"}
+        return True
+
+    return bool(result.get("parts"))
+
+
+def _auto_budget_settings(purpose: str, gpu_mode: str = "auto") -> Dict[str, int]:
+    """Повертає діапазон і крок пошуку бюджету для різних сценаріїв."""
+    if purpose == "gaming":
+        if gpu_mode == "integrated":
+            return {"start": 9000, "stop": 50000, "coarse_step": 3000, "fine_step": 500}
+        return {"start": 14000, "stop": 250000, "coarse_step": 5000, "fine_step": 1000}
+    if purpose == "office":
+        return {"start": 8000, "stop": 120000, "coarse_step": 3000, "fine_step": 500}
+    if purpose == "study":
+        return {"start": 9000, "stop": 150000, "coarse_step": 3000, "fine_step": 500}
+    if purpose == "creator":
+        return {"start": 22000, "stop": 300000, "coarse_step": 8000, "fine_step": 2000}
+    return {"start": 7000, "stop": 150000, "coarse_step": 3000, "fine_step": 500}
+
+
+def build_pc_auto_budget(
+    purpose: str,
+    resolution: str,
+    wifi: bool,
+    games: Optional[List[str]] = None,
+    graphics_quality: str = "high",
+    target_fps: int = 60,
+    gpu_mode: str = "auto",
+    cpu_brand: str = "auto",
+    gpu_brand: str = "auto",
+    ram_size: str = "auto",
+    ssd_size: str = "auto",
+    memory_platform: str = "auto",
+    office_apps: Optional[List[str]] = None,
+    office_tabs: str = "auto",
+    office_monitors: str = "auto",
+    study_apps: Optional[List[str]] = None,
+    study_tabs: str = "auto",
+    study_monitors: str = "auto",
+    creator_apps: Optional[List[str]] = None,
+    creator_project_complexity: str = "auto",
+    creator_monitors: str = "auto",
+    priority: str = "auto",
+) -> Dict[str, object]:
+    """
+    Автоматично підбирає мінімально достатній бюджет і повертає готову збірку.
+    Пошук іде від меншого бюджету до більшого у два етапи: грубий і уточнювальний.
+    """
+    settings = _auto_budget_settings(purpose, gpu_mode=gpu_mode)
+    start = settings["start"]
+    stop = settings["stop"]
+    coarse_step = settings["coarse_step"]
+    fine_step = settings["fine_step"]
+
+    common_kwargs = {
+        "purpose": purpose,
+        "resolution": resolution,
+        "wifi": wifi,
+        "games": games or [],
+        "graphics_quality": graphics_quality,
+        "target_fps": target_fps,
+        "gpu_mode": gpu_mode,
+        "cpu_brand": cpu_brand,
+        "gpu_brand": gpu_brand,
+        "ram_size": ram_size,
+        "ssd_size": ssd_size,
+        "memory_platform": memory_platform,
+        "office_apps": office_apps or [],
+        "office_tabs": office_tabs,
+        "office_monitors": office_monitors,
+        "study_apps": study_apps or [],
+        "study_tabs": study_tabs,
+        "study_monitors": study_monitors,
+        "creator_apps": creator_apps or [],
+        "creator_project_complexity": creator_project_complexity,
+        "creator_monitors": creator_monitors,
+        "priority": priority,
+    }
+
+    first_budget: Optional[int] = None
+    first_result: Optional[Dict[str, object]] = None
+
+    for budget in range(start, stop + coarse_step, coarse_step):
+        result = build_pc(budget=budget, **common_kwargs)
+        if _is_result_acceptable_for_auto_budget(result, purpose):
+            first_budget = budget
+            first_result = result
+            break
+
+    if first_budget is None or first_result is None:
+        return _fail("Не вдалося автоматично підібрати бюджет для заданих параметрів.", "unknown")
+
+    refine_start = max(start, first_budget - coarse_step + fine_step)
+    chosen_budget = first_budget
+    chosen_result = first_result
+
+    for budget in range(refine_start, first_budget + fine_step, fine_step):
+        result = build_pc(budget=budget, **common_kwargs)
+        if _is_result_acceptable_for_auto_budget(result, purpose):
+            chosen_budget = budget
+            chosen_result = result
+            break
+
+    notes = list(chosen_result.get("notes", []))
+    notes.insert(0, f"Бюджет підібрано автоматично. Рекомендований бюджет: {chosen_budget} грн.")
+    chosen_result["notes"] = notes
+    chosen_result["recommended_budget"] = chosen_budget
+    chosen_result["budget_mode"] = "auto"
+    return chosen_result
+
+
 # ===== Головна точка входу =====
 
 
