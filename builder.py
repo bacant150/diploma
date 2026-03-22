@@ -2280,6 +2280,113 @@ def _auto_budget_settings(purpose: str, gpu_mode: str = "auto") -> Dict[str, int
     return {"start": 7000, "stop": 150000, "coarse_step": 3000, "fine_step": 500}
 
 
+def _status_rank(status: str) -> float:
+    return {
+        "weak": 10.0,
+        "near": 45.0,
+        "good": 80.0,
+        "excellent": 100.0,
+        "standard": 30.0,
+        "integrated": 20.0,
+    }.get(status, 0.0)
+
+
+def _auto_budget_candidate_score(result: Dict[str, object], purpose: str) -> float:
+    """Оцінює, наскільки конфігурація близька до цілі, якщо точний збіг не знайдено."""
+    parts = result.get("parts", {})
+    if not isinstance(parts, dict) or not parts:
+        return -1_000_000.0
+
+    total = float(result.get("total", 0) or 0)
+
+    if purpose == "gaming":
+        match_info = result.get("match_info", {}) if isinstance(result.get("match_info"), dict) else {}
+        requirement = result.get("game_requirement", {}) if isinstance(result.get("game_requirement"), dict) else {}
+        gpu = parts.get("GPU") if isinstance(parts, dict) else None
+        resolution = str(result.get("resolution", result.get("target_resolution", "1080p")) or "1080p")
+        graphics_quality = str(result.get("graphics_quality", "high") or "high")
+        target_fps = int(result.get("target_fps", 60) or 60)
+        gpu_mode = str(result.get("gpu_mode", "auto") or "auto")
+
+        score = _status_rank(str(match_info.get("match_status", "weak")))
+        gpu_ratio = float(match_info.get("gpu_ratio") or 0)
+        cpu_ratio = float(match_info.get("cpu_ratio") or 0)
+        min_ratio = min(gpu_ratio, cpu_ratio) if gpu_ratio and cpu_ratio else 0.0
+        score += min_ratio * 100.0
+
+        demanding_scenario = (
+            resolution in {"1440p", "4k"}
+            or graphics_quality in {"high", "ultra"}
+            or target_fps >= 100
+        )
+
+        if demanding_scenario and gpu_mode != "integrated" and gpu is None:
+            score -= 200.0
+
+        if gpu is not None:
+            gpu_name = str(gpu.get("name", ""))
+            gpu_obj = next((p for p in _cat("gpu") if p.name == gpu_name), None)
+            vram = int(gpu_obj.meta.get("vram", 0)) if gpu_obj else 0
+            if resolution == "1440p":
+                score += 8.0 if vram >= 8 else -25.0
+            elif resolution == "4k":
+                score += 12.0 if vram >= 12 else -50.0
+        elif demanding_scenario:
+            score -= 160.0
+
+        if isinstance(requirement, dict) and requirement.get("is_active") and min_ratio < 0.75:
+            score -= 80.0
+
+        return score + min(total / 10000.0, 20.0)
+
+    if purpose == "office":
+        requirement = result.get("office_requirement", {}) if isinstance(result.get("office_requirement"), dict) else {}
+        parts_obj = {}
+        if isinstance(parts, dict):
+            for key, data in parts.items():
+                if isinstance(data, dict):
+                    name = data.get("name")
+                    part = next((p for p in PARTS if p.name == name), None)
+                    if part:
+                        parts_obj[key] = part
+        if parts_obj and requirement:
+            status = _office_match_status(parts_obj, requirement)
+            return _status_rank(status) + min(total / 10000.0, 20.0)
+        return min(total / 10000.0, 20.0)
+
+    if purpose == "study":
+        requirement = result.get("study_requirement", {}) if isinstance(result.get("study_requirement"), dict) else {}
+        parts_obj = {}
+        if isinstance(parts, dict):
+            for key, data in parts.items():
+                if isinstance(data, dict):
+                    name = data.get("name")
+                    part = next((p for p in PARTS if p.name == name), None)
+                    if part:
+                        parts_obj[key] = part
+        if parts_obj and requirement:
+            status = _study_match_status(parts_obj, requirement)
+            return _status_rank(status) + min(total / 10000.0, 20.0)
+        return min(total / 10000.0, 20.0)
+
+    if purpose == "creator":
+        requirement = result.get("creator_requirement", {}) if isinstance(result.get("creator_requirement"), dict) else {}
+        parts_obj = {}
+        if isinstance(parts, dict):
+            for key, data in parts.items():
+                if isinstance(data, dict):
+                    name = data.get("name")
+                    part = next((p for p in PARTS if p.name == name), None)
+                    if part:
+                        parts_obj[key] = part
+        if parts_obj and requirement:
+            status = _creator_match_status(parts_obj, requirement)
+            return _status_rank(status) + min(total / 10000.0, 20.0)
+        return min(total / 10000.0, 20.0)
+
+    return min(total / 10000.0, 20.0)
+
+
 def build_pc_auto_budget(
     purpose: str,
     resolution: str,
@@ -2341,16 +2448,49 @@ def build_pc_auto_budget(
 
     first_budget: Optional[int] = None
     first_result: Optional[Dict[str, object]] = None
+    best_fallback_budget: Optional[int] = None
+    best_fallback_result: Optional[Dict[str, object]] = None
+    best_fallback_score = -1_000_000.0
 
     for budget in range(start, stop + coarse_step, coarse_step):
         result = build_pc(budget=budget, **common_kwargs)
+        result["resolution"] = resolution
+        result["graphics_quality"] = graphics_quality
+        result["target_fps"] = target_fps
+        result["gpu_mode"] = gpu_mode
+        candidate_score = _auto_budget_candidate_score(result, purpose)
+        if candidate_score > best_fallback_score:
+            best_fallback_score = candidate_score
+            best_fallback_budget = budget
+            best_fallback_result = result
+
         if _is_result_acceptable_for_auto_budget(result, purpose):
             first_budget = budget
             first_result = result
             break
 
     if first_budget is None or first_result is None:
-        return _fail("Не вдалося автоматично підібрати бюджет для заданих параметрів.", "unknown")
+        if best_fallback_budget is None or best_fallback_result is None or not best_fallback_result.get("parts"):
+            failed = _fail("Не вдалося автоматично підібрати бюджет для заданих параметрів.", "unknown")
+            failed["recommended_budget"] = None
+            failed["budget_mode"] = "auto"
+            return failed
+
+        fallback_notes = list(best_fallback_result.get("notes", []))
+        fallback_notes.insert(0, "Точна конфігурація під задану ціль не знайдена. Підібрано найближчий доступний варіант.")
+        fallback_notes.insert(1, f"Орієнтовний бюджет для найближчої доступної конфігурації: {best_fallback_budget} грн.")
+        if purpose == "gaming":
+            fallback_notes.insert(2, "Для повного досягнення цілі може знадобитися зниження FPS, графічних налаштувань або роздільної здатності.")
+
+        best_fallback_result["notes"] = fallback_notes[:5]
+        best_fallback_result["recommended_budget"] = best_fallback_budget
+        best_fallback_result["budget_mode"] = "auto"
+        best_fallback_result["resolution"] = resolution
+        best_fallback_result["graphics_quality"] = graphics_quality
+        best_fallback_result["target_fps"] = target_fps
+        best_fallback_result["gpu_mode"] = gpu_mode
+        best_fallback_result["auto_budget_exact_match"] = False
+        return best_fallback_result
 
     refine_start = max(start, first_budget - coarse_step + fine_step)
     chosen_budget = first_budget
@@ -2358,6 +2498,10 @@ def build_pc_auto_budget(
 
     for budget in range(refine_start, first_budget + fine_step, fine_step):
         result = build_pc(budget=budget, **common_kwargs)
+        result["resolution"] = resolution
+        result["graphics_quality"] = graphics_quality
+        result["target_fps"] = target_fps
+        result["gpu_mode"] = gpu_mode
         if _is_result_acceptable_for_auto_budget(result, purpose):
             chosen_budget = budget
             chosen_result = result
@@ -2372,6 +2516,7 @@ def build_pc_auto_budget(
     chosen_result["graphics_quality"] = graphics_quality
     chosen_result["target_fps"] = target_fps
     chosen_result["gpu_mode"] = gpu_mode
+    chosen_result["auto_budget_exact_match"] = True
     return chosen_result
 
 
