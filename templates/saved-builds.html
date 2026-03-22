@@ -66,7 +66,13 @@
     }
 
     function getSavedBuilds() {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        return [];
+      }
     }
 
     function setSavedBuilds(builds) {
@@ -79,6 +85,18 @@
       } catch (error) {
         return iso || 'Без дати';
       }
+    }
+
+    function showStatus(message) {
+      let statusBox = document.querySelector('.status-message');
+      if (!statusBox) {
+        statusBox = document.createElement('div');
+        statusBox.className = 'status-message';
+        const shell = document.querySelector('.saved-builds-shell');
+        shell.insertBefore(statusBox, document.getElementById('savedBuildsContainer'));
+      }
+      statusBox.textContent = message;
+      statusBox.hidden = false;
     }
 
     function openBuild(id) {
@@ -96,18 +114,27 @@
 
       const builds = getSavedBuilds();
       const build = builds.find((item) => item.id === id);
-      if (!build) return;
+      if (!build) {
+        alert('Збірку не знайдено.');
+        renderSavedBuilds();
+        return;
+      }
 
-      build.name = newName;
+      build.name = newName.slice(0, 120);
       setSavedBuilds(builds);
       renderSavedBuilds();
+      showStatus('Назву збірки оновлено.');
     }
 
     function deleteBuild(id) {
-      if (!confirm('Видалити цю збірку?')) return;
+      if (!confirm('Видалити цю збірку?')) {
+        return;
+      }
+
       const builds = getSavedBuilds().filter((item) => item.id !== id);
       setSavedBuilds(builds);
       renderSavedBuilds();
+      showStatus('Збірку видалено.');
     }
 
     function renderSavedBuilds() {
@@ -130,12 +157,14 @@
         const total = build.result?.total ?? 0;
         const savedAt = formatDate(build.saved_at);
         const parts = Object.values(build.result?.parts || {});
-        const shortParts = parts.slice(0, 4).map((part) => `<li>${escapeHtml(part.name)}</li>`).join('');
+        const shortParts = parts.length
+          ? parts.slice(0, 4).map((part) => `<li>${escapeHtml(part.name)}</li>`).join('')
+          : '<li>Комплектуючі відсутні</li>';
 
         const card = document.createElement('article');
         card.className = 'saved-build-card';
         card.innerHTML = `
-          <h3>${escapeHtml(build.name)}</h3>
+          <h3>${escapeHtml(build.name || 'Без назви')}</h3>
 
           <div class="saved-build-meta">
             <div class="saved-build-meta-item">${escapeHtml(purposeTitle)}</div>
@@ -154,7 +183,7 @@
             <div class="inline-form">
               <div class="inline-form-field">
                 <label for="rename-${escapeHtml(build.id)}">Нова назва</label>
-                <input type="text" id="rename-${escapeHtml(build.id)}" value="${escapeHtml(build.name)}" maxlength="120" required>
+                <input type="text" id="rename-${escapeHtml(build.id)}" value="${escapeHtml(build.name || '')}" maxlength="120">
               </div>
               <button type="button" class="hero-btn builder-btn" onclick="renameBuild('${escapeHtml(build.id)}')">Зберегти назву</button>
             </div>

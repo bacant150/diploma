@@ -51,22 +51,10 @@
         </div>
       </div>
 
-      {# Блок збереження має бути ПІД summary-grid, а не всередині неї,
-         інакше вся верхня частина результату роз'їжджається по колонках. #}
-      {% if saved_build_name %}
-      <div class="result-box">
-        <div class="saved-build-badge">Збережена збірка</div>
-        <p class="saved-build-name-note"><strong>Назва:</strong> {{ saved_build_name }}</p>
-        <div class="result-actions">
-          <a href="/saved-builds" class="hero-btn builder-btn">До збережених збірок</a>
-          <a href="/choose-purpose" class="topbar-link-btn">Створити нову збірку</a>
-        </div>
-      </div>
-      {% else %}
       <div class="result-box">
         <h2>Зберегти збірку</h2>
-        <p class="builder-hint">Вкажи назву, щоб зберегти цю конфігурацію і повернутися до неї пізніше.</p>
-        <form action="/saved-builds/save" method="post" class="save-build-form">
+        <p class="builder-hint">Збірка буде збережена локально у браузері на цьому пристрої.</p>
+        <div class="save-build-form">
           <div class="save-build-field">
             <label for="build_name">Назва збірки</label>
             <input
@@ -75,15 +63,13 @@
               name="build_name"
               maxlength="120"
               placeholder="Наприклад: Ігровий ПК для 1440p"
-              required
             >
           </div>
           <button type="button" id="saveBuildBtn" class="hero-btn builder-btn">Зберегти збірку</button>
           <textarea name="inputs_json" hidden>{{ inputs_json }}</textarea>
           <textarea name="result_json" hidden>{{ result_json }}</textarea>
-        </form>
+        </div>
       </div>
-      {% endif %}
 
 
       <div class="result-box">
@@ -359,6 +345,32 @@
       const STORAGE_KEY = 'pcoll_saved_builds';
       const saveBuildBtn = document.getElementById('saveBuildBtn');
 
+      function getSavedBuilds() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          const parsed = raw ? JSON.parse(raw) : [];
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          return [];
+        }
+      }
+
+      function setSavedBuilds(builds) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(builds));
+      }
+
+      function defaultBuildName(inputs) {
+        const titles = {
+          gaming: 'Ігровий ПК',
+          office: 'Офісний ПК',
+          study: 'ПК для навчання',
+          creator: 'ПК для монтажу / 3D',
+        };
+        const now = new Date();
+        const stamp = now.toLocaleString('uk-UA');
+        return `${titles[inputs?.purpose] || 'Збірка ПК'} — ${stamp}`;
+      }
+
       if (!saveBuildBtn) {
         return;
       }
@@ -367,12 +379,6 @@
         const buildNameInput = document.getElementById('build_name');
         const inputsJson = document.querySelector('textarea[name="inputs_json"]');
         const resultJson = document.querySelector('textarea[name="result_json"]');
-        const buildName = (buildNameInput?.value || '').trim();
-
-        if (!buildName) {
-          alert('Вкажи назву збірки.');
-          return;
-        }
 
         let inputs = {};
         let result = {};
@@ -385,9 +391,10 @@
           return;
         }
 
-        const savedBuilds = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        const buildName = ((buildNameInput?.value || '').trim() || defaultBuildName(inputs)).slice(0, 120);
+        const savedBuilds = getSavedBuilds();
         const build = {
-          id: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()),
+          id: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
           name: buildName,
           saved_at: new Date().toISOString(),
           inputs,
@@ -395,7 +402,14 @@
         };
 
         savedBuilds.push(build);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedBuilds));
+
+        try {
+          setSavedBuilds(savedBuilds);
+        } catch (error) {
+          alert('Не вдалося зберегти збірку в браузері. Перевір, чи не вимкнене локальне сховище.');
+          return;
+        }
+
         window.location.href = '/saved-builds?status=saved';
       });
     })();

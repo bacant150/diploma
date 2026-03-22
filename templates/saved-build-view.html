@@ -75,6 +75,21 @@
     </div>
   </section>
 
+
+  <div class="image-modal" id="imageModal" aria-hidden="true">
+    <div class="image-modal-backdrop" data-close-image-modal></div>
+
+    <div class="image-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle">
+      <button type="button" class="image-modal-close" id="imageModalClose" aria-label="Закрити перегляд">×</button>
+      <div class="image-modal-content">
+        <div class="image-modal-image-wrap">
+          <img src="" alt="" id="imageModalPreview" class="image-modal-image">
+        </div>
+        <div class="image-modal-caption" id="imageModalTitle"></div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const STORAGE_KEY = 'pcoll_saved_builds';
 
@@ -101,7 +116,13 @@
     }
 
     function getSavedBuilds() {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        return [];
+      }
     }
 
     function getQueryParam(name) {
@@ -266,9 +287,17 @@
 
       entries.forEach(([key, value]) => {
         const imageHtml = value.image ? `
-          <div class="part-image-wrap">
-            <img src="${escapeHtml(value.image)}" alt="${escapeHtml(value.name)}" class="part-image">
-          </div>
+          <button
+            type="button"
+            class="part-image-button"
+            data-part-image="${escapeHtml(value.image)}"
+            data-part-name="${escapeHtml(value.name)}"
+            aria-label="Відкрити збільшене зображення ${escapeHtml(value.name)}"
+          >
+            <div class="part-image-wrap">
+              <img src="${escapeHtml(value.image)}" alt="${escapeHtml(value.name)}" class="part-image">
+            </div>
+          </button>
         ` : '';
 
         const card = document.createElement('div');
@@ -322,6 +351,78 @@
     }
 
     renderBuild();
+  </script>
+
+  <script>
+    (function () {
+      const modal = document.getElementById('imageModal');
+      const preview = document.getElementById('imageModalPreview');
+      const title = document.getElementById('imageModalTitle');
+      const closeButton = document.getElementById('imageModalClose');
+      const backdrop = modal ? modal.querySelector('[data-close-image-modal]') : null;
+      let lastFocusedElement = null;
+      let closeTimer = null;
+      const MODAL_ANIMATION_MS = 260;
+
+      if (!modal || !preview || !title || !closeButton) {
+        return;
+      }
+
+      function openImageModal(imageSrc, imageName, trigger) {
+        if (closeTimer) {
+          window.clearTimeout(closeTimer);
+          closeTimer = null;
+        }
+
+        lastFocusedElement = trigger || document.activeElement;
+        preview.src = imageSrc;
+        preview.alt = imageName;
+        title.textContent = imageName;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+        closeButton.focus({ preventScroll: true });
+      }
+
+      function closeImageModal() {
+        const elementToRestoreFocus = lastFocusedElement;
+
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+
+        closeTimer = window.setTimeout(function () {
+          preview.src = '';
+          preview.alt = '';
+          title.textContent = '';
+          closeTimer = null;
+
+          if (elementToRestoreFocus) {
+            elementToRestoreFocus.focus({ preventScroll: true });
+          }
+        }, MODAL_ANIMATION_MS);
+      }
+
+      document.addEventListener('click', function (event) {
+        const trigger = event.target.closest('[data-part-image]');
+        if (!trigger) {
+          return;
+        }
+
+        openImageModal(trigger.dataset.partImage, trigger.dataset.partName || 'Зображення комплектуючої', trigger);
+      });
+
+      closeButton.addEventListener('click', closeImageModal);
+      if (backdrop) {
+        backdrop.addEventListener('click', closeImageModal);
+      }
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeImageModal();
+        }
+      });
+    })();
   </script>
 </body>
 </html>
