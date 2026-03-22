@@ -435,6 +435,16 @@
 {"text": "офісний системник для повсякденних задач", "label": "office"}
 {"text": "пк для роботи з документами, браузером та принтером", "label": "office"}
 {"text": "комп для таблиць, пошти та офісних нарад", "label": "office"}
+{"text":"комп для бухгалтера і medoc","label":"office"}
+{"text":"пк для me doc, excel і звітності","label":"office"}
+{"text":"комп'ютер для бухгалтера, bas і excel","label":"office"}
+{"text":"пк для 1с, медок і клієнт банку","label":"office"}
+{"text":"робочий комп для податкової звітності","label":"office"}
+{"text":"комп для рахунків, актів і накладних","label":"office"}
+{"text":"системник для офісу, medoc і word","label":"office"}
+{"text":"пк для бухобліку та електронної звітності","label":"office"}
+{"text":"комп'ютер для bas бухгалтерія і excel","label":"office"}
+{"text":"офісний пк для документів, crm і medoc","label":"office"}
 
 
 {"text": "навчальний пк для занять", "label": "study"}
