@@ -1,13 +1,3 @@
-"""FastAPI-застосунок для інтелектуального підбору конфігурації ПК.
-
-У цьому файлі:
-- описані маршрути сторінок;
-- зібрані допоміжні функції для читання форми;
-- підготовлені дані для шаблонів Jinja2;
-- додана логіка збереження, перейменування та видалення збірок;
-- викликається основна логіка підбору з builder.py.
-"""
-
 from __future__ import annotations
 
 from datetime import datetime
@@ -162,7 +152,6 @@ def _extract_user_inputs(form: Any) -> dict[str, Any]:
         "priority": _form_str(form, "priority", "auto"),
     }
 
-    # Заздалегідь підготовлені назви потрібні лише для красивого відображення у шаблоні.
     inputs["games_titles"] = [GAMES_DB[g]["title"] for g in games if g in GAMES_DB]
     inputs["office_apps_titles"] = [OFFICE_APPS_DB[a]["title"] for a in office_apps if a in OFFICE_APPS_DB]
     inputs["study_apps_titles"] = [STUDY_APPS_DB[a]["title"] for a in study_apps if a in STUDY_APPS_DB]
@@ -193,7 +182,6 @@ def _build_pc_payload(inputs: dict[str, Any]) -> dict[str, Any]:
         "study_tabs": inputs["study_tabs"],
         "study_monitors": inputs["study_monitors"],
         "creator_apps": inputs["creator_apps"],
-        # Назва ключа тут має збігатися з підписом build_pc(...).
         "creator_project_complexity": inputs["creator_complexity"],
         "creator_monitors": inputs["creator_monitors"],
         "priority": inputs["priority"],

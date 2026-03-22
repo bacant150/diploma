@@ -1,11 +1,3 @@
-"""Логіка підбору комплектуючих для інтелектуального конфігуратора ПК.
-
-Файл очищено від застарілих дубльованих реалізацій і згруповано навколо
-актуальних сценаріїв: gaming, office, study та creator.
-
-Основна публічна точка входу: build_pc(...).
-"""
-
 from typing import Dict, List, Optional
 from parts_db import PARTS, Part, GAMES_DB, OFFICE_APPS_DB, STUDY_APPS_DB, CREATOR_APPS_DB
 
@@ -196,27 +188,30 @@ def _pick_psu(required_watt: int, max_price: int) -> Optional[Part]:
     return _pick_cheapest(psus, max_price) or _pick_best(_cat("psu"), max_price)
 
 
+
 def _pick_case(max_price: int, premium: bool = False) -> Optional[Part]:
-    cases = _cat("case")
-    if premium:
-        preferred = [
-            "Dual Chamber Showcase Case",
-            "Premium Airflow ATX Case",
-            "ARGB Airflow ATX Case",
-            "Airflow ATX Case",
-            "Basic ATX Case",
-            "Basic mATX Case",
-        ]
-        return _pick_preferred(cases, max_price, preferred) or _pick_cheapest(cases, max_price)
-    preferred = [
-        "Airflow ATX Case",
-        "ARGB Airflow ATX Case",
-        "Basic ATX Case",
-        "Basic mATX Case",
-        "Premium Airflow ATX Case",
-        "Dual Chamber Showcase Case",
-    ]
-    return _pick_preferred(cases, max_price, preferred) or _pick_cheapest(cases, max_price)
+    cases = [p for p in _cat("case") if p.price <= max_price]
+    if not cases:
+        return None
+
+    def premium_key(p: Part):
+        return (
+            0 if p.meta.get("showcase") else 1,
+            0 if p.meta.get("premium") else 1,
+            0 if p.meta.get("airflow") else 1,
+            -p.price,
+        )
+
+    def standard_key(p: Part):
+        return (
+            0 if p.meta.get("airflow") else 1,
+            0 if p.meta.get("premium") else 1,
+            0 if p.meta.get("showcase") else 1,
+            p.price,
+        )
+
+    fits = sorted(cases, key=premium_key if premium else standard_key)
+    return fits[0]
 
 
 def _estimate_required_watt(cpu: Optional[Part], gpu: Optional[Part], purpose: str) -> int:
@@ -275,7 +270,12 @@ def _fail(message: str, tier: str = "unknown") -> Dict[str, object]:
 # ===== Оцінка продуктивності =====
 
 
+
 def _gpu_game_score(gpu: Part) -> int:
+    meta_score = gpu.meta.get("game_score")
+    if isinstance(meta_score, (int, float)):
+        return int(meta_score)
+
     scores = {
         "NVIDIA GTX 1650 4GB": 45,
         "AMD RX 6500 XT 4GB": 40,
@@ -306,7 +306,12 @@ def _gpu_game_score(gpu: Part) -> int:
     return scores.get(gpu.name, 50)
 
 
+
 def _cpu_game_score(cpu: Part) -> int:
+    meta_score = cpu.meta.get("game_score")
+    if isinstance(meta_score, (int, float)):
+        return int(meta_score)
+
     scores = {
         "AMD Athlon 3000G": 24,
         "AMD Ryzen 3 3200G": 40,
@@ -741,9 +746,15 @@ def _office_cpu_score(cpu: Part) -> float:
     return _cpu_game_score(cpu)
 
 
+
 def _office_igpu_score(cpu: Part) -> float:
     if cpu.meta.get("igpu") is not True:
         return 0.0
+
+    meta_score = cpu.meta.get("office_igpu_score")
+    if isinstance(meta_score, (int, float)):
+        return float(meta_score)
+
     scores = {
         "AMD Ryzen 5 8600G": 96,
         "AMD Ryzen 7 8700G": 112,
@@ -1013,7 +1024,12 @@ def _gpu_brand_matches(gpu: Part, gpu_brand: str) -> bool:
     return True
 
 
+
 def _igpu_game_score(cpu: Part) -> int:
+    meta_score = cpu.meta.get("igpu_game_score")
+    if isinstance(meta_score, (int, float)):
+        return int(meta_score)
+
     scores = {
         "AMD Athlon 3000G": 20,
         "AMD Ryzen 5 4600G": 48,
@@ -1842,7 +1858,7 @@ def _creator_resolution_bonus(resolution: str) -> Dict[str, float]:
 
 
 def _creator_complexity_label(level: str) -> str:
-    """Повертає людинозрозумілий підпис складності проєктів."""
+    """Повертає підпис складності проєктів."""
     mapping = {
         "auto": "авто",
         "light": "легкі",
@@ -2157,10 +2173,7 @@ def _find_part_by_name(name: str) -> Optional[Part]:
 
 
 def _rebuild_parts_from_result(result: Dict[str, object]) -> Dict[str, Part]:
-    """
-    Відновлює словник комплектуючих у форматі {role: Part} з результату шаблону.
-    Це потрібно для повторної оцінки зібраної конфігурації під час авто-підбору бюджету.
-    """
+    """Відновлює словник комплектуючих у форматі {role: Part} з результату шаблону."""
     rebuilt: Dict[str, Part] = {}
     raw_parts = result.get("parts", {})
     if not isinstance(raw_parts, dict):
@@ -2177,13 +2190,7 @@ def _rebuild_parts_from_result(result: Dict[str, object]) -> Dict[str, Part]:
 
 
 def _is_result_acceptable_for_auto_budget(result: Dict[str, object], purpose: str) -> bool:
-    """
-    Перевіряє, чи підходить знайдена збірка як мінімально достатня для авто-бюджету.
-
-    Для авто-бюджету критерії мають бути суворішими, ніж для ручного режиму:
-    система не повинна рекомендувати конфігурацію, яка лише "майже" дотягує,
-    або ігрову збірку без дискретної відеокарти для важких 1440p / 4K сценаріїв.
-    """
+    """Перевіряє, чи підходить знайдена збірка як мінімально достатня для авто-бюджету."""
     if not result.get("parts"):
         return False
 
