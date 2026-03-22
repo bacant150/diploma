@@ -81,12 +81,8 @@
       }
     }
 
-    function toggleDetails(id) {
-      const box = document.getElementById(`details-${id}`);
-      if (!box) {
-        return;
-      }
-      box.hidden = !box.hidden;
+    function openBuild(id) {
+      window.location.href = `/saved-builds/view?id=${encodeURIComponent(id)}`;
     }
 
     function renameBuild(id) {
@@ -100,10 +96,7 @@
 
       const builds = getSavedBuilds();
       const build = builds.find((item) => item.id === id);
-
-      if (!build) {
-        return;
-      }
+      if (!build) return;
 
       build.name = newName;
       setSavedBuilds(builds);
@@ -111,10 +104,7 @@
     }
 
     function deleteBuild(id) {
-      if (!confirm('Видалити цю збірку?')) {
-        return;
-      }
-
+      if (!confirm('Видалити цю збірку?')) return;
       const builds = getSavedBuilds().filter((item) => item.id !== id);
       setSavedBuilds(builds);
       renderSavedBuilds();
@@ -141,8 +131,6 @@
         const savedAt = formatDate(build.saved_at);
         const parts = Object.values(build.result?.parts || {});
         const shortParts = parts.slice(0, 4).map((part) => `<li>${escapeHtml(part.name)}</li>`).join('');
-        const fullParts = parts.map((part) => `<li>${escapeHtml(part.name)} — ${escapeHtml(part.price)} грн</li>`).join('');
-        const notes = (build.result?.notes || []).map((note) => `<li>${escapeHtml(note)}</li>`).join('');
 
         const card = document.createElement('article');
         card.className = 'saved-build-card';
@@ -159,16 +147,7 @@
           <ul>${shortParts}</ul>
 
           <div class="saved-build-actions">
-            <button type="button" class="hero-btn builder-btn" onclick="toggleDetails('${escapeHtml(build.id)}')">Відкрити</button>
-          </div>
-
-          <div id="details-${escapeHtml(build.id)}" hidden class="result-box">
-            <h2>Деталі збірки</h2>
-            <p><strong>Загальна вартість:</strong> ${escapeHtml(total)} грн</p>
-            <p><strong>Рівень:</strong> ${escapeHtml(tierTitle)}</p>
-            <h3>Комплектуючі</h3>
-            <ul>${fullParts || '<li>Немає даних.</li>'}</ul>
-            ${notes ? `<h3>Примітки</h3><ul>${notes}</ul>` : ''}
+            <button type="button" class="hero-btn builder-btn" onclick="openBuild('${escapeHtml(build.id)}')">Відкрити</button>
           </div>
 
           <div class="saved-build-manage">

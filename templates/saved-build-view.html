@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Підсумок конфігурації</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-nav">
+      <a href="/" class="logo-link">
+        <div class="logo">PCColl</div>
+      </a>
+      <div class="topbar-actions">
+        <a href="/saved-builds" class="topbar-link-btn">Збережені збірки</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="result-page">
+    <div class="result-card">
+      <div class="section-eyebrow">Підсумок конфігурації</div>
+      <h1>Результат збірки</h1>
+
+      <div id="buildNotFound" class="result-box" hidden>
+        <h2>Збірку не знайдено</h2>
+        <p>Схоже, ця збірка відсутня у localStorage браузера.</p>
+        <a href="/saved-builds" class="hero-btn builder-btn">Повернутися до збережених збірок</a>
+      </div>
+
+      <div id="buildContent" hidden>
+        <div class="result-summary-grid">
+          <div class="summary-stat-card">
+            <span class="summary-stat-label">Призначення</span>
+            <strong id="summaryPurpose">—</strong>
+          </div>
+          <div class="summary-stat-card">
+            <span class="summary-stat-label">Рівень збірки</span>
+            <strong id="summaryTier">—</strong>
+          </div>
+          <div class="summary-stat-card summary-stat-card--accent">
+            <span class="summary-stat-label">Загальна вартість</span>
+            <strong id="summaryTotal">—</strong>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <div class="saved-build-badge">Збережена збірка</div>
+          <p class="saved-build-name-note"><strong>Назва:</strong> <span id="savedBuildName">—</span></p>
+          <div class="result-actions">
+            <a href="/saved-builds" class="hero-btn builder-btn">До збережених збірок</a>
+            <a href="/choose-purpose" class="topbar-link-btn">Створити нову збірку</a>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <h2>Твої параметри</h2>
+          <ul id="inputsList"></ul>
+        </div>
+
+        <div class="result-box">
+          <h2>Комплектуючі</h2>
+          <div class="parts-grid" id="partsGrid"></div>
+          <p id="partsEmpty" hidden>Нічого не підібрано.</p>
+        </div>
+
+        <div class="result-box notes-box" id="notesBox" hidden>
+          <h2>Примітки</h2>
+          <ul id="notesList"></ul>
+        </div>
+
+        <a href="/saved-builds" class="back-link">← Назад до збережених збірок</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const STORAGE_KEY = 'pcoll_saved_builds';
+
+    const PURPOSE_TITLES = {
+      gaming: 'Ігровий ПК',
+      office: 'Офісний ПК',
+      study: 'ПК для навчання',
+      creator: 'ПК для монтажу / 3D',
+    };
+
+    const TIER_TITLES = {
+      budget: 'Бюджетний',
+      mid: 'Середній',
+      upper: 'Високий',
+    };
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function getSavedBuilds() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    }
+
+    function getQueryParam(name) {
+      return new URLSearchParams(window.location.search).get(name);
+    }
+
+    function formatPurpose(value) {
+      return PURPOSE_TITLES[value] || value || '—';
+    }
+
+    function formatTier(value) {
+      return TIER_TITLES[value] || value || '—';
+    }
+
+    function humanPriority(value) {
+      return value === 'balanced'
+        ? 'Збалансовано (ціна / якість)'
+        : value === 'best'
+          ? 'Максимально найкращий'
+          : 'Автоматично';
+    }
+
+    function humanGpuMode(value) {
+      return value === 'dedicated'
+        ? 'Дискретна відеокарта'
+        : value === 'integrated'
+          ? 'Тільки вбудована графіка'
+          : 'Автоматично';
+    }
+
+    function humanCpuBrand(value) {
+      return value === 'amd' ? 'Тільки AMD' : value === 'intel' ? 'Тільки Intel' : 'Автоматично';
+    }
+
+    function humanGpuBrand(value) {
+      return value === 'amd' ? 'Тільки AMD Radeon' : value === 'nvidia' ? 'Тільки NVIDIA GeForce' : 'Автоматично';
+    }
+
+    function humanGraphicsQuality(value) {
+      return value === 'low'
+        ? 'Низькі'
+        : value === 'medium'
+          ? 'Середні'
+          : value === 'high'
+            ? 'Високі'
+            : value === 'ultra'
+              ? 'Ультра'
+              : (value || '—');
+    }
+
+    function humanStorageSize(value) {
+      return value === 'auto' ? 'Автоматично' : value === '1000' ? '1 TB' : value === '2000' ? '2 TB' : value === '4000' ? '4 TB' : value === '8000' ? '8 TB' : `${value} ГБ`;
+    }
+
+    function humanMemoryPlatform(value) {
+      return value === 'ddr4' ? 'Тільки DDR4' : value === 'ddr5' ? 'Тільки DDR5' : 'Автоматично';
+    }
+
+    function humanTabs(value) {
+      return value === 'up_to_10' ? 'До 10' : value === '10_30' ? '10–30' : value === '30_60' ? '30–60' : value === '60_plus' ? '60+' : 'Автоматично';
+    }
+
+    function humanMonitors(value) {
+      return value === '1' ? '1 монітор' : value === '2' ? '2 монітори' : value === '3_plus' ? '3+ монітори' : 'Автоматично';
+    }
+
+    function humanComplexity(value) {
+      return value === 'light' ? 'Легкі' : value === 'medium' ? 'Середні' : value === 'heavy' ? 'Важкі' : 'Автоматично';
+    }
+
+    function pushItem(list, label, value) {
+      const li = document.createElement('li');
+      li.innerHTML = `<strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}`;
+      list.appendChild(li);
+    }
+
+    function renderInputs(inputs, result) {
+      const list = document.getElementById('inputsList');
+      list.innerHTML = '';
+
+      if (inputs.budget_mode === 'auto') {
+        pushItem(list, 'Режим бюджету', 'Автоматичний підбір');
+        pushItem(list, 'Рекомендований бюджет', `${result.recommended_budget ?? '—'} грн`);
+      } else {
+        pushItem(list, 'Бюджет', `${inputs.budget ?? '—'} грн`);
+      }
+
+      pushItem(list, 'Пріоритет', humanPriority(inputs.priority));
+      pushItem(list, 'Призначення', formatPurpose(inputs.purpose));
+      pushItem(list, 'Роздільна здатність', inputs.resolution || '—');
+      pushItem(list, 'Wi-Fi', inputs.wifi ? 'Так' : 'Ні');
+
+      if (inputs.purpose === 'gaming') {
+        pushItem(list, 'Налаштування графіки', humanGraphicsQuality(inputs.graphics_quality));
+        pushItem(list, 'Бажаний FPS', inputs.target_fps ?? '—');
+        pushItem(list, 'Відеокарта', inputs.gpu_mode === 'dedicated' ? 'Обов’язково дискретна' : inputs.gpu_mode === 'integrated' ? 'Без дискретної відеокарти' : 'Автоматично');
+        pushItem(list, 'Процесор', humanCpuBrand(inputs.cpu_brand));
+        if (inputs.gpu_mode !== 'integrated') pushItem(list, 'Бренд відеокарти', humanGpuBrand(inputs.gpu_brand));
+        pushItem(list, 'Обсяг ОЗП', inputs.ram_size === 'auto' ? 'Автоматично' : `${inputs.ram_size} ГБ`);
+        pushItem(list, 'Обсяг SSD', humanStorageSize(inputs.ssd_size));
+        pushItem(list, 'Платформа пам’яті', humanMemoryPlatform(inputs.memory_platform));
+        pushItem(list, 'Обрані ігри', inputs.games_titles?.length ? inputs.games_titles.join(', ') : 'Стандартний режим без вибору конкретних ігор');
+      }
+
+      if (inputs.purpose === 'office') {
+        pushItem(list, 'Графіка', humanGpuMode(inputs.gpu_mode));
+        pushItem(list, 'Процесор', humanCpuBrand(inputs.cpu_brand));
+        pushItem(list, 'Обсяг ОЗП', inputs.ram_size === 'auto' ? 'Автоматично' : `${inputs.ram_size} ГБ`);
+        pushItem(list, 'Обсяг SSD', humanStorageSize(inputs.ssd_size));
+        pushItem(list, 'Платформа пам’яті', humanMemoryPlatform(inputs.memory_platform));
+        pushItem(list, 'Вкладки', humanTabs(inputs.office_tabs));
+        pushItem(list, 'Монітори', humanMonitors(inputs.office_monitors));
+        pushItem(list, 'Обрані програми', inputs.office_apps_titles?.length ? inputs.office_apps_titles.join(', ') : 'Стандартний офісний сценарій');
+      }
+
+      if (inputs.purpose === 'study') {
+        pushItem(list, 'Графіка', humanGpuMode(inputs.gpu_mode));
+        pushItem(list, 'Процесор', humanCpuBrand(inputs.cpu_brand));
+        pushItem(list, 'Обсяг ОЗП', inputs.ram_size === 'auto' ? 'Автоматично' : `${inputs.ram_size} ГБ`);
+        pushItem(list, 'Обсяг SSD', humanStorageSize(inputs.ssd_size));
+        pushItem(list, 'Платформа пам’яті', humanMemoryPlatform(inputs.memory_platform));
+        pushItem(list, 'Вкладки', humanTabs(inputs.study_tabs));
+        pushItem(list, 'Монітори', humanMonitors(inputs.study_monitors));
+        pushItem(list, 'Обрані програми', inputs.study_apps_titles?.length ? inputs.study_apps_titles.join(', ') : 'Стандартний навчальний сценарій');
+      }
+
+      if (inputs.purpose === 'creator') {
+        pushItem(list, 'Графіка', humanGpuMode(inputs.gpu_mode));
+        pushItem(list, 'Процесор', humanCpuBrand(inputs.cpu_brand));
+        if (inputs.gpu_mode !== 'integrated') pushItem(list, 'Бренд відеокарти', humanGpuBrand(inputs.gpu_brand));
+        pushItem(list, 'Обсяг ОЗП', inputs.ram_size === 'auto' ? 'Автоматично' : `${inputs.ram_size} ГБ`);
+        pushItem(list, 'Обсяг SSD', humanStorageSize(inputs.ssd_size));
+        pushItem(list, 'Платформа пам’яті', humanMemoryPlatform(inputs.memory_platform));
+        pushItem(list, 'Складність проєктів', humanComplexity(inputs.creator_complexity));
+        pushItem(list, 'Монітори', humanMonitors(inputs.creator_monitors));
+        pushItem(list, 'Обрані програми', inputs.creator_apps_titles?.length ? inputs.creator_apps_titles.join(', ') : 'Стандартний сценарій для монтажу / 3D');
+      }
+    }
+
+    function renderParts(result) {
+      const grid = document.getElementById('partsGrid');
+      const empty = document.getElementById('partsEmpty');
+      grid.innerHTML = '';
+
+      const labels = {
+        CPU: 'Процесор',
+        GPU: 'Відеокарта',
+        Motherboard: 'Материнська плата',
+        RAM: 'Оперативна пам’ять',
+        SSD: 'Накопичувач SSD',
+        PSU: 'Блок живлення',
+        Case: 'Корпус',
+      };
+
+      const entries = Object.entries(result.parts || {});
+      if (!entries.length) {
+        empty.hidden = false;
+        return;
+      }
+
+      empty.hidden = true;
+
+      entries.forEach(([key, value]) => {
+        const imageHtml = value.image ? `
+          <div class="part-image-wrap">
+            <img src="${escapeHtml(value.image)}" alt="${escapeHtml(value.name)}" class="part-image">
+          </div>
+        ` : '';
+
+        const card = document.createElement('div');
+        card.className = 'part-card';
+        card.innerHTML = `
+          ${imageHtml}
+          <div class="part-type">${escapeHtml(labels[key] || key)}</div>
+          <div class="part-model">${escapeHtml(value.name)}</div>
+          <div class="part-price">${escapeHtml(value.price)} грн</div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderNotes(result) {
+      const box = document.getElementById('notesBox');
+      const list = document.getElementById('notesList');
+      list.innerHTML = '';
+
+      if (!result.notes || !result.notes.length) {
+        box.hidden = true;
+        return;
+      }
+
+      box.hidden = false;
+      result.notes.forEach((note) => {
+        const li = document.createElement('li');
+        li.textContent = note;
+        list.appendChild(li);
+      });
+    }
+
+    function renderBuild() {
+      const id = getQueryParam('id');
+      const build = getSavedBuilds().find((item) => item.id === id);
+
+      if (!build) {
+        document.getElementById('buildNotFound').hidden = false;
+        return;
+      }
+
+      document.getElementById('buildContent').hidden = false;
+      document.getElementById('savedBuildName').textContent = build.name;
+      document.getElementById('summaryPurpose').textContent = formatPurpose(build.inputs?.purpose);
+      document.getElementById('summaryTier').textContent = formatTier(build.result?.tier);
+      document.getElementById('summaryTotal').textContent = `${build.result?.total ?? 0} грн`;
+
+      renderInputs(build.inputs || {}, build.result || {});
+      renderParts(build.result || {});
+      renderNotes(build.result || {});
+    }
+
+    renderBuild();
+  </script>
+</body>
+</html>
