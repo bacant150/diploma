@@ -1,83 +1,406 @@
-{"text":"пк для cs2 valorant fortnite","label":"gaming"}
-{"text":"ігровий комп'ютер для gta 5 і warzone","label":"gaming"}
-{"text":"хочу комп для доти і кс","label":"gaming"}
-{"text":"потрібен пк для ігор і високого fps","label":"gaming"}
-{"text":"комп'ютер для cyberpunk 2077","label":"gaming"}
-{"text":"хочу грати в apex legends і pubg","label":"gaming"}
-{"text":"пк для call of duty warzone","label":"gaming"}
-{"text":"ігровий пк для fifa і forza horizon","label":"gaming"}
-{"text":"комп для minecraft roblox і fortnite","label":"gaming"}
-{"text":"потрібен ігровий комп для онлайн ігор","label":"gaming"}
-{"text":"пк для cs2 на 144 fps","label":"gaming"}
-{"text":"комп'ютер для valorant і стримів","label":"gaming"}
-{"text":"збірка для ігор у full hd","label":"gaming"}
-{"text":"хочу пограти в red dead redemption 2","label":"gaming"}
-{"text":"ігровий комп для elden ring","label":"gaming"}
-{"text":"комп'ютер для hogwarts legacy","label":"gaming"}
-{"text":"пк для league of legends і dota 2","label":"gaming"}
-{"text":"збірка для fortnite і streaming","label":"gaming"}
-{"text":"хочу сучасний ігровий системник","label":"gaming"}
-{"text":"комп для ігор, шутерів і гонок","label":"gaming"}
+{"text": "збірка для cs2 і fifa", "label": "gaming"}
+{"text": "системник для valorant і fifa", "label": "gaming"}
+{"text": "пк для cs2 і warzone", "label": "gaming"}
+{"text": "комп для cs2 і assassin's creed", "label": "gaming"}
+{"text": "системник для valorant і forza horizon 5", "label": "gaming"}
+{"text": "пк для cs2 і helldivers 2", "label": "gaming"}
+{"text": "пк для valorant і warzone", "label": "gaming"}
+{"text": "ігровий комп'ютер для valorant і dota 2", "label": "gaming"}
+{"text": "системний блок для cs2 і apex legends", "label": "gaming"}
+{"text": "ігровий комп'ютер для cs2 і rdr2", "label": "gaming"}
+{"text": "комп'ютер для valorant і warzone", "label": "gaming"}
+{"text": "пк для сучасних шутерів", "label": "gaming"}
+{"text": "комп для cs2 і rocket league", "label": "gaming"}
+{"text": "ігровий комп'ютер для valorant і apex legends", "label": "gaming"}
+{"text": "пк для valorant і pubg", "label": "gaming"}
+{"text": "ігровий комп'ютер для cs2 і league of legends", "label": "gaming"}
+{"text": "комп'ютер для valorant і apex legends", "label": "gaming"}
+{"text": "комп'ютер для valorant і cyberpunk 2077", "label": "gaming"}
+{"text": "пк для cs2 і the witcher 3", "label": "gaming"}
+{"text": "ігровий комп'ютер для cs2 і overwatch 2", "label": "gaming"}
+{"text": "системник для cs2 і rocket league", "label": "gaming"}
+{"text": "комп для cs2 і league of legends", "label": "gaming"}
+{"text": "комп'ютер для cs2 і apex legends", "label": "gaming"}
+{"text": "ігровий комп'ютер для cs2 і diablo 4", "label": "gaming"}
+{"text": "збірка для cs2 і the witcher 3", "label": "gaming"}
+{"text": "системний блок для cs2 і the witcher 3", "label": "gaming"}
+{"text": "комп для cs2 і apex legends", "label": "gaming"}
+{"text": "ігровий пк для valorant і roblox", "label": "gaming"}
+{"text": "пк для cs2 і dota 2", "label": "gaming"}
+{"text": "комп'ютер для cs2 і valorant", "label": "gaming"}
+{"text": "комп'ютер для cs2 і dota 2", "label": "gaming"}
+{"text": "ігровий комп'ютер для cs2 і gta 5", "label": "gaming"}
+{"text": "системник для valorant і cs2", "label": "gaming"}
+{"text": "збірка для cs2 і helldivers 2", "label": "gaming"}
+{"text": "ігровий комп'ютер для cs2 і fortnite", "label": "gaming"}
+{"text": "ігровий комп'ютер для cs2 і dota 2", "label": "gaming"}
+{"text": "комп для cs2 і fortnite", "label": "gaming"}
+{"text": "комп для valorant і warzone", "label": "gaming"}
+{"text": "ігровий пк для cs2 і forza horizon 5", "label": "gaming"}
+{"text": "комп'ютер для cs2 і rainbow six siege", "label": "gaming"}
+{"text": "комп'ютер для cs2 і assassin's creed", "label": "gaming"}
+{"text": "комп'ютер для cs2 і fifa", "label": "gaming"}
+{"text": "ігровий пк для cs2 і battlefield", "label": "gaming"}
+{"text": "комп для cs2 і gta 5", "label": "gaming"}
+{"text": "системник для cs2 і elden ring", "label": "gaming"}
+{"text": "пк для cs2 і overwatch 2", "label": "gaming"}
+{"text": "комп для cs2 і the witcher 3", "label": "gaming"}
+{"text": "комп'ютер для valorant і cs2", "label": "gaming"}
+{"text": "ігровий комп'ютер для valorant і cs2", "label": "gaming"}
+{"text": "збірка для cs2 і assassin's creed", "label": "gaming"}
+{"text": "комп для cs2 і diablo 4", "label": "gaming"}
+{"text": "збірка для valorant і cs2", "label": "gaming"}
+{"text": "ігровий пк під fortnite і valorant", "label": "gaming"}
+{"text": "ігровий пк для cs2 і cyberpunk 2077", "label": "gaming"}
+{"text": "пк для valorant і apex legends", "label": "gaming"}
+{"text": "системник для cs2 і forza horizon 5", "label": "gaming"}
+{"text": "пк для cs2 і rainbow six siege", "label": "gaming"}
+{"text": "комп для cs2 і valorant", "label": "gaming"}
+{"text": "ігровий пк для valorant і league of legends", "label": "gaming"}
+{"text": "збірка для cs2 і forza horizon 5", "label": "gaming"}
+{"text": "ігровий пк для cs2 і minecraft", "label": "gaming"}
+{"text": "комп'ютер для cs2 і battlefield", "label": "gaming"}
+{"text": "пк для cs2 і league of legends", "label": "gaming"}
+{"text": "збірка для valorant і elden ring", "label": "gaming"}
+{"text": "збірка для cs2 і valorant", "label": "gaming"}
+{"text": "системник для valorant і warzone", "label": "gaming"}
+{"text": "комп для стрімів та ігор", "label": "gaming"}
+{"text": "комп для valorant і fifa", "label": "gaming"}
+{"text": "системний блок для valorant і cyberpunk 2077", "label": "gaming"}
+{"text": "комп'ютер для cs2 і rdr2", "label": "gaming"}
+{"text": "системний блок для cs2 і roblox", "label": "gaming"}
+{"text": "комп'ютер для valorant і forza horizon 5", "label": "gaming"}
+{"text": "збірка для cs2 і rocket league", "label": "gaming"}
+{"text": "системник для cs2 і rainbow six siege", "label": "gaming"}
+{"text": "пк для cs2 і minecraft", "label": "gaming"}
+{"text": "пк для cs2 і rocket league", "label": "gaming"}
+{"text": "системний блок для valorant і forza horizon 5", "label": "gaming"}
+{"text": "збірка для high fps у кс2", "label": "gaming"}
+{"text": "системний блок для valorant і warzone", "label": "gaming"}
+{"text": "збірка для cs2 і diablo 4", "label": "gaming"}
+{"text": "комп'ютер для cs2 і fortnite", "label": "gaming"}
+{"text": "ігровий пк для cs2 і roblox", "label": "gaming"}
+{"text": "пк для valorant і gta 5", "label": "gaming"}
+{"text": "пк для cs2 і fifa", "label": "gaming"}
+{"text": "пк для cs2 і pubg", "label": "gaming"}
+{"text": "системник для valorant і roblox", "label": "gaming"}
+{"text": "системний блок для cs2 і league of legends", "label": "gaming"}
+{"text": "системник для valorant і league of legends", "label": "gaming"}
+{"text": "системний блок для cs2 і valorant", "label": "gaming"}
+{"text": "системний блок для valorant і pubg", "label": "gaming"}
+{"text": "системний блок для cs2 і overwatch 2", "label": "gaming"}
+{"text": "системник для cs2 і assassin's creed", "label": "gaming"}
+{"text": "ігровий пк для valorant і elden ring", "label": "gaming"}
+{"text": "комп для cs2 і helldivers 2", "label": "gaming"}
+{"text": "ігровий пк для cs2 і assassin's creed", "label": "gaming"}
+{"text": "системник для cs2 і cyberpunk 2077", "label": "gaming"}
+{"text": "пк для valorant і dota 2", "label": "gaming"}
+{"text": "системник для cs2 і diablo 4", "label": "gaming"}
+{"text": "ігровий комп'ютер для valorant і minecraft", "label": "gaming"}
+{"text": "комп для cs2 і minecraft", "label": "gaming"}
 
-{"text":"комп'ютер для word excel браузера","label":"office"}
-{"text":"офісний пк для документів і пошти","label":"office"}
-{"text":"потрібен комп для бухгалтера","label":"office"}
-{"text":"робота в excel і crm системі","label":"office"}
-{"text":"комп'ютер для офісної роботи","label":"office"}
-{"text":"пк для браузера таблиць і 1с","label":"office"}
-{"text":"офісна збірка для звітів і документів","label":"office"}
-{"text":"комп для word, excel, pdf і email","label":"office"}
-{"text":"потрібен недорогий комп для офісу","label":"office"}
-{"text":"системний блок для менеджера","label":"office"}
-{"text":"робота з документами, поштою і браузером","label":"office"}
-{"text":"комп'ютер для кол центру","label":"office"}
-{"text":"пк для офісу та онлайн таблиць","label":"office"}
-{"text":"комп для web, excel, word","label":"office"}
-{"text":"офісний комп для друку документів","label":"office"}
-{"text":"комп'ютер для адміністратора офісу","label":"office"}
-{"text":"пк для робочих завдань та браузера","label":"office"}
-{"text":"збірка для офісних програм","label":"office"}
-{"text":"робота в документах і корпоративній пошті","label":"office"}
-{"text":"комп'ютер для щоденної офісної роботи","label":"office"}
 
-{"text":"пк для навчання zoom meet і презентацій","label":"study"}
-{"text":"комп'ютер для студента","label":"study"}
-{"text":"збірка для дистанційного навчання","label":"study"}
-{"text":"потрібен комп для уроків і zoom","label":"study"}
-{"text":"комп'ютер для навчання і програмування","label":"study"}
-{"text":"пк для vscode, browser і навчання","label":"study"}
-{"text":"системний блок для школяра","label":"study"}
-{"text":"комп для google classroom і meet","label":"study"}
-{"text":"потрібен пк для лекцій та домашніх завдань","label":"study"}
-{"text":"комп'ютер для студента програміста","label":"study"}
-{"text":"пк для навчання, python і браузера","label":"study"}
-{"text":"збірка для zoom, word і навчальних платформ","label":"study"}
-{"text":"комп'ютер для онлайн курсів","label":"study"}
-{"text":"пк для університету і навчання","label":"study"}
-{"text":"комп для навчання, презентацій і пошуку інформації","label":"study"}
-{"text":"комп'ютер для c++, python і zoom","label":"study"}
-{"text":"пк школяру для уроків","label":"study"}
-{"text":"збірка для навчання та роботи в vscode","label":"study"}
-{"text":"комп'ютер для занять, meet і браузера","label":"study"}
-{"text":"недорогий пк для студента","label":"study"}
+{"text": "системний блок для google docs і slack", "label": "office"}
+{"text": "системний блок для google sheets і онлайн-звітності", "label": "office"}
+{"text": "системний блок для 1с і crm", "label": "office"}
+{"text": "комп'ютер для powerpoint і slack", "label": "office"}
+{"text": "комп'ютер для 1с і email", "label": "office"}
+{"text": "системник для email і crm", "label": "office"}
+{"text": "комп'ютер для powerpoint і кабінету клієнтів", "label": "office"}
+{"text": "пк для 1с і slack", "label": "office"}
+{"text": "офісний пк для онлайн-звітності і powerpoint", "label": "office"}
+{"text": "системний блок для email і таблиць", "label": "office"}
+{"text": "системний блок для email і slack", "label": "office"}
+{"text": "пк для google sheets і word", "label": "office"}
+{"text": "офісний пк для word і crm", "label": "office"}
+{"text": "системний блок для 1с і powerpoint", "label": "office"}
+{"text": "пк для excel і онлайн-звітності", "label": "office"}
+{"text": "пк для crm і web-сервісів", "label": "office"}
+{"text": "системник для google sheets і кабінету клієнтів", "label": "office"}
+{"text": "комп для 1с і excel", "label": "office"}
+{"text": "комп для кабінету клієнтів і pdf", "label": "office"}
+{"text": "офісний пк для word і google docs", "label": "office"}
+{"text": "комп для google sheets і crm", "label": "office"}
+{"text": "офісний пк для пошти і trello", "label": "office"}
+{"text": "комп для 1с і кабінету клієнтів", "label": "office"}
+{"text": "комп для документів і google sheets", "label": "office"}
+{"text": "пк для outlook і slack", "label": "office"}
+{"text": "системник для таблиць і google sheets", "label": "office"}
+{"text": "системник для outlook і документів", "label": "office"}
+{"text": "системний блок для google sheets і web-сервісів", "label": "office"}
+{"text": "пк для crm і powerpoint", "label": "office"}
+{"text": "збірка для pdf і zoom для нарад", "label": "office"}
+{"text": "комп'ютер для google docs і pdf", "label": "office"}
+{"text": "системник для excel і outlook", "label": "office"}
+{"text": "пк для кабінету клієнтів і web-сервісів", "label": "office"}
+{"text": "комп для онлайн-звітності і word", "label": "office"}
+{"text": "системник для кабінету клієнтів і таблиць", "label": "office"}
+{"text": "збірка для google sheets і браузера", "label": "office"}
+{"text": "збірка для 1с і web-сервісів", "label": "office"}
+{"text": "офісний пк для онлайн-звітності і crm", "label": "office"}
+{"text": "збірка для документів і google docs", "label": "office"}
+{"text": "збірка для powerpoint і word", "label": "office"}
+{"text": "системний блок для pdf і word", "label": "office"}
+{"text": "системник для онлайн-звітності і документів", "label": "office"}
+{"text": "офісний пк для документів і slack", "label": "office"}
+{"text": "пк для outlook і pdf", "label": "office"}
+{"text": "збірка для браузера і документів", "label": "office"}
+{"text": "комп'ютер для powerpoint і онлайн-звітності", "label": "office"}
+{"text": "системний блок для google docs і документів", "label": "office"}
+{"text": "системник для email і powerpoint", "label": "office"}
+{"text": "збірка для таблиць і пошти", "label": "office"}
+{"text": "офісний пк для пошти і web-сервісів", "label": "office"}
+{"text": "системник для пошти і google docs", "label": "office"}
+{"text": "збірка для таблиць і trello", "label": "office"}
+{"text": "системник для email і trello", "label": "office"}
+{"text": "системний блок для word і google sheets", "label": "office"}
+{"text": "комп для 1с, браузера і pdf файлів", "label": "office"}
+{"text": "збірка для pdf і outlook", "label": "office"}
+{"text": "офісний пк для crm і email", "label": "office"}
+{"text": "комп'ютер для кабінету клієнтів і документів", "label": "office"}
+{"text": "комп'ютер для email і браузера", "label": "office"}
+{"text": "пк для pdf і браузера", "label": "office"}
+{"text": "офісний пк для email і word", "label": "office"}
+{"text": "офісний пк для crm і браузера", "label": "office"}
+{"text": "системний блок для браузера і trello", "label": "office"}
+{"text": "комп'ютер для браузера і pdf", "label": "office"}
+{"text": "пк для powerpoint і trello", "label": "office"}
+{"text": "системний блок для менеджера з продажу", "label": "office"}
+{"text": "офісний пк для пошти і zoom для нарад", "label": "office"}
+{"text": "пк для word і таблиць", "label": "office"}
+{"text": "комп для документів і кабінету клієнтів", "label": "office"}
+{"text": "пк для документів, пошти та zoom нарад", "label": "office"}
+{"text": "комп'ютер для powerpoint і outlook", "label": "office"}
+{"text": "пк для пошти і таблиць", "label": "office"}
+{"text": "комп для excel і powerpoint", "label": "office"}
+{"text": "пк для кабінету клієнтів і google sheets", "label": "office"}
+{"text": "пк для пошти і документів", "label": "office"}
+{"text": "комп для outlook і crm", "label": "office"}
+{"text": "офісний пк для powerpoint і google docs", "label": "office"}
+{"text": "системник для пошти і slack", "label": "office"}
+{"text": "комп для word і email", "label": "office"}
+{"text": "комп для pdf і 1с", "label": "office"}
+{"text": "системний блок для онлайн-звітності і 1с", "label": "office"}
+{"text": "системний блок для онлайн-звітності і пошти", "label": "office"}
+{"text": "пк для документів і таблиць", "label": "office"}
+{"text": "системний блок для онлайн-звітності і pdf", "label": "office"}
+{"text": "комп'ютер для пошти і 1с", "label": "office"}
+{"text": "збірка для pdf і crm", "label": "office"}
+{"text": "офісний пк для браузера і google docs", "label": "office"}
+{"text": "пк для кабінету клієнтів і zoom для нарад", "label": "office"}
+{"text": "збірка для excel і 1с", "label": "office"}
+{"text": "офісний пк для кабінету клієнтів і excel", "label": "office"}
+{"text": "офісний пк для google sheets і excel", "label": "office"}
+{"text": "системник для таблиць і web-сервісів", "label": "office"}
+{"text": "системник для онлайн-звітності і outlook", "label": "office"}
+{"text": "комп'ютер для crm і документів", "label": "office"}
+{"text": "комп'ютер для crm і word", "label": "office"}
+{"text": "комп для word і trello", "label": "office"}
+{"text": "системник для pdf і excel", "label": "office"}
+{"text": "комп'ютер для word і 1с", "label": "office"}
+{"text": "системник для кабінету клієнтів і онлайн-звітності", "label": "office"}
+{"text": "комп'ютер для google sheets і powerpoint", "label": "office"}
 
-{"text":"пк для монтажу відео","label":"creator"}
-{"text":"комп'ютер для premiere pro","label":"creator"}
-{"text":"збірка для after effects і photoshop","label":"creator"}
-{"text":"пк для blender і 3d моделювання","label":"creator"}
-{"text":"комп для рендеру відео","label":"creator"}
-{"text":"робоча станція для відеомонтажу","label":"creator"}
-{"text":"потрібен комп для davinci resolve","label":"creator"}
-{"text":"збірка для adobe premiere і after effects","label":"creator"}
-{"text":"комп'ютер для 3d графіки","label":"creator"}
-{"text":"пк для autocad і blender","label":"creator"}
-{"text":"комп для монтажу роликів на ютуб","label":"creator"}
-{"text":"системник для дизайну і photoshop","label":"creator"}
-{"text":"комп'ютер для lightroom і photoshop","label":"creator"}
-{"text":"пк для творчої роботи з графікою","label":"creator"}
-{"text":"комп для maya та рендерингу","label":"creator"}
-{"text":"потрібен пк для unreal engine і blender","label":"creator"}
-{"text":"комп'ютер для video editing","label":"creator"}
-{"text":"збірка для motion design","label":"creator"}
-{"text":"пк для 3d, монтажу і анімації","label":"creator"}
-{"text":"комп'ютер для контент креатора","label":"creator"}
+
+{"text": "навчальний пк для занять", "label": "study"}
+{"text": "системник для навчання і програмування для python і moodle", "label": "study"}
+{"text": "комп для занять, браузера і презентацій", "label": "study"}
+{"text": "пк для школяра для браузер і google meet", "label": "study"}
+{"text": "навчальний пк для навчання для google meet і vscode", "label": "study"}
+{"text": "навчальний пк для студента для google meet і zoom", "label": "study"}
+{"text": "навчальний пк для занять для word і teams", "label": "study"}
+{"text": "пк для школяра для zoom і notion", "label": "study"}
+{"text": "комп для університету для python і навчальні платформи", "label": "study"}
+{"text": "навчальний пк для уроків для лекції і word", "label": "study"}
+{"text": "пк для школяра", "label": "study"}
+{"text": "комп для дистанційного навчання", "label": "study"}
+{"text": "системник для університету", "label": "study"}
+{"text": "навчальний пк для занять для google meet і pycharm", "label": "study"}
+{"text": "пк для уроків для презентації і vscode", "label": "study"}
+{"text": "комп для навчання", "label": "study"}
+{"text": "системник для університету для python і c++", "label": "study"}
+{"text": "навчальний пк для школяра для zoom і word", "label": "study"}
+{"text": "навчальний пк для навчання і програмування для moodle і лекції", "label": "study"}
+{"text": "системник для студента для vscode і лекції", "label": "study"}
+{"text": "пк для уроків для браузер і онлайн-курси", "label": "study"}
+{"text": "навчальний пк для уроків для moodle і google classroom", "label": "study"}
+{"text": "навчальний пк для навчання для vscode і excel", "label": "study"}
+{"text": "навчальний пк для уроків для google classroom і браузер", "label": "study"}
+{"text": "системник для навчання для python і pycharm", "label": "study"}
+{"text": "системник для студента для презентації і лекції", "label": "study"}
+{"text": "навчальний пк для навчання та проектів для word і vscode", "label": "study"}
+{"text": "комп'ютер для університету для google meet і онлайн-курси", "label": "study"}
+{"text": "навчальний пк для університету", "label": "study"}
+{"text": "системник для студента", "label": "study"}
+{"text": "комп для занять", "label": "study"}
+{"text": "пк для університету для excel і навчальні платформи", "label": "study"}
+{"text": "комп'ютер для навчання та проектів для python і jupyter notebook", "label": "study"}
+{"text": "комп'ютер для навчання для pycharm і домашні завдання", "label": "study"}
+{"text": "комп для навчання та проектів для google classroom і google meet", "label": "study"}
+{"text": "комп'ютер для навчання, zoom і vscode", "label": "study"}
+{"text": "пк для навчання вдома для excel і c++", "label": "study"}
+{"text": "збірка для занять для vscode і c++", "label": "study"}
+{"text": "пк для навчання та проектів для google meet і google classroom", "label": "study"}
+{"text": "комп'ютер для уроків для moodle і google meet", "label": "study"}
+{"text": "системник для школяра для презентації і word", "label": "study"}
+{"text": "комп'ютер для навчання і програмування для google meet і excel", "label": "study"}
+{"text": "комп для навчання і програмування для презентації і zoom", "label": "study"}
+{"text": "навчальний пк для школяра для zoom і moodle", "label": "study"}
+{"text": "пк для навчання і програмування для браузер і zoom", "label": "study"}
+{"text": "пк для університету для google classroom і zoom", "label": "study"}
+{"text": "навчальний пк для студента для google classroom і vscode", "label": "study"}
+{"text": "комп'ютер для університету для word і google classroom", "label": "study"}
+{"text": "пк для уроків для браузер і python", "label": "study"}
+{"text": "навчальний пк для уроків для moodle і c++", "label": "study"}
+{"text": "навчальний пк для студента для google classroom і презентації", "label": "study"}
+{"text": "збірка для навчання та проектів", "label": "study"}
+{"text": "комп'ютер для навчання для google meet і notion", "label": "study"}
+{"text": "навчальний пк для навчання вдома", "label": "study"}
+{"text": "пк для університету", "label": "study"}
+{"text": "навчальний пк для навчання і програмування для google classroom і notion", "label": "study"}
+{"text": "комп'ютер для уроків для zoom і онлайн-курси", "label": "study"}
+{"text": "навчальний пк для університету для c++ і навчальні платформи", "label": "study"}
+{"text": "системник для школяра для word і moodle", "label": "study"}
+{"text": "навчальний пк для навчання для c++ і google meet", "label": "study"}
+{"text": "комп для навчання вдома для word і домашні завдання", "label": "study"}
+{"text": "збірка для студента для google classroom і jupyter notebook", "label": "study"}
+{"text": "системник для дистанційного навчання", "label": "study"}
+{"text": "комп'ютер для школяра для python і google meet", "label": "study"}
+{"text": "комп для дистанційного навчання для лекції і c++", "label": "study"}
+{"text": "навчальний пк для навчання та проектів для moodle і zoom", "label": "study"}
+{"text": "навчальний пк для уроків для презентації і jupyter notebook", "label": "study"}
+{"text": "комп'ютер для школяра для moodle і онлайн-курси", "label": "study"}
+{"text": "комп для навчання і програмування для pycharm і браузер", "label": "study"}
+{"text": "системник для навчання і програмування для c++ і canva", "label": "study"}
+{"text": "навчальний пк для навчання і програмування", "label": "study"}
+{"text": "збірка для дистанційного навчання для презентації і google classroom", "label": "study"}
+{"text": "комп'ютер для навчання та проектів для презентації і python", "label": "study"}
+{"text": "комп для уроків для python і canva", "label": "study"}
+{"text": "комп'ютер для навчання та проектів для google meet і canva", "label": "study"}
+{"text": "комп'ютер для університету для python і zoom", "label": "study"}
+{"text": "комп'ютер для занять для google meet і лекції", "label": "study"}
+{"text": "системник для студента для c++ і zoom", "label": "study"}
+{"text": "пк для університету для pycharm і moodle", "label": "study"}
+{"text": "комп'ютер для навчання і програмування для vscode і навчальні платформи", "label": "study"}
+{"text": "навчальний пк для студента для c++ і браузер", "label": "study"}
+{"text": "збірка для школяра для vscode і python", "label": "study"}
+{"text": "системник для навчання для word і canva", "label": "study"}
+{"text": "збірка для школяра для zoom і домашні завдання", "label": "study"}
+{"text": "навчальний пк для школяра для браузер і навчальні платформи", "label": "study"}
+{"text": "пк для занять для лекції і google classroom", "label": "study"}
+{"text": "комп для уроків", "label": "study"}
+{"text": "комп для університету", "label": "study"}
+{"text": "комп для уроків для презентації і moodle", "label": "study"}
+{"text": "системник для навчання вдома для презентації і google meet", "label": "study"}
+{"text": "навчальний пк для навчання та проектів для pycharm і лекції", "label": "study"}
+{"text": "пк для уроків для zoom і pycharm", "label": "study"}
+{"text": "збірка для навчання і програмування для moodle і excel", "label": "study"}
+{"text": "комп для школяра для pycharm і презентації", "label": "study"}
+{"text": "комп для навчання і програмування для word і notion", "label": "study"}
+{"text": "системник для студента для excel і домашні завдання", "label": "study"}
+{"text": "збірка для навчання", "label": "study"}
+{"text": "збірка для школяра для pycharm і vscode", "label": "study"}
+{"text": "системник для занять", "label": "study"}
+{"text": "збірка для навчання вдома для google meet і python", "label": "study"}
+
+
+{"text": "системник для solidworks і unity", "label": "creator"}
+{"text": "пк для figma і maya", "label": "creator"}
+{"text": "системник для after effects і 3ds max", "label": "creator"}
+{"text": "збірка для lightroom і відеомонтажу", "label": "creator"}
+{"text": "комп для blender і обробки фото", "label": "creator"}
+{"text": "комп'ютер для blender і video editing", "label": "creator"}
+{"text": "комп для after effects і відеомонтажу", "label": "creator"}
+{"text": "комп'ютер для autocad і рендеру сцен", "label": "creator"}
+{"text": "пк для 3ds max і cinema 4d", "label": "creator"}
+{"text": "системник для maya і unity", "label": "creator"}
+{"text": "комп для davinci resolve і 3d моделювання", "label": "creator"}
+{"text": "збірка для blender і after effects", "label": "creator"}
+{"text": "збірка для blender і maya", "label": "creator"}
+{"text": "системник для solidworks і figma", "label": "creator"}
+{"text": "збірка для after effects і рендеру сцен", "label": "creator"}
+{"text": "комп для premiere pro і davinci resolve", "label": "creator"}
+{"text": "збірка для after effects і premiere pro", "label": "creator"}
+{"text": "комп'ютер для lightroom і обробки фото", "label": "creator"}
+{"text": "збірка для illustrator і autocad", "label": "creator"}
+{"text": "комп'ютер для illustrator і after effects", "label": "creator"}
+{"text": "комп для дизайну", "label": "creator"}
+{"text": "робоча станція для illustrator і video editing", "label": "creator"}
+{"text": "збірка для davinci resolve і обробки фото", "label": "creator"}
+{"text": "комп'ютер для blender і davinci resolve", "label": "creator"}
+{"text": "збірка для premiere pro і solidworks", "label": "creator"}
+{"text": "системник для творчої роботи", "label": "creator"}
+{"text": "робоча станція для autocad і unreal engine", "label": "creator"}
+{"text": "пк для illustrator і motion design", "label": "creator"}
+{"text": "збірка для after effects і обробки фото", "label": "creator"}
+{"text": "комп для blender і графічного дизайну", "label": "creator"}
+{"text": "комп для illustrator і premiere pro", "label": "creator"}
+{"text": "пк для illustrator і unreal engine", "label": "creator"}
+{"text": "комп для maya і figma", "label": "creator"}
+{"text": "пк для after effects і графічного дизайну", "label": "creator"}
+{"text": "системник для blender і відеомонтажу", "label": "creator"}
+{"text": "комп'ютер для photoshop і 3d моделювання", "label": "creator"}
+{"text": "пк для 3ds max і photoshop", "label": "creator"}
+{"text": "комп для контент-мейкера", "label": "creator"}
+{"text": "пк для autocad і premiere pro", "label": "creator"}
+{"text": "робоча станція для роботи з відео", "label": "creator"}
+{"text": "робоча станція для рендеру", "label": "creator"}
+{"text": "збірка для illustrator і lightroom", "label": "creator"}
+{"text": "системник для illustrator і figma", "label": "creator"}
+{"text": "робоча станція для premiere pro і photoshop", "label": "creator"}
+{"text": "робоча станція для autocad і blender", "label": "creator"}
+{"text": "комп'ютер для davinci resolve і figma", "label": "creator"}
+{"text": "збірка для 3d", "label": "creator"}
+{"text": "комп для photoshop і відеомонтажу", "label": "creator"}
+{"text": "системник для solidworks і unreal engine", "label": "creator"}
+{"text": "збірка для 3ds max і рендеру сцен", "label": "creator"}
+{"text": "робоча станція для монтажу відео", "label": "creator"}
+{"text": "робоча станція для davinci resolve і solidworks", "label": "creator"}
+{"text": "системник для blender і unity", "label": "creator"}
+{"text": "комп для maya і blender", "label": "creator"}
+{"text": "комп'ютер для autocad і обробки фото", "label": "creator"}
+{"text": "пк для 3ds max і відеомонтажу", "label": "creator"}
+{"text": "пк для autocad і solidworks", "label": "creator"}
+{"text": "системник для 3d", "label": "creator"}
+{"text": "пк для lightroom і графічного дизайну", "label": "creator"}
+{"text": "робоча станція для blender і autocad", "label": "creator"}
+{"text": "пк для рендеру", "label": "creator"}
+{"text": "комп'ютер для роботи з відео", "label": "creator"}
+{"text": "робоча станція для davinci resolve і cinema 4d", "label": "creator"}
+{"text": "збірка для 3ds max і illustrator", "label": "creator"}
+{"text": "комп для студії монтажу", "label": "creator"}
+{"text": "комп для illustrator і обробки фото", "label": "creator"}
+{"text": "збірка для дизайну", "label": "creator"}
+{"text": "пк для студії монтажу", "label": "creator"}
+{"text": "комп'ютер для 3ds max і blender", "label": "creator"}
+{"text": "системник для анімації", "label": "creator"}
+{"text": "комп'ютер для maya і photoshop", "label": "creator"}
+{"text": "пк для роботи з відео", "label": "creator"}
+{"text": "системник для autocad і unity", "label": "creator"}
+{"text": "збірка для lightroom і maya", "label": "creator"}
+{"text": "системник для solidworks і cinema 4d", "label": "creator"}
+{"text": "пк для illustrator і unity", "label": "creator"}
+{"text": "системник для blender і рендеру сцен", "label": "creator"}
+{"text": "пк для графіки", "label": "creator"}
+{"text": "системник для lightroom і 3d моделювання", "label": "creator"}
+{"text": "комп'ютер для after effects і davinci resolve", "label": "creator"}
+{"text": "системник для illustrator і maya", "label": "creator"}
+{"text": "системник для контент-мейкера", "label": "creator"}
+{"text": "пк для maya і autocad", "label": "creator"}
+{"text": "комп для figma і autocad", "label": "creator"}
+{"text": "системник для lightroom і motion design", "label": "creator"}
+{"text": "збірка для autocad і motion design", "label": "creator"}
+{"text": "збірка для photoshop і 3ds max", "label": "creator"}
+{"text": "комп для 3ds max і unity", "label": "creator"}
+{"text": "комп'ютер для davinci resolve і blender", "label": "creator"}
+{"text": "системник для maya і lightroom", "label": "creator"}
+{"text": "комп для illustrator і davinci resolve", "label": "creator"}
+{"text": "робоча станція для premiere pro і autocad", "label": "creator"}
+{"text": "комп для творчої роботи", "label": "creator"}
+{"text": "системник для рендеру", "label": "creator"}
+{"text": "системник для solidworks і maya", "label": "creator"}
+{"text": "робоча станція для illustrator і photoshop", "label": "creator"}
+{"text": "системник для solidworks і davinci resolve", "label": "creator"}
+{"text": "комп'ютер для autocad і графічного дизайну", "label": "creator"}
+{"text": "збірка для after effects і video editing", "label": "creator"}
+{"text": "системник для photoshop і video editing", "label": "creator"}
