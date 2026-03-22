@@ -2179,6 +2179,10 @@ def _rebuild_parts_from_result(result: Dict[str, object]) -> Dict[str, Part]:
 def _is_result_acceptable_for_auto_budget(result: Dict[str, object], purpose: str) -> bool:
     """
     Перевіряє, чи підходить знайдена збірка як мінімально достатня для авто-бюджету.
+
+    Для авто-бюджету критерії мають бути суворішими, ніж для ручного режиму:
+    система не повинна рекомендувати конфігурацію, яка лише "майже" дотягує,
+    або ігрову збірку без дискретної відеокарти для важких 1440p / 4K сценаріїв.
     """
     if not result.get("parts"):
         return False
@@ -2188,26 +2192,74 @@ def _is_result_acceptable_for_auto_budget(result: Dict[str, object], purpose: st
     if purpose == "gaming":
         requirement = result.get("game_requirement", {})
         match_info = result.get("match_info", {})
+
+        gpu = parts.get("GPU")
+        cpu = parts.get("CPU")
+        resolution = str(result.get("resolution", "1080p"))
+        graphics_quality = str(result.get("graphics_quality", "high"))
+        target_fps = int(result.get("target_fps", 60) or 60)
+        gpu_mode = str(result.get("gpu_mode", "auto"))
+
+        # Якщо користувач не просив лише вбудовану графіку, не рекомендуємо авто-бюджетом
+        # ігрові збірки без дискретної відеокарти для вимогливих сценаріїв.
+        demanding_scenario = (
+            resolution in {"1440p", "4k"}
+            or graphics_quality in {"high", "ultra"}
+            or target_fps >= 100
+        )
+        if gpu_mode != "integrated" and demanding_scenario and gpu is None:
+            return False
+
         if isinstance(requirement, dict) and requirement.get("is_active"):
-            return str(match_info.get("match_status")) in {"excellent", "good", "near", "integrated"}
+            status = str(match_info.get("match_status"))
+            gpu_ratio = float(match_info.get("gpu_ratio") or 0)
+            cpu_ratio = float(match_info.get("cpu_ratio") or 0)
+
+            # Для автоматичного бюджету беремо лише ті збірки, які реально покривають ціль,
+            # а не просто "близькі" до неї.
+            if status not in {"excellent", "good"}:
+                return False
+
+            if gpu_ratio < 0.97 or cpu_ratio < 0.97:
+                return False
+
+            # Додатковий захист від занадто слабких iGPU/low-end сценаріїв.
+            if demanding_scenario:
+                if gpu is None:
+                    return False
+                if resolution == "1440p" and int(gpu.meta.get("vram", 0)) < 8:
+                    return False
+                if resolution == "4k" and int(gpu.meta.get("vram", 0)) < 12:
+                    return False
+
+            return True
+
+        # Якщо конкретні ігри не вибрані, все одно відсікаємо явно нелогічні сценарії.
+        if demanding_scenario and gpu is None:
+            return False
+        if demanding_scenario and gpu is not None:
+            if resolution == "1440p" and int(gpu.meta.get("vram", 0)) < 8:
+                return False
+            if resolution == "4k" and int(gpu.meta.get("vram", 0)) < 12:
+                return False
         return True
 
     if purpose == "office":
         requirement = result.get("office_requirement", {})
         if isinstance(requirement, dict):
-            return _office_match_status(parts, requirement) in {"excellent", "good", "near"}
+            return _office_match_status(parts, requirement) in {"excellent", "good"}
         return True
 
     if purpose == "study":
         requirement = result.get("study_requirement", {})
         if isinstance(requirement, dict):
-            return _study_match_status(parts, requirement) in {"excellent", "good", "near"}
+            return _study_match_status(parts, requirement) in {"excellent", "good"}
         return True
 
     if purpose == "creator":
         requirement = result.get("creator_requirement", {})
         if isinstance(requirement, dict):
-            return _creator_match_status(parts, requirement) in {"excellent", "good", "near"}
+            return _creator_match_status(parts, requirement) in {"excellent", "good"}
         return True
 
     return bool(result.get("parts"))
@@ -2316,6 +2368,10 @@ def build_pc_auto_budget(
     chosen_result["notes"] = notes
     chosen_result["recommended_budget"] = chosen_budget
     chosen_result["budget_mode"] = "auto"
+    chosen_result["resolution"] = resolution
+    chosen_result["graphics_quality"] = graphics_quality
+    chosen_result["target_fps"] = target_fps
+    chosen_result["gpu_mode"] = gpu_mode
     return chosen_result
 
 
