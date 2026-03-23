@@ -110,7 +110,11 @@
 {"text": "ПК для ігор", "label": "gaming"}
 {"text": "Ігри", "label": "gaming"}
 {"text": "Гулятись в ігри на ПК", "label": "gaming"}
-{"text": "ПК для веселощів", "label": "gaming"}
+{"text": "ПК для ігр", "label": "gaming"}
+{"text": "іграти", "label": "gaming"}
+{"text": "іграть", "label": "gaming"}
+{"text": "кс, дота 2, пк для доти", "label": "gaming"}
+
 
 
 {"text": "системний блок для google docs і slack", "label": "office"}
@@ -484,7 +488,12 @@
 {"text":"пк для бухгалтера, 1с і електронного кабінету","label":"office"}
 {"text":"комп'ютер для накладних, рахунків і друку","label":"office"}
 {"text":"офісний пк для crm, телефонії і пошти","label":"office"}
-{"text":"потрібен системник для адміністративної роботи","label":"office"}
+{"text":"офіс","label":"office"}
+{"text":"офісний комп'ютер","label":"office"}
+{"text":"офісний пк","label":"office"}
+{"text":"системник доля офісу","label":"office"}
+
+
 
 
 {"text": "навчальний пк для занять", "label": "study"}
@@ -694,7 +703,15 @@
 {"text": "комп для уроків, classroom, teams і word", "label": "study"}
 {"text": "збірка для навчання, лабораторних і vscode", "label": "study"}
 {"text": "комп'ютер для школяра для уроків, браузера та meet", "label": "study"}
-{"text": "недорогий пк для дистанційного навчання і програмування", "label": "study"}
+{"text": "пк для дитини", "label": "study"}
+{"text": "для дитини", "label": "study"}
+{"text": "для навчання", "label": "study"}
+{"text": "комп'ютер для дитини", "label": "study"}
+{"text": "комп'ютер для навчання", "label": "study"}
+{"text": "для дитини для школи", "label": "study"}
+{"text": "дитина", "label": "study"}
+{"text": "навчання", "label": "study"}
+{"text": "школа", "label": "study"}
 
 
 {"text": "системник для solidworks і unity", "label": "creator"}
@@ -1014,3 +1031,7 @@
 {"text": "пк для монтажу, дизайну, брендингу", "label": "creator"}
 {"text": "комп'ютер для роботи з великими медіафайлами", "label": "creator"}
 {"text": "робоча станція для креативних задач", "label": "creator"}
+{"text": "створювати", "label": "creator"}
+{"text": "монтаж", "label": "creator"}
+{"text": "3д", "label": "creator"}
+{"text": "дизайн", "label": "creator"}
