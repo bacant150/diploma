@@ -65,6 +65,17 @@
           <p id="partsEmpty" hidden>Нічого не підібрано.</p>
         </div>
 
+        <div class="result-box" id="alternativesBox" hidden>
+          <div class="result-box-header">
+            <div>
+              <h2>Альтернативні конфігурації</h2>
+              <p class="builder-hint">Збережена збірка також містить варіанти для порівняння.</p>
+            </div>
+            <span class="comparison-badge">Повний склад показано для основної рекомендації</span>
+          </div>
+          <div class="alternatives-grid" id="alternativesGrid"></div>
+        </div>
+
         <div class="result-box notes-box" id="notesBox" hidden>
           <h2>Примітки</h2>
           <ul id="notesList"></ul>
@@ -312,6 +323,57 @@
       });
     }
 
+    function renderAlternatives(result) {
+      const box = document.getElementById('alternativesBox');
+      const grid = document.getElementById('alternativesGrid');
+      grid.innerHTML = '';
+
+      if (!Array.isArray(result.alternatives) || result.alternatives.length < 2) {
+        box.hidden = true;
+        return;
+      }
+
+      result.alternatives.forEach((alternative) => {
+        const article = document.createElement('article');
+        article.className = `alternative-card${alternative.is_primary ? ' alternative-card--primary' : ''}`;
+
+        const parts = Array.isArray(alternative.parts_excerpt)
+          ? alternative.parts_excerpt.map((item) => `<li><strong>${escapeHtml(item.label)}:</strong> ${escapeHtml(item.name)}</li>`).join('')
+          : '';
+
+        const notes = Array.isArray(alternative.notes)
+          ? alternative.notes.map((note) => `<li>${escapeHtml(note)}</li>`).join('')
+          : '';
+
+        article.innerHTML = `
+          <div class="alternative-card-top">
+            <div>
+              <div class="alternative-title-row">
+                <h3>${escapeHtml(alternative.title || 'Конфігурація')}</h3>
+                ${alternative.is_primary ? '<span class="alternative-pill">Рекомендовано</span>' : ''}
+              </div>
+              <p class="alternative-description">${escapeHtml(alternative.description || '')}</p>
+            </div>
+            <div class="alternative-total">${escapeHtml(alternative.total ?? '—')} грн</div>
+          </div>
+
+          <div class="alternative-meta-grid">
+            <div><span>Рівень</span><strong>${escapeHtml(alternative.tier_title || '—')}</strong></div>
+            <div><span>Орієнтир бюджету</span><strong>${escapeHtml(alternative.requested_budget ?? '—')} грн</strong></div>
+            <div><span>Режим</span><strong>${escapeHtml(alternative.priority_title || '—')}</strong></div>
+          </div>
+
+          <div class="alternative-delta">${escapeHtml(alternative.delta_text || '')}</div>
+          ${parts ? `<ul class="alternative-parts-list">${parts}</ul>` : ''}
+          ${notes ? `<ul class="alternative-notes">${notes}</ul>` : ''}
+        `;
+
+        grid.appendChild(article);
+      });
+
+      box.hidden = false;
+    }
+
     function renderNotes(result) {
       const box = document.getElementById('notesBox');
       const list = document.getElementById('notesList');
@@ -347,6 +409,7 @@
 
       renderInputs(build.inputs || {}, build.result || {});
       renderParts(build.result || {});
+      renderAlternatives(build.result || {});
       renderNotes(build.result || {});
     }
 

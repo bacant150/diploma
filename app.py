@@ -12,7 +12,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse, Red
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from builder import build_pc, build_pc_auto_budget
+from builder import build_pc, build_pc_alternatives, build_pc_auto_budget
 from parts_db import CREATOR_APPS_DB, GAMES_DB, OFFICE_APPS_DB, STUDY_APPS_DB
 
 try:
@@ -85,11 +85,30 @@ def _part_image_path(part_name: str) -> str | None:
 
 def _attach_part_images(result: dict[str, Any]) -> dict[str, Any]:
     parts = result.get("parts", {})
-    for part_data in parts.values():
-        name = part_data.get("name")
-        if name:
-            part_data["image"] = _part_image_path(name)
-            part_data["image_filename"] = f"{_slugify_part_name(name)}.webp"
+    if isinstance(parts, dict):
+        for part_data in parts.values():
+            if not isinstance(part_data, dict):
+                continue
+            name = part_data.get("name")
+            if name:
+                part_data["image"] = _part_image_path(name)
+                part_data["image_filename"] = f"{_slugify_part_name(name)}.webp"
+
+    alternatives = result.get("alternatives", [])
+    if isinstance(alternatives, list):
+        for alternative in alternatives:
+            if not isinstance(alternative, dict):
+                continue
+            alternative_parts = alternative.get("parts", [])
+            if not isinstance(alternative_parts, list):
+                continue
+            for part_data in alternative_parts:
+                if not isinstance(part_data, dict):
+                    continue
+                name = part_data.get("name")
+                if name:
+                    part_data["image"] = _part_image_path(name)
+                    part_data["image_filename"] = f"{_slugify_part_name(name)}.webp"
     return result
 
 
@@ -464,6 +483,7 @@ async def build(request: Request) -> HTMLResponse:
     else:
         result = build_pc(**payload)
 
+    result["alternatives"] = build_pc_alternatives(result, budget_mode=inputs.get("budget_mode", "manual"), **payload)
     result = _attach_part_images(result)
     return templates.TemplateResponse("result.html", _result_page_context(request, inputs, result))
 

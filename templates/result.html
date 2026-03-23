@@ -51,6 +51,59 @@
         </div>
       </div>
 
+      {% if result.alternatives and result.alternatives|length > 1 %}
+      <div class="result-box">
+        <div class="result-box-header">
+          <div>
+            <h2>Альтернативні конфігурації</h2>
+            <p class="builder-hint">Порівняй кілька варіантів під той самий сценарій: від економнішого до максимально продуктивного.</p>
+          </div>
+          <span class="comparison-badge">Детальний склад нижче показано для основної рекомендації</span>
+        </div>
+
+        <div class="alternatives-grid">
+          {% for alternative in result.alternatives %}
+          <article class="alternative-card{% if alternative.is_primary %} alternative-card--primary{% endif %}">
+            <div class="alternative-card-top">
+              <div>
+                <div class="alternative-title-row">
+                  <h3>{{ alternative.title }}</h3>
+                  {% if alternative.is_primary %}<span class="alternative-pill">Рекомендовано</span>{% endif %}
+                </div>
+                <p class="alternative-description">{{ alternative.description }}</p>
+              </div>
+              <div class="alternative-total">{{ alternative.total }} грн</div>
+            </div>
+
+            <div class="alternative-meta-grid">
+              <div><span>Рівень</span><strong>{{ alternative.tier_title }}</strong></div>
+              <div><span>Орієнтир бюджету</span><strong>{{ alternative.requested_budget }} грн</strong></div>
+              <div><span>Режим</span><strong>{{ alternative.priority_title }}</strong></div>
+            </div>
+
+            <div class="alternative-delta">{{ alternative.delta_text }}</div>
+
+            {% if alternative.parts_excerpt %}
+            <ul class="alternative-parts-list">
+              {% for item in alternative.parts_excerpt %}
+              <li><strong>{{ item.label }}:</strong> {{ item.name }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if alternative.notes %}
+            <ul class="alternative-notes">
+              {% for note in alternative.notes %}
+              <li>{{ note }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
       <div class="result-box">
         <h2>Зберегти збірку</h2>
         <p class="builder-hint">Збірка буде збережена локально у браузері на цьому пристрої.</p>
