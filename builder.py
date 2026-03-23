@@ -1,3 +1,4 @@
+from copy import deepcopy
 from typing import Any, Dict, List, Optional, Tuple
 from parts_db import PARTS, Part, GAMES_DB, OFFICE_APPS_DB, STUDY_APPS_DB, CREATOR_APPS_DB
 
@@ -2621,6 +2622,17 @@ def _delta_text(total: int, primary_total: int, is_primary: bool) -> str:
     return "Така сама ціна, але інший акцент підбору"
 
 
+def _alternative_result_payload(result: Dict[str, object]) -> Dict[str, object]:
+    payload = {
+        "total": int(result.get("total", 0) or 0),
+        "tier": result.get("tier", "unknown"),
+        "recommended_budget": int(result.get("recommended_budget", 0) or 0),
+        "parts": deepcopy(result.get("parts", {})) if isinstance(result.get("parts"), dict) else {},
+        "notes": list(result.get("notes", [])) if isinstance(result.get("notes"), list) else [],
+    }
+    return payload
+
+
 def _make_alternative_card(
     *,
     key: str,
@@ -2652,6 +2664,7 @@ def _make_alternative_card(
         "delta_text": _delta_text(total, primary_total, is_primary),
         "parts_excerpt": _parts_excerpt_from_result(result, purpose),
         "notes": notes[:2],
+        "result_payload": _alternative_result_payload(result),
     }
 
 

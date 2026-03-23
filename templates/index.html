@@ -20,10 +20,21 @@
 
   <section class="builder-page">
     <div class="builder-card">
+      <div class="section-eyebrow">Конфігуратор системи</div>
       <h1>{{ purpose_title }}</h1>
-      <p class="builder-subtitle">
-        Налаштуй вимоги та параметри, а система автоматично сформує конфігурацію.
-      </p>
+      <p class="builder-subtitle">Налаштуй вимоги та параметри, а система автоматично сформує конфігурацію.</p>
+
+      <div class="builder-topline">
+        <span class="builder-chip">Сценарій: {{ purpose_title }}</span>
+        <span class="builder-chip">Діапазон бюджету: {{ budget_min }}–{{ budget_max }} грн</span>
+        {% if selected_purpose == "gaming" %}<span class="builder-chip">FPS: {{ fps_min }}–{{ fps_max }}</span>{% endif %}
+        <span class="builder-chip">Пріоритет підбору визначається автоматично</span>
+      </div>
+
+      <div class="builder-note-card">
+        <h3>Порада</h3>
+        <p>Для максимально точного результату вкажи сценарій використання та бажані параметри. Бюджет можна задати вручну або доручити системі підібрати його автоматично.</p>
+      </div>
 
       <form action="/build" method="post" class="pc-form">
         <input type="hidden" name="purpose" value="{{ selected_purpose }}">
@@ -31,34 +42,16 @@
         <div class="form-group">
           <label for="budget_mode">Режим бюджету</label>
           <select id="budget_mode" name="budget_mode">
-            <option value="manual" selected>Вкажу бюджет самостійно</option>
+            <option value="manual">Вкажу бюджет самостійно</option>
             <option value="auto">Підібрати бюджет автоматично</option>
           </select>
           <p class="builder-hint">Обери автоматичний режим, якщо не знаєш, який бюджет потрібен для твоїх параметрів.</p>
         </div>
 
-        <div class="form-group" id="budget-group">
+        <div class="form-group" id="budgetGroup">
           <label for="budget">Бюджет (грн)</label>
-          <input
-            type="number"
-            id="budget"
-            name="budget"
-            min="{{ budget_min }}"
-            max="{{ budget_max }}"
-            step="500"
-            placeholder="{{ budget_min }} – {{ budget_max }}"
-            required
-          >
-          <p class="builder-hint" id="budget-mode-hint">Доступний діапазон для цього сценарію: від {{ budget_min }} до {{ budget_max }} грн.</p>
-        </div>
-
-        <div class="form-group">
-          <label for="priority">Пріоритет підбору</label>
-          <select id="priority" name="priority">
-            <option value="auto" selected>Автоматично</option>
-            <option value="balanced">Збалансовано (ціна / якість)</option>
-            <option value="best">Максимально найкращий</option>
-          </select>
+          <input type="number" id="budget" name="budget" min="{{ budget_min }}" max="{{ budget_max }}" value="{{ budget_min }}" step="500">
+          <p class="builder-hint">Доступний діапазон для цього сценарію: від {{ budget_min }} до {{ budget_max }} грн.</p>
         </div>
 
         {% if selected_purpose in ["gaming", "creator"] %}
@@ -75,7 +68,7 @@
         {% endif %}
 
         <div class="form-group">
-          <label for="wifi">Потрібен Wi-Fi?</label>
+          <label for="wifi">Потрібен Wi‑Fi?</label>
           <select id="wifi" name="wifi">
             <option value="no">Ні</option>
             <option value="yes">Так</option>
@@ -99,7 +92,7 @@
         <div class="form-group">
           <label for="office_tabs">Кількість одночасно відкритих вкладок</label>
           <select id="office_tabs" name="office_tabs">
-            <option value="auto" selected>Автоматично</option>
+            <option value="auto">Автоматично</option>
             <option value="up_to_10">До 10</option>
             <option value="10_30">10–30</option>
             <option value="30_60">30–60</option>
@@ -110,65 +103,10 @@
         <div class="form-group">
           <label for="office_monitors">Кількість моніторів</label>
           <select id="office_monitors" name="office_monitors">
-            <option value="auto" selected>Автоматично</option>
+            <option value="auto">Автоматично</option>
             <option value="1">1 монітор</option>
             <option value="2">2 монітори</option>
             <option value="3_plus">3+ монітори</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="gpu_mode_office">Графіка</label>
-          <select id="gpu_mode_office" name="gpu_mode">
-            <option value="auto" selected>Автоматично</option>
-            <option value="integrated">Тільки вбудована графіка</option>
-            <option value="dedicated">Дискретна відеокарта</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="cpu_brand_office">Процесор</label>
-          <select id="cpu_brand_office" name="cpu_brand">
-            <option value="auto" selected>Автоматично</option>
-            <option value="amd">Тільки AMD</option>
-            <option value="intel">Тільки Intel</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="ram_size_office">Обсяг RAM</label>
-          <select id="ram_size_office" name="ram_size">
-            <option value="auto" selected>Автоматично</option>
-            <option value="2">2 GB</option>
-            <option value="4">4 GB</option>
-            <option value="8">8 GB</option>
-            <option value="16">16 GB</option>
-            <option value="32">32 GB</option>
-            <option value="64">64 GB</option>
-            <option value="128">128 GB</option>
-            <option value="256">256 GB</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="ssd_size_office">Обсяг SSD</label>
-          <select id="ssd_size_office" name="ssd_size">
-            <option value="auto" selected>Автоматично</option>
-            <option value="128">128 GB</option>
-            <option value="256">256 GB</option>
-            <option value="512">512 GB</option>
-            <option value="1000">1 TB</option>
-            <option value="2000">2 TB</option>
-            <option value="4000">4 TB</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="memory_platform_office">Платформа пам’яті</label>
-          <select id="memory_platform_office" name="memory_platform">
-            <option value="auto" selected>Автоматично</option>
-            <option value="ddr4">Тільки DDR4</option>
-            <option value="ddr5">Тільки DDR5</option>
           </select>
         </div>
         {% endif %}
@@ -190,7 +128,7 @@
         <div class="form-group">
           <label for="study_tabs">Кількість одночасно відкритих вкладок</label>
           <select id="study_tabs" name="study_tabs">
-            <option value="auto" selected>Автоматично</option>
+            <option value="auto">Автоматично</option>
             <option value="up_to_10">До 10</option>
             <option value="10_30">10–30</option>
             <option value="30_60">30–60</option>
@@ -201,69 +139,13 @@
         <div class="form-group">
           <label for="study_monitors">Кількість моніторів</label>
           <select id="study_monitors" name="study_monitors">
-            <option value="auto" selected>Автоматично</option>
+            <option value="auto">Автоматично</option>
             <option value="1">1 монітор</option>
             <option value="2">2 монітори</option>
             <option value="3_plus">3+ монітори</option>
           </select>
         </div>
-
-        <div class="form-group">
-          <label for="gpu_mode_study">Графіка</label>
-          <select id="gpu_mode_study" name="gpu_mode">
-            <option value="auto" selected>Автоматично</option>
-            <option value="integrated">Тільки вбудована графіка</option>
-            <option value="dedicated">Дискретна відеокарта</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="cpu_brand_study">Процесор</label>
-          <select id="cpu_brand_study" name="cpu_brand">
-            <option value="auto" selected>Автоматично</option>
-            <option value="amd">Тільки AMD</option>
-            <option value="intel">Тільки Intel</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="ram_size_study">Обсяг RAM</label>
-          <select id="ram_size_study" name="ram_size">
-            <option value="auto" selected>Автоматично</option>
-            <option value="2">2 GB</option>
-            <option value="4">4 GB</option>
-            <option value="8">8 GB</option>
-            <option value="16">16 GB</option>
-            <option value="32">32 GB</option>
-            <option value="64">64 GB</option>
-            <option value="128">128 GB</option>
-            <option value="256">256 GB</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="ssd_size_study">Обсяг SSD</label>
-          <select id="ssd_size_study" name="ssd_size">
-            <option value="auto" selected>Автоматично</option>
-            <option value="128">128 GB</option>
-            <option value="256">256 GB</option>
-            <option value="512">512 GB</option>
-            <option value="1000">1 TB</option>
-            <option value="2000">2 TB</option>
-            <option value="4000">4 TB</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="memory_platform_study">Платформа пам’яті</label>
-          <select id="memory_platform_study" name="memory_platform">
-            <option value="auto" selected>Автоматично</option>
-            <option value="ddr4">Тільки DDR4</option>
-            <option value="ddr5">Тільки DDR5</option>
-          </select>
-        </div>
         {% endif %}
-
 
         {% if selected_purpose == "creator" %}
         <div class="form-group">
@@ -282,7 +164,7 @@
         <div class="form-group">
           <label for="creator_complexity">Складність проєктів</label>
           <select id="creator_complexity" name="creator_complexity">
-            <option value="auto" selected>Автоматично</option>
+            <option value="auto">Автоматично</option>
             <option value="light">Легкі</option>
             <option value="medium">Середні</option>
             <option value="heavy">Важкі</option>
@@ -292,74 +174,10 @@
         <div class="form-group">
           <label for="creator_monitors">Кількість моніторів</label>
           <select id="creator_monitors" name="creator_monitors">
-            <option value="auto" selected>Автоматично</option>
+            <option value="auto">Автоматично</option>
             <option value="1">1 монітор</option>
             <option value="2">2 монітори</option>
             <option value="3_plus">3+ монітори</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="gpu_mode_creator">Графіка</label>
-          <select id="gpu_mode_creator" name="gpu_mode">
-            <option value="auto" selected>Автоматично</option>
-            <option value="dedicated">Дискретна відеокарта</option>
-            <option value="integrated">Тільки вбудована графіка</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="cpu_brand_creator">Процесор</label>
-          <select id="cpu_brand_creator" name="cpu_brand">
-            <option value="auto" selected>Автоматично</option>
-            <option value="amd">Тільки AMD</option>
-            <option value="intel">Тільки Intel</option>
-          </select>
-        </div>
-
-        <div class="form-group" id="gpu-brand-group-creator">
-          <label for="gpu_brand_creator">Бренд відеокарти</label>
-          <select id="gpu_brand_creator" name="gpu_brand">
-            <option value="auto" selected>Автоматично</option>
-            <option value="amd">Тільки AMD Radeon</option>
-            <option value="nvidia">Тільки NVIDIA GeForce</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="ram_size_creator">Обсяг RAM</label>
-          <select id="ram_size_creator" name="ram_size">
-            <option value="auto" selected>Автоматично</option>
-            <option value="8">8 GB</option>
-            <option value="16">16 GB</option>
-            <option value="32">32 GB</option>
-            <option value="64">64 GB</option>
-            <option value="96">96 GB</option>
-            <option value="128">128 GB</option>
-            <option value="192">192 GB</option>
-            <option value="256">256 GB</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="ssd_size_creator">Обсяг SSD</label>
-          <select id="ssd_size_creator" name="ssd_size">
-            <option value="auto" selected>Автоматично</option>
-            <option value="256">256 GB</option>
-            <option value="512">512 GB</option>
-            <option value="1000">1 TB</option>
-            <option value="2000">2 TB</option>
-            <option value="4000">4 TB</option>
-            <option value="8000">8 TB</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="memory_platform_creator">Платформа пам’яті</label>
-          <select id="memory_platform_creator" name="memory_platform">
-            <option value="auto" selected>Автоматично</option>
-            <option value="ddr4">Тільки DDR4</option>
-            <option value="ddr5">Тільки DDR5</option>
           </select>
         </div>
         {% endif %}
@@ -377,41 +195,67 @@
 
         <div class="form-group">
           <label for="target_fps">Бажаний FPS</label>
-          <input type="number" id="target_fps" name="target_fps" min="{{ fps_min }}" max="{{ fps_max }}" value="60" required>
+          <input type="number" id="target_fps" name="target_fps" min="{{ fps_min }}" max="{{ fps_max }}" value="60">
           <p class="builder-hint">Допустимий діапазон: від {{ fps_min }} до {{ fps_max }} FPS.</p>
         </div>
+        {% else %}
+        <input type="hidden" name="graphics_quality" value="high">
+        <input type="hidden" name="target_fps" value="60">
+        {% endif %}
 
         <div class="form-group">
-          <label for="gpu_mode">Відеокарта</label>
+          <label for="gpu_mode">Графіка</label>
           <select id="gpu_mode" name="gpu_mode">
-            <option value="auto" selected>Автоматично</option>
+            <option value="auto">Автоматично</option>
+            {% if selected_purpose == "gaming" %}
             <option value="dedicated">Обов’язково дискретна відеокарта</option>
             <option value="integrated">Без дискретної відеокарти</option>
+            {% elif selected_purpose == "creator" %}
+            <option value="dedicated">Дискретна відеокарта</option>
+            <option value="integrated">Тільки вбудована графіка</option>
+            {% else %}
+            <option value="integrated">Тільки вбудована графіка</option>
+            <option value="dedicated">Дискретна відеокарта</option>
+            {% endif %}
           </select>
         </div>
 
         <div class="form-group">
           <label for="cpu_brand">Процесор</label>
           <select id="cpu_brand" name="cpu_brand">
-            <option value="auto" selected>Автоматично</option>
+            <option value="auto">Автоматично</option>
             <option value="amd">Тільки AMD</option>
             <option value="intel">Тільки Intel</option>
           </select>
         </div>
 
-        <div class="form-group" id="gpu-brand-group">
+        {% if selected_purpose in ["gaming", "creator"] %}
+        <div class="form-group">
           <label for="gpu_brand">Бренд відеокарти</label>
           <select id="gpu_brand" name="gpu_brand">
-            <option value="auto" selected>Автоматично</option>
+            <option value="auto">Автоматично</option>
             <option value="amd">Тільки AMD Radeon</option>
             <option value="nvidia">Тільки NVIDIA GeForce</option>
           </select>
         </div>
+        {% else %}
+        <input type="hidden" name="gpu_brand" value="auto">
+        {% endif %}
 
         <div class="form-group">
           <label for="ram_size">Обсяг RAM</label>
           <select id="ram_size" name="ram_size">
-            <option value="auto" selected>Автоматично</option>
+            <option value="auto">Автоматично</option>
+            {% if selected_purpose == "creator" %}
+            <option value="8">8 GB</option>
+            <option value="16">16 GB</option>
+            <option value="32">32 GB</option>
+            <option value="64">64 GB</option>
+            <option value="96">96 GB</option>
+            <option value="128">128 GB</option>
+            <option value="192">192 GB</option>
+            <option value="256">256 GB</option>
+            {% else %}
             <option value="2">2 GB</option>
             <option value="4">4 GB</option>
             <option value="8">8 GB</option>
@@ -420,31 +264,42 @@
             <option value="64">64 GB</option>
             <option value="128">128 GB</option>
             <option value="256">256 GB</option>
+            {% endif %}
           </select>
         </div>
 
         <div class="form-group">
           <label for="ssd_size">Обсяг SSD</label>
           <select id="ssd_size" name="ssd_size">
-            <option value="auto" selected>Автоматично</option>
+            <option value="auto">Автоматично</option>
+            {% if selected_purpose == "creator" %}
+            <option value="256">256 GB</option>
+            <option value="512">512 GB</option>
+            <option value="1000">1 TB</option>
+            <option value="2000">2 TB</option>
+            <option value="4000">4 TB</option>
+            <option value="8000">8 TB</option>
+            {% else %}
             <option value="128">128 GB</option>
             <option value="256">256 GB</option>
             <option value="512">512 GB</option>
             <option value="1000">1 TB</option>
             <option value="2000">2 TB</option>
             <option value="4000">4 TB</option>
+            {% endif %}
           </select>
         </div>
 
         <div class="form-group">
           <label for="memory_platform">Платформа пам’яті</label>
           <select id="memory_platform" name="memory_platform">
-            <option value="auto" selected>Автоматично</option>
+            <option value="auto">Автоматично</option>
             <option value="ddr4">Тільки DDR4</option>
             <option value="ddr5">Тільки DDR5</option>
           </select>
         </div>
 
+        {% if selected_purpose == "gaming" %}
         <div class="form-group">
           <label>Оберіть ігри, під які потрібно зібрати ПК</label>
           <div class="games-grid">
@@ -459,76 +314,38 @@
         </div>
         {% endif %}
 
-        <div class="builder-note-card">
-          <h3>Порада</h3>
-          <p>
-            Для максимально точного результату вкажи сценарій використання та бажані параметри.
-            Бюджет можна задати вручну або доручити системі підібрати його автоматично.
-          </p>
+        <div class="builder-submit-bar">
+          <div class="builder-submit-text">
+            <strong>Готово до підбору конфігурації</strong>
+            <span>Після натискання система згенерує основну рекомендацію та альтернативні варіанти для порівняння.</span>
+          </div>
+          <button type="submit" class="hero-btn builder-btn">Зібрати конфігурацію</button>
         </div>
 
-        <button type="submit" class="hero-btn builder-btn">Зібрати конфігурацію</button>
+        <a href="/choose-purpose" class="back-link">← Назад до вибору типу ПК</a>
       </form>
-
-      <a href="/choose-purpose" class="back-link">← Назад до вибору типу ПК</a>
     </div>
   </section>
 
   <script>
-    const budgetModeSelect = document.getElementById("budget_mode");
-    const budgetInput = document.getElementById("budget");
-    const budgetGroup = document.getElementById("budget-group");
-    const budgetHint = document.getElementById("budget-mode-hint");
-    const budgetMin = budgetInput ? budgetInput.min : "";
-    const budgetMax = budgetInput ? budgetInput.max : "";
+    (function () {
+      const budgetMode = document.getElementById('budget_mode');
+      const budgetGroup = document.getElementById('budgetGroup');
+      const budgetInput = document.getElementById('budget');
 
-    const gpuModeSelect = document.getElementById("gpu_mode");
-    const gpuBrandGroup = document.getElementById("gpu-brand-group");
-    const gpuBrandSelect = document.getElementById("gpu_brand");
-
-    const gpuModeCreatorSelect = document.getElementById("gpu_mode_creator");
-    const gpuBrandCreatorGroup = document.getElementById("gpu-brand-group-creator");
-    const gpuBrandCreatorSelect = document.getElementById("gpu_brand_creator");
-
-    function syncBudgetMode() {
-      if (!budgetModeSelect || !budgetInput || !budgetGroup) return;
-      const isAuto = budgetModeSelect.value === "auto";
-      budgetInput.required = !isAuto;
-      budgetInput.disabled = isAuto;
-      budgetGroup.style.opacity = isAuto ? "0.65" : "1";
-
-      if (budgetHint) {
-        budgetHint.textContent = isAuto
-          ? `У цьому режимі система сама підбере бюджет у межах ${budgetMin}–${budgetMax} грн.`
-          : `У ручному режимі доступний діапазон: ${budgetMin}–${budgetMax} грн.`;
+      if (!budgetMode || !budgetGroup || !budgetInput) {
+        return;
       }
 
-      if (isAuto) {
-        budgetInput.value = "";
+      function syncBudgetMode() {
+        const isAuto = budgetMode.value === 'auto';
+        budgetGroup.hidden = isAuto;
+        budgetInput.disabled = isAuto;
       }
-    }
 
-    function toggleGroup(modeSelect, brandGroup, brandSelect) {
-      if (!modeSelect || !brandGroup || !brandSelect) return;
-      const hide = modeSelect.value === "integrated";
-      brandGroup.style.display = hide ? "none" : "flex";
-      if (hide) brandSelect.value = "auto";
-    }
-
-    if (budgetModeSelect) {
-      budgetModeSelect.addEventListener("change", syncBudgetMode);
+      budgetMode.addEventListener('change', syncBudgetMode);
       syncBudgetMode();
-    }
-
-    if (gpuModeSelect) {
-      gpuModeSelect.addEventListener("change", () => toggleGroup(gpuModeSelect, gpuBrandGroup, gpuBrandSelect));
-      toggleGroup(gpuModeSelect, gpuBrandGroup, gpuBrandSelect);
-    }
-
-    if (gpuModeCreatorSelect) {
-      gpuModeCreatorSelect.addEventListener("change", () => toggleGroup(gpuModeCreatorSelect, gpuBrandCreatorGroup, gpuBrandCreatorSelect));
-      toggleGroup(gpuModeCreatorSelect, gpuBrandCreatorGroup, gpuBrandCreatorSelect);
-    }
+    })();
   </script>
 </body>
 </html>

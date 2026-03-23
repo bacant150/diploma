@@ -83,32 +83,30 @@ def _part_image_path(part_name: str) -> str | None:
     return None
 
 
+def _attach_images_to_parts(parts: Any) -> None:
+    if not isinstance(parts, dict):
+        return
+
+    for part_data in parts.values():
+        if not isinstance(part_data, dict):
+            continue
+        name = part_data.get("name")
+        if name:
+            part_data["image"] = _part_image_path(name)
+            part_data["image_filename"] = f"{_slugify_part_name(name)}.webp"
+
+
 def _attach_part_images(result: dict[str, Any]) -> dict[str, Any]:
-    parts = result.get("parts", {})
-    if isinstance(parts, dict):
-        for part_data in parts.values():
-            if not isinstance(part_data, dict):
-                continue
-            name = part_data.get("name")
-            if name:
-                part_data["image"] = _part_image_path(name)
-                part_data["image_filename"] = f"{_slugify_part_name(name)}.webp"
+    _attach_images_to_parts(result.get("parts", {}))
 
     alternatives = result.get("alternatives", [])
     if isinstance(alternatives, list):
         for alternative in alternatives:
             if not isinstance(alternative, dict):
                 continue
-            alternative_parts = alternative.get("parts", [])
-            if not isinstance(alternative_parts, list):
-                continue
-            for part_data in alternative_parts:
-                if not isinstance(part_data, dict):
-                    continue
-                name = part_data.get("name")
-                if name:
-                    part_data["image"] = _part_image_path(name)
-                    part_data["image_filename"] = f"{_slugify_part_name(name)}.webp"
+            payload = alternative.get("result_payload")
+            if isinstance(payload, dict):
+                _attach_images_to_parts(payload.get("parts", {}))
     return result
 
 
@@ -224,7 +222,7 @@ def _extract_user_inputs(form: Any) -> dict[str, Any]:
         "creator_apps": creator_apps,
         "creator_complexity": _form_str(form, "creator_complexity", "auto"),
         "creator_monitors": _form_str(form, "creator_monitors", "auto"),
-        "priority": _form_str(form, "priority", "auto"),
+        "priority": "auto",
     }
 
     inputs["games_titles"] = [GAMES_DB[g]["title"] for g in games if g in GAMES_DB]

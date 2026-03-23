@@ -37,7 +37,7 @@
         </div>
         <div class="summary-stat-card">
           <span class="summary-stat-label">Рівень збірки</span>
-          <strong>
+          <strong id="summaryTierText">
             {% if result.tier == "budget" %}Бюджетний
             {% elif result.tier == "mid" %}Середній
             {% elif result.tier == "upper" %}Високий
@@ -47,7 +47,7 @@
         </div>
         <div class="summary-stat-card summary-stat-card--accent">
           <span class="summary-stat-label">Загальна вартість</span>
-          <strong>{{ result.total }} грн</strong>
+          <strong id="summaryTotalText">{{ result.total }} грн</strong>
         </div>
       </div>
 
@@ -58,12 +58,18 @@
             <h2>Альтернативні конфігурації</h2>
             <p class="builder-hint">Порівняй кілька варіантів під той самий сценарій: від економнішого до максимально продуктивного.</p>
           </div>
-          <span class="comparison-badge">Детальний склад нижче показано для основної рекомендації</span>
+          <span class="comparison-badge">Натисни на картку, щоб відкрити її повний склад нижче</span>
         </div>
 
         <div class="alternatives-grid">
           {% for alternative in result.alternatives %}
-          <article class="alternative-card{% if alternative.is_primary %} alternative-card--primary{% endif %}">
+          <article
+            class="alternative-card alternative-card--interactive{% if alternative.is_primary %} alternative-card--primary alternative-card--active{% endif %}"
+            data-alt-key="{{ alternative.key }}"
+            role="button"
+            tabindex="0"
+            aria-pressed="{{ 'true' if alternative.is_primary else 'false' }}"
+          >
             <div class="alternative-card-top">
               <div>
                 <div class="alternative-title-row">
@@ -98,6 +104,8 @@
               {% endfor %}
             </ul>
             {% endif %}
+
+            <div class="alternative-open-hint">{% if alternative.is_primary %}Зараз відкрита{% else %}Натисни, щоб відкрити повний склад{% endif %}</div>
           </article>
           {% endfor %}
         </div>
@@ -124,7 +132,6 @@
         </div>
       </div>
 
-
       <div class="result-box">
         <h2>Твої параметри</h2>
         <ul>
@@ -135,13 +142,6 @@
           <li><strong>Режим бюджету:</strong> Вказано вручну</li>
           <li><strong>Бюджет:</strong> {{ inputs.budget }} грн</li>
           {% endif %}
-          <li>
-            <strong>Пріоритет:</strong>
-            {% if inputs.priority == "balanced" %}Збалансовано (ціна / якість)
-            {% elif inputs.priority == "best" %}Максимально найкращий
-            {% else %}Автоматично
-            {% endif %}
-          </li>
           <li>
             <strong>Призначення:</strong>
             {% if inputs.purpose == "gaming" %}Ігровий ПК
@@ -332,53 +332,26 @@
       </div>
 
       <div class="result-box">
-        <h2>Комплектуючі</h2>
-        {% if result.parts %}
-          <div class="parts-grid">
-            {% for k, v in result.parts.items() %}
-              <div class="part-card">
-                {% if v.image %}
-                {# Кнопка відкриває модальне вікно з великим зображенням комплектуючої. #}
-                <button
-                  type="button"
-                  class="part-image-button"
-                  data-part-image="{{ v.image }}"
-                  data-part-name="{{ v.name }}"
-                  aria-label="Відкрити збільшене зображення {{ v.name }}"
-                >
-                  <div class="part-image-wrap">
-                    <img src="{{ v.image }}" alt="{{ v.name }}" class="part-image">
-                  </div>
-                </button>
-                {% endif %}
-                <div class="part-type">{% if k == "CPU" %}Процесор{% elif k == "GPU" %}Відеокарта{% elif k == "Motherboard" %}Материнська плата{% elif k == "RAM" %}Оперативна пам’ять{% elif k == "SSD" %}Накопичувач SSD{% elif k == "PSU" %}Блок живлення{% elif k == "Case" %}Корпус{% else %}{{ k }}{% endif %}</div>
-                <div class="part-model">{{ v.name }}</div>
-                <div class="part-price">{{ v.price }} грн</div>
-              </div>
-            {% endfor %}
+        <div class="result-box-header">
+          <div>
+            <h2>Детальний склад конфігурації</h2>
+            <p class="builder-hint">Нижче показано повний склад активної збірки.</p>
           </div>
-        {% else %}
-          <p>Нічого не підібрано.</p>
-        {% endif %}
+          <span class="comparison-badge" id="activeConfigBadge">Зараз відкрита: рекомендована конфігурація</span>
+        </div>
+        <div class="parts-grid" id="partsGrid"></div>
+        <p id="partsEmpty" hidden>Нічого не підібрано.</p>
       </div>
 
-      {% if result.notes %}
-      <div class="result-box notes-box">
+      <div class="result-box notes-box" id="notesBox" hidden>
         <h2>Примітки</h2>
-        <ul>
-          {% for n in result.notes %}
-            <li>{{ n }}</li>
-          {% endfor %}
-        </ul>
+        <ul id="notesList"></ul>
       </div>
-      {% endif %}
 
       <a href="/choose-purpose" class="back-link">← Назад до вибору типу ПК</a>
     </div>
   </section>
 
-
-  {# Модальне вікно для перегляду збільшеного фото комплектуючої. #}
   <div class="image-modal" id="imageModal" aria-hidden="true">
     <div class="image-modal-backdrop" data-close-image-modal></div>
 
@@ -469,33 +442,205 @@
   </script>
 
   <script>
-    // Перегляд зображення по центру екрана: відкриття по кліку,
-    // закриття по кнопці, кліку на затемнений фон або клавіші Escape.
+    (function () {
+      const resultField = document.querySelector('textarea[name="result_json"]');
+      const partsGrid = document.getElementById('partsGrid');
+      const partsEmpty = document.getElementById('partsEmpty');
+      const notesBox = document.getElementById('notesBox');
+      const notesList = document.getElementById('notesList');
+      const activeConfigBadge = document.getElementById('activeConfigBadge');
+      const summaryTierText = document.getElementById('summaryTierText');
+      const summaryTotalText = document.getElementById('summaryTotalText');
+      const tierTitles = {
+        budget: 'Бюджетний',
+        mid: 'Середній',
+        upper: 'Високий',
+      };
+
+      if (!resultField || !partsGrid || !partsEmpty || !notesBox || !notesList || !activeConfigBadge || !summaryTierText || !summaryTotalText) {
+        return;
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      function humanTier(value) {
+        return tierTitles[value] || value || '—';
+      }
+
+      function buildPrimaryVariant(result) {
+        return {
+          key: 'primary',
+          title: 'Рекомендована конфігурація',
+          is_primary: true,
+          result_payload: {
+            total: result.total ?? 0,
+            tier: result.tier ?? 'unknown',
+            recommended_budget: result.recommended_budget ?? 0,
+            parts: result.parts || {},
+            notes: Array.isArray(result.notes) ? result.notes : [],
+          },
+        };
+      }
+
+      let resultData = {};
+      try {
+        resultData = JSON.parse(resultField.value || '{}');
+      } catch (error) {
+        resultData = {};
+      }
+
+      const variantsRaw = Array.isArray(resultData.alternatives) && resultData.alternatives.length
+        ? resultData.alternatives
+        : [buildPrimaryVariant(resultData)];
+
+      const variants = variantsRaw.map((variant, index) => {
+        const payload = variant.result_payload && typeof variant.result_payload === 'object'
+          ? variant.result_payload
+          : (index === 0 ? buildPrimaryVariant(resultData).result_payload : { total: variant.total ?? 0, tier: variant.tier ?? 'unknown', parts: {}, notes: [] });
+
+        return {
+          ...variant,
+          result_payload: payload,
+        };
+      });
+
+      function renderParts(payload) {
+        partsGrid.innerHTML = '';
+        const labels = {
+          CPU: 'Процесор',
+          GPU: 'Відеокарта',
+          Motherboard: 'Материнська плата',
+          RAM: 'Оперативна пам’ять',
+          SSD: 'Накопичувач SSD',
+          PSU: 'Блок живлення',
+          Case: 'Корпус',
+        };
+
+        const entries = Object.entries(payload?.parts || {});
+        if (!entries.length) {
+          partsEmpty.hidden = false;
+          return;
+        }
+
+        partsEmpty.hidden = true;
+
+        entries.forEach(([key, value]) => {
+          const imageHtml = value.image ? `
+            <button
+              type="button"
+              class="part-image-button"
+              data-part-image="${escapeHtml(value.image)}"
+              data-part-name="${escapeHtml(value.name)}"
+              aria-label="Відкрити збільшене зображення ${escapeHtml(value.name)}"
+            >
+              <div class="part-image-wrap">
+                <img src="${escapeHtml(value.image)}" alt="${escapeHtml(value.name)}" class="part-image">
+              </div>
+            </button>
+          ` : '';
+
+          const card = document.createElement('div');
+          card.className = 'part-card';
+          card.innerHTML = `
+            ${imageHtml}
+            <div class="part-type">${escapeHtml(labels[key] || key)}</div>
+            <div class="part-model">${escapeHtml(value.name)}</div>
+            <div class="part-price">${escapeHtml(value.price)} грн</div>
+          `;
+          partsGrid.appendChild(card);
+        });
+      }
+
+      function renderNotes(payload) {
+        notesList.innerHTML = '';
+        const notes = Array.isArray(payload?.notes) ? payload.notes : [];
+        if (!notes.length) {
+          notesBox.hidden = true;
+          return;
+        }
+
+        notes.forEach((note) => {
+          const li = document.createElement('li');
+          li.textContent = note;
+          notesList.appendChild(li);
+        });
+        notesBox.hidden = false;
+      }
+
+      function syncActiveCard(activeKey) {
+        document.querySelectorAll('[data-alt-key]').forEach((card) => {
+          const isActive = card.dataset.altKey === activeKey;
+          card.classList.toggle('alternative-card--active', isActive);
+          card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+          const hint = card.querySelector('.alternative-open-hint');
+          if (hint) {
+            hint.textContent = isActive ? 'Зараз відкрита' : 'Натисни, щоб відкрити повний склад';
+          }
+        });
+      }
+
+      function activateVariant(key) {
+        const activeVariant = variants.find((item) => item.key === key) || variants[0];
+        if (!activeVariant) {
+          return;
+        }
+
+        const payload = activeVariant.result_payload || {};
+        summaryTierText.textContent = humanTier(payload.tier || activeVariant.tier);
+        summaryTotalText.textContent = `${payload.total ?? activeVariant.total ?? 0} грн`;
+        activeConfigBadge.textContent = `Зараз відкрита: ${activeVariant.title || 'Конфігурація'}`;
+        renderParts(payload);
+        renderNotes(payload);
+        syncActiveCard(activeVariant.key);
+      }
+
+      document.querySelectorAll('[data-alt-key]').forEach((card) => {
+        const activate = () => activateVariant(card.dataset.altKey);
+        card.addEventListener('click', activate);
+        card.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            activate();
+          }
+        });
+      });
+
+      const initialKey = (variants.find((item) => item.is_primary) || variants[0] || {}).key;
+      if (initialKey) {
+        activateVariant(initialKey);
+      }
+    })();
+  </script>
+
+  <script>
     (function () {
       const modal = document.getElementById('imageModal');
       const preview = document.getElementById('imageModalPreview');
       const title = document.getElementById('imageModalTitle');
       const closeButton = document.getElementById('imageModalClose');
-      const triggers = document.querySelectorAll('[data-part-image]');
       const backdrop = modal ? modal.querySelector('[data-close-image-modal]') : null;
-
-      if (!modal || !preview || !title || !closeButton || !triggers.length) {
-        return;
-      }
-
       let lastFocusedElement = null;
       let closeTimer = null;
       const MODAL_ANIMATION_MS = 260;
 
-      function openImageModal(imageSrc, imageName) {
-        // Якщо попереднє закриття ще анімується — скасовуємо очищення,
-        // щоб нове зображення відкрилося плавно без мерехтіння.
+      if (!modal || !preview || !title || !closeButton) {
+        return;
+      }
+
+      function openImageModal(imageSrc, imageName, trigger) {
         if (closeTimer) {
           window.clearTimeout(closeTimer);
           closeTimer = null;
         }
 
-        lastFocusedElement = document.activeElement;
+        lastFocusedElement = trigger || document.activeElement;
         preview.src = imageSrc;
         preview.alt = imageName;
         title.textContent = imageName;
@@ -512,7 +657,6 @@
         modal.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('modal-open');
 
-        // Чекаємо завершення анімації, і лише потім очищаємо вміст модалки.
         closeTimer = window.setTimeout(function () {
           preview.src = '';
           preview.alt = '';
@@ -525,10 +669,13 @@
         }, MODAL_ANIMATION_MS);
       }
 
-      triggers.forEach((trigger) => {
-        trigger.addEventListener('click', function () {
-          openImageModal(this.dataset.partImage, this.dataset.partName || 'Зображення комплектуючої');
-        });
+      document.addEventListener('click', function (event) {
+        const trigger = event.target.closest('[data-part-image]');
+        if (!trigger) {
+          return;
+        }
+
+        openImageModal(trigger.dataset.partImage, trigger.dataset.partName || 'Зображення комплектуючої', trigger);
       });
 
       closeButton.addEventListener('click', closeImageModal);
@@ -543,6 +690,5 @@
       });
     })();
   </script>
-
 </body>
 </html>

@@ -59,21 +59,27 @@
           <ul id="inputsList"></ul>
         </div>
 
-        <div class="result-box">
-          <h2>Комплектуючі</h2>
-          <div class="parts-grid" id="partsGrid"></div>
-          <p id="partsEmpty" hidden>Нічого не підібрано.</p>
-        </div>
-
         <div class="result-box" id="alternativesBox" hidden>
           <div class="result-box-header">
             <div>
               <h2>Альтернативні конфігурації</h2>
               <p class="builder-hint">Збережена збірка також містить варіанти для порівняння.</p>
             </div>
-            <span class="comparison-badge">Повний склад показано для основної рекомендації</span>
+            <span class="comparison-badge">Натисни на картку, щоб відкрити її повний склад нижче</span>
           </div>
           <div class="alternatives-grid" id="alternativesGrid"></div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-box-header">
+            <div>
+              <h2>Детальний склад конфігурації</h2>
+              <p class="builder-hint">Нижче показано повний склад активної збірки.</p>
+            </div>
+            <span class="comparison-badge" id="activeConfigBadge">Зараз відкрита: рекомендована конфігурація</span>
+          </div>
+          <div class="parts-grid" id="partsGrid"></div>
+          <p id="partsEmpty" hidden>Нічого не підібрано.</p>
         </div>
 
         <div class="result-box notes-box" id="notesBox" hidden>
@@ -85,7 +91,6 @@
       </div>
     </div>
   </section>
-
 
   <div class="image-modal" id="imageModal" aria-hidden="true">
     <div class="image-modal-backdrop" data-close-image-modal></div>
@@ -146,14 +151,6 @@
 
     function formatTier(value) {
       return TIER_TITLES[value] || value || '—';
-    }
-
-    function humanPriority(value) {
-      return value === 'balanced'
-        ? 'Збалансовано (ціна / якість)'
-        : value === 'best'
-          ? 'Максимально найкращий'
-          : 'Автоматично';
     }
 
     function humanGpuMode(value) {
@@ -218,18 +215,18 @@
         pushItem(list, 'Режим бюджету', 'Автоматичний підбір');
         pushItem(list, 'Рекомендований бюджет', `${result.recommended_budget ?? '—'} грн`);
       } else {
+        pushItem(list, 'Режим бюджету', 'Вказано вручну');
         pushItem(list, 'Бюджет', `${inputs.budget ?? '—'} грн`);
       }
 
-      pushItem(list, 'Пріоритет', humanPriority(inputs.priority));
       pushItem(list, 'Призначення', formatPurpose(inputs.purpose));
-      pushItem(list, 'Роздільна здатність', inputs.resolution || '—');
+      pushItem(list, 'Роздільна здатність', inputs.resolution || '1080p');
       pushItem(list, 'Wi-Fi', inputs.wifi ? 'Так' : 'Ні');
 
       if (inputs.purpose === 'gaming') {
         pushItem(list, 'Налаштування графіки', humanGraphicsQuality(inputs.graphics_quality));
         pushItem(list, 'Бажаний FPS', inputs.target_fps ?? '—');
-        pushItem(list, 'Відеокарта', inputs.gpu_mode === 'dedicated' ? 'Обов’язково дискретна' : inputs.gpu_mode === 'integrated' ? 'Без дискретної відеокарти' : 'Автоматично');
+        pushItem(list, 'Відеокарта', humanGpuMode(inputs.gpu_mode));
         pushItem(list, 'Процесор', humanCpuBrand(inputs.cpu_brand));
         if (inputs.gpu_mode !== 'integrated') pushItem(list, 'Бренд відеокарти', humanGpuBrand(inputs.gpu_brand));
         pushItem(list, 'Обсяг ОЗП', inputs.ram_size === 'auto' ? 'Автоматично' : `${inputs.ram_size} ГБ`);
@@ -273,7 +270,7 @@
       }
     }
 
-    function renderParts(result) {
+    function renderParts(payload) {
       const grid = document.getElementById('partsGrid');
       const empty = document.getElementById('partsEmpty');
       grid.innerHTML = '';
@@ -288,7 +285,7 @@
         Case: 'Корпус',
       };
 
-      const entries = Object.entries(result.parts || {});
+      const entries = Object.entries(payload.parts || {});
       if (!entries.length) {
         empty.hidden = false;
         return;
@@ -323,19 +320,106 @@
       });
     }
 
+    function renderNotes(payload) {
+      const box = document.getElementById('notesBox');
+      const list = document.getElementById('notesList');
+      list.innerHTML = '';
+
+      if (!payload.notes || !payload.notes.length) {
+        box.hidden = true;
+        return;
+      }
+
+      box.hidden = false;
+      payload.notes.forEach((note) => {
+        const li = document.createElement('li');
+        li.textContent = note;
+        list.appendChild(li);
+      });
+    }
+
+    function primaryVariantFromResult(result) {
+      return {
+        key: 'primary',
+        title: 'Рекомендована конфігурація',
+        is_primary: true,
+        total: result.total ?? 0,
+        tier: result.tier ?? 'unknown',
+        tier_title: formatTier(result.tier),
+        requested_budget: result.recommended_budget ?? result.total ?? 0,
+        priority_title: 'Автоматичний підбір',
+        delta_text: 'Базова рекомендація системи',
+        description: 'Основна рекомендація системи.',
+        result_payload: {
+          total: result.total ?? 0,
+          tier: result.tier ?? 'unknown',
+          recommended_budget: result.recommended_budget ?? 0,
+          parts: result.parts || {},
+          notes: Array.isArray(result.notes) ? result.notes : [],
+        },
+      };
+    }
+
+    function normalizeVariants(result) {
+      const variants = Array.isArray(result.alternatives) && result.alternatives.length
+        ? result.alternatives.map((variant, index) => ({
+            ...variant,
+            result_payload: variant.result_payload && typeof variant.result_payload === 'object'
+              ? variant.result_payload
+              : (index === 0 ? primaryVariantFromResult(result).result_payload : { total: variant.total ?? 0, tier: variant.tier ?? 'unknown', parts: {}, notes: [] }),
+          }))
+        : [primaryVariantFromResult(result)];
+      return variants;
+    }
+
+    let currentVariants = [];
+
+    function syncActiveCard(activeKey) {
+      document.querySelectorAll('[data-alt-key]').forEach((card) => {
+        const isActive = card.dataset.altKey === activeKey;
+        card.classList.toggle('alternative-card--active', isActive);
+        card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        const hint = card.querySelector('.alternative-open-hint');
+        if (hint) {
+          hint.textContent = isActive ? 'Зараз відкрита' : 'Натисни, щоб відкрити повний склад';
+        }
+      });
+    }
+
+    function activateVariant(key) {
+      const variant = currentVariants.find((item) => item.key === key) || currentVariants[0];
+      if (!variant) {
+        return;
+      }
+
+      const payload = variant.result_payload || {};
+      document.getElementById('summaryTier').textContent = formatTier(payload.tier || variant.tier);
+      document.getElementById('summaryTotal').textContent = `${payload.total ?? variant.total ?? 0} грн`;
+      document.getElementById('activeConfigBadge').textContent = `Зараз відкрита: ${variant.title || 'Конфігурація'}`;
+      renderParts(payload);
+      renderNotes(payload);
+      syncActiveCard(variant.key);
+    }
+
     function renderAlternatives(result) {
       const box = document.getElementById('alternativesBox');
       const grid = document.getElementById('alternativesGrid');
       grid.innerHTML = '';
 
-      if (!Array.isArray(result.alternatives) || result.alternatives.length < 2) {
+      currentVariants = normalizeVariants(result);
+
+      if (currentVariants.length < 2) {
         box.hidden = true;
         return;
       }
 
-      result.alternatives.forEach((alternative) => {
+      currentVariants.forEach((alternative) => {
         const article = document.createElement('article');
-        article.className = `alternative-card${alternative.is_primary ? ' alternative-card--primary' : ''}`;
+        article.className = `alternative-card alternative-card--interactive${alternative.is_primary ? ' alternative-card--primary alternative-card--active' : ''}`;
+        article.dataset.altKey = alternative.key;
+        article.setAttribute('role', 'button');
+        article.setAttribute('tabindex', '0');
+        article.setAttribute('aria-pressed', alternative.is_primary ? 'true' : 'false');
 
         const parts = Array.isArray(alternative.parts_excerpt)
           ? alternative.parts_excerpt.map((item) => `<li><strong>${escapeHtml(item.label)}:</strong> ${escapeHtml(item.name)}</li>`).join('')
@@ -366,30 +450,22 @@
           <div class="alternative-delta">${escapeHtml(alternative.delta_text || '')}</div>
           ${parts ? `<ul class="alternative-parts-list">${parts}</ul>` : ''}
           ${notes ? `<ul class="alternative-notes">${notes}</ul>` : ''}
+          <div class="alternative-open-hint">${alternative.is_primary ? 'Зараз відкрита' : 'Натисни, щоб відкрити повний склад'}</div>
         `;
+
+        const activate = () => activateVariant(alternative.key);
+        article.addEventListener('click', activate);
+        article.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            activate();
+          }
+        });
 
         grid.appendChild(article);
       });
 
       box.hidden = false;
-    }
-
-    function renderNotes(result) {
-      const box = document.getElementById('notesBox');
-      const list = document.getElementById('notesList');
-      list.innerHTML = '';
-
-      if (!result.notes || !result.notes.length) {
-        box.hidden = true;
-        return;
-      }
-
-      box.hidden = false;
-      result.notes.forEach((note) => {
-        const li = document.createElement('li');
-        li.textContent = note;
-        list.appendChild(li);
-      });
     }
 
     function renderBuild() {
@@ -404,13 +480,18 @@
       document.getElementById('buildContent').hidden = false;
       document.getElementById('savedBuildName').textContent = build.name;
       document.getElementById('summaryPurpose').textContent = formatPurpose(build.inputs?.purpose);
-      document.getElementById('summaryTier').textContent = formatTier(build.result?.tier);
-      document.getElementById('summaryTotal').textContent = `${build.result?.total ?? 0} грн`;
 
       renderInputs(build.inputs || {}, build.result || {});
-      renderParts(build.result || {});
       renderAlternatives(build.result || {});
-      renderNotes(build.result || {});
+
+      if (!currentVariants.length) {
+        currentVariants = [primaryVariantFromResult(build.result || {})];
+      }
+
+      const initialVariant = currentVariants.find((item) => item.is_primary) || currentVariants[0];
+      if (initialVariant) {
+        activateVariant(initialVariant.key);
+      }
     }
 
     renderBuild();
