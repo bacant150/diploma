@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Обрати тип ПК</title>
+  <title>Почати підбір ПК</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -19,63 +19,349 @@
   </header>
 
   <section class="pc-types-page">
-    <div class="pc-types-shell">
-      <h1 class="pc-types-title">Оберіть тип комп’ютера</h1>
+    <div class="pc-types-shell purpose-flow-shell">
+      <div class="section-eyebrow">Старт підбору</div>
+      <h1 class="pc-types-title">Обери, як хочеш розпочати підбір</h1>
       <p class="pc-types-subtitle">
-        Спочатку вибери сценарій використання, а далі система відкриє відповідний конфігуратор з потрібними параметрами.
+        У тебе є два шляхи: самостійно обрати тип ПК або дати системі визначити його автоматично
+        за допомогою локальної ML-моделі.
       </p>
 
-      <div class="quick-benefits">
-        <div class="quick-benefit-card">
-          <strong>Швидкий старт</strong>
-          <span>У кожного режиму вже є своя логіка підбору.</span>
-        </div>
-        <div class="quick-benefit-card">
-          <strong>Гнучкі фільтри</strong>
-          <span>Можна задати бюджет, бренди, пам’ять і тип графіки.</span>
-        </div>
-        <div class="quick-benefit-card">
-          <strong>Зрозумілий результат</strong>
-          <span>Після підбору ти одразу бачиш комплектуючі та підсумкову вартість.</span>
-        </div>
+      <div class="choice-methods-grid">
+        <button type="button" class="choice-method-card" data-target="manual-panel">
+          <span class="choice-method-badge">1</span>
+          <div class="choice-method-content">
+            <h2>Вибрати вручну</h2>
+            <p>
+              Самостійно обери сценарій: ігровий, офісний, навчальний або ПК для монтажу / 3D.
+            </p>
+            <span class="choice-method-link">Відкрити ручний вибір</span>
+          </div>
+        </button>
+
+        <button type="button" class="choice-method-card" data-target="ai-panel">
+          <span class="choice-method-badge">AI</span>
+          <div class="choice-method-content">
+            <h2>Нехай система визначить за тебе</h2>
+            <p>
+              Опиши свої потреби вільним текстом, а локальна ML-модель визначить найбільш підходящий тип ПК.
+            </p>
+            <span class="choice-method-link">Запустити AI-визначення</span>
+          </div>
+        </button>
       </div>
 
-      <div class="pc-types-grid">
-        <a href="/builder/gaming" class="pc-type-card">
-          <img src="/static/images/purpose-gaming.webp" alt="Ігровий ПК" class="pc-type-card-image">
-          <div class="pc-type-card-body">
-            <div class="pc-type-card-button">Ігровий ПК</div>
-            <p>Потужна система для сучасних ігор, потрібного FPS і конкретних графічних налаштувань.</p>
+      <div class="choice-panels">
+        <section id="choice-empty-state" class="choice-empty-state">
+          <div>
+            <h2>Спочатку обери шлях підбору</h2>
+            <p>
+              Після вибору система або покаже картки сценаріїв для ручного запуску, або запропонує
+              розумне AI-визначення на основі твого текстового опису.
+            </p>
           </div>
-        </a>
+          <div class="choice-empty-state-tips">
+            <div class="choice-empty-tip">Ручний режим — коли ти вже знаєш, який тип ПК тобі потрібен.</div>
+            <div class="choice-empty-tip">AI-режим — коли хочеш описати задачі простими словами й отримати підказку автоматично.</div>
+          </div>
+        </section>
 
-        <a href="/builder/office" class="pc-type-card">
-          <img src="/static/images/purpose-office.webp" alt="Офісний ПК" class="pc-type-card-image">
-          <div class="pc-type-card-body">
-            <div class="pc-type-card-button">Офісний ПК</div>
-            <p>Стабільний ПК для документів, браузера, багатозадачності, пошти та робочих застосунків.</p>
+        <section id="manual-panel" class="choice-panel" hidden>
+          <div class="choice-panel-toolbar">
+            <button type="button" class="choice-panel-close" data-close-panel>Повернутись до вибору способу</button>
           </div>
-        </a>
 
-        <a href="/builder/study" class="pc-type-card">
-          <img src="/static/images/purpose-study.webp" alt="ПК для навчання" class="pc-type-card-image">
-          <div class="pc-type-card-body">
-            <div class="pc-type-card-button">ПК для навчання</div>
-            <p>Універсальна система для навчання, Zoom, програмування, презентацій і щоденного використання.</p>
+          <div class="choice-panel-head">
+            <h2>Ручний вибір типу ПК</h2>
+            <p>Обери сценарій використання, і система відкриє відповідний конфігуратор з потрібними параметрами.</p>
           </div>
-        </a>
 
-        <a href="/builder/creator" class="pc-type-card">
-          <img src="/static/images/purpose-creator.webp" alt="ПК для монтажу / 3D" class="pc-type-card-image">
-          <div class="pc-type-card-body">
-            <div class="pc-type-card-button">ПК для монтажу / 3D</div>
-            <p>Продуктивна конфігурація для монтажу відео, графіки, 3D-моделювання та рендерингу.</p>
+          <div class="pc-types-grid">
+            <a href="/builder/gaming" class="pc-type-card">
+              <img src="/static/images/purpose-gaming.webp" alt="Ігровий ПК" class="pc-type-card-image">
+              <div class="pc-type-card-body">
+                <div class="pc-type-card-button">Ігровий ПК</div>
+                <p>Потужна система для сучасних ігор, потрібного FPS і конкретних графічних налаштувань.</p>
+              </div>
+            </a>
+
+            <a href="/builder/office" class="pc-type-card">
+              <img src="/static/images/purpose-office.webp" alt="Офісний ПК" class="pc-type-card-image">
+              <div class="pc-type-card-body">
+                <div class="pc-type-card-button">Офісний ПК</div>
+                <p>Стабільний ПК для документів, браузера, багатозадачності, пошти та робочих застосунків.</p>
+              </div>
+            </a>
+
+            <a href="/builder/study" class="pc-type-card">
+              <img src="/static/images/purpose-study.webp" alt="ПК для навчання" class="pc-type-card-image">
+              <div class="pc-type-card-body">
+                <div class="pc-type-card-button">ПК для навчання</div>
+                <p>Універсальна система для навчання, Zoom, програмування, презентацій і щоденного використання.</p>
+              </div>
+            </a>
+
+            <a href="/builder/creator" class="pc-type-card">
+              <img src="/static/images/purpose-creator.webp" alt="ПК для монтажу / 3D" class="pc-type-card-image">
+              <div class="pc-type-card-body">
+                <div class="pc-type-card-button">ПК для монтажу / 3D</div>
+                <p>Продуктивна конфігурація для монтажу відео, графіки, 3D-моделювання та рендерингу.</p>
+              </div>
+            </a>
           </div>
-        </a>
+        </section>
+
+        <section id="ai-panel" class="choice-panel choice-panel--ai" hidden>
+          <div class="choice-panel-toolbar">
+            <button type="button" class="choice-panel-close" data-close-panel>Повернутись до вибору способу</button>
+          </div>
+
+          <div class="choice-panel-head">
+            <h2>Автоматичне визначення за допомогою ШІ</h2>
+            <p>
+              Якщо рівень впевненості ШІ становить <strong>{{ ai_threshold_percent }}% або більше</strong>,
+              система одразу відкриє потрібний конфігуратор. Якщо впевненість нижча — попросить описати потреби конкретніше.
+            </p>
+          </div>
+
+          <div class="ai-panel-grid">
+            <aside class="ai-panel-aside">
+              <span class="ai-panel-kicker">Локальна ML-модель</span>
+              <h3>Опиши задачі простими словами</h3>
+              <p>
+                Просто напиши, для чого потрібен комп'ютер: ігри, бухгалтерія, навчання, програмування,
+                монтаж відео, Blender, Photoshop, AutoCAD або будь-які інші задачі.
+              </p>
+              <ul class="ai-feature-list">
+                <li>Висока впевненість — автоматичний перехід у потрібний конфігуратор.</li>
+                <li>Низька впевненість — система підкаже, що треба описати запит конкретніше.</li>
+                <li>Працює локально без зовнішніх API.</li>
+              </ul>
+            </aside>
+
+            <div class="ai-purpose-box ai-purpose-box--standalone">
+              <div class="ai-purpose-box-header">
+                <div>
+                  <h3>Інтелектуальне визначення типу ПК</h3>
+                  <p>
+                    Приклади: «Потрібен ПК для Dota 2 і CS2», «Комп'ютер для Word, Excel і M.E.Doc»,
+                    «ПК для Blender, Premiere Pro і рендеру сцен».
+                  </p>
+                </div>
+                <div class="ai-purpose-badge">ML</div>
+              </div>
+
+              <form id="aiPurposeForm" action="/detect-purpose" method="post" class="ai-purpose-form" novalidate>
+                <label for="description">Опис потреб користувача</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  rows="6"
+                  placeholder="Наприклад: потрібен ПК для CS2, Dota 2 і високого FPS&#10;або: комп'ютер для Excel, M.E.Doc, браузера і документів"
+                  required
+                ></textarea>
+
+                <div class="ai-purpose-actions">
+                  <button type="submit" id="aiSubmitBtn" class="hero-btn builder-btn">Визначити автоматично</button>
+                  <button type="button" id="aiClearBtn" class="topbar-link-btn">Очистити</button>
+                </div>
+              </form>
+
+              <div class="ai-examples-title">Швидкі приклади</div>
+              <div class="ai-examples-strip">
+                <button type="button" class="ai-example-chip" data-example="Потрібен ПК для Dota 2, CS2 і високого FPS">Dota 2 / CS2</button>
+                <button type="button" class="ai-example-chip" data-example="Потрібен комп'ютер для Word, Excel, M.E.Doc і браузера">Word / Excel / M.E.Doc</button>
+                <button type="button" class="ai-example-chip" data-example="Потрібен ПК для Zoom, Python, VS Code і навчання">Zoom / Python / VS Code</button>
+                <button type="button" class="ai-example-chip" data-example="Потрібен комп'ютер для Blender, Premiere Pro і 3D-рендеру">Blender / Premiere / 3D</button>
+              </div>
+
+              <div id="aiDetectionResult" class="ai-detection-result" hidden></div>
+            </div>
+          </div>
+        </section>
       </div>
 
       <a href="/" class="back-link pc-types-back">← Назад на головну</a>
     </div>
   </section>
+
+  <script>
+    (function () {
+      const cards = Array.from(document.querySelectorAll('.choice-method-card'));
+      const panels = Array.from(document.querySelectorAll('.choice-panel'));
+      const emptyState = document.getElementById('choice-empty-state');
+      const closeButtons = Array.from(document.querySelectorAll('[data-close-panel]'));
+      const form = document.getElementById('aiPurposeForm');
+      const textarea = document.getElementById('description');
+      const clearBtn = document.getElementById('aiClearBtn');
+      const submitBtn = document.getElementById('aiSubmitBtn');
+      const resultBox = document.getElementById('aiDetectionResult');
+      const exampleButtons = Array.from(document.querySelectorAll('.ai-example-chip'));
+      const threshold = {{ ai_threshold_percent }};
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      function renderTips(tips) {
+        if (!Array.isArray(tips) || !tips.length) return '';
+        return `<ul class="ai-result-tips">${tips.map((tip) => `<li>${escapeHtml(tip)}</li>`).join('')}</ul>`;
+      }
+
+      function renderAlternatives(items) {
+        if (!Array.isArray(items) || !items.length) return '';
+        const secondary = items.slice(1, 3);
+        if (!secondary.length) return '';
+        return `<div class="ai-result-alt-grid">${secondary.map((item) => `<span class="ai-result-alt-chip">${escapeHtml(item.purpose)} — ${escapeHtml(item.confidence)}%</span>`).join('')}</div>`;
+      }
+
+      function renderKeywords(data) {
+        if (!data || typeof data !== 'object') return '';
+        const entries = Object.entries(data).filter(([, values]) => Array.isArray(values) && values.length);
+        if (!entries.length) return '';
+        const flat = entries.flatMap(([, values]) => values).slice(0, 6);
+        if (!flat.length) return '';
+        return `<div class="ai-keywords-row"><strong>Виявлені ознаки:</strong> ${flat.map(escapeHtml).join(', ')}</div>`;
+      }
+
+      function showResult(html, variant) {
+        resultBox.hidden = false;
+        resultBox.className = `ai-detection-result ai-detection-result--${variant}`;
+        resultBox.innerHTML = html;
+      }
+
+      function resetPanels() {
+        cards.forEach((card) => card.classList.remove('is-active'));
+        panels.forEach((panel) => {
+          panel.hidden = true;
+        });
+        emptyState.hidden = false;
+      }
+
+      function activatePanel(targetId) {
+        cards.forEach((card) => {
+          card.classList.toggle('is-active', card.dataset.target === targetId);
+        });
+
+        panels.forEach((panel) => {
+          panel.hidden = panel.id !== targetId;
+        });
+
+        emptyState.hidden = true;
+
+        const targetPanel = document.getElementById(targetId);
+        if (targetPanel) {
+          targetPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        if (targetId === 'ai-panel') {
+          setTimeout(() => textarea.focus(), 250);
+        }
+      }
+
+      cards.forEach((card) => {
+        card.addEventListener('click', () => activatePanel(card.dataset.target));
+      });
+
+      closeButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          resetPanels();
+          emptyState.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      exampleButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const value = button.dataset.example || '';
+          textarea.value = value;
+          textarea.focus();
+        });
+      });
+
+      clearBtn.addEventListener('click', () => {
+        textarea.value = '';
+        resultBox.hidden = true;
+        resultBox.innerHTML = '';
+        textarea.focus();
+      });
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const description = textarea.value.trim();
+        if (!description) {
+          showResult(`
+            <div class="ai-result-kicker">Недостатньо даних</div>
+            <h3>Опиши, для чого потрібен ПК</h3>
+            <p>Напиши кількома словами або реченням, для яких ігор, програм або задач потрібен комп'ютер.</p>
+          `, 'warning');
+          textarea.focus();
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Аналізуємо...';
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'X-Requested-With': 'fetch'
+            }
+          });
+
+          const data = await response.json();
+
+          if (data.accepted && data.redirect_url) {
+            showResult(`
+              <div class="ai-result-kicker">ШІ впевнено визначив сценарій</div>
+              <h3>${escapeHtml(data.purpose_title)}</h3>
+              <p class="ai-result-meta">Рівень впевненості: <strong>${escapeHtml(data.confidence_percent)}%</strong></p>
+              <p>${escapeHtml(data.message)}</p>
+              ${renderKeywords(data.matched_keywords)}
+              ${renderAlternatives(data.alternatives)}
+              <div class="ai-auto-redirect-note">Переходимо до конфігуратора...</div>
+            `, 'success');
+
+            window.setTimeout(() => {
+              window.location.href = data.redirect_url;
+            }, 500);
+            return;
+          }
+
+          const title = data.purpose_title ? escapeHtml(data.purpose_title) : 'ШІ поки не впевнений';
+          showResult(`
+            <div class="ai-result-kicker">Потрібно більше конкретики</div>
+            <h3>${title}</h3>
+            <p class="ai-result-meta">Поточна впевненість: <strong>${escapeHtml(data.confidence_percent ?? 0)}%</strong> із потрібних <strong>${threshold}%</strong></p>
+            <p>${escapeHtml(data.message || 'Напиши конкретніше, для чого потрібен ПК.')}</p>
+            ${renderKeywords(data.matched_keywords)}
+            ${renderAlternatives(data.alternatives)}
+            ${renderTips(data.tips)}
+          `, 'warning');
+
+          textarea.focus();
+        } catch (error) {
+          showResult(`
+            <div class="ai-result-kicker">Сталася помилка</div>
+            <h3>Не вдалося виконати AI-визначення</h3>
+            <p>Спробуй ще раз або обери тип ПК вручну.</p>
+          `, 'error');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Визначити автоматично';
+        }
+      });
+
+      resetPanels();
+    })();
+  </script>
 </body>
 </html>

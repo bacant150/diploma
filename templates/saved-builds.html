@@ -27,6 +27,8 @@
         перейменувати або видалити.
       </p>
 
+      <div id="statusMessage" class="status-message" hidden></div>
+
       <div id="savedBuildsContainer" class="saved-builds-grid"></div>
 
       <div id="emptyState" class="empty-state" hidden>
@@ -50,12 +52,6 @@
       budget: 'Бюджетний',
       mid: 'Середній',
       upper: 'Високий',
-    };
-
-    const STATUS_MESSAGES = {
-      saved: 'Збірку успішно збережено.',
-      renamed: 'Назву збірки оновлено.',
-      deleted: 'Збірку видалено.',
     };
 
     function escapeHtml(value) {
@@ -101,21 +97,6 @@
       statusBox.hidden = false;
     }
 
-    function showStatusFromQuery() {
-      const params = new URLSearchParams(window.location.search);
-      const status = params.get('status');
-      const message = STATUS_MESSAGES[status];
-      if (!message) {
-        return;
-      }
-
-      showStatus(message);
-      params.delete('status');
-      const query = params.toString();
-      const nextUrl = `${window.location.pathname}${query ? `?${query}` : ''}`;
-      window.history.replaceState({}, '', nextUrl);
-    }
-
     function openBuild(id) {
       window.location.href = `/saved-builds/view?id=${encodeURIComponent(id)}`;
     }
@@ -133,13 +114,15 @@
       const build = builds.find((item) => item.id === id);
       if (!build) {
         alert('Збірку не знайдено.');
-        renderSavedBuilds();
+        showStatusFromQuery();
+    renderSavedBuilds();
         return;
       }
 
       build.name = newName.slice(0, 120);
       setSavedBuilds(builds);
-      renderSavedBuilds();
+      showStatusFromQuery();
+    renderSavedBuilds();
       showStatus('Назву збірки оновлено.');
     }
 
@@ -150,8 +133,27 @@
 
       const builds = getSavedBuilds().filter((item) => item.id !== id);
       setSavedBuilds(builds);
-      renderSavedBuilds();
+      showStatusFromQuery();
+    renderSavedBuilds();
       showStatus('Збірку видалено.');
+    }
+
+
+    const STATUS_MESSAGES = {
+      saved: 'Збірку успішно збережено.',
+      renamed: 'Назву збірки оновлено.',
+      deleted: 'Збірку видалено.',
+    };
+
+    function showStatusFromQuery() {
+      const statusKey = new URLSearchParams(window.location.search).get('status');
+      const statusMessage = document.getElementById('statusMessage');
+      if (!statusKey || !statusMessage || !STATUS_MESSAGES[statusKey]) return;
+      statusMessage.textContent = STATUS_MESSAGES[statusKey];
+      statusMessage.hidden = false;
+      const url = new URL(window.location.href);
+      url.searchParams.delete('status');
+      window.history.replaceState({}, '', url.pathname + url.search);
     }
 
     function renderSavedBuilds() {
@@ -213,8 +215,8 @@
       });
     }
 
-    renderSavedBuilds();
     showStatusFromQuery();
+    renderSavedBuilds();
   </script>
 </body>
 </html>
