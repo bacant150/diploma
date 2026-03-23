@@ -3,15 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Підсумок конфігурації</title>
+  <title>Збережена збірка</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
   <header class="topbar">
     <div class="container topbar-nav">
-      <a href="/" class="logo-link">
-        <div class="logo">PCColl</div>
-      </a>
+      <a href="/" class="logo-link"><div class="logo">PCColl</div></a>
       <div class="topbar-actions">
         <a href="/saved-builds" class="topbar-link-btn">Збережені збірки</a>
       </div>
@@ -21,7 +19,7 @@
   <section class="result-page">
     <div class="result-card">
       <div class="section-eyebrow">Підсумок конфігурації</div>
-      <h1>Результат збірки</h1>
+      <h1>Збережена збірка</h1>
 
       <div id="buildNotFound" class="result-box" hidden>
         <h2>Збірку не знайдено</h2>
@@ -54,32 +52,32 @@
           </div>
         </div>
 
-        <div class="result-box">
-          <h2>Твої параметри</h2>
-          <ul id="inputsList"></ul>
-        </div>
-
         <div class="result-box" id="alternativesBox" hidden>
           <div class="result-box-header">
             <div>
               <h2>Альтернативні конфігурації</h2>
-              <p class="builder-hint">Збережена збірка також містить варіанти для порівняння.</p>
+              <p class="builder-hint">Відкрий будь-який варіант, щоб переглянути його повний склад нижче.</p>
             </div>
-            <span class="comparison-badge">Натисни на картку, щоб відкрити її повний склад нижче</span>
+            <span class="comparison-badge">Для основної збірки показано опис усіх компонентів, для інших — лише змінених</span>
           </div>
           <div class="alternatives-grid" id="alternativesGrid"></div>
         </div>
 
         <div class="result-box">
-          <div class="result-box-header">
+          <h2>Твої параметри</h2>
+          <ul id="inputsList"></ul>
+        </div>
+
+        <div class="result-box">
+          <div class="detail-header">
             <div>
-              <h2>Детальний склад конфігурації</h2>
-              <p class="builder-hint">Нижче показано повний склад активної збірки.</p>
+              <h2 id="detailsTitle">Комплектуючі</h2>
+              <p class="builder-hint" id="detailsHint">—</p>
             </div>
-            <span class="comparison-badge" id="activeConfigBadge">Зараз відкрита: рекомендована конфігурація</span>
+            <span class="comparison-badge" id="detailsModeBadge">—</span>
           </div>
           <div class="parts-grid" id="partsGrid"></div>
-          <p id="partsEmpty" hidden>Нічого не підібрано.</p>
+          <p id="partsEmpty" hidden>Нічого не підібрано для цієї конфігурації.</p>
         </div>
 
         <div class="result-box notes-box" id="notesBox" hidden>
@@ -94,7 +92,6 @@
 
   <div class="image-modal" id="imageModal" aria-hidden="true">
     <div class="image-modal-backdrop" data-close-image-modal></div>
-
     <div class="image-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle">
       <button type="button" class="image-modal-close" id="imageModalClose" aria-label="Закрити перегляд">×</button>
       <div class="image-modal-content">
@@ -108,19 +105,27 @@
 
   <script>
     const STORAGE_KEY = 'pcoll_saved_builds';
-
     const PURPOSE_TITLES = {
       gaming: 'Ігровий ПК',
       office: 'Офісний ПК',
       study: 'ПК для навчання',
       creator: 'ПК для монтажу / 3D',
     };
-
-    const TIER_TITLES = {
-      budget: 'Бюджетний',
-      mid: 'Середній',
-      upper: 'Високий',
+    const TIER_TITLES = { budget: 'Бюджетний', mid: 'Середній', upper: 'Високий', unknown: 'Невизначений' };
+    const PART_ORDER = ['CPU', 'GPU', 'Motherboard', 'RAM', 'SSD', 'PSU', 'Case'];
+    const PART_LABELS = {
+      CPU: 'Процесор',
+      GPU: 'Відеокарта',
+      Motherboard: 'Материнська плата',
+      RAM: 'Оперативна пам’ять',
+      SSD: 'Накопичувач SSD',
+      PSU: 'Блок живлення',
+      Case: 'Корпус',
     };
+
+    let currentBuild = null;
+    let configs = [];
+    let activeKey = 'primary';
 
     function escapeHtml(value) {
       return String(value ?? '')
@@ -149,16 +154,8 @@
       return PURPOSE_TITLES[value] || value || '—';
     }
 
-    function formatTier(value) {
-      return TIER_TITLES[value] || value || '—';
-    }
-
     function humanGpuMode(value) {
-      return value === 'dedicated'
-        ? 'Дискретна відеокарта'
-        : value === 'integrated'
-          ? 'Тільки вбудована графіка'
-          : 'Автоматично';
+      return value === 'dedicated' ? 'Дискретна відеокарта' : value === 'integrated' ? 'Тільки вбудована графіка' : 'Автоматично';
     }
 
     function humanCpuBrand(value) {
@@ -170,15 +167,7 @@
     }
 
     function humanGraphicsQuality(value) {
-      return value === 'low'
-        ? 'Низькі'
-        : value === 'medium'
-          ? 'Середні'
-          : value === 'high'
-            ? 'Високі'
-            : value === 'ultra'
-              ? 'Ультра'
-              : (value || '—');
+      return value === 'low' ? 'Низькі' : value === 'medium' ? 'Середні' : value === 'high' ? 'Високі' : value === 'ultra' ? 'Ультра' : (value || '—');
     }
 
     function humanStorageSize(value) {
@@ -215,18 +204,17 @@
         pushItem(list, 'Режим бюджету', 'Автоматичний підбір');
         pushItem(list, 'Рекомендований бюджет', `${result.recommended_budget ?? '—'} грн`);
       } else {
-        pushItem(list, 'Режим бюджету', 'Вказано вручну');
         pushItem(list, 'Бюджет', `${inputs.budget ?? '—'} грн`);
       }
 
       pushItem(list, 'Призначення', formatPurpose(inputs.purpose));
-      pushItem(list, 'Роздільна здатність', inputs.resolution || '1080p');
-      pushItem(list, 'Wi-Fi', inputs.wifi ? 'Так' : 'Ні');
+      pushItem(list, 'Роздільна здатність', inputs.resolution || '—');
+      pushItem(list, 'Wi‑Fi', inputs.wifi ? 'Так' : 'Ні');
 
       if (inputs.purpose === 'gaming') {
         pushItem(list, 'Налаштування графіки', humanGraphicsQuality(inputs.graphics_quality));
         pushItem(list, 'Бажаний FPS', inputs.target_fps ?? '—');
-        pushItem(list, 'Відеокарта', humanGpuMode(inputs.gpu_mode));
+        pushItem(list, 'Відеокарта', inputs.gpu_mode === 'dedicated' ? 'Обов’язково дискретна' : inputs.gpu_mode === 'integrated' ? 'Без дискретної відеокарти' : 'Автоматично');
         pushItem(list, 'Процесор', humanCpuBrand(inputs.cpu_brand));
         if (inputs.gpu_mode !== 'integrated') pushItem(list, 'Бренд відеокарти', humanGpuBrand(inputs.gpu_brand));
         pushItem(list, 'Обсяг ОЗП', inputs.ram_size === 'auto' ? 'Автоматично' : `${inputs.ram_size} ГБ`);
@@ -270,231 +258,203 @@
       }
     }
 
-    function renderParts(payload) {
-      const grid = document.getElementById('partsGrid');
-      const empty = document.getElementById('partsEmpty');
-      grid.innerHTML = '';
-
-      const labels = {
-        CPU: 'Процесор',
-        GPU: 'Відеокарта',
-        Motherboard: 'Материнська плата',
-        RAM: 'Оперативна пам’ять',
-        SSD: 'Накопичувач SSD',
-        PSU: 'Блок живлення',
-        Case: 'Корпус',
-      };
-
-      const entries = Object.entries(payload.parts || {});
-      if (!entries.length) {
-        empty.hidden = false;
-        return;
-      }
-
-      empty.hidden = true;
-
-      entries.forEach(([key, value]) => {
-        const imageHtml = value.image ? `
-          <button
-            type="button"
-            class="part-image-button"
-            data-part-image="${escapeHtml(value.image)}"
-            data-part-name="${escapeHtml(value.name)}"
-            aria-label="Відкрити збільшене зображення ${escapeHtml(value.name)}"
-          >
-            <div class="part-image-wrap">
-              <img src="${escapeHtml(value.image)}" alt="${escapeHtml(value.name)}" class="part-image">
-            </div>
-          </button>
-        ` : '';
-
-        const card = document.createElement('div');
-        card.className = 'part-card';
-        card.innerHTML = `
-          ${imageHtml}
-          <div class="part-type">${escapeHtml(labels[key] || key)}</div>
-          <div class="part-model">${escapeHtml(value.name)}</div>
-          <div class="part-price">${escapeHtml(value.price)} грн</div>
-        `;
-        grid.appendChild(card);
+    function orderedEntries(parts) {
+      return Object.entries(parts || {}).sort((a, b) => {
+        const ia = PART_ORDER.indexOf(a[0]);
+        const ib = PART_ORDER.indexOf(b[0]);
+        return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
       });
     }
 
-    function renderNotes(payload) {
-      const box = document.getElementById('notesBox');
-      const list = document.getElementById('notesList');
-      list.innerHTML = '';
-
-      if (!payload.notes || !payload.notes.length) {
-        box.hidden = true;
-        return;
-      }
-
-      box.hidden = false;
-      payload.notes.forEach((note) => {
-        const li = document.createElement('li');
-        li.textContent = note;
-        list.appendChild(li);
-      });
+    function normalizeConfig(config, index) {
+      const normalized = config && typeof config === 'object' ? { ...config } : {};
+      normalized.key = normalized.key || `cfg-${index}`;
+      normalized.title = normalized.title || (normalized.is_primary ? 'Рекомендована конфігурація' : `Конфігурація ${index + 1}`);
+      normalized.total = Number(normalized.total ?? 0);
+      normalized.tier = normalized.tier || 'unknown';
+      normalized.tier_title = normalized.tier_title || TIER_TITLES[normalized.tier] || normalized.tier;
+      normalized.parts = normalized.parts && typeof normalized.parts === 'object' ? normalized.parts : {};
+      normalized.notes = Array.isArray(normalized.notes) ? normalized.notes : [];
+      normalized.card_notes = Array.isArray(normalized.card_notes) ? normalized.card_notes : normalized.notes.slice(0, 2);
+      normalized.parts_excerpt = Array.isArray(normalized.parts_excerpt) ? normalized.parts_excerpt : [];
+      normalized.part_explanations = normalized.part_explanations && typeof normalized.part_explanations === 'object' ? normalized.part_explanations : {};
+      normalized.changed_part_keys = Array.isArray(normalized.changed_part_keys) ? normalized.changed_part_keys : [];
+      normalized.changed_part_explanations = normalized.changed_part_explanations && typeof normalized.changed_part_explanations === 'object' ? normalized.changed_part_explanations : {};
+      return normalized;
     }
 
-    function primaryVariantFromResult(result) {
-      return {
+    function buildConfigs(result) {
+      const altList = Array.isArray(result.alternatives) ? result.alternatives.map(normalizeConfig) : [];
+      if (altList.length) return altList;
+      return [normalizeConfig({
         key: 'primary',
         title: 'Рекомендована конфігурація',
         is_primary: true,
-        total: result.total ?? 0,
-        tier: result.tier ?? 'unknown',
-        tier_title: formatTier(result.tier),
-        requested_budget: result.recommended_budget ?? result.total ?? 0,
-        priority_title: 'Автоматичний підбір',
-        delta_text: 'Базова рекомендація системи',
-        description: 'Основна рекомендація системи.',
-        result_payload: {
-          total: result.total ?? 0,
-          tier: result.tier ?? 'unknown',
-          recommended_budget: result.recommended_budget ?? 0,
-          parts: result.parts || {},
-          notes: Array.isArray(result.notes) ? result.notes : [],
-        },
-      };
+        total: result.total,
+        tier: result.tier,
+        tier_title: TIER_TITLES[result.tier] || result.tier,
+        parts: result.parts || {},
+        notes: result.notes || [],
+        part_explanations: result.part_explanations || {},
+        changed_part_keys: Object.keys(result.parts || {}),
+        changed_part_explanations: result.part_explanations || {},
+      }, 0)];
     }
 
-    function normalizeVariants(result) {
-      const variants = Array.isArray(result.alternatives) && result.alternatives.length
-        ? result.alternatives.map((variant, index) => ({
-            ...variant,
-            result_payload: variant.result_payload && typeof variant.result_payload === 'object'
-              ? variant.result_payload
-              : (index === 0 ? primaryVariantFromResult(result).result_payload : { total: variant.total ?? 0, tier: variant.tier ?? 'unknown', parts: {}, notes: [] }),
-          }))
-        : [primaryVariantFromResult(result)];
-      return variants;
+    function getActiveConfig() {
+      return configs.find((config) => config.key === activeKey) || configs[0] || null;
     }
 
-    let currentVariants = [];
-
-    function syncActiveCard(activeKey) {
-      document.querySelectorAll('[data-alt-key]').forEach((card) => {
-        const isActive = card.dataset.altKey === activeKey;
-        card.classList.toggle('alternative-card--active', isActive);
-        card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-        const hint = card.querySelector('.alternative-open-hint');
-        if (hint) {
-          hint.textContent = isActive ? 'Зараз відкрита' : 'Натисни, щоб відкрити повний склад';
-        }
-      });
+    function renderSummary(config) {
+      document.getElementById('summaryPurpose').textContent = formatPurpose(currentBuild?.inputs?.purpose);
+      document.getElementById('summaryTier').textContent = config?.tier_title || '—';
+      document.getElementById('summaryTotal').textContent = `${config?.total || 0} грн`;
+      document.getElementById('savedBuildName').textContent = currentBuild?.name || '—';
     }
 
-    function activateVariant(key) {
-      const variant = currentVariants.find((item) => item.key === key) || currentVariants[0];
-      if (!variant) {
-        return;
-      }
-
-      const payload = variant.result_payload || {};
-      document.getElementById('summaryTier').textContent = formatTier(payload.tier || variant.tier);
-      document.getElementById('summaryTotal').textContent = `${payload.total ?? variant.total ?? 0} грн`;
-      document.getElementById('activeConfigBadge').textContent = `Зараз відкрита: ${variant.title || 'Конфігурація'}`;
-      renderParts(payload);
-      renderNotes(payload);
-      syncActiveCard(variant.key);
-    }
-
-    function renderAlternatives(result) {
+    function renderAlternatives() {
       const box = document.getElementById('alternativesBox');
       const grid = document.getElementById('alternativesGrid');
-      grid.innerHTML = '';
-
-      currentVariants = normalizeVariants(result);
-
-      if (currentVariants.length < 2) {
+      if (!configs.length || configs.length === 1) {
         box.hidden = true;
         return;
       }
-
-      currentVariants.forEach((alternative) => {
-        const article = document.createElement('article');
-        article.className = `alternative-card alternative-card--interactive${alternative.is_primary ? ' alternative-card--primary alternative-card--active' : ''}`;
-        article.dataset.altKey = alternative.key;
-        article.setAttribute('role', 'button');
-        article.setAttribute('tabindex', '0');
-        article.setAttribute('aria-pressed', alternative.is_primary ? 'true' : 'false');
-
-        const parts = Array.isArray(alternative.parts_excerpt)
-          ? alternative.parts_excerpt.map((item) => `<li><strong>${escapeHtml(item.label)}:</strong> ${escapeHtml(item.name)}</li>`).join('')
-          : '';
-
-        const notes = Array.isArray(alternative.notes)
-          ? alternative.notes.map((note) => `<li>${escapeHtml(note)}</li>`).join('')
-          : '';
-
-        article.innerHTML = `
-          <div class="alternative-card-top">
-            <div>
-              <div class="alternative-title-row">
-                <h3>${escapeHtml(alternative.title || 'Конфігурація')}</h3>
-                ${alternative.is_primary ? '<span class="alternative-pill">Рекомендовано</span>' : ''}
-              </div>
-              <p class="alternative-description">${escapeHtml(alternative.description || '')}</p>
-            </div>
-            <div class="alternative-total">${escapeHtml(alternative.total ?? '—')} грн</div>
-          </div>
-
-          <div class="alternative-meta-grid">
-            <div><span>Рівень</span><strong>${escapeHtml(alternative.tier_title || '—')}</strong></div>
-            <div><span>Орієнтир бюджету</span><strong>${escapeHtml(alternative.requested_budget ?? '—')} грн</strong></div>
-            <div><span>Режим</span><strong>${escapeHtml(alternative.priority_title || '—')}</strong></div>
-          </div>
-
-          <div class="alternative-delta">${escapeHtml(alternative.delta_text || '')}</div>
-          ${parts ? `<ul class="alternative-parts-list">${parts}</ul>` : ''}
-          ${notes ? `<ul class="alternative-notes">${notes}</ul>` : ''}
-          <div class="alternative-open-hint">${alternative.is_primary ? 'Зараз відкрита' : 'Натисни, щоб відкрити повний склад'}</div>
-        `;
-
-        const activate = () => activateVariant(alternative.key);
-        article.addEventListener('click', activate);
-        article.addEventListener('keydown', (event) => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            activate();
-          }
-        });
-
-        grid.appendChild(article);
-      });
-
       box.hidden = false;
+      grid.innerHTML = configs.map((config) => {
+        const excerptHtml = config.parts_excerpt.length
+          ? `<ul class="alternative-parts-list">${config.parts_excerpt.map((item) => `<li><strong>${escapeHtml(item.label)}:</strong> ${escapeHtml(item.name)}</li>`).join('')}</ul>`
+          : '';
+        const notesHtml = config.card_notes.length
+          ? `<ul class="alternative-notes">${config.card_notes.map((note) => `<li>${escapeHtml(note)}</li>`).join('')}</ul>`
+          : '';
+        return `
+          <article class="alternative-card${config.is_primary ? ' alternative-card--primary' : ''}${config.key === activeKey ? ' is-active' : ''}">
+            <div class="alternative-card-top">
+              <div>
+                <div class="alternative-title-row">
+                  <h3>${escapeHtml(config.title)}</h3>
+                  ${config.is_primary ? '<span class="alternative-pill">Рекомендовано</span>' : ''}
+                </div>
+                <p class="alternative-description">${escapeHtml(config.description || '')}</p>
+              </div>
+              <div class="alternative-total">${escapeHtml(config.total)} грн</div>
+            </div>
+
+            <div class="alternative-meta-grid">
+              <div><span>Рівень</span><strong>${escapeHtml(config.tier_title)}</strong></div>
+              <div><span>Орієнтир бюджету</span><strong>${escapeHtml(config.requested_budget || config.total)} грн</strong></div>
+              <div><span>Режим</span><strong>${escapeHtml(config.priority_title || 'Автоматичний підбір')}</strong></div>
+            </div>
+
+            <div class="alternative-delta">${escapeHtml(config.delta_text || '')}</div>
+            ${excerptHtml}
+            ${notesHtml}
+            <button type="button" class="alternative-open-btn" data-config-key="${escapeHtml(config.key)}">
+              ${config.key === activeKey ? 'Зараз переглядається' : 'Відкрити склад збірки'}
+            </button>
+          </article>
+        `;
+      }).join('');
     }
 
-    function renderBuild() {
-      const id = getQueryParam('id');
-      const build = getSavedBuilds().find((item) => item.id === id);
+    function renderParts(config) {
+      const detailsTitle = document.getElementById('detailsTitle');
+      const detailsHint = document.getElementById('detailsHint');
+      const detailsModeBadge = document.getElementById('detailsModeBadge');
+      const partsGrid = document.getElementById('partsGrid');
+      const partsEmpty = document.getElementById('partsEmpty');
+      const entries = orderedEntries(config?.parts || {});
+      const changedSet = new Set(config?.changed_part_keys || []);
 
-      if (!build) {
+      detailsTitle.textContent = `Комплектуючі: ${config?.title || '—'}`;
+      if (config?.is_primary) {
+        detailsHint.textContent = 'Для основної рекомендованої збірки показано опис кожного компонента.';
+        detailsModeBadge.textContent = 'Опис усіх компонентів';
+      } else {
+        detailsHint.textContent = 'Для альтернативної збірки описано лише ті компоненти, які змінилися відносно основної рекомендації.';
+        detailsModeBadge.textContent = 'Опис лише змінених компонентів';
+      }
+
+      if (!entries.length) {
+        partsGrid.innerHTML = '';
+        partsEmpty.hidden = false;
+        return;
+      }
+      partsEmpty.hidden = true;
+
+      partsGrid.innerHTML = entries.map(([role, part]) => {
+        const label = PART_LABELS[role] || role;
+        const isChanged = config?.is_primary || changedSet.has(role);
+        const description = config?.is_primary ? (config?.part_explanations?.[role] || '') : (config?.changed_part_explanations?.[role] || '');
+        const imageHtml = part.image ? `
+          <button type="button" class="part-image-button" data-part-image="${escapeHtml(part.image)}" data-part-name="${escapeHtml(part.name || '')}" aria-label="Відкрити збільшене зображення ${escapeHtml(part.name || '')}">
+            <div class="part-image-wrap">
+              <img src="${escapeHtml(part.image)}" alt="${escapeHtml(part.name || '')}" class="part-image">
+            </div>
+          </button>` : '';
+        const badgeHtml = !config?.is_primary && isChanged ? '<span class="part-change-badge">Змінено</span>' : '';
+        const descriptionHtml = description ? `<p class="part-description">${escapeHtml(description)}</p>` : '';
+        return `
+          <div class="part-card${!config?.is_primary && isChanged ? ' part-card--changed' : ''}">
+            ${imageHtml}
+            <div class="part-card-topline">
+              <div class="part-type">${escapeHtml(label)}</div>
+              ${badgeHtml}
+            </div>
+            <div class="part-model">${escapeHtml(part.name || '—')}</div>
+            <div class="part-price">${escapeHtml(part.price || 0)} грн</div>
+            ${descriptionHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderNotes(config) {
+      const notesBox = document.getElementById('notesBox');
+      const notesList = document.getElementById('notesList');
+      const notes = Array.isArray(config?.notes) ? config.notes : [];
+      if (!notes.length) {
+        notesList.innerHTML = '';
+        notesBox.hidden = true;
+        return;
+      }
+      notesBox.hidden = false;
+      notesList.innerHTML = notes.map((note) => `<li>${escapeHtml(note)}</li>`).join('');
+    }
+
+    function renderAll() {
+      const activeConfig = getActiveConfig();
+      renderSummary(activeConfig);
+      renderAlternatives();
+      renderParts(activeConfig);
+      renderNotes(activeConfig);
+    }
+
+    (function init() {
+      const buildId = getQueryParam('id');
+      const builds = getSavedBuilds();
+      currentBuild = builds.find((item) => item.id === buildId) || null;
+
+      if (!currentBuild) {
         document.getElementById('buildNotFound').hidden = false;
         return;
       }
 
       document.getElementById('buildContent').hidden = false;
-      document.getElementById('savedBuildName').textContent = build.name;
-      document.getElementById('summaryPurpose').textContent = formatPurpose(build.inputs?.purpose);
+      renderInputs(currentBuild.inputs || {}, currentBuild.result || {});
+      configs = buildConfigs(currentBuild.result || {});
+      activeKey = (configs.find((config) => config.is_primary) || configs[0] || {}).key || 'primary';
+      renderAll();
+    })();
 
-      renderInputs(build.inputs || {}, build.result || {});
-      renderAlternatives(build.result || {});
-
-      if (!currentVariants.length) {
-        currentVariants = [primaryVariantFromResult(build.result || {})];
+    document.addEventListener('click', function (event) {
+      const switchButton = event.target.closest('[data-config-key]');
+      if (switchButton) {
+        activeKey = switchButton.getAttribute('data-config-key') || activeKey;
+        renderAll();
+        window.scrollTo({ top: Math.max(document.querySelector('.result-summary-grid')?.offsetTop - 24 || 0, 0), behavior: 'smooth' });
       }
-
-      const initialVariant = currentVariants.find((item) => item.is_primary) || currentVariants[0];
-      if (initialVariant) {
-        activateVariant(initialVariant.key);
-      }
-    }
-
-    renderBuild();
+    });
   </script>
 
   <script>
@@ -504,21 +464,18 @@
       const title = document.getElementById('imageModalTitle');
       const closeButton = document.getElementById('imageModalClose');
       const backdrop = modal ? modal.querySelector('[data-close-image-modal]') : null;
+      if (!modal || !preview || !title || !closeButton) return;
+
       let lastFocusedElement = null;
       let closeTimer = null;
       const MODAL_ANIMATION_MS = 260;
 
-      if (!modal || !preview || !title || !closeButton) {
-        return;
-      }
-
-      function openImageModal(imageSrc, imageName, trigger) {
+      function openImageModal(imageSrc, imageName) {
         if (closeTimer) {
           window.clearTimeout(closeTimer);
           closeTimer = null;
         }
-
-        lastFocusedElement = trigger || document.activeElement;
+        lastFocusedElement = document.activeElement;
         preview.src = imageSrc;
         preview.alt = imageName;
         title.textContent = imageName;
@@ -530,18 +487,15 @@
 
       function closeImageModal() {
         const elementToRestoreFocus = lastFocusedElement;
-
         modal.classList.remove('is-open');
         modal.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('modal-open');
-
         closeTimer = window.setTimeout(function () {
           preview.src = '';
           preview.alt = '';
           title.textContent = '';
           closeTimer = null;
-
-          if (elementToRestoreFocus) {
+          if (elementToRestoreFocus && typeof elementToRestoreFocus.focus === 'function') {
             elementToRestoreFocus.focus({ preventScroll: true });
           }
         }, MODAL_ANIMATION_MS);
@@ -549,23 +503,22 @@
 
       document.addEventListener('click', function (event) {
         const trigger = event.target.closest('[data-part-image]');
-        if (!trigger) {
+        if (trigger) {
+          openImageModal(trigger.getAttribute('data-part-image') || '', trigger.getAttribute('data-part-name') || 'Комплектуюча');
           return;
         }
-
-        openImageModal(trigger.dataset.partImage, trigger.dataset.partName || 'Зображення комплектуючої', trigger);
+        if (event.target.closest('[data-close-image-modal]') || event.target.closest('#imageModalClose')) {
+          closeImageModal();
+        }
       });
-
-      closeButton.addEventListener('click', closeImageModal);
-      if (backdrop) {
-        backdrop.addEventListener('click', closeImageModal);
-      }
 
       document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape' && modal.classList.contains('is-open')) {
           closeImageModal();
         }
       });
+
+      if (backdrop) backdrop.addEventListener('click', closeImageModal);
     })();
   </script>
 </body>

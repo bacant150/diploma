@@ -9,9 +9,7 @@
 <body>
   <header class="topbar">
     <div class="container topbar-nav">
-      <a href="/" class="logo-link">
-        <div class="logo">PCColl</div>
-      </a>
+      <a href="/" class="logo-link"><div class="logo">PCColl</div></a>
       <div class="topbar-actions">
         <a href="/saved-builds" class="topbar-link-btn">Збережені збірки</a>
       </div>
@@ -26,7 +24,7 @@
       <div class="result-summary-grid">
         <div class="summary-stat-card">
           <span class="summary-stat-label">Призначення</span>
-          <strong>
+          <strong id="summaryPurpose">
             {% if inputs.purpose == "gaming" %}Ігровий ПК
             {% elif inputs.purpose == "office" %}Офісний ПК
             {% elif inputs.purpose == "study" %}ПК для навчання
@@ -37,80 +35,31 @@
         </div>
         <div class="summary-stat-card">
           <span class="summary-stat-label">Рівень збірки</span>
-          <strong id="summaryTierText">
-            {% if result.tier == "budget" %}Бюджетний
-            {% elif result.tier == "mid" %}Середній
-            {% elif result.tier == "upper" %}Високий
-            {% else %}{{ result.tier }}
-            {% endif %}
-          </strong>
+          <strong id="summaryTier">—</strong>
         </div>
         <div class="summary-stat-card summary-stat-card--accent">
           <span class="summary-stat-label">Загальна вартість</span>
-          <strong id="summaryTotalText">{{ result.total }} грн</strong>
+          <strong id="summaryTotal">—</strong>
         </div>
       </div>
 
-      {% if result.alternatives and result.alternatives|length > 1 %}
+      {% if saved_build_name %}
       <div class="result-box">
+        <div class="saved-build-badge">Збережена збірка</div>
+        <p class="saved-build-name-note"><strong>Назва:</strong> {{ saved_build_name }}</p>
+      </div>
+      {% endif %}
+
+      <div class="result-box" id="alternativesBox" hidden>
         <div class="result-box-header">
           <div>
             <h2>Альтернативні конфігурації</h2>
-            <p class="builder-hint">Порівняй кілька варіантів під той самий сценарій: від економнішого до максимально продуктивного.</p>
+            <p class="builder-hint">Відкрий будь-яку збірку, щоб переглянути її повний склад нижче.</p>
           </div>
-          <span class="comparison-badge">Натисни на картку, щоб відкрити її повний склад нижче</span>
+          <span class="comparison-badge">Для основної збірки показано опис усіх компонентів, для інших — лише змінених</span>
         </div>
-
-        <div class="alternatives-grid">
-          {% for alternative in result.alternatives %}
-          <article
-            class="alternative-card alternative-card--interactive{% if alternative.is_primary %} alternative-card--primary alternative-card--active{% endif %}"
-            data-alt-key="{{ alternative.key }}"
-            role="button"
-            tabindex="0"
-            aria-pressed="{{ 'true' if alternative.is_primary else 'false' }}"
-          >
-            <div class="alternative-card-top">
-              <div>
-                <div class="alternative-title-row">
-                  <h3>{{ alternative.title }}</h3>
-                  {% if alternative.is_primary %}<span class="alternative-pill">Рекомендовано</span>{% endif %}
-                </div>
-                <p class="alternative-description">{{ alternative.description }}</p>
-              </div>
-              <div class="alternative-total">{{ alternative.total }} грн</div>
-            </div>
-
-            <div class="alternative-meta-grid">
-              <div><span>Рівень</span><strong>{{ alternative.tier_title }}</strong></div>
-              <div><span>Орієнтир бюджету</span><strong>{{ alternative.requested_budget }} грн</strong></div>
-              <div><span>Режим</span><strong>{{ alternative.priority_title }}</strong></div>
-            </div>
-
-            <div class="alternative-delta">{{ alternative.delta_text }}</div>
-
-            {% if alternative.parts_excerpt %}
-            <ul class="alternative-parts-list">
-              {% for item in alternative.parts_excerpt %}
-              <li><strong>{{ item.label }}:</strong> {{ item.name }}</li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-
-            {% if alternative.notes %}
-            <ul class="alternative-notes">
-              {% for note in alternative.notes %}
-              <li>{{ note }}</li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-
-            <div class="alternative-open-hint">{% if alternative.is_primary %}Зараз відкрита{% else %}Натисни, щоб відкрити повний склад{% endif %}</div>
-          </article>
-          {% endfor %}
-        </div>
+        <div class="alternatives-grid" id="alternativesGrid"></div>
       </div>
-      {% endif %}
 
       <div class="result-box">
         <h2>Зберегти збірку</h2>
@@ -118,13 +67,7 @@
         <div class="save-build-form">
           <div class="save-build-field">
             <label for="build_name">Назва збірки</label>
-            <input
-              type="text"
-              id="build_name"
-              name="build_name"
-              maxlength="120"
-              placeholder="Наприклад: Ігровий ПК для 1440p"
-            >
+            <input type="text" id="build_name" name="build_name" maxlength="120" placeholder="Наприклад: Ігровий ПК для 1440p">
           </div>
           <button type="button" id="saveBuildBtn" class="hero-btn builder-btn">Зберегти збірку</button>
           <textarea name="inputs_json" hidden>{{ inputs_json }}</textarea>
@@ -152,7 +95,7 @@
             {% endif %}
           </li>
           <li><strong>Роздільна здатність:</strong> {{ inputs.resolution }}</li>
-          <li><strong>Wi-Fi:</strong> {{ "Так" if inputs.wifi else "Ні" }}</li>
+          <li><strong>Wi‑Fi:</strong> {{ "Так" if inputs.wifi else "Ні" }}</li>
 
           {% if inputs.purpose == "gaming" %}
           <li><strong>Налаштування графіки:</strong> {% if inputs.graphics_quality == "low" %}Низькі{% elif inputs.graphics_quality == "medium" %}Середні{% elif inputs.graphics_quality == "high" %}Високі{% elif inputs.graphics_quality == "ultra" %}Ультра{% else %}{{ inputs.graphics_quality }}{% endif %}</li>
@@ -332,18 +275,18 @@
       </div>
 
       <div class="result-box">
-        <div class="result-box-header">
+        <div class="detail-header">
           <div>
-            <h2>Детальний склад конфігурації</h2>
-            <p class="builder-hint">Нижче показано повний склад активної збірки.</p>
+            <h2 id="detailsTitle">Комплектуючі</h2>
+            <p class="builder-hint" id="detailsHint">—</p>
           </div>
-          <span class="comparison-badge" id="activeConfigBadge">Зараз відкрита: рекомендована конфігурація</span>
+          <span class="comparison-badge" id="detailsModeBadge">—</span>
         </div>
         <div class="parts-grid" id="partsGrid"></div>
-        <p id="partsEmpty" hidden>Нічого не підібрано.</p>
+        <p id="partsEmpty" hidden>Нічого не підібрано для цієї конфігурації.</p>
       </div>
 
-      <div class="result-box notes-box" id="notesBox" hidden>
+      <div class="result-box notes-box" id="notesBox">
         <h2>Примітки</h2>
         <ul id="notesList"></ul>
       </div>
@@ -354,7 +297,6 @@
 
   <div class="image-modal" id="imageModal" aria-hidden="true">
     <div class="image-modal-backdrop" data-close-image-modal></div>
-
     <div class="image-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle">
       <button type="button" class="image-modal-close" id="imageModalClose" aria-label="Закрити перегляд">×</button>
       <div class="image-modal-content">
@@ -368,98 +310,36 @@
 
   <script>
     (function () {
-      const STORAGE_KEY = 'pcoll_saved_builds';
+      const PART_ORDER = ['CPU', 'GPU', 'Motherboard', 'RAM', 'SSD', 'PSU', 'Case'];
+      const PART_LABELS = {
+        CPU: 'Процесор',
+        GPU: 'Відеокарта',
+        Motherboard: 'Материнська плата',
+        RAM: 'Оперативна пам’ять',
+        SSD: 'Накопичувач SSD',
+        PSU: 'Блок живлення',
+        Case: 'Корпус',
+      };
+      const TIER_TITLES = { budget: 'Бюджетний', mid: 'Середній', upper: 'Високий', unknown: 'Невизначений' };
+
       const saveBuildBtn = document.getElementById('saveBuildBtn');
-
-      function getSavedBuilds() {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          const parsed = raw ? JSON.parse(raw) : [];
-          return Array.isArray(parsed) ? parsed : [];
-        } catch (error) {
-          return [];
-        }
-      }
-
-      function setSavedBuilds(builds) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(builds));
-      }
-
-      function defaultBuildName(inputs) {
-        const titles = {
-          gaming: 'Ігровий ПК',
-          office: 'Офісний ПК',
-          study: 'ПК для навчання',
-          creator: 'ПК для монтажу / 3D',
-        };
-        const now = new Date();
-        const stamp = now.toLocaleString('uk-UA');
-        return `${titles[inputs?.purpose] || 'Збірка ПК'} — ${stamp}`;
-      }
-
-      if (!saveBuildBtn) {
-        return;
-      }
-
-      saveBuildBtn.addEventListener('click', function () {
-        const buildNameInput = document.getElementById('build_name');
-        const inputsJson = document.querySelector('textarea[name="inputs_json"]');
-        const resultJson = document.querySelector('textarea[name="result_json"]');
-
-        let inputs = {};
-        let result = {};
-
-        try {
-          inputs = JSON.parse(inputsJson?.value || '{}');
-          result = JSON.parse(resultJson?.value || '{}');
-        } catch (error) {
-          alert('Не вдалося зчитати дані збірки.');
-          return;
-        }
-
-        const buildName = ((buildNameInput?.value || '').trim() || defaultBuildName(inputs)).slice(0, 120);
-        const savedBuilds = getSavedBuilds();
-        const build = {
-          id: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-          name: buildName,
-          saved_at: new Date().toISOString(),
-          inputs,
-          result,
-        };
-
-        savedBuilds.push(build);
-
-        try {
-          setSavedBuilds(savedBuilds);
-        } catch (error) {
-          alert('Не вдалося зберегти збірку в браузері. Перевір, чи не вимкнене локальне сховище.');
-          return;
-        }
-
-        window.location.href = '/saved-builds?status=saved';
-      });
-    })();
-  </script>
-
-  <script>
-    (function () {
-      const resultField = document.querySelector('textarea[name="result_json"]');
+      const resultJsonField = document.querySelector('textarea[name="result_json"]');
+      const inputsJsonField = document.querySelector('textarea[name="inputs_json"]');
+      const alternativesBox = document.getElementById('alternativesBox');
+      const alternativesGrid = document.getElementById('alternativesGrid');
+      const summaryTier = document.getElementById('summaryTier');
+      const summaryTotal = document.getElementById('summaryTotal');
+      const detailsTitle = document.getElementById('detailsTitle');
+      const detailsHint = document.getElementById('detailsHint');
+      const detailsModeBadge = document.getElementById('detailsModeBadge');
       const partsGrid = document.getElementById('partsGrid');
       const partsEmpty = document.getElementById('partsEmpty');
-      const notesBox = document.getElementById('notesBox');
       const notesList = document.getElementById('notesList');
-      const activeConfigBadge = document.getElementById('activeConfigBadge');
-      const summaryTierText = document.getElementById('summaryTierText');
-      const summaryTotalText = document.getElementById('summaryTotalText');
-      const tierTitles = {
-        budget: 'Бюджетний',
-        mid: 'Середній',
-        upper: 'Високий',
-      };
+      const notesBox = document.getElementById('notesBox');
 
-      if (!resultField || !partsGrid || !partsEmpty || !notesBox || !notesList || !activeConfigBadge || !summaryTierText || !summaryTotalText) {
-        return;
-      }
+      let result = {};
+      let configs = [];
+      let activeKey = 'primary';
 
       function escapeHtml(value) {
         return String(value ?? '')
@@ -470,151 +350,254 @@
           .replace(/'/g, '&#039;');
       }
 
-      function humanTier(value) {
-        return tierTitles[value] || value || '—';
+      function orderedEntries(parts) {
+        const entries = Object.entries(parts || {});
+        return entries.sort((a, b) => {
+          const ia = PART_ORDER.indexOf(a[0]);
+          const ib = PART_ORDER.indexOf(b[0]);
+          return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+        });
       }
 
-      function buildPrimaryVariant(result) {
-        return {
+      function normalizeConfig(config, index) {
+        const normalized = config && typeof config === 'object' ? { ...config } : {};
+        normalized.key = normalized.key || `cfg-${index}`;
+        normalized.title = normalized.title || (normalized.is_primary ? 'Рекомендована конфігурація' : `Конфігурація ${index + 1}`);
+        normalized.total = Number(normalized.total ?? 0);
+        normalized.tier = normalized.tier || 'unknown';
+        normalized.tier_title = normalized.tier_title || TIER_TITLES[normalized.tier] || normalized.tier;
+        normalized.parts = normalized.parts && typeof normalized.parts === 'object' ? normalized.parts : {};
+        normalized.notes = Array.isArray(normalized.notes) ? normalized.notes : [];
+        normalized.card_notes = Array.isArray(normalized.card_notes) ? normalized.card_notes : normalized.notes.slice(0, 2);
+        normalized.parts_excerpt = Array.isArray(normalized.parts_excerpt) ? normalized.parts_excerpt : [];
+        normalized.part_explanations = normalized.part_explanations && typeof normalized.part_explanations === 'object' ? normalized.part_explanations : {};
+        normalized.changed_part_keys = Array.isArray(normalized.changed_part_keys) ? normalized.changed_part_keys : [];
+        normalized.changed_part_explanations = normalized.changed_part_explanations && typeof normalized.changed_part_explanations === 'object' ? normalized.changed_part_explanations : {};
+        return normalized;
+      }
+
+      function buildConfigs(resultPayload) {
+        const altList = Array.isArray(resultPayload.alternatives) ? resultPayload.alternatives.map(normalizeConfig) : [];
+        if (altList.length) {
+          return altList;
+        }
+        return [normalizeConfig({
           key: 'primary',
           title: 'Рекомендована конфігурація',
           is_primary: true,
-          result_payload: {
-            total: result.total ?? 0,
-            tier: result.tier ?? 'unknown',
-            recommended_budget: result.recommended_budget ?? 0,
-            parts: result.parts || {},
-            notes: Array.isArray(result.notes) ? result.notes : [],
-          },
-        };
+          total: resultPayload.total,
+          tier: resultPayload.tier,
+          tier_title: TIER_TITLES[resultPayload.tier] || resultPayload.tier,
+          parts: resultPayload.parts || {},
+          notes: resultPayload.notes || [],
+          part_explanations: resultPayload.part_explanations || {},
+          changed_part_keys: Object.keys(resultPayload.parts || {}),
+          changed_part_explanations: resultPayload.part_explanations || {},
+        }, 0)];
       }
 
-      let resultData = {};
-      try {
-        resultData = JSON.parse(resultField.value || '{}');
-      } catch (error) {
-        resultData = {};
+      function getActiveConfig() {
+        return configs.find((config) => config.key === activeKey) || configs[0] || null;
       }
 
-      const variantsRaw = Array.isArray(resultData.alternatives) && resultData.alternatives.length
-        ? resultData.alternatives
-        : [buildPrimaryVariant(resultData)];
+      function renderSummary(config) {
+        if (!config) return;
+        summaryTier.textContent = config.tier_title || '—';
+        summaryTotal.textContent = `${config.total || 0} грн`;
+      }
 
-      const variants = variantsRaw.map((variant, index) => {
-        const payload = variant.result_payload && typeof variant.result_payload === 'object'
-          ? variant.result_payload
-          : (index === 0 ? buildPrimaryVariant(resultData).result_payload : { total: variant.total ?? 0, tier: variant.tier ?? 'unknown', parts: {}, notes: [] });
+      function renderAlternatives() {
+        if (!configs.length || configs.length === 1) {
+          alternativesBox.hidden = true;
+          return;
+        }
 
-        return {
-          ...variant,
-          result_payload: payload,
-        };
-      });
+        alternativesBox.hidden = false;
+        alternativesGrid.innerHTML = configs.map((config) => {
+          const excerptHtml = config.parts_excerpt.length
+            ? `<ul class="alternative-parts-list">${config.parts_excerpt.map((item) => `<li><strong>${escapeHtml(item.label)}:</strong> ${escapeHtml(item.name)}</li>`).join('')}</ul>`
+            : '';
+          const notesHtml = config.card_notes.length
+            ? `<ul class="alternative-notes">${config.card_notes.map((note) => `<li>${escapeHtml(note)}</li>`).join('')}</ul>`
+            : '';
 
-      function renderParts(payload) {
-        partsGrid.innerHTML = '';
-        const labels = {
-          CPU: 'Процесор',
-          GPU: 'Відеокарта',
-          Motherboard: 'Материнська плата',
-          RAM: 'Оперативна пам’ять',
-          SSD: 'Накопичувач SSD',
-          PSU: 'Блок живлення',
-          Case: 'Корпус',
-        };
+          return `
+            <article class="alternative-card${config.is_primary ? ' alternative-card--primary' : ''}${config.key === activeKey ? ' is-active' : ''}">
+              <div class="alternative-card-top">
+                <div>
+                  <div class="alternative-title-row">
+                    <h3>${escapeHtml(config.title)}</h3>
+                    ${config.is_primary ? '<span class="alternative-pill">Рекомендовано</span>' : ''}
+                  </div>
+                  <p class="alternative-description">${escapeHtml(config.description || '')}</p>
+                </div>
+                <div class="alternative-total">${escapeHtml(config.total)} грн</div>
+              </div>
 
-        const entries = Object.entries(payload?.parts || {});
+              <div class="alternative-meta-grid">
+                <div><span>Рівень</span><strong>${escapeHtml(config.tier_title)}</strong></div>
+                <div><span>Орієнтир бюджету</span><strong>${escapeHtml(config.requested_budget || config.total)} грн</strong></div>
+                <div><span>Режим</span><strong>${escapeHtml(config.priority_title || 'Автоматичний підбір')}</strong></div>
+              </div>
+
+              <div class="alternative-delta">${escapeHtml(config.delta_text || '')}</div>
+              ${excerptHtml}
+              ${notesHtml}
+
+              <button type="button" class="alternative-open-btn" data-config-key="${escapeHtml(config.key)}">
+                ${config.key === activeKey ? 'Зараз переглядається' : 'Відкрити склад збірки'}
+              </button>
+            </article>
+          `;
+        }).join('');
+      }
+
+      function renderParts(config) {
+        if (!config) return;
+        const entries = orderedEntries(config.parts);
+        const changedSet = new Set(config.changed_part_keys || []);
+
+        detailsTitle.textContent = `Комплектуючі: ${config.title}`;
+        if (config.is_primary) {
+          detailsHint.textContent = 'Для основної рекомендованої збірки показано опис кожного компонента.';
+          detailsModeBadge.textContent = 'Опис усіх компонентів';
+        } else {
+          detailsHint.textContent = 'Для альтернативної збірки описано лише ті компоненти, які змінилися відносно основної рекомендації.';
+          detailsModeBadge.textContent = 'Опис лише змінених компонентів';
+        }
+
         if (!entries.length) {
+          partsGrid.innerHTML = '';
           partsEmpty.hidden = false;
           return;
         }
 
         partsEmpty.hidden = true;
-
-        entries.forEach(([key, value]) => {
-          const imageHtml = value.image ? `
-            <button
-              type="button"
-              class="part-image-button"
-              data-part-image="${escapeHtml(value.image)}"
-              data-part-name="${escapeHtml(value.name)}"
-              aria-label="Відкрити збільшене зображення ${escapeHtml(value.name)}"
-            >
+        partsGrid.innerHTML = entries.map(([role, part]) => {
+          const label = PART_LABELS[role] || role;
+          const isChanged = config.is_primary || changedSet.has(role);
+          const description = config.is_primary
+            ? (config.part_explanations?.[role] || '')
+            : (config.changed_part_explanations?.[role] || '');
+          const imageHtml = part.image ? `
+            <button type="button" class="part-image-button" data-part-image="${escapeHtml(part.image)}" data-part-name="${escapeHtml(part.name || '')}" aria-label="Відкрити збільшене зображення ${escapeHtml(part.name || '')}">
               <div class="part-image-wrap">
-                <img src="${escapeHtml(value.image)}" alt="${escapeHtml(value.name)}" class="part-image">
+                <img src="${escapeHtml(part.image)}" alt="${escapeHtml(part.name || '')}" class="part-image">
               </div>
-            </button>
-          ` : '';
+            </button>` : '';
+          const badgeHtml = !config.is_primary && isChanged ? '<span class="part-change-badge">Змінено</span>' : '';
+          const descriptionHtml = description ? `<p class="part-description">${escapeHtml(description)}</p>` : '';
 
-          const card = document.createElement('div');
-          card.className = 'part-card';
-          card.innerHTML = `
-            ${imageHtml}
-            <div class="part-type">${escapeHtml(labels[key] || key)}</div>
-            <div class="part-model">${escapeHtml(value.name)}</div>
-            <div class="part-price">${escapeHtml(value.price)} грн</div>
+          return `
+            <div class="part-card${!config.is_primary && isChanged ? ' part-card--changed' : ''}">
+              ${imageHtml}
+              <div class="part-card-topline">
+                <div class="part-type">${escapeHtml(label)}</div>
+                ${badgeHtml}
+              </div>
+              <div class="part-model">${escapeHtml(part.name || '—')}</div>
+              <div class="part-price">${escapeHtml(part.price || 0)} грн</div>
+              ${descriptionHtml}
+            </div>
           `;
-          partsGrid.appendChild(card);
-        });
+        }).join('');
       }
 
-      function renderNotes(payload) {
-        notesList.innerHTML = '';
-        const notes = Array.isArray(payload?.notes) ? payload.notes : [];
+      function renderNotes(config) {
+        const notes = Array.isArray(config?.notes) ? config.notes : [];
         if (!notes.length) {
+          notesList.innerHTML = '';
           notesBox.hidden = true;
           return;
         }
-
-        notes.forEach((note) => {
-          const li = document.createElement('li');
-          li.textContent = note;
-          notesList.appendChild(li);
-        });
         notesBox.hidden = false;
+        notesList.innerHTML = notes.map((note) => `<li>${escapeHtml(note)}</li>`).join('');
       }
 
-      function syncActiveCard(activeKey) {
-        document.querySelectorAll('[data-alt-key]').forEach((card) => {
-          const isActive = card.dataset.altKey === activeKey;
-          card.classList.toggle('alternative-card--active', isActive);
-          card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-          const hint = card.querySelector('.alternative-open-hint');
-          if (hint) {
-            hint.textContent = isActive ? 'Зараз відкрита' : 'Натисни, щоб відкрити повний склад';
-          }
-        });
+      function renderAll() {
+        const activeConfig = getActiveConfig();
+        renderSummary(activeConfig);
+        renderAlternatives();
+        renderParts(activeConfig);
+        renderNotes(activeConfig);
       }
 
-      function activateVariant(key) {
-        const activeVariant = variants.find((item) => item.key === key) || variants[0];
-        if (!activeVariant) {
+      try {
+        result = JSON.parse(resultJsonField?.value || '{}');
+      } catch (error) {
+        result = {};
+      }
+
+      configs = buildConfigs(result);
+      activeKey = (configs.find((config) => config.is_primary) || configs[0] || {}).key || 'primary';
+      renderAll();
+
+      document.addEventListener('click', function (event) {
+        const switchButton = event.target.closest('[data-config-key]');
+        if (switchButton) {
+          activeKey = switchButton.getAttribute('data-config-key') || activeKey;
+          renderAll();
+          window.scrollTo({ top: Math.max(document.querySelector('.result-summary-grid')?.offsetTop - 24 || 0, 0), behavior: 'smooth' });
           return;
         }
-
-        const payload = activeVariant.result_payload || {};
-        summaryTierText.textContent = humanTier(payload.tier || activeVariant.tier);
-        summaryTotalText.textContent = `${payload.total ?? activeVariant.total ?? 0} грн`;
-        activeConfigBadge.textContent = `Зараз відкрита: ${activeVariant.title || 'Конфігурація'}`;
-        renderParts(payload);
-        renderNotes(payload);
-        syncActiveCard(activeVariant.key);
-      }
-
-      document.querySelectorAll('[data-alt-key]').forEach((card) => {
-        const activate = () => activateVariant(card.dataset.altKey);
-        card.addEventListener('click', activate);
-        card.addEventListener('keydown', (event) => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            activate();
-          }
-        });
       });
 
-      const initialKey = (variants.find((item) => item.is_primary) || variants[0] || {}).key;
-      if (initialKey) {
-        activateVariant(initialKey);
+      function getSavedBuilds() {
+        try {
+          const raw = localStorage.getItem('pcoll_saved_builds');
+          const parsed = raw ? JSON.parse(raw) : [];
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          return [];
+        }
+      }
+
+      function setSavedBuilds(builds) {
+        localStorage.setItem('pcoll_saved_builds', JSON.stringify(builds));
+      }
+
+      function defaultBuildName(inputs) {
+        const titles = {
+          gaming: 'Ігровий ПК',
+          office: 'Офісний ПК',
+          study: 'ПК для навчання',
+          creator: 'ПК для монтажу / 3D',
+        };
+        const now = new Date();
+        return `${titles[inputs?.purpose] || 'Збірка ПК'} — ${now.toLocaleString('uk-UA')}`;
+      }
+
+      if (saveBuildBtn) {
+        saveBuildBtn.addEventListener('click', function () {
+          let inputs = {};
+          let currentResult = {};
+          try {
+            inputs = JSON.parse(inputsJsonField?.value || '{}');
+            currentResult = JSON.parse(resultJsonField?.value || '{}');
+          } catch (error) {
+            alert('Не вдалося зчитати дані збірки.');
+            return;
+          }
+
+          const buildNameInput = document.getElementById('build_name');
+          const buildName = ((buildNameInput?.value || '').trim() || defaultBuildName(inputs)).slice(0, 120);
+          const savedBuilds = getSavedBuilds();
+          savedBuilds.push({
+            id: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+            name: buildName,
+            saved_at: new Date().toISOString(),
+            inputs,
+            result: currentResult,
+          });
+
+          try {
+            setSavedBuilds(savedBuilds);
+          } catch (error) {
+            alert('Не вдалося зберегти збірку у браузері.');
+            return;
+          }
+          window.location.href = '/saved-builds?status=saved';
+        });
       }
     })();
   </script>
@@ -626,21 +609,18 @@
       const title = document.getElementById('imageModalTitle');
       const closeButton = document.getElementById('imageModalClose');
       const backdrop = modal ? modal.querySelector('[data-close-image-modal]') : null;
+      if (!modal || !preview || !title || !closeButton) return;
+
       let lastFocusedElement = null;
       let closeTimer = null;
       const MODAL_ANIMATION_MS = 260;
 
-      if (!modal || !preview || !title || !closeButton) {
-        return;
-      }
-
-      function openImageModal(imageSrc, imageName, trigger) {
+      function openImageModal(imageSrc, imageName) {
         if (closeTimer) {
           window.clearTimeout(closeTimer);
           closeTimer = null;
         }
-
-        lastFocusedElement = trigger || document.activeElement;
+        lastFocusedElement = document.activeElement;
         preview.src = imageSrc;
         preview.alt = imageName;
         title.textContent = imageName;
@@ -652,18 +632,15 @@
 
       function closeImageModal() {
         const elementToRestoreFocus = lastFocusedElement;
-
         modal.classList.remove('is-open');
         modal.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('modal-open');
-
         closeTimer = window.setTimeout(function () {
           preview.src = '';
           preview.alt = '';
           title.textContent = '';
           closeTimer = null;
-
-          if (elementToRestoreFocus) {
+          if (elementToRestoreFocus && typeof elementToRestoreFocus.focus === 'function') {
             elementToRestoreFocus.focus({ preventScroll: true });
           }
         }, MODAL_ANIMATION_MS);
@@ -671,23 +648,24 @@
 
       document.addEventListener('click', function (event) {
         const trigger = event.target.closest('[data-part-image]');
-        if (!trigger) {
+        if (trigger) {
+          openImageModal(trigger.getAttribute('data-part-image') || '', trigger.getAttribute('data-part-name') || 'Комплектуюча');
           return;
         }
-
-        openImageModal(trigger.dataset.partImage, trigger.dataset.partName || 'Зображення комплектуючої', trigger);
+        if (event.target.closest('[data-close-image-modal]') || event.target.closest('#imageModalClose')) {
+          closeImageModal();
+        }
       });
-
-      closeButton.addEventListener('click', closeImageModal);
-      if (backdrop) {
-        backdrop.addEventListener('click', closeImageModal);
-      }
 
       document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape' && modal.classList.contains('is-open')) {
           closeImageModal();
         }
       });
+
+      if (backdrop) {
+        backdrop.addEventListener('click', closeImageModal);
+      }
     })();
   </script>
 </body>

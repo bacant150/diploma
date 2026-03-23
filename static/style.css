@@ -2037,33 +2037,82 @@ body.modal-open {
     }
 }
 
-.alternative-card--interactive {
-    cursor: pointer;
-    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+.alternative-card.is-active {
+    border-color: rgba(255, 107, 87, 0.72);
+    box-shadow: 0 18px 42px rgba(255, 107, 87, 0.2);
 }
 
-.alternative-card--interactive:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255, 107, 87, 0.34);
-    box-shadow: 0 20px 36px rgba(99, 59, 44, 0.12);
-}
-
-.alternative-card--interactive:focus-visible {
-    outline: 3px solid rgba(255, 107, 87, 0.28);
-    outline-offset: 3px;
-}
-
-.alternative-card--active {
-    border-color: rgba(255, 107, 87, 0.48);
-    box-shadow: 0 18px 40px rgba(255, 107, 87, 0.16);
-    background: linear-gradient(180deg, rgba(255, 251, 249, 1) 0%, rgba(255, 243, 236, 1) 100%);
-}
-
-.alternative-open-hint {
+.alternative-open-btn {
     margin-top: auto;
-    padding-top: 12px;
-    border-top: 1px solid rgba(224, 202, 193, 0.8);
-    color: var(--accent-dark);
-    font-size: 13px;
-    font-weight: 700;
+    border: none;
+    border-radius: 14px;
+    padding: 13px 16px;
+    background: linear-gradient(135deg, rgba(255, 107, 87, 0.12) 0%, rgba(255, 107, 87, 0.2) 100%);
+    color: #8f4032;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.alternative-open-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(255, 107, 87, 0.12);
+}
+
+.alternative-card.is-active .alternative-open-btn {
+    background: linear-gradient(135deg, var(--accent) 0%, #ff7a68 100%);
+    color: #fffaf8;
+}
+
+.detail-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.part-card-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.part-change-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255, 107, 87, 0.13);
+    color: #8f4032;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.part-card--changed {
+    border-color: rgba(255, 107, 87, 0.36);
+    box-shadow: 0 12px 26px rgba(255, 107, 87, 0.12);
+}
+
+.part-description {
+    margin: 12px 0 0;
+    color: #5f4a42;
+    line-height: 1.65;
+    font-size: 14px;
+}
+
+@media (max-width: 760px) {
+    .detail-header {
+        flex-direction: column;
+    }
+
+    .part-card-topline {
+        align-items: flex-start;
+        flex-direction: column;
+    }
 }
