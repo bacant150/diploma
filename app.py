@@ -50,6 +50,12 @@ TIER_TITLES = {
     "upper": "Високий",
 }
 
+PRIORITY_TITLES = {
+    "budget": "Бюджетний",
+    "balanced": "Ціна / якість",
+    "best": "Максимальна продуктивність",
+}
+
 STATUS_MESSAGES = {
     "saved": "Збірку успішно збережено.",
     "renamed": "Назву збірки оновлено.",
@@ -99,14 +105,10 @@ def _attach_part_images(result: dict[str, Any]) -> dict[str, Any]:
         for alternative in alternatives:
             if not isinstance(alternative, dict):
                 continue
-            alternative_parts = alternative.get("parts", {})
-            if isinstance(alternative_parts, dict):
-                part_iterable = alternative_parts.values()
-            elif isinstance(alternative_parts, list):
-                part_iterable = alternative_parts
-            else:
+            alternative_parts = alternative.get("parts", [])
+            if not isinstance(alternative_parts, list):
                 continue
-            for part_data in part_iterable:
+            for part_data in alternative_parts:
                 if not isinstance(part_data, dict):
                     continue
                 name = part_data.get("name")
@@ -147,6 +149,8 @@ def _builder_template_context(purpose: str) -> dict[str, Any]:
         "budget_max": budget_limits["max"],
         "fps_min": FPS_LIMITS["min"],
         "fps_max": FPS_LIMITS["max"],
+        "selected_priority": "balanced",
+        "priority_titles": PRIORITY_TITLES,
     }
 
 
@@ -228,7 +232,7 @@ def _extract_user_inputs(form: Any) -> dict[str, Any]:
         "creator_apps": creator_apps,
         "creator_complexity": _form_str(form, "creator_complexity", "auto"),
         "creator_monitors": _form_str(form, "creator_monitors", "auto"),
-        "priority": _form_str(form, "priority", "auto"),
+        "priority": _form_str(form, "priority", "balanced") if _form_str(form, "priority", "balanced") in PRIORITY_TITLES else "balanced",
     }
 
     inputs["games_titles"] = [GAMES_DB[g]["title"] for g in games if g in GAMES_DB]
@@ -487,7 +491,36 @@ async def build(request: Request) -> HTMLResponse:
     else:
         result = build_pc(**payload)
 
-    result["alternatives"] = build_pc_alternatives(result, budget_mode=inputs.get("budget_mode", "manual"), **payload)
+    raw_alternatives = build_pc_alternatives(result, budget_mode=inputs.get("budget_mode", "manual"), **payload)
+    public_alternatives: list[dict[str, Any]] = []
+    primary_result: dict[str, Any] | None = None
+
+    for alternative in raw_alternatives:
+        if not isinstance(alternative, dict):
+            continue
+
+        raw_result = alternative.get("_result")
+        if alternative.get("is_primary") and isinstance(raw_result, dict):
+            primary_result = raw_result
+
+        public_card = dict(alternative)
+        public_card.pop("_result", None)
+
+        if isinstance(raw_result, dict):
+            result_payload = dict(raw_result)
+            result_payload.pop("alternatives", None)
+            result_payload = _attach_part_images(result_payload)
+            public_card["result_payload"] = result_payload
+
+        public_alternatives.append(public_card)
+
+    if primary_result and primary_result.get("parts"):
+        primary_result = dict(primary_result)
+        primary_result["alternatives"] = public_alternatives
+        result = primary_result
+    else:
+        result["alternatives"] = public_alternatives
+
     result = _attach_part_images(result)
     return templates.TemplateResponse("result.html", _result_page_context(request, inputs, result))
 

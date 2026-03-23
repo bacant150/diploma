@@ -1195,13 +1195,7 @@ def _build_gaming_pc_integrated(
     notes.append(_gaming_target_label(requirement, graphics_quality, target_fps, resolution))
     notes.append(match_info["match_note"])
     notes.append(_budget_summary_note(total, budget))
-    result = _result(best_config, notes, tier, budget, meta={"game_requirement": requirement, "match_info": match_info})
-    return _enrich_result_with_component_explanations(result, best_config, "gaming", {
-        "resolution": resolution,
-        "graphics_quality": graphics_quality,
-        "target_fps": target_fps,
-        "wifi": wifi,
-    })
+    return _result(best_config, notes, tier, budget, meta={"game_requirement": requirement, "match_info": match_info})
 
 
 # ===== Пріоритет підбору =====
@@ -1210,14 +1204,25 @@ def _build_gaming_pc_integrated(
 def _priority_label(priority: str) -> str:
     return {
         "auto": "автоматичний підбір",
+        "budget": "бюджетний режим",
         "balanced": "збалансований режим (ціна/якість)",
-        "best": "режим максимально найкращої конфігурації",
+        "best": "режим максимальної продуктивності",
     }.get(priority, "автоматичний підбір")
 
 
 def _priority_score_adjustment(total: int, budget: int, priority: str) -> float:
     usage = total / max(budget, 1)
     left = budget - total
+    if priority == "budget":
+        if usage < 0.55:
+            return -6.0
+        if 0.60 <= usage <= 0.82:
+            return 16.0
+        if 0.82 < usage <= 0.90:
+            return 8.0
+        if usage > 0.95:
+            return -12.0
+        return 2.0 + max(left, 0) / max(budget, 1) * 6.0
     if priority == "balanced":
         if 0.78 <= usage <= 0.93:
             return 12.0
@@ -1238,10 +1243,12 @@ def _priority_score_adjustment(total: int, budget: int, priority: str) -> float:
 
 
 def _priority_note(priority: str) -> str:
+    if priority == "budget":
+        return "Пріоритет підбору: бюджетний варіант з акцентом на економію."
     if priority == "balanced":
         return "Пріоритет підбору: збалансовано (ціна/якість)."
     if priority == "best":
-        return "Пріоритет підбору: максимально найкращий варіант у межах бюджету."
+        return "Пріоритет підбору: максимальна продуктивність у межах бюджету."
     return "Пріоритет підбору: автоматично."
 
 
@@ -1567,12 +1574,7 @@ def build_office_pc(
         _priority_note(priority),
         _budget_summary_note(total, budget),
     ])
-    result = _result(best_config, notes, tier, budget, meta={"office_requirement": requirement})
-    return _enrich_result_with_component_explanations(result, best_config, "office", {
-        "wifi": wifi,
-        "office_tabs": office_tabs,
-        "office_monitors": office_monitors,
-    })
+    return _result(best_config, notes, tier, budget, meta={"office_requirement": requirement})
 
 
 def build_study_pc(
@@ -1685,12 +1687,7 @@ def build_study_pc(
         _priority_note(priority),
         _budget_summary_note(total, budget),
     ])
-    result = _result(best_config, notes, tier, budget, meta={"study_requirement": requirement})
-    return _enrich_result_with_component_explanations(result, best_config, "study", {
-        "wifi": wifi,
-        "study_tabs": study_tabs,
-        "study_monitors": study_monitors,
-    })
+    return _result(best_config, notes, tier, budget, meta={"study_requirement": requirement})
 
 
 def build_gaming_pc(
@@ -1815,13 +1812,7 @@ def build_gaming_pc(
         notes.append(match_info["match_note"] if requirement["is_active"] else _gaming_performance_label(chosen_config, resolution))
         notes.append(_priority_note(priority))
         notes.append(_budget_summary_note(total, budget))
-        result = _result(chosen_config, notes, tier, budget, meta={"game_requirement": requirement, "match_info": match_info})
-        return _enrich_result_with_component_explanations(result, chosen_config, "gaming", {
-            "resolution": resolution,
-            "graphics_quality": graphics_quality,
-            "target_fps": target_fps,
-            "wifi": wifi,
-        })
+        return _result(chosen_config, notes, tier, budget, meta={"game_requirement": requirement, "match_info": match_info})
     if gpu_mode == "dedicated":
         return dedicated_build()
     if gpu_mode == "integrated":
@@ -2199,13 +2190,7 @@ def build_creator_pc(
         _priority_note(priority),
         _budget_summary_note(total, budget),
     ])
-    result = _result(best_config, notes, tier, budget, meta={"creator_requirement": requirement})
-    return _enrich_result_with_component_explanations(result, best_config, "creator", {
-        "resolution": resolution,
-        "wifi": wifi,
-        "creator_monitors": creator_monitors,
-        "creator_project_complexity": creator_project_complexity,
-    })
+    return _result(best_config, notes, tier, budget, meta={"creator_requirement": requirement})
 
 
 def _find_part_by_name(name: str) -> Optional[Part]:
@@ -2582,6 +2567,7 @@ TIER_TITLES = {
 def _priority_card_title(priority: str) -> str:
     return {
         "auto": "Автоматичний підбір",
+        "budget": "Бюджетний",
         "balanced": "Ціна / якість",
         "best": "Максимальна продуктивність",
     }.get(priority, "Автоматичний підбір")
@@ -2838,6 +2824,284 @@ def _delta_text(total: int, primary_total: int, is_primary: bool) -> str:
     return "Така сама ціна, але інший акцент підбору"
 
 
+PRIORITY_VARIANT_META = {
+    "budget": {
+        "title": "Бюджетна конфігурація",
+        "description": "Акцент на економнішому підборі без виходу за межі сценарію використання.",
+    },
+    "balanced": {
+        "title": "Збалансована конфігурація",
+        "description": "Оптимальний компроміс між ціною, якістю та запасом продуктивності.",
+    },
+    "best": {
+        "title": "Конфігурація максимальної продуктивності",
+        "description": "Максимально продуктивний варіант у межах заданих параметрів.",
+    },
+}
+
+
+def _priority_display_order(selected_priority: str) -> List[str]:
+    base_order = ["budget", "balanced", "best"]
+    normalized = selected_priority if selected_priority in base_order else "balanced"
+    return [normalized] + [item for item in base_order if item != normalized]
+
+
+def _requested_budget_for_result(result: Dict[str, object], budget_mode: str, fallback_budget: int) -> int:
+    if budget_mode == "auto":
+        return int(result.get("recommended_budget", 0) or result.get("total", 0) or fallback_budget)
+    return int(fallback_budget or result.get("total", 0) or 0)
+
+
+
+def _priority_budget_step(purpose: str) -> int:
+    return {
+        "office": 2000,
+        "study": 2500,
+        "gaming": 6000,
+        "creator": 8000,
+    }.get(purpose, 2500)
+
+
+
+def _unique_budget_sequence(values: List[int]) -> List[int]:
+    result: List[int] = []
+    seen: set[int] = set()
+    for value in values:
+        normalized = _round_budget_up(int(value), step=500)
+        if normalized < 7000 or normalized in seen:
+            continue
+        seen.add(normalized)
+        result.append(normalized)
+    return result
+
+
+
+def _manual_priority_targets(max_budget: int, purpose: str) -> Dict[str, int]:
+    if max_budget <= 0:
+        return {"budget": 0, "balanced": 0, "best": 0}
+
+    budget_factor, balanced_factor = {
+        "office": (0.82, 0.92),
+        "study": (0.84, 0.93),
+        "gaming": (0.78, 0.90),
+        "creator": (0.80, 0.90),
+    }.get(purpose, (0.82, 0.92))
+
+    step = max(1000, _priority_budget_step(purpose) // 2)
+    best_target = _round_budget_up(max_budget, step=500)
+    balanced_target = min(best_target, _round_budget_up(int(max_budget * balanced_factor), step=500))
+    budget_target = min(best_target, _round_budget_up(int(max_budget * budget_factor), step=500))
+
+    if balanced_target >= best_target:
+        balanced_target = max(7000, best_target - step)
+    if budget_target >= balanced_target:
+        budget_target = max(7000, balanced_target - step)
+
+    return {
+        "budget": max(7000, budget_target),
+        "balanced": max(7000, balanced_target),
+        "best": max(7000, best_target),
+    }
+
+
+
+def _auto_priority_targets(base_result: Dict[str, object], common_kwargs: Dict[str, Any], purpose: str) -> Dict[str, int]:
+    current_budget = int(base_result.get("recommended_budget", 0) or base_result.get("total", 0) or 0)
+    gpu_mode = str(common_kwargs.get("gpu_mode", "auto"))
+    settings = _auto_budget_settings(purpose, gpu_mode=gpu_mode)
+    stop = settings["stop"]
+    step = _priority_budget_step(purpose)
+    bump = max(1000, step // 2)
+
+    minimum_search_kwargs = dict(common_kwargs)
+    minimum_search_kwargs["priority"] = "budget"
+    min_budget, _ = _find_minimum_viable_config(max(current_budget, 7000), minimum_search_kwargs)
+
+    budget_target = int(min_budget or current_budget or settings["start"])
+    budget_target = min(stop, max(7000, _round_budget_up(budget_target, step=500)))
+
+    balanced_target = _round_budget_up(max(budget_target + bump, int(budget_target * 1.12)), step=500)
+    best_target = _round_budget_up(max(balanced_target + bump, int(budget_target * 1.28)), step=500)
+
+    if balanced_target <= budget_target:
+        balanced_target = budget_target + bump
+    if best_target <= balanced_target:
+        best_target = balanced_target + bump
+
+    return {
+        "budget": min(stop, budget_target),
+        "balanced": min(stop, balanced_target),
+        "best": min(stop, best_target),
+    }
+
+
+
+def _priority_variant_kwargs(common_kwargs: Dict[str, Any], priority: str, purpose: str, target_budget: int) -> Dict[str, Any]:
+    variant_kwargs = dict(common_kwargs)
+    variant_kwargs["priority"] = priority
+
+    if variant_kwargs.get("memory_platform") == "auto":
+        if purpose in {"office", "study"}:
+            if priority == "budget":
+                variant_kwargs["memory_platform"] = "ddr4"
+            elif priority == "best" and target_budget >= 26000:
+                variant_kwargs["memory_platform"] = "ddr5"
+        elif purpose == "gaming":
+            if priority == "budget" and target_budget < 60000:
+                variant_kwargs["memory_platform"] = "ddr4"
+            elif priority == "best" and target_budget >= 55000:
+                variant_kwargs["memory_platform"] = "ddr5"
+        elif purpose == "creator":
+            if priority == "budget" and target_budget < 70000:
+                variant_kwargs["memory_platform"] = "ddr4"
+            elif priority == "best" and target_budget >= 70000:
+                variant_kwargs["memory_platform"] = "ddr5"
+
+    if variant_kwargs.get("ram_size") == "auto":
+        if purpose in {"office", "study"}:
+            variant_kwargs["ram_size"] = "16" if priority != "best" or target_budget < 26000 else "32"
+        elif purpose == "gaming":
+            if priority == "budget":
+                variant_kwargs["ram_size"] = "16"
+            elif priority == "balanced":
+                variant_kwargs["ram_size"] = "16" if target_budget < 70000 else "32"
+            else:
+                variant_kwargs["ram_size"] = "32"
+        elif purpose == "creator":
+            variant_kwargs["ram_size"] = "32" if priority != "best" else "64"
+
+    if variant_kwargs.get("ssd_size") == "auto":
+        if purpose in {"office", "study"}:
+            if priority == "budget":
+                variant_kwargs["ssd_size"] = "512"
+            elif priority == "balanced":
+                variant_kwargs["ssd_size"] = "1000"
+            else:
+                variant_kwargs["ssd_size"] = "1000" if target_budget < 32000 else "2000"
+        elif purpose == "gaming":
+            if priority == "budget":
+                variant_kwargs["ssd_size"] = "512"
+            elif priority == "balanced":
+                variant_kwargs["ssd_size"] = "1000"
+            else:
+                variant_kwargs["ssd_size"] = "1000" if target_budget < 85000 else "2000"
+        elif purpose == "creator":
+            if priority == "budget":
+                variant_kwargs["ssd_size"] = "1000"
+            elif priority == "balanced":
+                variant_kwargs["ssd_size"] = "2000"
+            else:
+                variant_kwargs["ssd_size"] = "2000" if target_budget < 110000 else "4000"
+
+    if variant_kwargs.get("gpu_mode") == "auto":
+        if purpose in {"office", "study"} and priority == "budget":
+            variant_kwargs["gpu_mode"] = "integrated"
+
+    return variant_kwargs
+
+
+
+def _build_variant_result(
+    common_kwargs: Dict[str, Any],
+    *,
+    budget_mode: str,
+    target_budget: int,
+    priority: str,
+) -> Dict[str, object]:
+    purpose = str(common_kwargs.get("purpose", "gaming") or "gaming")
+    variant_kwargs = _priority_variant_kwargs(common_kwargs, priority, purpose, target_budget)
+    result = build_pc(budget=target_budget, **variant_kwargs)
+
+    if result.get("parts"):
+        result["priority"] = priority
+        result["requested_budget"] = target_budget
+        if budget_mode == "auto":
+            notes = result.get("notes", [])
+            if not isinstance(notes, list):
+                notes = []
+            auto_note = f"Орієнтир бюджету для режиму «{_priority_card_title(priority)}»: {target_budget} грн."
+            if auto_note not in notes:
+                notes.insert(0, auto_note)
+            result["notes"] = notes[:5]
+            result["recommended_budget"] = target_budget
+            result["budget_mode"] = "auto"
+    return result
+
+
+
+def _candidate_budgets_for_variant(
+    *,
+    initial_budget: int,
+    budget_mode: str,
+    priority: str,
+    purpose: str,
+    manual_budget_cap: int,
+) -> List[int]:
+    step = max(500, _priority_budget_step(purpose) // 2)
+
+    if budget_mode == "auto":
+        budgets = [initial_budget]
+        if priority == "budget":
+            budgets += [max(7000, initial_budget - step), initial_budget + step, initial_budget + step * 2]
+        elif priority == "balanced":
+            budgets += [initial_budget + step, max(7000, initial_budget - step), initial_budget + step * 2]
+        else:
+            budgets += [initial_budget + step, initial_budget + step * 2, initial_budget + step * 3]
+        return _unique_budget_sequence(budgets)
+
+    cap = max(manual_budget_cap, initial_budget)
+    budgets = [initial_budget]
+    if priority == "budget":
+        budgets += [max(7000, initial_budget - step), max(7000, initial_budget - step * 2), min(cap, initial_budget + step)]
+    elif priority == "balanced":
+        budgets += [min(cap, initial_budget + step), max(7000, initial_budget - step), cap]
+    else:
+        budgets += [cap, max(7000, cap - step), max(7000, cap - step * 2)]
+    return _unique_budget_sequence([value for value in budgets if value <= cap])
+
+
+
+def _build_distinct_variant(
+    common_kwargs: Dict[str, Any],
+    *,
+    budget_mode: str,
+    priority: str,
+    initial_budget: int,
+    used_signatures: set[Tuple[Tuple[str, str], ...]],
+    manual_budget_cap: int,
+) -> Dict[str, object]:
+    purpose = str(common_kwargs.get("purpose", "gaming") or "gaming")
+    last_result: Optional[Dict[str, object]] = None
+
+    for candidate_budget in _candidate_budgets_for_variant(
+        initial_budget=initial_budget,
+        budget_mode=budget_mode,
+        priority=priority,
+        purpose=purpose,
+        manual_budget_cap=manual_budget_cap,
+    ):
+        result = _build_variant_result(
+            common_kwargs,
+            budget_mode=budget_mode,
+            target_budget=candidate_budget,
+            priority=priority,
+        )
+        if not result.get("parts"):
+            continue
+        last_result = result
+        signature = _result_signature(result)
+        if signature and signature not in used_signatures:
+            return result
+
+    return last_result or _build_variant_result(
+        common_kwargs,
+        budget_mode=budget_mode,
+        target_budget=initial_budget,
+        priority=priority,
+    )
+
+
+
 def _make_alternative_card(
     *,
     key: str,
@@ -2885,13 +3149,9 @@ def _make_alternative_card(
         "part_explanations": part_explanations,
         "changed_part_keys": changed_keys,
         "changed_part_explanations": changed_explanations,
+        "_result": result,
     }
 
-
-def _build_variant_from_budget(common_kwargs: Dict[str, Any], budget: int, priority: str) -> Dict[str, object]:
-    variant_kwargs = dict(common_kwargs)
-    variant_kwargs["priority"] = priority
-    return build_pc(budget=budget, **variant_kwargs)
 
 
 def _find_minimum_viable_config(max_budget: int, common_kwargs: Dict[str, Any]) -> Tuple[Optional[int], Optional[Dict[str, object]]]:
@@ -2936,145 +3196,73 @@ def _find_minimum_viable_config(max_budget: int, common_kwargs: Dict[str, Any]) 
     return chosen_budget, chosen_result
 
 
+
 def build_pc_alternatives(
     base_result: Dict[str, object],
     budget_mode: str = "manual",
     **payload: Any,
 ) -> List[Dict[str, object]]:
-    """Формує список альтернативних конфігурацій для порівняння."""
+    """Формує 3 пріоритетні конфігурації: бюджетну, збалансовану і продуктивну."""
     if not base_result.get("parts"):
         return []
 
     purpose = str(payload.get("purpose", "gaming") or "gaming")
-    selected_priority = str(payload.get("priority", "auto") or "auto")
+    selected_priority = str(payload.get("priority", "balanced") or "balanced")
     manual_budget = int(payload.get("budget", 0) or 0)
-    recommended_budget = int(base_result.get("recommended_budget", 0) or 0)
-    primary_budget = manual_budget or recommended_budget or int(base_result.get("total", 0) or 0)
-    primary_total = int(base_result.get("total", 0) or 0)
-
-    primary_description = (
-        "Основна рекомендація за твоїми параметрами та автоматично підібраним бюджетом."
-        if budget_mode == "auto"
-        else "Основна рекомендація за вказаним бюджетом і поточним пріоритетом підбору."
-    )
-
-    cards: List[Dict[str, object]] = [
-        _make_alternative_card(
-            key="primary",
-            title="Рекомендована конфігурація",
-            description=primary_description,
-            result=base_result,
-            requested_budget=primary_budget,
-            priority=selected_priority,
-            purpose=purpose,
-            primary_total=primary_total,
-            is_primary=True,
-            primary_result=base_result,
-        )
-    ]
 
     common_kwargs = dict(payload)
     common_kwargs.pop("budget", None)
-    seen_signatures = {_result_signature(base_result)}
-    candidate_variants: List[Tuple[str, str, str, Dict[str, object], int, str]] = []
 
-    if budget_mode == "manual" and manual_budget > 0:
-        min_budget, min_result = _find_minimum_viable_config(manual_budget, common_kwargs)
-        if min_budget and min_result:
-            candidate_variants.append((
-                "minimum",
-                "Мінімально достатня",
-                "Найдоступніша збірка, яка все ще покриває твій сценарій використання.",
-                min_result,
-                min_budget,
-                "balanced",
-            ))
-        else:
-            economy_budget = max(7000, min(manual_budget, _round_budget_up(int(manual_budget * 0.85), 500)))
-            if economy_budget < manual_budget:
-                candidate_variants.append((
-                    "economy",
-                    "Економніша",
-                    "Варіант зі зменшеним бюджетом, якщо хочеш трохи заощадити без повної зміни сценарію.",
-                    _build_variant_from_budget(common_kwargs, economy_budget, "balanced"),
-                    economy_budget,
-                    "balanced",
-                ))
-
-        balanced_budget = max(7000, min(manual_budget, _round_budget_up(int(manual_budget * 0.94), 500)))
-        if balanced_budget < manual_budget:
-            candidate_variants.append((
-                "balanced",
-                "Збалансована",
-                "Трохи стриманіша конфігурація з кращим фокусом на співвідношенні ціни та можливостей.",
-                _build_variant_from_budget(common_kwargs, balanced_budget, "balanced"),
-                balanced_budget,
-                "balanced",
-            ))
-        else:
-            candidate_variants.append((
-                "balanced",
-                "Збалансована",
-                "Найкращий компроміс між ціною, якістю та запасом по комплектуючих.",
-                _build_variant_from_budget(common_kwargs, manual_budget, "balanced"),
-                manual_budget,
-                "balanced",
-            ))
-
-        candidate_variants.append((
-            "performance",
-            "Максимальна в межах бюджету",
-            "Акцент на максимально продуктивних комплектуючих за той самий бюджет.",
-            _build_variant_from_budget(common_kwargs, manual_budget, "best"),
-            manual_budget,
-            "best",
-        ))
+    if budget_mode == "auto":
+        target_budgets = _auto_priority_targets(base_result, common_kwargs, purpose)
     else:
-        auto_settings = _auto_budget_settings(purpose, gpu_mode=str(common_kwargs.get("gpu_mode", "auto")))
-        base_budget = recommended_budget or int(base_result.get("total", 0) or 0)
-        balanced_budget = min(auto_settings["stop"], max(base_budget + 2000, _round_budget_up(int(base_budget * 1.12), 500)))
-        performance_budget = min(auto_settings["stop"], max(base_budget + 5000, _round_budget_up(int(base_budget * 1.25), 500)))
+        target_budgets = _manual_priority_targets(manual_budget, purpose)
 
-        if balanced_budget > 0:
-            candidate_variants.append((
-                "balanced",
-                "Збалансована",
-                "Варіант із трохи більшим бюджетом для кращого співвідношення ціни та можливостей.",
-                _build_variant_from_budget(common_kwargs, balanced_budget, "balanced"),
-                balanced_budget,
-                "balanced",
-            ))
+    cards: List[Dict[str, object]] = []
+    ordered_priorities = _priority_display_order(selected_priority)
+    used_signatures: set[Tuple[Tuple[str, str], ...]] = set()
+    primary_total = int(base_result.get("total", 0) or 0)
 
-        if performance_budget > 0:
-            candidate_variants.append((
-                "performance",
-                "Розширена продуктивність",
-                "Посилена конфігурація з вищим бюджетом для максимального запасу по потужності.",
-                _build_variant_from_budget(common_kwargs, performance_budget, "best"),
-                performance_budget,
-                "best",
-            ))
+    for index, priority in enumerate(ordered_priorities):
+        is_primary = index == 0
+        target_budget = int(target_budgets.get(priority, manual_budget or primary_total or 0))
+        variant_result = _build_distinct_variant(
+            common_kwargs,
+            budget_mode=budget_mode,
+            priority=priority,
+            initial_budget=target_budget,
+            used_signatures=used_signatures,
+            manual_budget_cap=manual_budget,
+        )
 
-    for key, title, description, variant_result, requested_budget, priority in candidate_variants:
         if not variant_result.get("parts"):
             continue
 
         signature = _result_signature(variant_result)
-        if signature in seen_signatures:
-            continue
+        if signature:
+            used_signatures.add(signature)
 
-        seen_signatures.add(signature)
+        if is_primary:
+            primary_total = int(variant_result.get("total", 0) or 0)
+            description = "Основна рекомендація відповідно до обраного тобою пріоритету підбору."
+            title = "Рекомендована конфігурація"
+        else:
+            variant_meta = PRIORITY_VARIANT_META.get(priority, PRIORITY_VARIANT_META["balanced"])
+            title = str(variant_meta["title"])
+            description = str(variant_meta["description"])
+
         cards.append(
             _make_alternative_card(
-                key=key,
+                key=f"priority-{priority}",
                 title=title,
                 description=description,
                 result=variant_result,
-                requested_budget=requested_budget,
+                requested_budget=_requested_budget_for_result(variant_result, budget_mode, target_budget),
                 priority=priority,
                 purpose=purpose,
                 primary_total=primary_total,
-                primary_result=base_result,
+                is_primary=is_primary,
+                primary_result=cards[0]["_result"] if cards and not is_primary and isinstance(cards[0].get("_result"), dict) else (variant_result if is_primary else None),
             )
         )
 
@@ -3117,12 +3305,38 @@ def build_pc(
     """
     if budget < 7000:
         return _fail("Бюджет занадто малий для збирання ПК.", "budget")
+
+    context: Dict[str, Any] = {
+        "resolution": resolution,
+        "graphics_quality": graphics_quality,
+        "target_fps": target_fps,
+        "gpu_mode": gpu_mode,
+        "cpu_brand": cpu_brand,
+        "gpu_brand": gpu_brand,
+        "ram_size": ram_size,
+        "ssd_size": ssd_size,
+        "memory_platform": memory_platform,
+        "office_tabs": office_tabs,
+        "office_monitors": office_monitors,
+        "study_tabs": study_tabs,
+        "study_monitors": study_monitors,
+        "creator_project_complexity": creator_project_complexity,
+        "creator_monitors": creator_monitors,
+        "priority": priority,
+    }
+
     if purpose == "gaming":
-        return build_gaming_pc(budget, resolution, wifi, games or [], graphics_quality, target_fps, gpu_mode, cpu_brand, gpu_brand, ram_size, ssd_size, memory_platform, priority)
-    if purpose == "office":
-        return build_office_pc(budget, wifi, office_apps or [], office_tabs, office_monitors, gpu_mode, cpu_brand, ram_size, ssd_size, memory_platform, priority)
-    if purpose == "study":
-        return build_study_pc(budget, wifi, study_apps or [], study_tabs, study_monitors, gpu_mode, cpu_brand, ram_size, ssd_size, memory_platform, priority)
-    if purpose == "creator":
-        return build_creator_pc(budget, resolution, wifi, creator_apps or [], creator_project_complexity, creator_monitors, gpu_mode, cpu_brand, gpu_brand, ram_size, ssd_size, memory_platform, priority)
-    return _fail("Невідоме призначення ПК.", "unknown")
+        result = build_gaming_pc(budget, resolution, wifi, games or [], graphics_quality, target_fps, gpu_mode, cpu_brand, gpu_brand, ram_size, ssd_size, memory_platform, priority)
+    elif purpose == "office":
+        result = build_office_pc(budget, wifi, office_apps or [], office_tabs, office_monitors, gpu_mode, cpu_brand, ram_size, ssd_size, memory_platform, priority)
+    elif purpose == "study":
+        result = build_study_pc(budget, wifi, study_apps or [], study_tabs, study_monitors, gpu_mode, cpu_brand, ram_size, ssd_size, memory_platform, priority)
+    elif purpose == "creator":
+        result = build_creator_pc(budget, resolution, wifi, creator_apps or [], creator_project_complexity, creator_monitors, gpu_mode, cpu_brand, gpu_brand, ram_size, ssd_size, memory_platform, priority)
+    else:
+        return _fail("Невідоме призначення ПК.", "unknown")
+
+    rebuilt_parts = _rebuild_parts_from_result(result)
+    if rebuilt_parts:
+        result = _enrich_result_with_component_explanations(result, rebuilt_parts, purpose, context)
+    return result
