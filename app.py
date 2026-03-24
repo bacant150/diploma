@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from contextlib import asynccontextmanager
 from datetime import datetime
 import json
+import logging
 from pathlib import Path
 import re
 from typing import Any
@@ -15,21 +17,42 @@ from fastapi.templating import Jinja2Templates
 from builder import build_pc, build_pc_alternatives, build_pc_auto_budget
 from parts_db import CREATOR_APPS_DB, GAMES_DB, OFFICE_APPS_DB, STUDY_APPS_DB
 
+logger = logging.getLogger("pcbuilder.app")
+
 try:
-    from ml.predict import ACCEPTANCE_THRESHOLD as AI_ACCEPTANCE_THRESHOLD, predict_purpose
-except Exception:
+    from ml.predict import (
+        ACCEPTANCE_THRESHOLD as AI_ACCEPTANCE_THRESHOLD,
+        ModelUnavailableError,
+        get_model_status,
+        predict_purpose,
+        warmup_model,
+    )
+    AI_IMPORT_ERROR: str | None = None
+except Exception as exc:
+    AI_IMPORT_ERROR = f"{type(exc).__name__}: {exc}"
+    logger.exception("Не вдалося імпортувати AI-модуль.")
+
     AI_ACCEPTANCE_THRESHOLD = 0.70
 
-    def predict_purpose(text: str) -> dict[str, Any]:
+    class ModelUnavailableError(RuntimeError):
+        """Raised when the local AI model is unavailable."""
+
+    def get_model_status(*, probe: bool = False) -> dict[str, Any]:
         return {
-            "purpose": None,
-            "raw_purpose": None,
-            "confidence": 0.0,
-            "accepted": False,
-            "alternatives": [],
-            "matched_keywords": {},
-            "normalized_text": text.strip(),
+            "available": False,
+            "loaded": False,
+            "model_exists": False,
+            "model_path": str(Path(__file__).resolve().parent / "ml" / "model.joblib"),
+            "reason": AI_IMPORT_ERROR or "Не вдалося імпортувати модуль ml.predict.",
         }
+
+    def warmup_model() -> None:
+        return None
+
+    def predict_purpose(text: str) -> dict[str, Any]:
+        raise ModelUnavailableError(
+            "AI-модуль недоступний: не вдалося імпортувати модуль або його залежності."
+        )
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -71,7 +94,31 @@ BUDGET_LIMITS = {
 
 FPS_LIMITS = {"min": 30, "max": 500}
 
-app = FastAPI()
+
+def _ai_status_message(ai_status: dict[str, Any]) -> str:
+    if ai_status.get("available"):
+        return "Локальна ML-модель успішно завантажена."
+
+    reason = ai_status.get("reason")
+    if reason:
+        return f"Локальна ML-модель недоступна: {reason}"
+
+    return "Локальна ML-модель тимчасово недоступна."
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    try:
+        warmup_model()
+        logger.info("Локальна ML-модель успішно завантажена.")
+    except ModelUnavailableError as exc:
+        logger.warning("AI-модель недоступна під час старту: %s", exc)
+    except Exception:
+        logger.exception("Неочікувана помилка під час стартової перевірки AI-модуля.")
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 
@@ -155,10 +202,15 @@ def _builder_template_context(purpose: str) -> dict[str, Any]:
 
 
 def _choose_purpose_context(request: Request) -> dict[str, Any]:
+    ai_status = get_model_status(probe=True)
+
     return {
         "request": request,
         "purpose_titles": PURPOSE_TITLES,
         "ai_threshold_percent": int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
+        "ai_available": bool(ai_status.get("available")),
+        "ai_status_message": _ai_status_message(ai_status),
+        "ai_status_reason": ai_status.get("reason"),
     }
 
 
@@ -364,6 +416,12 @@ def debug_paths() -> str:
     )
 
 
+@app.get("/health/ai", response_class=JSONResponse)
+def ai_health() -> JSONResponse:
+    status = get_model_status(probe=True)
+    return JSONResponse(status, status_code=200 if status.get("available") else 503)
+
+
 @app.get("/", response_class=HTMLResponse)
 def landing(request: Request) -> HTMLResponse:
     return templates.TemplateResponse("landing.html", {"request": request})
@@ -378,12 +436,33 @@ def choose_purpose(request: Request) -> HTMLResponse:
 async def detect_purpose(request: Request) -> JSONResponse:
     form = await request.form()
     description = _form_str(form, "description", "").strip()
+    ai_status = get_model_status(probe=True)
+
+    if not ai_status.get("available"):
+        return JSONResponse(
+            {
+                "ok": False,
+                "accepted": False,
+                "ai_available": False,
+                "message": "AI-модуль тимчасово недоступний. Автоматичне визначення типу ПК зараз вимкнене.",
+                "details": _ai_status_message(ai_status),
+                "tips": [
+                    "Обери тип ПК вручну — це працює без AI-модуля.",
+                    "Перевір, чи існує файл ml/model.joblib.",
+                    "Перевір, чи встановлені scikit-learn і joblib.",
+                ],
+                "manual_url": "/choose-purpose#manual-purpose-grid",
+                "threshold_percent": int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
+            },
+            status_code=503,
+        )
 
     if len(description) < 8:
         return JSONResponse(
             {
                 "ok": False,
                 "accepted": False,
+                "ai_available": True,
                 "message": "Опиши потреби трохи детальніше, щоб ШІ міг коректно визначити тип ПК.",
                 "tips": [
                     "Наприклад: ПК для CS2 і Dota 2 у Full HD.",
@@ -396,13 +475,35 @@ async def detect_purpose(request: Request) -> JSONResponse:
 
     try:
         prediction = predict_purpose(description)
-    except Exception:
+    except ModelUnavailableError as exc:
+        logger.warning("AI-модель стала недоступною під час запиту: %s", exc)
         return JSONResponse(
             {
                 "ok": False,
                 "accepted": False,
+                "ai_available": False,
+                "message": "AI-модуль тимчасово недоступний. Автоматичне визначення типу ПК зараз вимкнене.",
+                "details": str(exc),
+                "tips": [
+                    "Обери тип ПК вручну — це працює без AI-модуля.",
+                    "Перевір, чи існує файл ml/model.joblib.",
+                    "Перевір, чи встановлені scikit-learn і joblib.",
+                ],
+                "manual_url": "/choose-purpose#manual-purpose-grid",
+                "threshold_percent": int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
+            },
+            status_code=503,
+        )
+    except Exception:
+        logger.exception("Помилка під час AI-визначення типу ПК.")
+        return JSONResponse(
+            {
+                "ok": False,
+                "accepted": False,
+                "ai_available": True,
                 "message": "Не вдалося обробити опис через помилку AI-модуля. Спробуй ще раз або обери тип ПК вручну.",
                 "tips": _ai_refinement_tips(None),
+                "manual_url": "/choose-purpose#manual-purpose-grid",
                 "threshold_percent": int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
             },
             status_code=500,
@@ -412,17 +513,26 @@ async def detect_purpose(request: Request) -> JSONResponse:
     confidence = prediction.get("confidence")
     accepted = bool(prediction.get("accepted"))
     confidence_percent = _confidence_to_percent(confidence)
-    purpose_title = PURPOSE_TITLES.get(raw_purpose, "Невизначений тип") if raw_purpose else "Невизначений тип"
+
+    purpose_title = (
+        PURPOSE_TITLES.get(raw_purpose, "Невизначений тип")
+        if raw_purpose
+        else "Невизначений тип"
+    )
 
     alternatives = prediction.get("alternatives") or []
     prepared_alternatives = []
+
     for item in alternatives:
         if not isinstance(item, dict):
             continue
+
         alt_purpose = item.get("purpose")
         alt_conf = item.get("confidence")
+
         if alt_purpose is None or alt_conf is None:
             continue
+
         prepared_alternatives.append(
             {
                 "purpose": PURPOSE_TITLES.get(str(alt_purpose), str(alt_purpose)),
@@ -437,6 +547,7 @@ async def detect_purpose(request: Request) -> JSONResponse:
             {
                 "ok": True,
                 "accepted": True,
+                "ai_available": True,
                 "purpose": raw_purpose,
                 "purpose_title": purpose_title,
                 "confidence": confidence,
@@ -452,14 +563,16 @@ async def detect_purpose(request: Request) -> JSONResponse:
     message = "ШІ поки не впевнений у виборі сценарію. Напиши, будь ласка, конкретніше, для чого потрібен ПК."
     if raw_purpose and confidence_percent is not None:
         message = (
-            f"ШІ припускає, що це {purpose_title.lower()}, але впевненість лише {confidence_percent}%. "
-            "Опиши потреби конкретніше, і тоді система зможе точніше визначити тип ПК."
+            f"ШІ припускає, що це {purpose_title.lower()}, але впевненість лише "
+            f"{confidence_percent}%. Опиши потреби конкретніше, і тоді система зможе "
+            "точніше визначити тип ПК."
         )
 
     return JSONResponse(
         {
             "ok": True,
             "accepted": False,
+            "ai_available": True,
             "purpose": raw_purpose,
             "purpose_title": purpose_title,
             "confidence": confidence,

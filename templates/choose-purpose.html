@@ -76,7 +76,7 @@
             <p>Обери сценарій використання, і система відкриє відповідний конфігуратор з потрібними параметрами.</p>
           </div>
 
-          <div class="pc-types-grid">
+          <div id="manual-purpose-grid" class="pc-types-grid">
             <a href="/builder/gaming" class="pc-type-card">
               <img src="/static/images/purpose-gaming.webp" alt="Ігровий ПК" class="pc-type-card-image">
               <div class="pc-type-card-body">
@@ -151,6 +151,13 @@
                 <div class="ai-purpose-badge">ML</div>
               </div>
 
+              {% if not ai_available %}
+                <div class="ai-detection-result ai-detection-result--error" role="alert">
+                  <strong>AI-модуль тимчасово недоступний.</strong>
+                  <span>{{ ai_status_message }}</span>
+                </div>
+              {% endif %}
+
               <form id="aiPurposeForm" action="/detect-purpose" method="post" class="ai-purpose-form" novalidate>
                 <label for="description">Опис потреб користувача</label>
                 <textarea
@@ -159,13 +166,18 @@
                   rows="6"
                   placeholder="Наприклад: потрібен ПК для CS2, Dota 2 і високого FPS&#10;або: комп'ютер для Excel, M.E.Doc, браузера і документів"
                   required
+                  {% if not ai_available %}disabled{% endif %}
                 ></textarea>
 
                 <div class="ai-purpose-actions">
-                  <button type="submit" id="aiSubmitBtn" class="hero-btn builder-btn">Визначити автоматично</button>
-                  <button type="button" id="aiClearBtn" class="topbar-link-btn">Очистити</button>
+                  <button type="submit" id="aiSubmitBtn" class="hero-btn builder-btn" {% if not ai_available %}disabled{% endif %}>Визначити автоматично</button>
+                  <button type="button" id="aiClearBtn" class="topbar-link-btn" {% if not ai_available %}disabled{% endif %}>Очистити</button>
                 </div>
               </form>
+
+              {% if not ai_available %}
+                <p>Автоматичне визначення тимчасово вимкнене. Скористайся ручним вибором типу ПК.</p>
+              {% endif %}
 
               <div class="ai-examples-title">Швидкі приклади</div>
               <div class="ai-examples-strip">
@@ -259,7 +271,7 @@
           targetPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        if (targetId === 'ai-panel') {
+        if (targetId === 'ai-panel' && textarea && !textarea.disabled) {
           setTimeout(() => textarea.focus(), 250);
         }
       }
@@ -318,6 +330,22 @@
           });
 
           const data = await response.json();
+
+          if (data.ai_available === false) {
+            showResult(`
+              <div class="ai-result-kicker">AI-модуль недоступний</div>
+              <h3>Автоматичне визначення тимчасово вимкнене</h3>
+              <p>${escapeHtml(data.message || 'Локальна ML-модель зараз недоступна.')}</p>
+              ${data.details ? `<p class="ai-result-meta">${escapeHtml(data.details)}</p>` : ''}
+              ${renderTips(data.tips)}
+              <p>
+                <a class="hero-btn builder-btn" href="${escapeHtml(data.manual_url || '#manual-purpose-grid')}">
+                  Обрати тип ПК вручну
+                </a>
+              </p>
+            `, 'error');
+            return;
+          }
 
           if (data.accepted && data.redirect_url) {
             showResult(`
