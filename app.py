@@ -13,9 +13,18 @@ from fastapi import FastAPI, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from pydantic import ValidationError
 
 from builder import build_pc, build_pc_alternatives, build_pc_auto_budget
 from parts_db import CREATOR_APPS_DB, GAMES_DB, OFFICE_APPS_DB, STUDY_APPS_DB
+from schemas import (
+    BuildInputsSchema,
+    BuildInputsViewSchema,
+    BuildPayloadSchema,
+    BuildResultSchema,
+    PurposeDetectionFormSchema,
+    SavedBuildRecordSchema,
+)
 
 logger = logging.getLogger("pcbuilder.app")
 
@@ -153,9 +162,15 @@ def _attach_part_images(result: dict[str, Any]) -> dict[str, Any]:
             if not isinstance(alternative, dict):
                 continue
             alternative_parts = alternative.get("parts", [])
-            if not isinstance(alternative_parts, list):
+
+            if isinstance(alternative_parts, dict):
+                iterable_parts = alternative_parts.values()
+            elif isinstance(alternative_parts, list):
+                iterable_parts = alternative_parts
+            else:
                 continue
-            for part_data in alternative_parts:
+
+            for part_data in iterable_parts:
                 if not isinstance(part_data, dict):
                     continue
                 name = part_data.get("name")
@@ -214,112 +229,126 @@ def _choose_purpose_context(request: Request) -> dict[str, Any]:
     }
 
 
+def _validation_error_messages(exc: ValidationError) -> list[str]:
+    messages: list[str] = []
+    for error in exc.errors():
+        location = ".".join(str(part) for part in error.get("loc", []))
+        message = str(error.get("msg", "Некоректне значення."))
+        messages.append(f"{location}: {message}" if location else message)
+    return messages
+
+
 def _load_saved_builds() -> list[dict[str, Any]]:
     if not SAVED_BUILDS_FILE.exists():
         return []
+
     try:
-        return json.loads(SAVED_BUILDS_FILE.read_text(encoding="utf-8"))
+        raw_saved_builds = json.loads(SAVED_BUILDS_FILE.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
         return []
 
+    if not isinstance(raw_saved_builds, list):
+        logger.warning("saved_builds.json має неочікувану структуру. Очікувався список.")
+        return []
+
+    validated_builds: list[dict[str, Any]] = []
+    for raw_build in raw_saved_builds:
+        if not isinstance(raw_build, dict):
+            continue
+        try:
+            build = SavedBuildRecordSchema.model_validate(raw_build)
+        except ValidationError as exc:
+            logger.warning("Пропущено некоректну збережену збірку: %s", "; ".join(_validation_error_messages(exc)))
+            continue
+        validated_builds.append(build.model_dump(mode="json"))
+
+    return validated_builds
+
 
 def _write_saved_builds(saved_builds: list[dict[str, Any]]) -> None:
-    SAVED_BUILDS_FILE.write_text(json.dumps(saved_builds, ensure_ascii=False, indent=2), encoding="utf-8")
+    normalized_builds: list[dict[str, Any]] = []
+    for raw_build in saved_builds:
+        build = SavedBuildRecordSchema.model_validate(raw_build)
+        normalized_builds.append(build.model_dump(mode="json"))
+
+    SAVED_BUILDS_FILE.write_text(
+        json.dumps(normalized_builds, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
 
 
-def _form_str(form: Any, key: str, default: str = "") -> str:
-    return str(form.get(key, default))
-
-
-def _form_int(form: Any, key: str, default: int = 0) -> int:
+def _extract_json_object(value: Any, *, field_name: str) -> dict[str, Any]:
     try:
-        return int(form.get(key, default))
-    except (TypeError, ValueError):
-        return default
+        payload = json.loads(str(value or "{}"))
+    except json.JSONDecodeError as exc:
+        raise HTTPException(status_code=400, detail=f"Поле {field_name} містить невалідний JSON.") from exc
 
+    if not isinstance(payload, dict):
+        raise HTTPException(status_code=400, detail=f"Поле {field_name} має містити JSON-об’єкт.")
 
-def _form_yes_no(form: Any, key: str, default: str = "no") -> bool:
-    return _form_str(form, key, default) == "yes"
+    return payload
 
 
 def _extract_user_inputs(form: Any) -> dict[str, Any]:
-    games = form.getlist("games")
-    office_apps = form.getlist("office_apps")
-    study_apps = form.getlist("study_apps")
-    creator_apps = form.getlist("creator_apps")
-
-    purpose = _normalize_purpose(_form_str(form, "purpose", "gaming"))
-    budget_mode = _form_str(form, "budget_mode", "manual")
-    budget_limits = _budget_limits_for_purpose(purpose)
-
-    budget = _form_int(form, "budget", budget_limits["min"])
-    if budget_mode == "manual":
-        budget = _clamp_int(budget, budget_limits["min"], budget_limits["max"])
-    else:
-        budget = 0
-
-    target_fps = _clamp_int(_form_int(form, "target_fps", 60), FPS_LIMITS["min"], FPS_LIMITS["max"])
-
-    inputs: dict[str, Any] = {
-        "budget_mode": budget_mode,
-        "budget": budget,
-        "purpose": purpose,
-        "resolution": _form_str(form, "resolution", "1080p"),
-        "wifi": _form_yes_no(form, "wifi", "no"),
-        "games": games,
-        "graphics_quality": _form_str(form, "graphics_quality", "high"),
-        "target_fps": target_fps,
-        "gpu_mode": _form_str(form, "gpu_mode", "auto"),
-        "cpu_brand": _form_str(form, "cpu_brand", "auto"),
-        "gpu_brand": _form_str(form, "gpu_brand", "auto"),
-        "ram_size": _form_str(form, "ram_size", "auto"),
-        "ssd_size": _form_str(form, "ssd_size", "auto"),
-        "memory_platform": _form_str(form, "memory_platform", "auto"),
-        "office_apps": office_apps,
-        "office_tabs": _form_str(form, "office_tabs", "auto"),
-        "office_monitors": _form_str(form, "office_monitors", "auto"),
-        "study_apps": study_apps,
-        "study_tabs": _form_str(form, "study_tabs", "auto"),
-        "study_monitors": _form_str(form, "study_monitors", "auto"),
-        "creator_apps": creator_apps,
-        "creator_complexity": _form_str(form, "creator_complexity", "auto"),
-        "creator_monitors": _form_str(form, "creator_monitors", "auto"),
-        "priority": _form_str(form, "priority", "balanced") if _form_str(form, "priority", "balanced") in PRIORITY_TITLES else "balanced",
+    raw_inputs = {
+        "budget_mode": form.get("budget_mode", "manual"),
+        "budget": form.get("budget", 0),
+        "purpose": form.get("purpose", "gaming"),
+        "resolution": form.get("resolution", "1080p"),
+        "wifi": form.get("wifi", "no"),
+        "games": form.getlist("games"),
+        "graphics_quality": form.get("graphics_quality", "high"),
+        "target_fps": form.get("target_fps", 60),
+        "gpu_mode": form.get("gpu_mode", "auto"),
+        "cpu_brand": form.get("cpu_brand", "auto"),
+        "gpu_brand": form.get("gpu_brand", "auto"),
+        "ram_size": form.get("ram_size", "auto"),
+        "ssd_size": form.get("ssd_size", "auto"),
+        "memory_platform": form.get("memory_platform", "auto"),
+        "office_apps": form.getlist("office_apps"),
+        "office_tabs": form.get("office_tabs", "auto"),
+        "office_monitors": form.get("office_monitors", "auto"),
+        "study_apps": form.getlist("study_apps"),
+        "study_tabs": form.get("study_tabs", "auto"),
+        "study_monitors": form.get("study_monitors", "auto"),
+        "creator_apps": form.getlist("creator_apps"),
+        "creator_complexity": form.get("creator_complexity", "auto"),
+        "creator_monitors": form.get("creator_monitors", "auto"),
+        "priority": form.get("priority", "balanced"),
     }
 
-    inputs["games_titles"] = [GAMES_DB[g]["title"] for g in games if g in GAMES_DB]
-    inputs["office_apps_titles"] = [OFFICE_APPS_DB[a]["title"] for a in office_apps if a in OFFICE_APPS_DB]
-    inputs["study_apps_titles"] = [STUDY_APPS_DB[a]["title"] for a in study_apps if a in STUDY_APPS_DB]
-    inputs["creator_apps_titles"] = [CREATOR_APPS_DB[a]["title"] for a in creator_apps if a in CREATOR_APPS_DB]
-    return inputs
+    purpose = str(raw_inputs.get("purpose", "gaming") or "gaming")
+    budget_limits = _budget_limits_for_purpose(purpose)
+
+    validated_inputs = BuildInputsSchema.model_validate(
+        raw_inputs,
+        context={"budget_limits": budget_limits, "fps_limits": FPS_LIMITS},
+    )
+    inputs = validated_inputs.model_dump(mode="json")
+
+    inputs["games"] = [game for game in inputs.get("games", []) if game in GAMES_DB]
+    inputs["office_apps"] = [app for app in inputs.get("office_apps", []) if app in OFFICE_APPS_DB]
+    inputs["study_apps"] = [app for app in inputs.get("study_apps", []) if app in STUDY_APPS_DB]
+    inputs["creator_apps"] = [app for app in inputs.get("creator_apps", []) if app in CREATOR_APPS_DB]
+
+    inputs["games_titles"] = [GAMES_DB[game]["title"] for game in inputs["games"]]
+    inputs["office_apps_titles"] = [OFFICE_APPS_DB[app]["title"] for app in inputs["office_apps"]]
+    inputs["study_apps_titles"] = [STUDY_APPS_DB[app]["title"] for app in inputs["study_apps"]]
+    inputs["creator_apps_titles"] = [CREATOR_APPS_DB[app]["title"] for app in inputs["creator_apps"]]
+
+    validated_view = BuildInputsViewSchema.model_validate(
+        inputs,
+        context={"budget_limits": budget_limits, "fps_limits": FPS_LIMITS},
+    )
+    return validated_view.model_dump(mode="json")
 
 
 def _build_pc_payload(inputs: dict[str, Any]) -> dict[str, Any]:
-    return {
-        "budget": inputs["budget"],
-        "purpose": inputs["purpose"],
-        "resolution": inputs["resolution"],
-        "wifi": inputs["wifi"],
-        "games": inputs["games"],
-        "graphics_quality": inputs["graphics_quality"],
-        "target_fps": inputs["target_fps"],
-        "gpu_mode": inputs["gpu_mode"],
-        "cpu_brand": inputs["cpu_brand"],
-        "gpu_brand": inputs["gpu_brand"],
-        "ram_size": inputs["ram_size"],
-        "ssd_size": inputs["ssd_size"],
-        "memory_platform": inputs["memory_platform"],
-        "office_apps": inputs["office_apps"],
-        "office_tabs": inputs["office_tabs"],
-        "office_monitors": inputs["office_monitors"],
-        "study_apps": inputs["study_apps"],
-        "study_tabs": inputs["study_tabs"],
-        "study_monitors": inputs["study_monitors"],
-        "creator_apps": inputs["creator_apps"],
-        "creator_project_complexity": inputs["creator_complexity"],
-        "creator_monitors": inputs["creator_monitors"],
-        "priority": inputs["priority"],
-    }
+    return BuildPayloadSchema.from_inputs(inputs).model_dump(mode="json")
+
+
+def _validate_build_result(result: dict[str, Any]) -> dict[str, Any]:
+    return BuildResultSchema.model_validate(result).model_dump(mode="json")
 
 
 def _default_build_name(inputs: dict[str, Any]) -> str:
@@ -435,8 +464,27 @@ def choose_purpose(request: Request) -> HTMLResponse:
 @app.post("/detect-purpose", response_class=JSONResponse)
 async def detect_purpose(request: Request) -> JSONResponse:
     form = await request.form()
-    description = _form_str(form, "description", "").strip()
     ai_status = get_model_status(probe=True)
+
+    try:
+        detect_form = PurposeDetectionFormSchema.model_validate({"description": form.get("description", "")})
+    except ValidationError:
+        return JSONResponse(
+            {
+                "ok": False,
+                "accepted": False,
+                "ai_available": bool(ai_status.get("available")),
+                "message": "Опиши потреби трохи детальніше, щоб ШІ міг коректно визначити тип ПК.",
+                "tips": [
+                    "Наприклад: ПК для CS2 і Dota 2 у Full HD.",
+                    "Або: комп'ютер для Excel, M.E.Doc, браузера і документів.",
+                ],
+                "threshold_percent": int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
+            },
+            status_code=200,
+        )
+
+    description = detect_form.description
 
     if not ai_status.get("available"):
         return JSONResponse(
@@ -455,22 +503,6 @@ async def detect_purpose(request: Request) -> JSONResponse:
                 "threshold_percent": int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
             },
             status_code=503,
-        )
-
-    if len(description) < 8:
-        return JSONResponse(
-            {
-                "ok": False,
-                "accepted": False,
-                "ai_available": True,
-                "message": "Опиши потреби трохи детальніше, щоб ШІ міг коректно визначити тип ПК.",
-                "tips": [
-                    "Наприклад: ПК для CS2 і Dota 2 у Full HD.",
-                    "Або: комп'ютер для Excel, M.E.Doc, браузера і документів.",
-                ],
-                "threshold_percent": int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
-            },
-            status_code=200,
         )
 
     try:
@@ -604,6 +636,7 @@ async def build(request: Request) -> HTMLResponse:
     else:
         result = build_pc(**payload)
 
+    result = _validate_build_result(result)
     raw_alternatives = build_pc_alternatives(result, budget_mode=inputs.get("budget_mode", "manual"), **payload)
     public_alternatives: list[dict[str, Any]] = []
     primary_result: dict[str, Any] | None = None
@@ -622,6 +655,7 @@ async def build(request: Request) -> HTMLResponse:
         if isinstance(raw_result, dict):
             result_payload = dict(raw_result)
             result_payload.pop("alternatives", None)
+            result_payload = _validate_build_result(result_payload)
             result_payload = _attach_part_images(result_payload)
             public_card["result_payload"] = result_payload
 
@@ -630,7 +664,7 @@ async def build(request: Request) -> HTMLResponse:
     if primary_result and primary_result.get("parts"):
         primary_result = dict(primary_result)
         primary_result["alternatives"] = public_alternatives
-        result = primary_result
+        result = _validate_build_result(primary_result)
     else:
         result["alternatives"] = public_alternatives
 
@@ -660,19 +694,30 @@ def saved_build_view_page(request: Request) -> HTMLResponse:
 @app.post("/saved-builds/save")
 async def save_build(request: Request) -> RedirectResponse:
     form = await request.form()
-    inputs = json.loads(str(form.get("inputs_json", "{}")))
-    result = json.loads(str(form.get("result_json", "{}")))
+    raw_inputs = _extract_json_object(form.get("inputs_json", "{}"), field_name="inputs_json")
+    raw_result = _extract_json_object(form.get("result_json", "{}"), field_name="result_json")
+
+    purpose = str(raw_inputs.get("purpose", "gaming") or "gaming")
+    budget_limits = _budget_limits_for_purpose(purpose)
+    inputs = BuildInputsViewSchema.model_validate(
+        raw_inputs,
+        context={"budget_limits": budget_limits, "fps_limits": FPS_LIMITS},
+    ).model_dump(mode="json")
+    result = BuildResultSchema.model_validate(raw_result).model_dump(mode="json")
+
     build_name = _normalize_build_name(str(form.get("build_name", "")), inputs)
 
     saved_builds = _load_saved_builds()
     saved_builds.append(
-        {
-            "id": uuid4().hex,
-            "name": build_name,
-            "saved_at": datetime.now().isoformat(timespec="seconds"),
-            "inputs": inputs,
-            "result": result,
-        }
+        SavedBuildRecordSchema.model_validate(
+            {
+                "id": uuid4().hex,
+                "name": build_name,
+                "saved_at": datetime.now().isoformat(timespec="seconds"),
+                "inputs": inputs,
+                "result": result,
+            }
+        ).model_dump(mode="json")
     )
     _write_saved_builds(saved_builds)
     return RedirectResponse(url="/saved-builds?status=saved", status_code=303)
