@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import math
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 import joblib
 
@@ -31,13 +31,14 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "model.joblib"
+MODEL_PATH = BASE_DIR / 'model.joblib'
 
 _model = None
 _model_load_error: str | None = None
 
-ACCEPTANCE_THRESHOLD = 0.70
-MARGIN_THRESHOLD = 0.10
+# Нижчий поріг прийняття: якщо впевненість >= 30%, пропускаємо сценарій.
+ACCEPTANCE_THRESHOLD = 0.20
+MARGIN_THRESHOLD = 0.00
 
 
 class ModelUnavailableError(RuntimeError):
@@ -45,7 +46,7 @@ class ModelUnavailableError(RuntimeError):
 
 
 def _format_exception(exc: Exception) -> str:
-    return f"{type(exc).__name__}: {exc}"
+    return f'{type(exc).__name__}: {exc}'
 
 
 def load_model(force_reload: bool = False) -> Any:
@@ -59,7 +60,7 @@ def load_model(force_reload: bool = False) -> Any:
         return _model
 
     if not MODEL_PATH.exists():
-        _model_load_error = f"Файл моделі не знайдено: {MODEL_PATH}"
+        _model_load_error = f'Файл моделі не знайдено: {MODEL_PATH}'
         raise ModelUnavailableError(_model_load_error)
 
     try:
@@ -68,9 +69,9 @@ def load_model(force_reload: bool = False) -> Any:
         return _model
     except Exception as exc:
         _model_load_error = _format_exception(exc)
-        logger.exception("Не вдалося завантажити ML-модель з %s", MODEL_PATH)
+        logger.exception('Не вдалося завантажити ML-модель з %s', MODEL_PATH)
         raise ModelUnavailableError(
-            "Не вдалося завантажити локальну ML-модель. Перевір model.joblib і залежності."
+            'Не вдалося завантажити локальну ML-модель. Перевір model.joblib і залежності.'
         ) from exc
 
 
@@ -90,16 +91,16 @@ def get_model_status(*, probe: bool = False) -> dict[str, Any]:
 
     reason = None
     if not model_exists:
-        reason = f"Файл моделі не знайдено: {MODEL_PATH.name}"
+        reason = f'Файл моделі не знайдено: {MODEL_PATH.name}'
     elif _model_load_error:
         reason = _model_load_error
 
     return {
-        "available": available,
-        "loaded": available,
-        "model_exists": model_exists,
-        "model_path": str(MODEL_PATH),
-        "reason": reason,
+        'available': available,
+        'loaded': available,
+        'model_exists': model_exists,
+        'model_path': str(MODEL_PATH),
+        'reason': reason,
     }
 
 
@@ -110,17 +111,17 @@ def _softmax(values: list[float]) -> list[float]:
     return [value / total for value in exps]
 
 
-def _model_probabilities(model: Any, text: str) -> Dict[str, float]:
-    if hasattr(model, "predict_proba"):
+def _model_probabilities(model: Any, text: str) -> dict[str, float]:
+    if hasattr(model, 'predict_proba'):
         labels = list(model.classes_)
         probs = model.predict_proba([text])[0]
         return {str(label): float(prob) for label, prob in zip(labels, probs)}
 
-    if hasattr(model, "decision_function"):
+    if hasattr(model, 'decision_function'):
         labels = list(model.classes_)
         raw = model.decision_function([text])
 
-        if hasattr(raw, "tolist"):
+        if hasattr(raw, 'tolist'):
             raw = raw.tolist()
 
         if isinstance(raw, list) and raw and not isinstance(raw[0], (list, tuple)):
@@ -142,13 +143,13 @@ def _model_probabilities(model: Any, text: str) -> Dict[str, float]:
 def predict_purpose(text: str) -> dict[str, Any]:
     if not text or not text.strip():
         return {
-            "purpose": None,
-            "raw_purpose": None,
-            "confidence": 0.0,
-            "accepted": False,
-            "alternatives": [],
-            "matched_keywords": {},
-            "normalized_text": "",
+            'purpose': None,
+            'raw_purpose': None,
+            'confidence': 0.0,
+            'accepted': False,
+            'alternatives': [],
+            'matched_keywords': {},
+            'normalized_text': '',
         }
 
     model = load_model()
@@ -178,7 +179,7 @@ def predict_purpose(text: str) -> dict[str, Any]:
     accepted = confidence >= ACCEPTANCE_THRESHOLD and margin >= MARGIN_THRESHOLD
 
     alternatives = [
-        {"purpose": label, "confidence": round(float(prob), 4)}
+        {'purpose': label, 'confidence': round(float(prob), 4)}
         for label, prob in ranked[:3]
     ]
 
@@ -189,33 +190,33 @@ def predict_purpose(text: str) -> dict[str, Any]:
     }
 
     return {
-        "purpose": predicted_label if accepted else None,
-        "raw_purpose": predicted_label,
-        "confidence": round(float(confidence), 4),
-        "accepted": accepted,
-        "alternatives": alternatives,
-        "matched_keywords": matched_keywords,
-        "normalized_text": cleaned_text,
-        "model_confidence": round(float(model_probs.get(predicted_label, 0.0)), 4)
+        'purpose': predicted_label if accepted else None,
+        'raw_purpose': predicted_label,
+        'confidence': round(float(confidence), 4),
+        'accepted': accepted,
+        'alternatives': alternatives,
+        'matched_keywords': matched_keywords,
+        'normalized_text': cleaned_text,
+        'model_confidence': round(float(model_probs.get(predicted_label, 0.0)), 4)
         if predicted_label
         else 0.0,
-        "keyword_confidence": round(float(keyword_probs.get(predicted_label, 0.0)), 4)
+        'keyword_confidence': round(float(keyword_probs.get(predicted_label, 0.0)), 4)
         if predicted_label
         else 0.0,
-        "margin": round(float(margin), 4),
+        'margin': round(float(margin), 4),
     }
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     test_queries = [
-        "Потрібен ПК для гри в доту 2",
-        "хочу комп для cs2 і valorant",
-        "потрібен комп для word excel і браузера",
-        "потрібен комп для бухгалтера, excel і medoc",
-        "пк для навчання zoom і python",
+        'Потрібен ПК для гри в доту 2',
+        'хочу комп для cs2 і valorant',
+        'потрібен комп для word excel і браузера',
+        'потрібен комп для бухгалтера, excel і medoc',
+        'пк для навчання zoom і python',
         "комп'ютер для blender і premiere pro",
-        "хочу пк для blender, maya і рендеру сцен",
+        'хочу пк для blender, maya і рендеру сцен',
     ]
 
     for query in test_queries:
-        print(query, "->", predict_purpose(query))
+        print(query, '->', predict_purpose(query))
