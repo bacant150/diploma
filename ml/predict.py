@@ -37,8 +37,8 @@ _model = None
 _model_load_error: str | None = None
 
 # Нижчий поріг прийняття: якщо впевненість >= 30%, пропускаємо сценарій.
-ACCEPTANCE_THRESHOLD = 0.20
-MARGIN_THRESHOLD = 0.00
+ACCEPTANCE_THRESHOLD = 0.30
+MARGIN_THRESHOLD = 0.10
 
 
 class ModelUnavailableError(RuntimeError):
