@@ -36,9 +36,10 @@ MODEL_PATH = BASE_DIR / 'model.joblib'
 _model = None
 _model_load_error: str | None = None
 
-# Нижчий поріг прийняття: якщо впевненість >= 30%, пропускаємо сценарій.
+# Поріг прийняття: якщо впевненість >= 30%, одразу приймаємо сценарій.
+# Відрив від другого варіанта більше не блокує перехід.
 ACCEPTANCE_THRESHOLD = 0.30
-MARGIN_THRESHOLD = 0.10
+MARGIN_THRESHOLD = 0.00
 
 
 class ModelUnavailableError(RuntimeError):
@@ -176,7 +177,7 @@ def predict_purpose(text: str) -> dict[str, Any]:
         second_confidence = float(ranked[1][1]) if len(ranked) > 1 else 0.0
         margin = confidence - second_confidence
 
-    accepted = confidence >= ACCEPTANCE_THRESHOLD and margin >= MARGIN_THRESHOLD
+    accepted = confidence >= ACCEPTANCE_THRESHOLD
 
     alternatives = [
         {'purpose': label, 'confidence': round(float(prob), 4)}
