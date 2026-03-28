@@ -106,7 +106,7 @@
 {"text": "грати в різні ігри", "label": "gaming"}
 {"text": "майнкрафт грати", "label": "gaming"}
 {"text": "ігровий пк для друзів", "label": "gaming"}
-{"text": "ігровий пк для дитини", "label": "gaming"}
+{"text": "ігровий пк для", "label": "gaming"}
 {"text": "ПК для ігор", "label": "gaming"}
 {"text": "Ігри", "label": "gaming"}
 {"text": "Гулятись в ігри на ПК", "label": "gaming"}
@@ -712,7 +712,7 @@
 {"text": "дитина", "label": "study"}
 {"text": "навчання", "label": "study"}
 {"text": "Комп'ютер для дитини, для школи", "label": "study"}
-
+{"text": "ПК для школи для дитини", "label": "study"}
 
 {"text": "системник для solidworks і unity", "label": "creator"}
 {"text": "пк для figma і maya", "label": "creator"}

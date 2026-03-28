@@ -456,6 +456,9 @@
         if (!config) return;
         const entries = orderedEntries(config.parts);
         const changedSet = new Set(config.changed_part_keys || []);
+        const visibleEntries = config.is_primary
+          ? entries
+          : entries.filter(([role]) => changedSet.has(role));
 
         detailsTitle.textContent = `Комплектуючі: ${config.title}`;
         if (config.is_primary) {
@@ -466,14 +469,14 @@
           detailsModeBadge.textContent = 'Опис лише змінених компонентів';
         }
 
-        if (!entries.length) {
+        if (!visibleEntries.length) {
           partsGrid.innerHTML = '';
           partsEmpty.hidden = false;
           return;
         }
 
         partsEmpty.hidden = true;
-        partsGrid.innerHTML = entries.map(([role, part]) => {
+        partsGrid.innerHTML = visibleEntries.map(([role, part]) => {
           const label = PART_LABELS[role] || role;
           const isChanged = config.is_primary || changedSet.has(role);
           const description = config.is_primary

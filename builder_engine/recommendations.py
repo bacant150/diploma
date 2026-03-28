@@ -698,12 +698,18 @@ def _build_distinct_variant(
         if signature and signature not in used_signatures:
             return result
 
-    return last_result or _build_variant_result(
+    fallback = last_result or _build_variant_result(
         common_kwargs,
         budget_mode=budget_mode,
         target_budget=initial_budget,
         priority=priority,
     )
+
+    fallback_signature = _result_signature(fallback)
+    if fallback_signature and fallback_signature not in used_signatures:
+        return fallback
+
+    return {}
 
 
 
@@ -844,6 +850,8 @@ def build_pc_alternatives(
             continue
 
         signature = _result_signature(variant_result)
+        if signature and signature in used_signatures:
+            continue
         if signature:
             used_signatures.add(signature)
 
