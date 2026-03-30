@@ -1,1 +1,32 @@
-{}
+{
+  "AMD Ryzen 5 5500": {
+    "price": 4249,
+    "source_used": "rozetka",
+    "rozetka_price": 4249,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000457box/p342325708/",
+    "product_code": "342325708",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 5 5500 3.6GHz/16MB (100-100000457BOX) sAM4 BOX",
+    "checked_at": "2026-03-30T16:49:59"
+  },
+  "AMD Ryzen 5 5600GT": {
+    "price": 6153,
+    "source_used": "rozetka",
+    "rozetka_price": 6153,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001488box/p413794320/",
+    "product_code": "413794320",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 5 5600GT 3.6GHz/16MB (100-100001488BOX) sAM4 BOX",
+    "checked_at": "2026-03-30T16:50:07"
+  },
+  "AMD Ryzen 5 5600": {
+    "price": 5579,
+    "source_used": "rozetka",
+    "rozetka_price": 5579,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000927box/p342341803/",
+    "product_code": "342341803",
+    "availability": "Закінчується",
+    "title": "Процесор AMD Ryzen 5 5600 3.5GHz/32MB (100-100000927BOX) sAM4 BOX",
+    "checked_at": "2026-03-30T16:50:16"
+  }
+}
