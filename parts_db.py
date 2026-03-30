@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from pathlib import Path
+import json
 from typing import Dict, List
 
 
@@ -10,12 +12,50 @@ class Part:
     meta: Dict[str, object]
 
 
+def _load_price_feed() -> Dict[str, Dict[str, object]]:
+    price_feed_path = Path(__file__).resolve().parent / "data" / "price_feed.json"
+    if not price_feed_path.exists():
+        return {}
+
+    try:
+        with price_feed_path.open("r", encoding="utf-8") as f:
+            payload = json.load(f)
+            return payload if isinstance(payload, dict) else {}
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
 # tiers: budget | mid | upper
 # ram_type: DDR4 | DDR5
 # sockets: AM4 | AM5 | LGA1700
-
-PARTS: List[Part] = [
+_STATIC_PARTS: List[Part] = [
     # ---------------- CPU ----------------
+    Part('cpu', 'AMD Ryzen 5 5500', 3799, {'tier': 'budget', 'socket': 'AM4', 'igpu': False, 'game_score': 84}),
+    Part('cpu', 'AMD Ryzen 5 5600GT', 6837, {'tier': 'mid', 'socket': 'AM4', 'igpu': True, 'game_score': 96, 'office_igpu_score': 72}),
+    Part('cpu', 'AMD Ryzen 5 5600', 5699, {'tier': 'mid', 'socket': 'AM4', 'igpu': False, 'game_score': 100}),
+    Part('cpu', 'AMD Ryzen 5 5600X', 6499, {'tier': 'mid', 'socket': 'AM4', 'igpu': False, 'game_score': 108}),
+    Part('cpu', 'AMD Ryzen 7 5700G', 8216, {'tier': 'upper', 'socket': 'AM4', 'igpu': True, 'game_score': 112, 'office_igpu_score': 88}),
+    Part('cpu', 'AMD Ryzen 7 5700X', 7399, {'tier': 'upper', 'socket': 'AM4', 'igpu': False, 'game_score': 118}),
+    Part('cpu', 'AMD Ryzen 7 5700X3D', 9599, {'tier': 'upper', 'socket': 'AM4', 'igpu': False, 'game_score': 150}),
+    Part('cpu', 'AMD Ryzen 5 7500F', 7499, {'tier': 'upper', 'socket': 'AM5', 'igpu': False, 'game_score': 128}),
+    Part('cpu', 'AMD Ryzen 5 8400F', 7179, {'tier': 'upper', 'socket': 'AM5', 'igpu': False, 'game_score': 120}),
+    Part('cpu', 'AMD Ryzen 5 8500G', 7299, {'tier': 'upper', 'socket': 'AM5', 'igpu': True, 'game_score': 122, 'office_igpu_score': 96}),
+    Part('cpu', 'AMD Ryzen 5 8600G', 9499, {'tier': 'upper', 'socket': 'AM5', 'igpu': True, 'game_score': 132, 'office_igpu_score': 104}),
+    Part('cpu', 'AMD Ryzen 5 9600X', 10599, {'tier': 'upper', 'socket': 'AM5', 'igpu': True, 'game_score': 150, 'office_igpu_score': 54}),
+    Part('cpu', 'AMD Ryzen 7 9700X', 13337, {'tier': 'upper', 'socket': 'AM5', 'igpu': True, 'game_score': 182, 'office_igpu_score': 60}),
+    Part('cpu', 'AMD Ryzen 7 9800X3D', 21935, {'tier': 'upper', 'socket': 'AM5', 'igpu': True, 'game_score': 245, 'office_igpu_score': 62}),
+    Part('cpu', 'AMD Ryzen 9 9900X', 19499, {'tier': 'upper', 'socket': 'AM5', 'igpu': True, 'game_score': 225, 'office_igpu_score': 72}),
+    Part('cpu', 'Intel i3-13100', 6499, {'tier': 'budget', 'socket': 'LGA1700', 'igpu': True, 'game_score': 78, 'office_igpu_score': 42}),
+    Part('cpu', 'Intel i3-13100F', 4940, {'tier': 'budget', 'socket': 'LGA1700', 'igpu': False, 'game_score': 76}),
+    Part('cpu', 'Intel i3-14100', 6999, {'tier': 'budget', 'socket': 'LGA1700', 'igpu': True, 'game_score': 82, 'office_igpu_score': 46}),
+    Part('cpu', 'Intel i3-14100F', 5399, {'tier': 'budget', 'socket': 'LGA1700', 'igpu': False, 'game_score': 80}),
+    Part('cpu', 'Intel i5-12400F', 6999, {'tier': 'mid', 'socket': 'LGA1700', 'igpu': False, 'game_score': 100}),
+    Part('cpu', 'Intel i5-13400F', 8699, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': False, 'game_score': 116}),
+    Part('cpu', 'Intel i5-14400', 12565, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': True, 'game_score': 128, 'office_igpu_score': 54}),
+    Part('cpu', 'Intel i5-14400F', 9250, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': False, 'game_score': 126}),
+    Part('cpu', 'Intel i5-14600KF', 12999, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': False, 'game_score': 155}),
+    Part('cpu', 'Intel i7-14700', 15539, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': True, 'game_score': 188, 'office_igpu_score': 64}),
+    Part('cpu', 'Intel i7-14700F', 14499, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': False, 'game_score': 186}),
     Part('cpu', 'AMD Athlon 3000G', 1699, {'tier': 'budget', 'socket': 'AM4', 'igpu': True}),
     Part('cpu', 'AMD Ryzen 3 3100', 2599, {'tier': 'budget', 'socket': 'AM4', 'igpu': False}),
     Part('cpu', 'AMD Ryzen 3 4100', 2799, {'tier': 'budget', 'socket': 'AM4', 'igpu': False}),
@@ -23,18 +63,11 @@ PARTS: List[Part] = [
     Part('cpu', 'AMD Ryzen 5 2600', 2799, {'tier': 'budget', 'socket': 'AM4', 'igpu': False}),
     Part('cpu', 'AMD Ryzen 5 3600', 3399, {'tier': 'budget', 'socket': 'AM4', 'igpu': False}),
     Part('cpu', 'AMD Ryzen 5 4500', 3199, {'tier': 'budget', 'socket': 'AM4', 'igpu': False}),
-    Part('cpu', 'AMD Ryzen 5 4600G', 3999, {'tier': 'mid', 'socket': 'AM4', 'igpu': True}),
-    Part('cpu', 'AMD Ryzen 5 5500', 4699, {'tier': 'mid', 'socket': 'AM4', 'igpu': False}),
+    Part('cpu', 'AMD Ryzen 5 4600G', 5500, {'tier': 'mid', 'socket': 'AM4', 'igpu': True}),
     Part('cpu', 'AMD Ryzen 5 5600G', 7899, {'tier': 'mid', 'socket': 'AM4', 'igpu': True}),
-    Part('cpu', 'AMD Ryzen 5 5600', 5999, {'tier': 'mid', 'socket': 'AM4', 'igpu': False}),
-    Part('cpu', 'AMD Ryzen 5 5600X', 6599, {'tier': 'mid', 'socket': 'AM4', 'igpu': False}),
-    Part('cpu', 'AMD Ryzen 7 5700G', 10999, {'tier': 'upper', 'socket': 'AM4', 'igpu': True}),
-    Part('cpu', 'AMD Ryzen 7 5700X', 8999, {'tier': 'upper', 'socket': 'AM4', 'igpu': False}),
     Part('cpu', 'AMD Ryzen 7 5800X', 10999, {'tier': 'upper', 'socket': 'AM4', 'igpu': False}),
-    Part('cpu', 'AMD Ryzen 7 5800X3D', 12999, {'tier': 'upper', 'socket': 'AM4', 'igpu': False}),
-    Part('cpu', 'AMD Ryzen 5 7500F', 6999, {'tier': 'upper', 'socket': 'AM5', 'igpu': False}),
+    Part('cpu', 'AMD Ryzen 7 5800X3D', 14999, {'tier': 'upper', 'socket': 'AM4', 'igpu': False}),
     Part('cpu', 'AMD Ryzen 5 7600', 8799, {'tier': 'upper', 'socket': 'AM5', 'igpu': True}),
-    Part('cpu', 'AMD Ryzen 5 8600G', 9699, {'tier': 'upper', 'socket': 'AM5', 'igpu': True}),
     Part('cpu', 'AMD Ryzen 7 8700G', 13999, {'tier': 'upper', 'socket': 'AM5', 'igpu': True}),
     Part('cpu', 'AMD Ryzen 7 7700', 10999, {'tier': 'upper', 'socket': 'AM5', 'igpu': True}),
     Part('cpu', 'AMD Ryzen 7 7700X', 12999, {'tier': 'upper', 'socket': 'AM5', 'igpu': True}),
@@ -46,12 +79,8 @@ PARTS: List[Part] = [
     Part('cpu', 'Intel G7400', 2799, {'tier': 'budget', 'socket': 'LGA1700', 'igpu': True}),
     Part('cpu', 'Intel i3-12100', 6999, {'tier': 'budget', 'socket': 'LGA1700', 'igpu': True}),
     Part('cpu', 'Intel i3-12100F', 4299, {'tier': 'budget', 'socket': 'LGA1700', 'igpu': False}),
-    Part('cpu', 'Intel i3-13100', 5299, {'tier': 'mid', 'socket': 'LGA1700', 'igpu': True}),
-    Part('cpu', 'Intel i3-13100F', 4799, {'tier': 'mid', 'socket': 'LGA1700', 'igpu': False}),
     Part('cpu', 'Intel i5-12400', 7999, {'tier': 'mid', 'socket': 'LGA1700', 'igpu': True}),
-    Part('cpu', 'Intel i5-12400F', 6999, {'tier': 'mid', 'socket': 'LGA1700', 'igpu': False}),
     Part('cpu', 'Intel i5-13400', 9499, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': True}),
-    Part('cpu', 'Intel i5-13400F', 8499, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': False}),
     Part('cpu', 'Intel i5-13500', 11999, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': True}),
     Part('cpu', 'Intel i5-13600K', 13999, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': True}),
     Part('cpu', 'Intel i5-13600KF', 12599, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': False}),
@@ -59,12 +88,22 @@ PARTS: List[Part] = [
     Part('cpu', 'Intel i7-13700', 18499, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': True}),
     Part('cpu', 'Intel i7-13700F', 16999, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': False}),
     Part('cpu', 'Intel i7-13700K', 19999, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': True}),
-    Part('cpu', 'Intel i7-14700F', 19999, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': False}),
     Part('cpu', 'Intel i7-14700K', 22999, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': True}),
     Part('cpu', 'Intel i9-14900KF', 34999, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': False}),
     Part('cpu', 'Intel i9-14900K', 37999, {'tier': 'upper', 'socket': 'LGA1700', 'igpu': True}),
 
     # ---------------- GPU ----------------
+    Part('gpu', 'Intel Arc B570 10GB', 13019, {'tier': 'budget', 'vram': 10, 'game_score': 95}),
+    Part('gpu', 'Intel Arc B580 12GB', 15499, {'tier': 'mid', 'vram': 12, 'game_score': 120}),
+    Part('gpu', 'NVIDIA RTX 5060 8GB', 20647, {'tier': 'mid', 'vram': 8, 'game_score': 145}),
+    Part('gpu', 'NVIDIA RTX 5060 Ti 8GB', 22019, {'tier': 'upper', 'vram': 8, 'game_score': 172}),
+    Part('gpu', 'NVIDIA RTX 5060 Ti 16GB', 28019, {'tier': 'upper', 'vram': 16, 'game_score': 190}),
+    Part('gpu', 'AMD RX 9060 XT 16GB', 26252, {'tier': 'upper', 'vram': 16, 'game_score': 185}),
+    Part('gpu', 'NVIDIA RTX 5070 12GB', 34099, {'tier': 'upper', 'vram': 12, 'game_score': 225}),
+    Part('gpu', 'AMD RX 9070 16GB', 33029, {'tier': 'upper', 'vram': 16, 'game_score': 235}),
+    Part('gpu', 'AMD RX 9070 XT 16GB', 38609, {'tier': 'upper', 'vram': 16, 'game_score': 270}),
+    Part('gpu', 'NVIDIA RTX 5070 Ti 16GB', 59019, {'tier': 'upper', 'vram': 16, 'game_score': 300}),
+    Part('gpu', 'NVIDIA RTX 5080 16GB', 67999, {'tier': 'upper', 'vram': 16, 'game_score': 390}),
     Part('gpu', 'NVIDIA GTX 1050 Ti 4GB', 4999, {'tier': 'budget', 'vram': 4}),
     Part('gpu', 'AMD RX 570 4GB', 4499, {'tier': 'budget', 'vram': 4}),
     Part('gpu', 'AMD RX 580 8GB', 6999, {'tier': 'budget', 'vram': 8}),
@@ -97,6 +136,26 @@ PARTS: List[Part] = [
     Part('gpu', 'NVIDIA RTX 4090 24GB', 109999, {'tier': 'upper', 'vram': 24}),
 
     # ---------------- Motherboards ----------------
+    Part('mb', 'Gigabyte B550M AORUS ELITE (AM4, DDR4, mATX)', 4499, {'socket': 'AM4', 'ram_type': 'DDR4', 'wifi': False}),
+    Part('mb', 'ASUS PRIME B550M-K (AM4, DDR4, mATX)', 4699, {'socket': 'AM4', 'ram_type': 'DDR4', 'wifi': False}),
+    Part('mb', 'ASRock B550M Pro4 (AM4, DDR4, mATX)', 4755, {'socket': 'AM4', 'ram_type': 'DDR4', 'wifi': False}),
+    Part('mb', 'ASUS TUF GAMING B550-PLUS (AM4, DDR4, ATX)', 5697, {'socket': 'AM4', 'ram_type': 'DDR4', 'wifi': False}),
+    Part('mb', 'ASUS TUF GAMING B550M-PLUS Wi-Fi II (AM4, DDR4, mATX)', 6299, {'socket': 'AM4', 'ram_type': 'DDR4', 'wifi': True}),
+    Part('mb', 'MSI B550-A PRO (AM4, DDR4, ATX)', 5499, {'socket': 'AM4', 'ram_type': 'DDR4', 'wifi': False}),
+    Part('mb', 'Gigabyte A620M H (AM5, DDR5, mATX)', 3762, {'socket': 'AM5', 'ram_type': 'DDR5', 'wifi': False}),
+    Part('mb', 'Gigabyte A620M DS3H (AM5, DDR5, mATX)', 5916, {'socket': 'AM5', 'ram_type': 'DDR5', 'wifi': False}),
+    Part('mb', 'ASUS TUF GAMING A620-PRO WIFI (AM5, DDR5, ATX)', 6999, {'socket': 'AM5', 'ram_type': 'DDR5', 'wifi': True}),
+    Part('mb', 'MSI PRO B650M-B (AM5, DDR5, mATX)', 5200, {'socket': 'AM5', 'ram_type': 'DDR5', 'wifi': False}),
+    Part('mb', 'MSI PRO B650M-P (AM5, DDR5, mATX)', 5780, {'socket': 'AM5', 'ram_type': 'DDR5', 'wifi': False}),
+    Part('mb', 'Gigabyte B650M S2H (AM5, DDR5, mATX)', 5899, {'socket': 'AM5', 'ram_type': 'DDR5', 'wifi': False}),
+    Part('mb', 'MSI PRO B650-S Wi-Fi (AM5, DDR5, ATX)', 6999, {'socket': 'AM5', 'ram_type': 'DDR5', 'wifi': True}),
+    Part('mb', 'ASUS PRIME B650M-A WIFI II (AM5, DDR5, mATX)', 7299, {'socket': 'AM5', 'ram_type': 'DDR5', 'wifi': True}),
+    Part('mb', 'ASUS PRIME B760M-K D4 (LGA1700, DDR4, mATX)', 5143, {'socket': 'LGA1700', 'ram_type': 'DDR4', 'wifi': False}),
+    Part('mb', 'MSI PRO B760-P WIFI DDR4 (LGA1700, DDR4, ATX)', 7200, {'socket': 'LGA1700', 'ram_type': 'DDR4', 'wifi': True}),
+    Part('mb', 'MSI PRO B760M-P (LGA1700, DDR5, mATX)', 4979, {'socket': 'LGA1700', 'ram_type': 'DDR5', 'wifi': False}),
+    Part('mb', 'MSI PRO B760-P II (LGA1700, DDR5, ATX)', 6161, {'socket': 'LGA1700', 'ram_type': 'DDR5', 'wifi': False}),
+    Part('mb', 'MSI B760M GAMING PLUS WIFI (LGA1700, DDR5, mATX)', 6699, {'socket': 'LGA1700', 'ram_type': 'DDR5', 'wifi': True}),
+    Part('mb', 'ASUS TUF GAMING B760-PLUS WIFI (LGA1700, DDR5, ATX)', 8299, {'socket': 'LGA1700', 'ram_type': 'DDR5', 'wifi': True}),
     Part('mb', 'A520M (AM4, DDR4, mATX)', 2999, {'socket': 'AM4', 'ram_type': 'DDR4', 'wifi': False}),
     Part('mb', 'A520M Wi-Fi (AM4, DDR4, mATX)', 3999, {'socket': 'AM4', 'ram_type': 'DDR4', 'wifi': True}),
     Part('mb', 'B450M (AM4, DDR4, mATX)', 3599, {'socket': 'AM4', 'ram_type': 'DDR4', 'wifi': False}),
@@ -126,59 +185,100 @@ PARTS: List[Part] = [
 
     # ---------------- RAM ----------------
     Part('ram', 'Kingston Fury Beast 8GB (1x8) DDR4-3200', 1499, {'ram_type': 'DDR4', 'size_gb': 8, 'speed': 3200}),
-    Part('ram', 'Kingston Fury Beast 16GB (2x8) DDR4-3200', 2799, {'ram_type': 'DDR4', 'size_gb': 16, 'speed': 3200}),
-    Part('ram', 'Kingston Fury Beast 32GB (2x16) DDR4-3200', 4799, {'ram_type': 'DDR4', 'size_gb': 32, 'speed': 3200}),
-    Part('ram', 'Kingston Fury Beast 64GB (2x32) DDR4-3200', 8999, {'ram_type': 'DDR4', 'size_gb': 64, 'speed': 3200}),
+    Part('ram', 'Kingston Fury Beast 16GB (2x8) DDR4-3200', 3199, {'ram_type': 'DDR4', 'size_gb': 16, 'speed': 3200}),
+    Part('ram', 'Kingston Fury Beast 32GB (2x16) DDR4-3200', 5625, {'ram_type': 'DDR4', 'size_gb': 32, 'speed': 3200}),
+    Part('ram', 'Kingston Fury Beast 64GB (2x32) DDR4-3200', 10999, {'ram_type': 'DDR4', 'size_gb': 64, 'speed': 3200}),
+    Part('ram', 'Kingston Fury Beast 16GB (2x8) DDR5-6000', 4999, {'ram_type': 'DDR5', 'size_gb': 16, 'speed': 6000}),
+    Part('ram', 'Kingston Fury Beast 32GB (2x16) DDR5-6000', 6599, {'ram_type': 'DDR5', 'size_gb': 32, 'speed': 6000}),
+    Part('ram', 'Kingston Fury Beast 48GB (2x24) DDR5-6000', 8999, {'ram_type': 'DDR5', 'size_gb': 48, 'speed': 6000}),
+    Part('ram', 'Kingston Fury Beast 64GB (2x32) DDR5-6000', 11999, {'ram_type': 'DDR5', 'size_gb': 64, 'speed': 6000}),
+    Part('ram', 'Kingston Fury Beast 32GB (2x16) DDR5-6400', 7299, {'ram_type': 'DDR5', 'size_gb': 32, 'speed': 6400}),
+    Part('ram', 'Kingston Fury Beast 64GB (2x32) DDR5-6400', 13499, {'ram_type': 'DDR5', 'size_gb': 64, 'speed': 6400}),
     Part('ram', 'Corsair Vengeance LPX 128GB (4x32) DDR4-3200', 18999, {'ram_type': 'DDR4', 'size_gb': 128, 'speed': 3200}),
-    Part('ram', 'Corsair Vengeance LPX 256GB (8x32) DDR4-3200', 37999, {'ram_type': 'DDR4', 'size_gb': 256, 'speed': 3200}),
+    Part('ram', 'Corsair Vengeance LPX 256GB (8x32) DDR4-3200', 52999, {'ram_type': 'DDR4', 'size_gb': 256, 'speed': 3200}),
     Part('ram', 'Kingston ValueRAM 8GB (1x8) DDR5-5200', 1499, {'ram_type': 'DDR5', 'size_gb': 8, 'speed': 5200}),
     Part('ram', 'Kingston Fury Beast 16GB (2x8) DDR5-5600', 3599, {'ram_type': 'DDR5', 'size_gb': 16, 'speed': 5600}),
     Part('ram', 'Kingston Fury Beast 32GB (2x16) DDR5-5600', 5499, {'ram_type': 'DDR5', 'size_gb': 32, 'speed': 5600}),
-    Part('ram', 'Kingston Fury Beast 32GB (2x16) DDR5-6000', 5999, {'ram_type': 'DDR5', 'size_gb': 32, 'speed': 6000}),
     Part('ram', 'Kingston Fury Beast 64GB (2x32) DDR5-5600', 9999, {'ram_type': 'DDR5', 'size_gb': 64, 'speed': 5600}),
-    Part('ram', 'Kingston Fury Beast 64GB (2x32) DDR5-6000', 10999, {'ram_type': 'DDR5', 'size_gb': 64, 'speed': 6000}),
-    Part('ram', 'Corsair Vengeance 96GB (2x48) DDR5-6000', 16999, {'ram_type': 'DDR5', 'size_gb': 96, 'speed': 6000}),
-    Part('ram', 'Corsair Vengeance 128GB (4x32) DDR5-6000', 22999, {'ram_type': 'DDR5', 'size_gb': 128, 'speed': 6000}),
-    Part('ram', 'Corsair Vengeance 192GB (4x48) DDR5-6000', 35999, {'ram_type': 'DDR5', 'size_gb': 192, 'speed': 6000}),
-    Part('ram', 'Corsair Vengeance 256GB (8x32) DDR5-5600', 47999, {'ram_type': 'DDR5', 'size_gb': 256, 'speed': 5600}),
+    Part('ram', 'Corsair Vengeance 96GB (2x48) DDR5-6000', 70000, {'ram_type': 'DDR5', 'size_gb': 96, 'speed': 6000}),
+    Part('ram', 'Corsair Vengeance 128GB (4x32) DDR5-6000', 100000, {'ram_type': 'DDR5', 'size_gb': 128, 'speed': 6000}),
+    Part('ram', 'Corsair Vengeance 192GB (4x48) DDR5-6000', 140000, {'ram_type': 'DDR5', 'size_gb': 192, 'speed': 6000}),
+    Part('ram', 'Corsair Vengeance 256GB (8x32) DDR5-5600', 200000, {'ram_type': 'DDR5', 'size_gb': 256, 'speed': 5600}),
 
     # ---------------- SSD ----------------
+    Part('ssd', 'Patriot P220 256GB SATA SSD', 1399, {'size_gb': 256}),
+    Part('ssd', 'Patriot P220 512GB SATA SSD', 3209, {'size_gb': 512}),
+    Part('ssd', 'Patriot P220 1TB SATA SSD', 5499, {'size_gb': 1000}),
+    Part('ssd', 'Kingston NV3 500GB NVMe SSD', 2799, {'size_gb': 500}),
+    Part('ssd', 'Kingston NV3 1TB NVMe SSD', 3899, {'size_gb': 1000}),
+    Part('ssd', 'Kingston NV3 2TB NVMe SSD', 6999, {'size_gb': 2000}),
+    Part('ssd', 'WD Blue SN580 1TB NVMe SSD', 6999, {'size_gb': 1000}),
+    Part('ssd', 'WD Blue SN580 2TB NVMe SSD', 10999, {'size_gb': 2000}),
+    Part('ssd', 'Crucial P3 Plus 1TB NVMe SSD', 3599, {'size_gb': 1000}),
+    Part('ssd', 'Crucial P3 Plus 2TB NVMe SSD', 6999, {'size_gb': 2000}),
     Part('ssd', 'Apacer AS350 128GB SATA SSD', 799, {'size_gb': 128}),
-    Part('ssd', 'Patriot P220 256GB SATA SSD', 1199, {'size_gb': 256}),
-    Part('ssd', 'Patriot P220 512GB SATA SSD', 1799, {'size_gb': 512}),
-    Part('ssd', 'Kingston NV3 500GB NVMe SSD', 2999, {'size_gb': 500}),
     Part('ssd', 'Kingston NV3 512GB NVMe SSD', 3199, {'size_gb': 512}),
-    Part('ssd', 'Kingston NV3 1TB NVMe SSD', 5999, {'size_gb': 1000}),
-    Part('ssd', 'Kingston NV3 2TB NVMe SSD', 12999, {'size_gb': 2000}),
     Part('ssd', 'Kingston KC3000 4TB NVMe SSD', 24999, {'size_gb': 4000}),
 
     # ---------------- PSU ----------------
+    Part('psu', 'MSI MAG A550BN 550W 80+ Bronze', 2499, {'watt': 550}),
+    Part('psu', 'MSI MAG A650BN 650W 80+ Bronze', 4055, {'watt': 650}),
+    Part('psu', 'MSI MAG A750BN PCIE5 750W 80+ Bronze', 4699, {'watt': 750}),
+    Part('psu', 'DeepCool PL650D 650W 80+ Bronze', 3299, {'watt': 650}),
+    Part('psu', 'DeepCool PL750D 750W 80+ Bronze', 3599, {'watt': 750}),
+    Part('psu', 'MSI MAG A850GL PCIE5 850W 80+ Gold', 5479, {'watt': 850}),
+    Part('psu', 'be quiet! Pure Power 12 M 850W 80+ Gold', 5799, {'watt': 850}),
+    Part('psu', 'Corsair RM850e 850W 80+ Gold', 6999, {'watt': 850}),
+    Part('psu', 'MSI MAG A1000GL PCIE5 1000W 80+ Gold', 7299, {'watt': 1000}),
     Part('psu', 'Chieftec Value APB-400B8 400W 80+ Bronze', 1499, {'watt': 400}),
     Part('psu', 'Chieftec Value APB-450B8 450W 80+ Bronze', 1699, {'watt': 450}),
     Part('psu', 'Chieftec Value APB-500B8 500W 80+ Bronze', 1899, {'watt': 500}),
-    Part('psu', 'MSI MAG A550BN 550W 80+ Bronze', 2499, {'watt': 550}),
-    Part('psu', 'MSI MAG A650BN 650W 80+ Bronze', 2999, {'watt': 650}),
     Part('psu', 'be quiet! System Power 10 650W 80+ Gold', 3899, {'watt': 650}),
-    Part('psu', 'DeepCool PL750D 750W 80+ Bronze', 3599, {'watt': 750}),
-    Part('psu', 'be quiet! Pure Power 12 M 850W 80+ Gold', 5799, {'watt': 850}),
     Part('psu', 'MSI MAG A1000GL 1000W 80+ Gold', 7999, {'watt': 1000}),
     Part('psu', 'DeepCool PX1200G 1200W 80+ Gold', 11999, {'watt': 1200}),
-    Part('psu', 'MSI MAG A1000GL 1000W 80+ Gold', 7999, {'watt': 1000}),
     Part('psu', 'be quiet! Straight Power 12 1200W 80+ Platinum', 14999, {'watt': 1200}),
 
     # ---------------- Cases ----------------
-    Part('case', 'DeepCool MATREXX 40 3FS Airflow Black', 2299, {'size': 'mATX', 'airflow': True, 'premium': False, 'showcase': False}),
+    Part('case', 'DeepCool MATREXX 40 3FS Airflow Black', 2399, {'size': 'mATX', 'airflow': True, 'premium': False, 'showcase': False}),
+    Part('case', 'DeepCool CC360 ARGB Black', 2499, {'size': 'mATX', 'airflow': True, 'premium': False, 'showcase': True}),
+    Part('case', 'DeepCool CC560 LIMITED V2 Black', 1699, {'size': 'ATX', 'airflow': True, 'premium': False, 'showcase': False}),
+    Part('case', 'DeepCool CC560 V2 Airflow Black', 2979, {'size': 'ATX', 'airflow': True, 'premium': False, 'showcase': False}),
+    Part('case', 'Montech AIR 903 MAX Black', 3999, {'size': 'ATX', 'airflow': True, 'premium': True, 'showcase': False}),
+    Part('case', 'Montech AIR 903 MAX White', 3999, {'size': 'ATX', 'airflow': True, 'premium': True, 'showcase': False}),
+    Part('case', 'NZXT H6 Flow Black', 4199, {'size': 'ATX', 'airflow': True, 'premium': True, 'showcase': True}),
+    Part('case', 'NZXT H6 Flow RGB Black', 5590, {'size': 'ATX', 'airflow': True, 'premium': True, 'showcase': True}),
+    Part('case', 'NZXT H6 Flow RGB White', 5499, {'size': 'ATX', 'airflow': True, 'premium': True, 'showcase': True}),
     Part('case', 'Zalman S2 TG Showcase Black', 2399, {'size': 'ATX', 'airflow': False, 'premium': False, 'showcase': True}),
-    Part('case', 'DeepCool CC560 V2 Airflow Black', 3199, {'size': 'ATX', 'airflow': True, 'premium': False, 'showcase': False}),
     Part('case', 'Montech AIR 903 MAX Airflow Black', 3799, {'size': 'ATX', 'airflow': True, 'premium': True, 'showcase': False}),
     Part('case', 'NZXT H6 Flow Showcase Black', 6399, {'size': 'ATX', 'airflow': True, 'premium': True, 'showcase': True}),
     Part('case', 'Corsair 7000D Airflow Full Tower Black', 13999, {'size': 'E-ATX', 'airflow': True, 'premium': True, 'showcase': False}),
 
+
 ]
+
+
+def _build_runtime_parts() -> List[Part]:
+    price_feed = _load_price_feed()
+    runtime_parts: List[Part] = []
+
+    for part in _STATIC_PARTS:
+        entry = price_feed.get(part.name, {})
+        live_price = entry.get("price")
+
+        if isinstance(live_price, (int, float)) and live_price > 0:
+            runtime_parts.append(Part(part.category, part.name, int(live_price), part.meta))
+        else:
+            runtime_parts.append(part)
+
+    return runtime_parts
+
+
+PARTS = _build_runtime_parts()
+
 
 # Умовна база вимог ігор.
 # gpu_base / cpu_base = умовна потреба в score для 1080p High 60 FPS.
-GAMES_DB: Dict[str, Dict[str, object]] = {
+GAMES_DB = {
     "cs2": {"title": "Counter-Strike 2", "gpu_base": 78, "cpu_base": 118, "genre": "esports"},
     "valorant": {"title": "Valorant", "gpu_base": 58, "cpu_base": 108, "genre": "esports"},
     "fortnite": {"title": "Fortnite", "gpu_base": 95, "cpu_base": 92, "genre": "battle_royale"},
@@ -202,12 +302,7 @@ GAMES_DB: Dict[str, Dict[str, object]] = {
 }
 
 
-# Умовна база офісних програм і сценаріїв.
-# cpu_base = умовна потреба в CPU score.
-# ram_gb = комфортний обсяг RAM для сценарію.
-# ssd_gb = бажаний обсяг SSD.
-# gpu_need = потреба в графіці: 0-100.
-OFFICE_APPS_DB: Dict[str, Dict[str, object]] = {
+OFFICE_APPS_DB = {
     "word": {"title": "Word / Google Docs", "cpu_base": 24, "ram_gb": 4, "ssd_gb": 128, "gpu_need": 0, "multi_monitor": 1},
     "excel": {"title": "Excel / Google Sheets", "cpu_base": 42, "ram_gb": 8, "ssd_gb": 256, "gpu_need": 5, "multi_monitor": 1},
     "browser": {"title": "Браузер / веб-робота", "cpu_base": 30, "ram_gb": 8, "ssd_gb": 256, "gpu_need": 0, "multi_monitor": 1},
@@ -218,44 +313,4 @@ OFFICE_APPS_DB: Dict[str, Dict[str, object]] = {
     "figma": {"title": "Figma", "cpu_base": 56, "ram_gb": 16, "ssd_gb": 256, "gpu_need": 35, "multi_monitor": 1},
     "vscode": {"title": "VS Code / програмування", "cpu_base": 74, "ram_gb": 16, "ssd_gb": 512, "gpu_need": 5, "multi_monitor": 2},
     "powerbi": {"title": "Power BI / аналітика", "cpu_base": 78, "ram_gb": 16, "ssd_gb": 512, "gpu_need": 18, "multi_monitor": 2},
-    "autocad_light": {"title": "AutoCAD light / креслення", "cpu_base": 96, "ram_gb": 16, "ssd_gb": 512, "gpu_need": 72, "multi_monitor": 2},
-}
-
-
-# Умовна база навчальних програм і сценаріїв.
-# cpu_base = умовна потреба в CPU score.
-# ram_gb = комфортний обсяг RAM для сценарію.
-# ssd_gb = бажаний обсяг SSD.
-# gpu_need = потреба в графіці: 0-100.
-STUDY_APPS_DB: Dict[str, Dict[str, object]] = {
-    "docs": {"title": "Word / Google Docs", "cpu_base": 20, "ram_gb": 4, "ssd_gb": 128, "gpu_need": 0, "multi_monitor": 1},
-    "browser": {"title": "Браузер / онлайн-навчання", "cpu_base": 28, "ram_gb": 8, "ssd_gb": 256, "gpu_need": 0, "multi_monitor": 1},
-    "zoom": {"title": "Zoom / Google Meet", "cpu_base": 42, "ram_gb": 8, "ssd_gb": 256, "gpu_need": 5, "multi_monitor": 1},
-    "powerpoint": {"title": "PowerPoint / презентації", "cpu_base": 24, "ram_gb": 8, "ssd_gb": 256, "gpu_need": 0, "multi_monitor": 1},
-    "vscode": {"title": "VS Code / програмування", "cpu_base": 62, "ram_gb": 16, "ssd_gb": 512, "gpu_need": 5, "multi_monitor": 2},
-    "python": {"title": "Python / навчальні проєкти", "cpu_base": 56, "ram_gb": 16, "ssd_gb": 512, "gpu_need": 4, "multi_monitor": 1},
-    "android_studio": {"title": "Android Studio", "cpu_base": 88, "ram_gb": 16, "ssd_gb": 1000, "gpu_need": 18, "multi_monitor": 2},
-    "figma": {"title": "Figma", "cpu_base": 52, "ram_gb": 16, "ssd_gb": 256, "gpu_need": 28, "multi_monitor": 1},
-    "photoshop_light": {"title": "Photoshop light", "cpu_base": 72, "ram_gb": 16, "ssd_gb": 512, "gpu_need": 42, "multi_monitor": 1},
-    "autocad_student": {"title": "AutoCAD student", "cpu_base": 92, "ram_gb": 16, "ssd_gb": 512, "gpu_need": 70, "multi_monitor": 2},
-}
-
-
-# Умовна база програм для монтажу / 3D.
-# cpu_base = умовна потреба в CPU score.
-# ram_gb = комфортний обсяг RAM для сценарію.
-# ssd_gb = бажаний обсяг SSD.
-# gpu_need = потреба в графіці: 0-100.
-# vram_gb = бажаний обсяг відеопам’яті.
-CREATOR_APPS_DB: Dict[str, Dict[str, object]] = {
-    "premiere": {"title": "Adobe Premiere Pro", "cpu_base": 86, "ram_gb": 32, "ssd_gb": 1000, "gpu_need": 62, "vram_gb": 8, "multi_monitor": 2},
-    "davinci": {"title": "DaVinci Resolve", "cpu_base": 88, "ram_gb": 32, "ssd_gb": 1000, "gpu_need": 76, "vram_gb": 12, "multi_monitor": 2},
-    "aftereffects": {"title": "Adobe After Effects", "cpu_base": 92, "ram_gb": 32, "ssd_gb": 1000, "gpu_need": 58, "vram_gb": 8, "multi_monitor": 2},
-    "blender": {"title": "Blender / 3D рендер", "cpu_base": 94, "ram_gb": 32, "ssd_gb": 1000, "gpu_need": 84, "vram_gb": 12, "multi_monitor": 2},
-    "maya": {"title": "Autodesk Maya", "cpu_base": 96, "ram_gb": 32, "ssd_gb": 1000, "gpu_need": 82, "vram_gb": 12, "multi_monitor": 2},
-    "substance": {"title": "Substance Painter", "cpu_base": 78, "ram_gb": 32, "ssd_gb": 1000, "gpu_need": 88, "vram_gb": 12, "multi_monitor": 1},
-    "photoshop": {"title": "Adobe Photoshop", "cpu_base": 74, "ram_gb": 16, "ssd_gb": 512, "gpu_need": 36, "vram_gb": 6, "multi_monitor": 1},
-    "illustrator": {"title": "Adobe Illustrator", "cpu_base": 68, "ram_gb": 16, "ssd_gb": 512, "gpu_need": 28, "vram_gb": 4, "multi_monitor": 1},
-    "cad3d": {"title": "CAD / 3D моделювання", "cpu_base": 90, "ram_gb": 32, "ssd_gb": 1000, "gpu_need": 72, "vram_gb": 8, "multi_monitor": 2},
-    "unreal": {"title": "Unreal Engine", "cpu_base": 98, "ram_gb": 32, "ssd_gb": 2000, "gpu_need": 90, "vram_gb": 12, "multi_monitor": 2},
 }

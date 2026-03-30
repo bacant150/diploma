@@ -1,0 +1,842 @@
+{
+  "AMD Ryzen 5 5500": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000457box/p342325708/"
+  },
+  "AMD Ryzen 5 5600GT": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001488box/p413794320/"
+  },
+  "AMD Ryzen 5 5600": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000927box/p342341803/"
+  },
+  "AMD Ryzen 5 5600X": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd_100_000000065/p296953523/"
+  },
+  "AMD Ryzen 7 5700G": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/316480834/p316480834/"
+  },
+  "AMD Ryzen 7 5700X": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000926wof/p342341263/"
+  },
+  "AMD Ryzen 7 5700X3D": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/431184515/p431184515/"
+  },
+  "AMD Ryzen 5 7500F": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/529859669/p529859669/"
+  },
+  "AMD Ryzen 5 8400F": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001591/p445294493/"
+  },
+  "AMD Ryzen 5 8500G": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000931box/p416336958/"
+  },
+  "AMD Ryzen 5 8600G": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001237box/p413774013/"
+  },
+  "AMD Ryzen 5 9600X": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001405wof/p440201399/"
+  },
+  "AMD Ryzen 7 9700X": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001404wof/p440200682/"
+  },
+  "AMD Ryzen 7 9800X3D": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001084wof/p457310954/"
+  },
+  "AMD Ryzen 9 9900X": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000662wof/p440200004/"
+  },
+  "Intel i3-13100": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/378935652/p378935652/"
+  },
+  "Intel i3-13100F": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071513100f/p363409281/"
+  },
+  "Intel i3-14100": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514100/p413461572/"
+  },
+  "Intel i3-14100F": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514100f/p413469624/"
+  },
+  "Intel i5-12400F": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071512400f/p331700554/"
+  },
+  "Intel i5-13400F": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071513400f/p393621474/"
+  },
+  "Intel i5-14400": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514400/p413461008/"
+  },
+  "Intel i5-14400F": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514400f/p413463690/"
+  },
+  "Intel i5-14600KF": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/504419524/p504419524/"
+  },
+  "Intel i7-14700": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514700/p413419965/"
+  },
+  "Intel i7-14700F": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514700f/p413463483/"
+  },
+  "Intel Arc B570 10GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/sparkle-sb570g-10goc/p516590934/"
+  },
+  "Intel Arc B580 12GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/sparkle-sb580g-12g/p479668754/"
+  },
+  "NVIDIA RTX 5060 8GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-dual-rtx5060-o8g/p513000324/"
+  },
+  "NVIDIA RTX 5060 Ti 8GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-dual-rtx5060ti-o8g/p502699644/"
+  },
+  "NVIDIA RTX 5060 Ti 16GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-dual-rtx5060ti-o16g/p502454359/"
+  },
+  "AMD RX 9060 XT 16GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/copy-asus-dual-rx9060xt-16g-white/p542510090/"
+  },
+  "NVIDIA RTX 5070 12GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-gv-n5070wf3oc-12gd/p476638324/"
+  },
+  "AMD RX 9070 16GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/sapphire-11349-01-20g/p568497007/"
+  },
+  "AMD RX 9070 XT 16GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-gv-r9070xtgaming-oc-16gd/p475696804/"
+  },
+  "NVIDIA RTX 5070 Ti 16GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-rtx5070ti-o16g/p473252739/"
+  },
+  "NVIDIA RTX 5080 16GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-rtx-5080-16g-gaming-trio-oc/p476945369/"
+  },
+  "Gigabyte B550M AORUS ELITE (AM4, DDR4, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte_b550m_aorus_elite/p243463075/"
+  },
+  "ASUS PRIME B550M-K (AM4, DDR4, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus_prime_b550m_k/p218298805/"
+  },
+  "ASRock B550M Pro4 (AM4, DDR4, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asrock_b550m_pro4/p226782037/"
+  },
+  "ASUS TUF GAMING B550-PLUS (AM4, DDR4, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus_tuf_gaming_b550_plus/p218402767/"
+  },
+  "ASUS TUF GAMING B550M-PLUS Wi-Fi II (AM4, DDR4, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-tuf-gaming-b550m-plus-wifi-ii/p363293037/"
+  },
+  "MSI B550-A PRO (AM4, DDR4, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-b550-a-pro/p415342467/"
+  },
+  "Gigabyte A620M H (AM5, DDR5, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-a620m-h/p406940301/"
+  },
+  "Gigabyte A620M DS3H (AM5, DDR5, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-a620m-ds3h/p406948671/"
+  },
+  "ASUS TUF GAMING A620-PRO WIFI (AM5, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/570974242/p570974242/"
+  },
+  "MSI PRO B650M-B (AM5, DDR5, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b650m-b/p423766026/"
+  },
+  "MSI PRO B650M-P (AM5, DDR5, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b650m-p/p395208729/"
+  },
+  "Gigabyte B650M S2H (AM5, DDR5, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-b650m-s2h/p402328965/"
+  },
+  "MSI PRO B650-S Wi-Fi (AM5, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b650-s-wifi/p407082552/"
+  },
+  "ASUS PRIME B650M-A WIFI II (AM5, DDR5, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-b650m-a-wifi-ii/p376558905/"
+  },
+  "ASUS PRIME B760M-K D4 (LGA1700, DDR4, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-b760m-k-d4/p363887256/"
+  },
+  "MSI PRO B760-P WIFI DDR4 (LGA1700, DDR4, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b760-p-wifi-ddr4/p363839574/"
+  },
+  "MSI PRO B760M-P (LGA1700, DDR5, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b760m-p/p386918160/"
+  },
+  "MSI PRO B760-P II (LGA1700, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b760-p-ii/p436832597/"
+  },
+  "MSI B760M GAMING PLUS WIFI (LGA1700, DDR5, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-b760m-gaming-plus-wifi/p415570395/"
+  },
+  "ASUS TUF GAMING B760-PLUS WIFI (LGA1700, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-tuf-gaming-b760-plus-wifi/p370062609/"
+  },
+  "Kingston Fury Beast 8GB (1x8) DDR4-3200": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bb_8/p310064018/"
+  },
+  "Kingston Fury Beast 16GB (2x8) DDR4-3200": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bbk2_16/p310064023/"
+  },
+  "Kingston Fury Beast 32GB (2x16) DDR4-3200": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bb1k2_32/p310064098/"
+  },
+  "Kingston Fury Beast 64GB (2x32) DDR4-3200": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bbk2_64/p310064128/"
+  },
+  "Kingston Fury Beast 16GB (2x8) DDR5-6000": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/memory-kingston-149879101/p542800110/"
+  },
+  "Kingston Fury Beast 32GB (2x16) DDR5-6000": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-fury-kf560c36bbe2k2-32/p450953534/"
+  },
+  "Kingston Fury Beast 48GB (2x24) DDR5-6000": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-kf560c32rsa-48/p402628305/"
+  },
+  "Kingston Fury Beast 64GB (2x32) DDR5-6000": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-fury-kf560c30bbek2-64/p424185396/"
+  },
+  "Kingston Fury Beast 32GB (2x16) DDR5-6400": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-fury-exhyperx-kf564c32rsk2-32/p356940177/"
+  },
+  "Kingston Fury Beast 64GB (2x32) DDR5-6400": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-fury-kf564c32bwek2-64/p424185432/"
+  },
+  "Patriot P220 256GB SATA SSD": {
+    "category": "ssd",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/patriot-p220s256g25/p393176649/"
+  },
+  "Patriot P220 512GB SATA SSD": {
+    "category": "ssd",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/patriot-p220s512g25/p393177516/"
+  },
+  "Patriot P220 1TB SATA SSD": {
+    "category": "ssd",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/patriot-p220s1tb25/p393179082/"
+  },
+  "Kingston NV3 500GB NVMe SSD": {
+    "category": "ssd",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/"
+  },
+  "Kingston NV3 1TB NVMe SSD": {
+    "category": "ssd",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-1000g/p444146648/"
+  },
+  "Kingston NV3 2TB NVMe SSD": {
+    "category": "ssd",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-2000g/p444146651/"
+  },
+  "WD Blue SN580 1TB NVMe SSD": {
+    "category": "ssd",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/western-digital-wds100t3b0e/p404969754/"
+  },
+  "WD Blue SN580 2TB NVMe SSD": {
+    "category": "ssd",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/418698843/p418698843/"
+  },
+  "Crucial P3 Plus 1TB NVMe SSD": {
+    "category": "ssd",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/crucial-ct1000p3pssd8/p393614532/"
+  },
+  "Crucial P3 Plus 2TB NVMe SSD": {
+    "category": "ssd",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/crucial-ct2000p3pssd8/p357399606/"
+  },
+  "MSI MAG A550BN 550W 80+ Bronze": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi_mag_a550bn/p327862552/"
+  },
+  "MSI MAG A650BN 650W 80+ Bronze": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi_mag_a650bn/p327862120/"
+  },
+  "MSI MAG A750BN PCIE5 750W 80+ Bronze": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-mag-a750bn-pcie5/p415380453/"
+  },
+  "DeepCool PL650D 650W 80+ Bronze": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/deepcool-r-pl650d-fc0b-eu-v2/p494401474/"
+  },
+  "DeepCool PL750D 750W 80+ Bronze": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/464004354/p464004354/"
+  },
+  "MSI MAG A850GL PCIE5 850W 80+ Gold": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-mag-a850gl-pcie5/p392203551/"
+  },
+  "be quiet! Pure Power 12 M 850W 80+ Gold": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/be_quiet_bn344/p369446838/"
+  },
+  "Corsair RM850e 850W 80+ Gold": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/corsair-cp-9020263-eu/p413299899/"
+  },
+  "MSI MAG A1000GL PCIE5 1000W 80+ Gold": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-mag-a1000gl-pcie5/p500627719/"
+  },
+  "DeepCool MATREXX 40 3FS Airflow Black": {
+    "category": "case",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/deepcool_matrexx_40_3fs/p277962488/"
+  },
+  "DeepCool CC360 ARGB Black": {
+    "category": "case",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/deepcool-r-cc360-bkapm3-g-1/p393129153/"
+  },
+  "DeepCool CC560 LIMITED V2 Black": {
+    "category": "case",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/deepcool-cc560-limited-v2/p427512869/"
+  },
+  "DeepCool CC560 V2 Airflow Black": {
+    "category": "case",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/deepcool-r-cc560-bkgaa4-g-2/p418367910/"
+  },
+  "Montech AIR 903 MAX Black": {
+    "category": "case",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/montech-air-903-max-b/p407831973/"
+  },
+  "Montech AIR 903 MAX White": {
+    "category": "case",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/montech-air-903-max-w/p407831970/"
+  },
+  "NZXT H6 Flow Black": {
+    "category": "case",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fb-01/p407832048/"
+  },
+  "NZXT H6 Flow RGB Black": {
+    "category": "case",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fb-r1/p407832054/"
+  },
+  "NZXT H6 Flow RGB White": {
+    "category": "case",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fw-r1/p407832057/"
+  },
+  "AMD Athlon 3000G": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/316790245/p316790245/"
+  },
+  "AMD Ryzen 3 3100": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd_ryzen_3_3100_100_100000284box/p208506481/"
+  },
+  "AMD Ryzen 3 4100": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000510box/p342332494/"
+  },
+  "AMD Ryzen 5 1600AF": {
+    "category": "cpu",
+    "rozetka_url": ""
+  },
+  "AMD Ryzen 5 2600": {
+    "category": "cpu",
+    "rozetka_url": ""
+  },
+  "AMD Ryzen 5 3600": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd_ryzen_5_3600/p100191625/"
+  },
+  "AMD Ryzen 5 4500": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000644box/p343288393/"
+  },
+  "AMD Ryzen 5 4600G": {
+    "category": "cpu",
+    "rozetka_url": ""
+  },
+  "AMD Ryzen 5 5600G": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000252box/p310734938/"
+  },
+  "AMD Ryzen 7 5800X": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd_100_100000063wof/p257395336/"
+  },
+  "AMD Ryzen 7 5800X3D": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/351972153/p351972153/"
+  },
+  "AMD Ryzen 5 7600": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001015box/p393621414/"
+  },
+  "AMD Ryzen 7 8700G": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001236box/p424304409/"
+  },
+  "AMD Ryzen 7 7700": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-000000592/p463393374/"
+  },
+  "AMD Ryzen 7 7700X": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000591wof/p354949062/"
+  },
+  "AMD Ryzen 7 7800X3D": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000910wof/p374839311/"
+  },
+  "AMD Ryzen 9 7900": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000590box/p364753287/"
+  },
+  "AMD Ryzen 9 7900X": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000589wof/p354951138/"
+  },
+  "AMD Ryzen 9 7950X": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/processors-amd-151384011/p547241319/"
+  },
+  "AMD Ryzen 9 7950X3D": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000908wof/p368408850/"
+  },
+  "Intel G7400": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/430337306/p430337306/"
+  },
+  "Intel i3-12100": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071512100/p331700473/"
+  },
+  "Intel i3-12100F": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071512100f/p331700560/"
+  },
+  "Intel i5-12400": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071512400/p331700458/"
+  },
+  "Intel i5-13400": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071513400/p393621471/"
+  },
+  "Intel i5-13500": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071513500/p393621477/"
+  },
+  "Intel i5-13600K": {
+    "category": "cpu",
+    "rozetka_url": ""
+  },
+  "Intel i5-13600KF": {
+    "category": "cpu",
+    "rozetka_url": ""
+  },
+  "Intel i7-12700F": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071512700f/p331700551/"
+  },
+  "Intel i7-13700": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/534498549/p534498549/"
+  },
+  "Intel i7-13700F": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071513700f/p363406311/"
+  },
+  "Intel i7-13700K": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/463572639/p463572639/"
+  },
+  "Intel i7-14700K": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514700k/p396293622/"
+  },
+  "Intel i9-14900KF": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514900kf/p415348404/"
+  },
+  "Intel i9-14900K": {
+    "category": "cpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514900k/p396292344/"
+  },
+  "NVIDIA GTX 1050 Ti 4GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/arktek_akn1050tid5s4gh1/p294383743/"
+  },
+  "AMD RX 570 4GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/106476327/p106476327/"
+  },
+  "AMD RX 580 8GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/418376379/p418376379/"
+  },
+  "NVIDIA GTX 1650 4GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte_gv_n1656oc_4gd/p235971697/"
+  },
+  "NVIDIA GTX 1660 SUPER 6GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/487709379/p487709379/"
+  },
+  "NVIDIA RTX 2060 6GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/arktek-akn2060d6s6gh1/p408864870/"
+  },
+  "NVIDIA RTX 3050 8GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-rtx-3050-ventus-2x-xs-8g-oc/p400053201/"
+  },
+  "AMD RX 6500 XT 4GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/videocards-sapphire-157591635/p563973384/"
+  },
+  "AMD RX 6600 8GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/336348286/p336348286/"
+  },
+  "Intel Arc A580 8GB": {
+    "category": "gpu",
+    "rozetka_url": ""
+  },
+  "AMD RX 6600 XT 8GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/336348064/p336348064/"
+  },
+  "AMD RX 6650 XT 8GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/342766651/p342766651/"
+  },
+  "AMD RX 7600 8GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-gv-r76gaming-oc-8gd/p382150818/"
+  },
+  "NVIDIA RTX 3060 12GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-90yv0gb2-m0na10/p393613737/"
+  },
+  "NVIDIA RTX 4060 8GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/389178366/p389178366/"
+  },
+  "NVIDIA RTX 3060 Ti 8GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/336349456/p336349456/"
+  },
+  "AMD RX 6700 XT 12GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/336347335/p336347335/"
+  },
+  "AMD RX 6750 XT 12GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/383539194/p383539194/"
+  },
+  "NVIDIA RTX 4060 Ti 8GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/418709058/p418709058/"
+  },
+  "NVIDIA RTX 4060 Ti 16GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/451445330/p451445330/"
+  },
+  "AMD RX 7700 XT 12GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-gv-r77xtgaming-oc-12gd/p415348275/"
+  },
+  "NVIDIA RTX 4070 12GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-gv-n4070wf2oc-12gd/p413251662/"
+  },
+  "AMD RX 7800 XT 16GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/433208924/p433208924/"
+  },
+  "NVIDIA RTX 4070 SUPER 12GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/418704402/p418704402/"
+  },
+  "AMD RX 7900 GRE 16GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/454121642/p454121642/"
+  },
+  "NVIDIA RTX 4070 Ti SUPER 16GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/471752154/p471752154/"
+  },
+  "AMD RX 7900 XT 20GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/418990260/p418990260/"
+  },
+  "AMD RX 7900 XTX 24GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/380698734/p380698734/"
+  },
+  "NVIDIA RTX 4080 SUPER 16GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/462867289/p462867289/"
+  },
+  "NVIDIA RTX 4090 24GB": {
+    "category": "gpu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/366069873/p366069873/"
+  },
+  "A520M (AM4, DDR4, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-tuf-gaming-a520m-plus-ii/p367203456/"
+  },
+  "A520M Wi-Fi (AM4, DDR4, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-tuf-gaming-a520m-plus-wifi/p376558923/"
+  },
+  "B450M (AM4, DDR4, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus_prime_b450m_a_ii/p254594986/"
+  },
+  "B450M Wi-Fi (AM4, DDR4, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi_b550m_pro_vdh_wifi/p266777346/"
+  },
+  "B550 (AM4, DDR4, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte_b550m_aorus_elite/p243463075/"
+  },
+  "B550 Wi-Fi (AM4, DDR4, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi_b550m_pro_vdh_wifi/p266777346/"
+  },
+  "X570 (AM4, DDR4, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-x570-aorus-pro/p334979344/"
+  },
+  "X570 Wi-Fi (AM4, DDR4, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/312173932/p312173932/"
+  },
+  "A620M (AM5, DDR5, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/389200071/p389200071/"
+  },
+  "A620M Wi-Fi (AM5, DDR5, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/415006932/p415006932/"
+  },
+  "B650 (AM5, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-b650m-k/p415333035/"
+  },
+  "B650 Wi-Fi (AM5, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-b650m-gaming-plus-wifi/p488523059/"
+  },
+  "X670E (AM5, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": ""
+  },
+  "X670E Wi-Fi (AM5, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/565365911/p565365911/"
+  },
+  "H610M (LGA1700, DDR4, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-h610m-k-ddr4/p369467583/"
+  },
+  "H610M Wi-Fi (LGA1700, DDR4, mATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-h610m-a-wifi-d4/p367555899/"
+  },
+  "B660 (LGA1700, DDR4, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-b660m-k-d4/p331718209/"
+  },
+  "B660 Wi-Fi (LGA1700, DDR4, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-b660m-a-wifi-d4/p331715836/"
+  },
+  "B760 (LGA1700, DDR4, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-b760-plus-d4/p363889524/"
+  },
+  "B760 Wi-Fi (LGA1700, DDR4, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-b760m-gaming-plus-wifi/p415570395/"
+  },
+  "B760 (LGA1700, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b760-p-ii/p436832597/"
+  },
+  "B760 Wi-Fi (LGA1700, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-b760m-gaming-plus-wifi/p415570395/"
+  },
+  "Z690 (LGA1700, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/345797275/p345797275/"
+  },
+  "Z690 Wi-Fi (LGA1700, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/463382014/p463382014/"
+  },
+  "Z790 (LGA1700, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-z790-d-ax/p432063173/"
+  },
+  "Z790 Wi-Fi (LGA1700, DDR5, ATX)": {
+    "category": "mb",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-tuf-gaming-z790-plus-wifi/p370243302/"
+  },
+  "Corsair Vengeance LPX 128GB (4x32) DDR4-3200": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/corsair-cmh128gx4m4e3200c16/p471995959/"
+  },
+  "Corsair Vengeance LPX 256GB (8x32) DDR4-3200": {
+    "category": "ram",
+    "rozetka_url": ""
+  },
+  "Kingston ValueRAM 8GB (1x8) DDR5-5200": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-kvr56u46bs6-8/p410997117/"
+  },
+  "Kingston Fury Beast 16GB (2x8) DDR5-5600": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston_kf556c40bbak2_16/p342800104/"
+  },
+  "Kingston Fury Beast 32GB (2x16) DDR5-5600": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-fury-exhyperx-kf556c40bbk2-32/p329571487/"
+  },
+  "Kingston Fury Beast 64GB (2x32) DDR5-5600": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/380444100/p380444100/"
+  },
+  "Corsair Vengeance 96GB (2x48) DDR5-6000": {
+    "category": "ram",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/corsair-cmk96gx5m2b6000z30/p545910738/"
+  },
+  "Corsair Vengeance 128GB (4x32) DDR5-6000": {
+    "category": "ram",
+    "rozetka_url": ""
+  },
+  "Corsair Vengeance 192GB (4x48) DDR5-6000": {
+    "category": "ram",
+    "rozetka_url": ""
+  },
+  "Corsair Vengeance 256GB (8x32) DDR5-5600": {
+    "category": "ram",
+    "rozetka_url": ""
+  },
+  "Apacer AS350 128GB SATA SSD": {
+    "category": "ssd",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/338687497/p338687497/"
+  },
+  "Kingston NV3 512GB NVMe SSD": {
+    "category": "ssd",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/"
+  },
+  "Kingston KC3000 4TB NVMe SSD": {
+    "category": "ssd",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-skc3000s-4096g/p323284093/"
+  },
+  "Chieftec Value APB-400B8 400W 80+ Bronze": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/chieftec_apb_400b8/p24204089/"
+  },
+  "Chieftec Value APB-450B8 450W 80+ Bronze": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/chieftec-bfx-450bs/p361658700/"
+  },
+  "Chieftec Value APB-500B8 500W 80+ Bronze": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/360615810/p360615810/"
+  },
+  "be quiet! System Power 10 650W 80+ Gold": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/be-quiet-bn328/p361479369/"
+  },
+  "MSI MAG A1000GL 1000W 80+ Gold": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-mag-a1000gl-pcie5/p500627719/"
+  },
+  "DeepCool PX1200G 1200W 80+ Gold": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/deepcool-px1200g/p388642506/"
+  },
+  "be quiet! Straight Power 12 1200W 80+ Platinum": {
+    "category": "psu",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/be-quiet-bn339/p389043852/"
+  },
+  "Zalman S2 TG Showcase Black": {
+    "category": "case",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/cases-zalman-154558163/p555937347/"
+  },
+  "Montech AIR 903 MAX Airflow Black": {
+    "category": "case",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/montech-air-903-max-b/p407831973/"
+  },
+  "NZXT H6 Flow Showcase Black": {
+    "category": "case",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fb-r1/p407832054/"
+  },
+  "Corsair 7000D Airflow Full Tower Black": {
+    "category": "case",
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/583335172/p583335172/"
+  }
+}
