@@ -1,10 +1,18 @@
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional, Tuple
-from parts_db import PARTS, Part, GAMES_DB, OFFICE_APPS_DB, STUDY_APPS_DB, CREATOR_APPS_DB
 
-from typing import Any, Dict, List, Optional, Tuple
-from parts_db import PARTS, Part, GAMES_DB, OFFICE_APPS_DB, STUDY_APPS_DB, CREATOR_APPS_DB
+from parts_db import PARTS, Part, GAMES_DB, OFFICE_APPS_DB
+
+try:
+    from parts_db import STUDY_APPS_DB  # type: ignore
+except ImportError:
+    STUDY_APPS_DB = {}
+
+try:
+    from parts_db import CREATOR_APPS_DB  # type: ignore
+except ImportError:
+    CREATOR_APPS_DB = {}
 
 
 VALID_MB_SOCKETS = {"AM4", "AM5", "LGA1700"}

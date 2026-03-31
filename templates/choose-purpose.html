@@ -24,7 +24,7 @@
       <h1 class="pc-types-title">Обери, як хочеш розпочати підбір</h1>
       <p class="pc-types-subtitle">
         У тебе є два шляхи: самостійно обрати тип ПК або дати системі визначити його автоматично
-        за допомогою локальної ML-моделі.
+        за допомогою штучного інтелекту.
       </p>
 
       <div class="choice-methods-grid">
@@ -40,11 +40,11 @@
         </button>
 
         <button type="button" class="choice-method-card" data-target="ai-panel">
-          <span class="choice-method-badge">AI</span>
+          <span class="choice-method-badge">2</span>
           <div class="choice-method-content">
             <h2>Нехай система визначить за тебе</h2>
             <p>
-              Опиши свої потреби вільним текстом, а локальна ML-модель визначить найбільш підходящий тип ПК.
+              Опиши свої потреби вільним текстом, а штучний інтелект визначить найбільш підходящий тип ПК.
             </p>
             <span class="choice-method-link">Запустити AI-визначення</span>
           </div>
@@ -118,15 +118,11 @@
 
           <div class="choice-panel-head">
             <h2>Автоматичне визначення за допомогою ШІ</h2>
-            <p>
-              Якщо рівень впевненості ШІ становить <strong>{{ ai_threshold_percent }}% або більше</strong>,
-              система одразу відкриє потрібний конфігуратор. Якщо впевненість нижча — попросить описати потреби конкретніше.
-            </p>
           </div>
 
           <div class="ai-panel-grid">
             <aside class="ai-panel-aside">
-              <span class="ai-panel-kicker">Локальна ML-модель</span>
+              <span class="ai-panel-kicker">AI - Штучний Інтелект</span>
               <h3>Опиши задачі простими словами</h3>
               <p>
                 Просто напиши, для чого потрібен комп'ютер: ігри, бухгалтерія, навчання, програмування,
@@ -135,7 +131,6 @@
               <ul class="ai-feature-list">
                 <li>Висока впевненість — автоматичний перехід у потрібний конфігуратор.</li>
                 <li>Низька впевненість — система підкаже, що треба описати запит конкретніше.</li>
-                <li>Працює локально без зовнішніх API.</li>
               </ul>
             </aside>
 
@@ -148,7 +143,7 @@
                     «ПК для Blender, Premiere Pro і рендеру сцен».
                   </p>
                 </div>
-                <div class="ai-purpose-badge">ML</div>
+                <div class="ai-purpose-badge">AI</div>
               </div>
 
               {% if not ai_available %}

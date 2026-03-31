@@ -339,7 +339,13 @@ def build_study_pc(
     if not best_config:
         return _fail("Не вдалося зібрати ПК для навчання за заданими параметрами.", tier)
     total = sum(p.price for p in best_config.values())
-    selected_titles = [STUDY_APPS_DB[a]["title"] for a in requirement["selected_apps"]]
+    selected_titles = []
+    for a in requirement["selected_apps"]:
+        app = STUDY_APPS_DB.get(a) or OFFICE_APPS_DB.get(a)
+        if app:
+            selected_titles.append(app.get("title", a))
+        else:
+            selected_titles.append(a)
     match_status = _study_match_status(best_config, requirement)
     if match_status == "excellent":
         first_note = "Конфігурація з запасом підходить для вибраних навчальних сценаріїв."

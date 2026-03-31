@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional, Tuple
 
+import app
+
 from .common import *  # noqa: F401,F403
 
 # ===== Оцінка продуктивності =====
@@ -860,7 +862,9 @@ def _calculate_study_requirement(
     dedicated_needed = False
 
     for app_key in valid_apps:
-        app = STUDY_APPS_DB[app_key]
+        app = STUDY_APPS_DB.get(app_key) or OFFICE_APPS_DB.get(app_key)
+        if app is None:
+            continue
         cpu_required = max(cpu_required, float(app["cpu_base"]))
         ram_required = max(ram_required, int(app["ram_gb"]))
         ssd_required = max(ssd_required, int(app["ssd_gb"]))
@@ -1102,7 +1106,9 @@ def _calculate_creator_requirement(
     dedicated_needed = True
 
     for app_key in valid_apps:
-        app = CREATOR_APPS_DB[app_key]
+        app = CREATOR_APPS_DB.get(app_key)
+        if app is None:
+            continue
         cpu_required = max(cpu_required, float(app["cpu_base"]))
         ram_required = max(ram_required, int(app["ram_gb"]))
         ssd_required = max(ssd_required, int(app["ssd_gb"]))

@@ -314,3 +314,11 @@ OFFICE_APPS_DB = {
     "vscode": {"title": "VS Code / програмування", "cpu_base": 74, "ram_gb": 16, "ssd_gb": 512, "gpu_need": 5, "multi_monitor": 2},
     "powerbi": {"title": "Power BI / аналітика", "cpu_base": 78, "ram_gb": 16, "ssd_gb": 512, "gpu_need": 18, "multi_monitor": 2},
 }
+
+STUDY_APPS_DB = {
+    # Тимчасово порожньо
+}
+
+CREATOR_APPS_DB = {
+    # Тимчасово порожньо
+}

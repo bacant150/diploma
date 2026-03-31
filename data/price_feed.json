@@ -1,32 +1,2047 @@
 {
   "AMD Ryzen 5 5500": {
-    "price": 4249,
+    "price": 4498,
     "source_used": "rozetka",
-    "rozetka_price": 4249,
+    "rozetka_price": 4498,
     "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000457box/p342325708/",
     "product_code": "342325708",
     "availability": "Є в наявності",
     "title": "Процесор AMD Ryzen 5 5500 3.6GHz/16MB (100-100000457BOX) sAM4 BOX",
-    "checked_at": "2026-03-30T16:49:59"
+    "checked_at": "2026-03-30T19:50:31"
   },
   "AMD Ryzen 5 5600GT": {
-    "price": 6153,
+    "price": 6986,
     "source_used": "rozetka",
-    "rozetka_price": 6153,
+    "rozetka_price": 6986,
     "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001488box/p413794320/",
     "product_code": "413794320",
     "availability": "Є в наявності",
     "title": "Процесор AMD Ryzen 5 5600GT 3.6GHz/16MB (100-100001488BOX) sAM4 BOX",
-    "checked_at": "2026-03-30T16:50:07"
+    "checked_at": "2026-03-30T19:50:39"
   },
   "AMD Ryzen 5 5600": {
-    "price": 5579,
+    "price": 6199,
     "source_used": "rozetka",
-    "rozetka_price": 5579,
+    "rozetka_price": 6199,
     "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000927box/p342341803/",
     "product_code": "342341803",
-    "availability": "Закінчується",
+    "availability": null,
     "title": "Процесор AMD Ryzen 5 5600 3.5GHz/32MB (100-100000927BOX) sAM4 BOX",
-    "checked_at": "2026-03-30T16:50:16"
+    "checked_at": "2026-03-30T19:50:46"
+  },
+  "AMD Ryzen 5 5600X": {
+    "price": 6948,
+    "source_used": "rozetka",
+    "rozetka_price": 6948,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd_100_000000065/p296953523/",
+    "product_code": "296953523",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 5 5600X 3.7GHz/32MB (100-000000065) sAM4 OEM",
+    "checked_at": "2026-03-30T19:50:55"
+  },
+  "AMD Ryzen 7 5700G": {
+    "price": 8216,
+    "source_used": "rozetka",
+    "rozetka_price": 8216,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/316480834/p316480834/",
+    "product_code": "316480834",
+    "availability": "є в наявності",
+    "title": "Процесор AMD Ryzen 7 5700G (3.8GHz 16MB 65W AM4) Box (100-100000263BOX)",
+    "checked_at": "2026-03-30T19:51:03"
+  },
+  "AMD Ryzen 7 5700X": {
+    "price": 7847,
+    "source_used": "rozetka",
+    "rozetka_price": 7847,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000926wof/p342341263/",
+    "product_code": "342341263",
+    "availability": "є в наявності",
+    "title": "Процесор AMD Ryzen 7 5700X 3.4GHz/32MB (100-100000926WOF) sAM4 BOX",
+    "checked_at": "2026-03-30T19:51:11"
+  },
+  "AMD Ryzen 7 5700X3D": {
+    "price": 10040,
+    "source_used": "rozetka",
+    "rozetka_price": 10040,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/431184515/p431184515/",
+    "product_code": "431184515",
+    "availability": "є в наявності",
+    "title": "Процесор AMD (AM4) Ryzen 7 5700X3D, Box, 8x3.0 GHz (Turbo Boost 4.1 GHz), L3 96Mb, Zen 3 (Vermeer), 7 nm, TDP 105 Вт, розблокований множник (100-100001503WOF)",
+    "checked_at": "2026-03-30T19:51:18"
+  },
+  "AMD Ryzen 5 7500F": {
+    "price": 7839,
+    "source_used": "rozetka",
+    "rozetka_price": 7839,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/529859669/p529859669/",
+    "product_code": "529859669",
+    "availability": null,
+    "title": "Процессор AMD Ryzen 5 7500F 3.7GHz/32MB sAM5 (100-000000597) BOX",
+    "checked_at": "2026-03-30T19:51:25"
+  },
+  "AMD Ryzen 5 8400F": {
+    "price": 6731,
+    "source_used": "rozetka",
+    "rozetka_price": 6731,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001591/p445294493/",
+    "product_code": "445294493",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 5 8400F 4.2 GHz/16 MB (100-100001591) sAM5 Tray (без упаковки)",
+    "checked_at": "2026-03-30T19:51:33"
+  },
+  "AMD Ryzen 5 8500G": {
+    "price": 7448,
+    "source_used": "rozetka",
+    "rozetka_price": 7448,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000931box/p416336958/",
+    "product_code": "416336958",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 5 8500G 3.5GHz/16MB (100-100000931BOX) sAM5 BOX",
+    "checked_at": "2026-03-30T19:51:41"
+  },
+  "AMD Ryzen 5 8600G": {
+    "price": 9648,
+    "source_used": "rozetka",
+    "rozetka_price": 9648,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001237box/p413774013/",
+    "product_code": "413774013",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 5 8600G 4.3GHz/16MB (100-100001237BOX) sAM5 BOX",
+    "checked_at": "2026-03-30T19:51:53"
+  },
+  "AMD Ryzen 5 9600X": {
+    "price": 10748,
+    "source_used": "rozetka",
+    "rozetka_price": 10748,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001405wof/p440201399/",
+    "product_code": "440201399",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 5 9600X 3.9GHz/32MB (100-100001405WOF) sAM5 BOX",
+    "checked_at": "2026-03-30T19:52:01"
+  },
+  "AMD Ryzen 7 9700X": {
+    "price": 14968,
+    "source_used": "rozetka",
+    "rozetka_price": 14968,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001404wof/p440200682/",
+    "product_code": "440200682",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 7 9700X 3.8GHz/32MB (100-100001404WOF) sAM5 BOX",
+    "checked_at": "2026-03-30T19:52:09"
+  },
+  "AMD Ryzen 7 9800X3D": {
+    "price": 23257,
+    "source_used": "rozetka",
+    "rozetka_price": 23257,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001084wof/p457310954/",
+    "product_code": "457310954",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 7 9800X3D 4.7GHz/96MB (100-100001084WOF) sAM5 BOX",
+    "checked_at": "2026-03-30T19:52:18"
+  },
+  "AMD Ryzen 9 9900X": {
+    "price": 21148,
+    "source_used": "rozetka",
+    "rozetka_price": 21148,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000662wof/p440200004/",
+    "product_code": "440200004",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 9 9900X 4.4GHz/64MB (100-100000662WOF) sAM5 BOX",
+    "checked_at": "2026-03-30T19:52:26"
+  },
+  "Intel i3-13100": {
+    "price": 8465,
+    "source_used": "rozetka",
+    "rozetka_price": 8465,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/378935652/p378935652/",
+    "product_code": "378935652",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i3-13100 (BX8071513100) s1700 BOX",
+    "checked_at": "2026-03-30T19:52:35"
+  },
+  "Intel i3-13100F": {
+    "price": 5072,
+    "source_used": "rozetka",
+    "rozetka_price": 5072,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071513100f/p363409281/",
+    "product_code": "363409281",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i3-13100F 3.4GHz/12MB (BX8071513100F) s1700 BOX",
+    "checked_at": "2026-03-30T19:52:44"
+  },
+  "Intel i3-14100": {
+    "price": 9348,
+    "source_used": "rozetka",
+    "rozetka_price": 9348,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514100/p413461572/",
+    "product_code": "413461572",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i3-14100 3.5GHz/12MB (BX8071514100) s1700 BOX",
+    "checked_at": "2026-03-30T19:52:54"
+  },
+  "Intel i3-14100F": {
+    "price": 5148,
+    "source_used": "rozetka",
+    "rozetka_price": 5148,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514100f/p413469624/",
+    "product_code": "413469624",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i3-14100F 3.5GHz/12MB (BX8071514100F) s1700 BOX",
+    "checked_at": "2026-03-30T19:53:02"
+  },
+  "Intel i5-12400F": {
+    "price": 6899,
+    "source_used": "rozetka",
+    "rozetka_price": 6899,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071512400f/p331700554/",
+    "product_code": "331700554",
+    "availability": "є в наявності",
+    "title": "Процесор Intel Core i5-12400F 2.5GHz/18MB (BX8071512400F) s1700 BOX",
+    "checked_at": "2026-03-30T19:53:09"
+  },
+  "Intel i5-13400F": {
+    "price": 7829,
+    "source_used": "rozetka",
+    "rozetka_price": 7829,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071513400f/p393621474/",
+    "product_code": "393621474",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i5-13400F 2.5GHz/20MB (BX8071513400F) s1700 BOX",
+    "checked_at": "2026-03-30T19:53:17"
+  },
+  "Intel i5-14400": {
+    "price": 12714,
+    "source_used": "rozetka",
+    "rozetka_price": 12714,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514400/p413461008/",
+    "product_code": "413461008",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i5-14400 2.5GHz/20MB (BX8071514400) s1700 BOX",
+    "checked_at": "2026-03-30T19:53:25"
+  },
+  "Intel i5-14400F": {
+    "price": 9560,
+    "source_used": "rozetka",
+    "rozetka_price": 9560,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514400f/p413463690/",
+    "product_code": "413463690",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i5-14400F 2.5GHz/20MB (BX8071514400F) s1700 BOX",
+    "checked_at": "2026-03-30T19:53:36"
+  },
+  "Intel i5-14600KF": {
+    "price": 12699,
+    "source_used": "rozetka",
+    "rozetka_price": 12699,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/504419524/p504419524/",
+    "product_code": "504419524",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i5-14600KF Box (BX8071514600KF) EU [133088]",
+    "checked_at": "2026-03-30T19:53:44"
+  },
+  "Intel i7-14700": {
+    "price": 19076,
+    "source_used": "rozetka",
+    "rozetka_price": 19076,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514700/p413419965/",
+    "product_code": "413419965",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i7-14700 2.1GHz/33MB (BX8071514700) s1700 BOX",
+    "checked_at": "2026-03-30T19:53:52"
+  },
+  "Intel i7-14700F": {
+    "price": 19039,
+    "source_used": "rozetka",
+    "rozetka_price": 19039,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514700f/p413463483/",
+    "product_code": "413463483",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i7-14700F 2.1GHz/33MB (BX8071514700F) s1700 BOX",
+    "checked_at": "2026-03-30T19:54:00"
+  },
+  "Intel Arc B570 10GB": {
+    "price": 13039,
+    "source_used": "rozetka",
+    "rozetka_price": 13039,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/sparkle-sb570g-10goc/p516590934/",
+    "product_code": "516590934",
+    "availability": "Є в наявності",
+    "title": "Відеокарта Sparkle PCI-Ex Intel Arc B570 Guardian OC 10GB GDDR6 (160bit) (2660/19000) (HDMI, 3 x DisplayPort) (SB570G-10GOC)",
+    "checked_at": "2026-03-30T19:54:08"
+  },
+  "Intel Arc B580 12GB": {
+    "price": 17748,
+    "source_used": "rozetka",
+    "rozetka_price": 17748,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/sparkle-sb580g-12g/p479668754/",
+    "product_code": "479668754",
+    "availability": "Є в наявності",
+    "title": "Відеокарта Sparkle PCI-Ex Intel Arc B580 Guardian 12GB GDDR6 (192bit) (2670) (HDMI, 3 x DisplayPort) (SB580G-12G)",
+    "checked_at": "2026-03-30T19:54:17"
+  },
+  "NVIDIA RTX 5060 8GB": {
+    "price": 17948,
+    "source_used": "rozetka",
+    "rozetka_price": 17948,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-dual-rtx5060-o8g/p513000324/",
+    "product_code": "513000324",
+    "availability": "Є в наявності",
+    "title": "Відеокарта ASUS PCI-Ex GeForce RTX 5060 Dual OC Edition 8GB GDDR7 (128bit) (2565/28000) (HDMI, 3 x DisplayPort) (DUAL-RTX5060-O8G)",
+    "checked_at": "2026-03-30T19:54:25"
+  },
+  "NVIDIA RTX 5060 Ti 8GB": {
+    "price": 25999,
+    "source_used": "rozetka",
+    "rozetka_price": 25999,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-dual-rtx5060ti-o8g/p502699644/",
+    "product_code": "502699644",
+    "availability": "Є в наявності",
+    "title": "Відеокарта ASUS PCI-Ex GeForce RTX 5060 Ti Dual OC Edition 8GB GDDR7 (128bit) (2632/28000) (HDMI, 3 x DisplayPort) (DUAL-RTX5060TI-O8G)",
+    "checked_at": "2026-03-30T19:54:34"
+  },
+  "NVIDIA RTX 5060 Ti 16GB": {
+    "price": 31148,
+    "source_used": "rozetka",
+    "rozetka_price": 31148,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-dual-rtx5060ti-o16g/p502454359/",
+    "product_code": "502454359",
+    "availability": "Є в наявності",
+    "title": "Відеокарта ASUS PCI-Ex GeForce RTX 5060 Ti Dual OC Edition 16GB GDDR7 (128bit) (2632/28000) (HDMI, 3 x DisplayPort) (DUAL-RTX5060TI-O16G)",
+    "checked_at": "2026-03-30T19:54:43"
+  },
+  "AMD RX 9060 XT 16GB": {
+    "price": 22458,
+    "source_used": "rozetka",
+    "rozetka_price": 22458,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/copy-asus-dual-rx9060xt-16g-white/p542510090/",
+    "product_code": "542510090",
+    "availability": "Є в наявності",
+    "title": "Відеокарта ASUS PCI-Ex Radeon RX 9060 XT Dual 16GB GDDR6 (128bit) (3250/20000) (HDMI, 2 x DisplayPort) (DUAL-RX9060XT-16G)",
+    "checked_at": "2026-03-30T19:54:51"
+  },
+  "NVIDIA RTX 5070 12GB": {
+    "price": 34578,
+    "source_used": "rozetka",
+    "rozetka_price": 34578,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-gv-n5070wf3oc-12gd/p476638324/",
+    "product_code": "476638324",
+    "availability": "Є в наявності",
+    "title": "Відеокарта Gigabyte PCI-Ex GeForce RTX 5070 Windforce OC 12GB GDDR7 (192bit) (28000) (HDMI, 3 x DisplayPort) (GV-N5070WF3OC-12GD)",
+    "checked_at": "2026-03-30T19:55:00"
+  },
+  "AMD RX 9070 16GB": {
+    "price": 42099,
+    "source_used": "rozetka",
+    "rozetka_price": 42099,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/sapphire-11349-01-20g/p568497007/",
+    "product_code": "568497007",
+    "availability": "Є в наявності",
+    "title": "Відеокарта Sapphire PCI-Ex Radeon RX 9070 Nitro+ OC 16GB GDDR6 (256bit) (2700/20000) (2 x HDMI, 2 x DisplayPort) (11349-01-20G)",
+    "checked_at": "2026-03-30T19:55:08"
+  },
+  "AMD RX 9070 XT 16GB": {
+    "price": 40148,
+    "source_used": "rozetka",
+    "rozetka_price": 40148,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-gv-r9070xtgaming-oc-16gd/p475696804/",
+    "product_code": "475696804",
+    "availability": "Є в наявності",
+    "title": "Відеокарта Gigabyte PCI-Ex Radeon RX 9070 XT Gaming OC 16G 16GB GDDR6 (256bit) (20000) (2 x HDMI, 2 x DisplayPort) (GV-R9070XTGAMING OC-16GD)",
+    "checked_at": "2026-03-30T19:55:17"
+  },
+  "NVIDIA RTX 5070 Ti 16GB": {
+    "price": 59168,
+    "source_used": "rozetka",
+    "rozetka_price": 59168,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-rtx5070ti-o16g/p473252739/",
+    "product_code": "473252739",
+    "availability": "Є в наявності",
+    "title": "Відеокарта ASUS PCI-Ex GeForce RTX 5070 Ti PRIME OC Edition 16GB GDDR7 (256bit) (28000) (HDMI, 3 x DisplayPort) (PRIME-RTX5070TI-O16G)",
+    "checked_at": "2026-03-30T19:55:26"
+  },
+  "NVIDIA RTX 5080 16GB": {
+    "price": 74168,
+    "source_used": "rozetka",
+    "rozetka_price": 74168,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-rtx-5080-16g-gaming-trio-oc/p476945369/",
+    "product_code": "476945369",
+    "availability": "Є в наявності",
+    "title": "Відеокарта MSI PCI-Ex GeForce RTX 5080 GAMING TRIO OC 16GB GDDR7 (256bit) (2715/30000) (HDMI, 3 x DisplayPort) (RTX 5080 16G GAMING TRIO OC)",
+    "checked_at": "2026-03-30T19:55:34"
+  },
+  "Gigabyte B550M AORUS ELITE (AM4, DDR4, mATX)": {
+    "price": 8072,
+    "source_used": "rozetka",
+    "rozetka_price": 8072,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte_b550m_aorus_elite/p243463075/",
+    "product_code": "243463075",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Gigabyte B550M Aorus Elite (sAM4, AMD B550, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:55:43"
+  },
+  "ASUS PRIME B550M-K (AM4, DDR4, mATX)": {
+    "price": 6393,
+    "source_used": "rozetka",
+    "rozetka_price": 6393,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus_prime_b550m_k/p218298805/",
+    "product_code": "218298805",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus Prime B550M-K (sAM4, AMD B550, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:55:58"
+  },
+  "ASRock B550M Pro4 (AM4, DDR4, mATX)": {
+    "price": 9999,
+    "source_used": "rozetka",
+    "rozetka_price": 9999,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asrock_b550m_pro4/p226782037/",
+    "product_code": "226782037",
+    "availability": "Є в наявності",
+    "title": "Материнська плата ASRock B550M Pro4 (sAM4, AMD B550, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:56:13"
+  },
+  "ASUS TUF GAMING B550-PLUS (AM4, DDR4, ATX)": {
+    "price": 9270,
+    "source_used": "rozetka",
+    "rozetka_price": 9270,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus_tuf_gaming_b550_plus/p218402767/",
+    "product_code": "218402767",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus TUF Gaming B550-Plus (sAM4, AMD B550, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:56:28"
+  },
+  "ASUS TUF GAMING B550M-PLUS Wi-Fi II (AM4, DDR4, mATX)": {
+    "price": 11330,
+    "source_used": "rozetka",
+    "rozetka_price": 11330,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-tuf-gaming-b550m-plus-wifi-ii/p363293037/",
+    "product_code": "363293037",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus TUF Gaming B550M-Plus Wi-Fi II (sAM4, AMD B550, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:56:36"
+  },
+  "MSI B550-A PRO (AM4, DDR4, ATX)": {
+    "price": 8324,
+    "source_used": "rozetka",
+    "rozetka_price": 8324,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-b550-a-pro/p415342467/",
+    "product_code": "415342467",
+    "availability": "Є в наявності",
+    "title": "Материнська плата MSI B550-A Pro (sAM4, AMD B550, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:56:44"
+  },
+  "Gigabyte A620M H (AM5, DDR5, mATX)": {
+    "price": 5879,
+    "source_used": "rozetka",
+    "rozetka_price": 5879,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-a620m-h/p406940301/",
+    "product_code": "406940301",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Gigabyte A620M H (sAM5, AMD A620, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:56:52"
+  },
+  "Gigabyte A620M DS3H (AM5, DDR5, mATX)": {
+    "price": 5879,
+    "source_used": "rozetka",
+    "rozetka_price": 5879,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-a620m-ds3h/p406948671/",
+    "product_code": "406948671",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Gigabyte A620M DS3H (sAM5, AMD A620, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:57:00"
+  },
+  "ASUS TUF GAMING A620-PRO WIFI (AM5, DDR5, ATX)": {
+    "price": 9203,
+    "source_used": "rozetka",
+    "rozetka_price": 9203,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/570974242/p570974242/",
+    "product_code": "570974242",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus TUF GAMING A620-PRO WIFI",
+    "checked_at": "2026-03-30T19:57:09"
+  },
+  "MSI PRO B650M-B (AM5, DDR5, mATX)": {
+    "price": 4469,
+    "source_used": "rozetka",
+    "rozetka_price": 4469,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b650m-b/p423766026/",
+    "product_code": "423766026",
+    "availability": "є в наявності",
+    "title": "Материнська плата MSI PRO B650M-B (sAM5, AMD B650, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:57:16"
+  },
+  "MSI PRO B650M-P (AM5, DDR5, mATX)": {
+    "price": 6799,
+    "source_used": "rozetka",
+    "rozetka_price": 6799,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b650m-p/p395208729/",
+    "product_code": "395208729",
+    "availability": "є в наявності",
+    "title": "Материнська плата MSI PRO B650M-P (sAM5, AMD B650, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:57:24"
+  },
+  "Gigabyte B650M S2H (AM5, DDR5, mATX)": {
+    "price": 5879,
+    "source_used": "rozetka",
+    "rozetka_price": 5879,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-b650m-s2h/p402328965/",
+    "product_code": "402328965",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Gigabyte B650M S2H (sAM5, AMD B650, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:57:32"
+  },
+  "MSI PRO B650-S Wi-Fi (AM5, DDR5, ATX)": {
+    "price": 7266,
+    "source_used": "rozetka",
+    "rozetka_price": 7266,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b650-s-wifi/p407082552/",
+    "product_code": "407082552",
+    "availability": "є в наявності",
+    "title": "Материнська плата MSI PRO B650-S Wi-Fi (sAM5, AMD B650, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:57:39"
+  },
+  "ASUS PRIME B650M-A WIFI II (AM5, DDR5, mATX)": {
+    "price": 5879,
+    "source_used": "rozetka",
+    "rozetka_price": 5879,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-b650m-a-wifi-ii/p376558905/",
+    "product_code": "376558905",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus PRIME B650M-A WIFI II (sAM5, AMD B650, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:57:47"
+  },
+  "ASUS PRIME B760M-K D4 (LGA1700, DDR4, mATX)": {
+    "price": 4699,
+    "source_used": "rozetka",
+    "rozetka_price": 4699,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-b760m-k-d4/p363887256/",
+    "product_code": "363887256",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus PRIME B760M-K D4 (s1700, Intel B760, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:57:55"
+  },
+  "MSI PRO B760-P WIFI DDR4 (LGA1700, DDR4, ATX)": {
+    "price": 6368,
+    "source_used": "rozetka",
+    "rozetka_price": 6368,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b760-p-wifi-ddr4/p363839574/",
+    "product_code": "363839574",
+    "availability": "є в наявності",
+    "title": "Материнська плата MSI PRO B760-P Wi-Fi DDR4 (s1700, Intel B760, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:58:03"
+  },
+  "MSI PRO B760M-P (LGA1700, DDR5, mATX)": {
+    "price": 15899,
+    "source_used": "rozetka",
+    "rozetka_price": 15899,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b760m-p/p386918160/",
+    "product_code": "386918160",
+    "availability": "Є в наявності",
+    "title": "Материнська плата MSI PRO B760M-P (s1700, Intel B760, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:58:11"
+  },
+  "MSI PRO B760-P II (LGA1700, DDR5, ATX)": {
+    "price": 7399,
+    "source_used": "rozetka",
+    "rozetka_price": 7399,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b760-p-ii/p436832597/",
+    "product_code": "436832597",
+    "availability": "Є в наявності",
+    "title": "Материнська плата MSI PRO B760-P II (s1700, Intel B760, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:58:19"
+  },
+  "MSI B760M GAMING PLUS WIFI (LGA1700, DDR5, mATX)": {
+    "price": 8699,
+    "source_used": "rozetka",
+    "rozetka_price": 8699,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-b760m-gaming-plus-wifi/p415570395/",
+    "product_code": "415570395",
+    "availability": "Є в наявності",
+    "title": "Материнська плата MSI B760M GAMING PLUS WIFI (s1700, Intel B760, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:58:27"
+  },
+  "ASUS TUF GAMING B760-PLUS WIFI (LGA1700, DDR5, ATX)": {
+    "price": 10499,
+    "source_used": "rozetka",
+    "rozetka_price": 10499,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-tuf-gaming-b760-plus-wifi/p370062609/",
+    "product_code": "370062609",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus TUF GAMING B760-PLUS WIFI (s1700, Intel B760, PCI-Ex16)",
+    "checked_at": "2026-03-30T19:58:36"
+  },
+  "Kingston Fury Beast 8GB (1x8) DDR4-3200": {
+    "price": 3458,
+    "source_used": "rozetka",
+    "rozetka_price": 3458,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bb_8/p310064018/",
+    "product_code": "310064018",
+    "availability": "Є в наявності",
+    "title": "Оперативна памʼять Kingston Fury DDR4-3200 8192 MB PC4-25600 Beast Black (KF432C16BB/8)",
+    "checked_at": "2026-03-30T19:58:44"
+  },
+  "Kingston Fury Beast 16GB (2x8) DDR4-3200": {
+    "price": 8786,
+    "source_used": "rozetka",
+    "rozetka_price": 8786,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bbk2_16/p310064023/",
+    "product_code": "310064023",
+    "availability": "Є в наявності",
+    "title": "Оперативна пам’ять Kingston Fury DDR4-3200 16384MB PC4-25600 (Kit of 2x8192) Beast Black (KF432C16BBK2/16)",
+    "checked_at": "2026-03-30T19:58:52"
+  },
+  "Kingston Fury Beast 32GB (2x16) DDR4-3200": {
+    "price": 17574,
+    "source_used": "rozetka",
+    "rozetka_price": 17574,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bb1k2_32/p310064098/",
+    "product_code": "310064098",
+    "availability": "Є в наявності",
+    "title": "Оперативна пам'ять Kingston Fury DDR4-3200 32768 MB PC4-25600 (Kit of 2x16384) Beast Black (KF432C16BB1K2/32)",
+    "checked_at": "2026-03-30T19:59:01"
+  },
+  "Kingston Fury Beast 64GB (2x32) DDR4-3200": {
+    "price": 21286,
+    "source_used": "rozetka",
+    "rozetka_price": 21286,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bbk2_64/p310064128/",
+    "product_code": "310064128",
+    "availability": "Закінчується",
+    "title": "Оперативна памʼять Kingston Fury DDR4-3200 65536 MB PC4-25600 (Kit of 2x32768) Beast Black (KF432C16BBK2/64)",
+    "checked_at": "2026-03-30T19:59:09"
+  },
+  "Kingston Fury Beast 16GB (2x8) DDR5-6000": {
+    "price": 18059,
+    "source_used": "rozetka",
+    "rozetka_price": 18059,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/memory-kingston-149879101/p542800110/",
+    "product_code": "542800110",
+    "availability": "Є в наявності",
+    "title": "Оперативна пам'ять Kingston Fury Beast DDR5 16GB (2x8GB) 6000 MHz (KF560C30BBEK2-16)",
+    "checked_at": "2026-03-30T19:59:17"
+  },
+  "Kingston Fury Beast 32GB (2x16) DDR5-6000": {
+    "price": 23969,
+    "source_used": "rozetka",
+    "rozetka_price": 23969,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-fury-kf560c36bbe2k2-32/p450953534/",
+    "product_code": "450953534",
+    "availability": "Є в наявності",
+    "title": "Оперативна памʼять Kingston FURY DDR5-6000 32768MB PC5-48000 (Kit of 2x16384) Beast Black (KF560C36BBE2K2-32)",
+    "checked_at": "2026-03-30T19:59:32"
+  },
+  "Kingston Fury Beast 48GB (2x24) DDR5-6000": {
+    "price": 23299,
+    "source_used": "rozetka",
+    "rozetka_price": 23299,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-kf560c32rsa-48/p402628305/",
+    "product_code": "402628305",
+    "availability": "Є в наявності",
+    "title": "Оперативна пам’ять Kingston FURY DDR5-6000 49152MB PC5-48000 Renegade RGB 2Rx8 Black (KF560C32RSA-48)",
+    "checked_at": "2026-03-30T19:59:47"
+  },
+  "Kingston Fury Beast 64GB (2x32) DDR5-6000": {
+    "price": 23299,
+    "source_used": "rozetka",
+    "rozetka_price": 23299,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-fury-kf560c30bbek2-64/p424185396/",
+    "product_code": "424185396",
+    "availability": "Є в наявності",
+    "title": "Оперативна пам'ять Kingston Fury Beast DDR5-6000 65536MB PC5-48000 (Kit of 2x32768) Black (KF560C30BBEK2-64)",
+    "checked_at": "2026-03-30T20:00:02"
+  },
+  "Kingston Fury Beast 32GB (2x16) DDR5-6400": {
+    "price": 23299,
+    "source_used": "rozetka",
+    "rozetka_price": 23299,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-fury-exhyperx-kf564c32rsk2-32/p356940177/",
+    "product_code": "356940177",
+    "availability": "Є в наявності",
+    "title": "Оперативна пам’ять Kingston Fury DDR5-6400 32768MB PC5-51200 (Kit of 2x16384) Renegade Black (KF564C32RSK2-32)",
+    "checked_at": "2026-03-30T20:00:17"
+  },
+  "Kingston Fury Beast 64GB (2x32) DDR5-6400": {
+    "price": 23299,
+    "source_used": "rozetka",
+    "rozetka_price": 23299,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-fury-kf564c32bwek2-64/p424185432/",
+    "product_code": "424185432",
+    "availability": "Є в наявності",
+    "title": "Оперативна пам'ять Kingston Fury Beast DDR5-6400 65536MB PC5-51200 (Kit of 2x32768) White (KF564C32BWEK2-64)",
+    "checked_at": "2026-03-30T20:00:32"
+  },
+  "Patriot P220 256GB SATA SSD": {
+    "price": 2072,
+    "source_used": "rozetka",
+    "rozetka_price": 2072,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/patriot-p220s256g25/p393176649/",
+    "product_code": "393176649",
+    "availability": "Є в наявності",
+    "title": "SSD диск Patriot P220 256GB 2.5\" SATAIII TLC (P220S256G25)",
+    "checked_at": "2026-03-30T20:00:41"
+  },
+  "Patriot P220 512GB SATA SSD": {
+    "price": 3177,
+    "source_used": "rozetka",
+    "rozetka_price": 3177,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/patriot-p220s512g25/p393177516/",
+    "product_code": "393177516",
+    "availability": "Є в наявності",
+    "title": "SSD диск Patriot P220 512GB 2.5\" SATAIII TLC (P220S512G25)",
+    "checked_at": "2026-03-30T20:00:49"
+  },
+  "Patriot P220 1TB SATA SSD": {
+    "price": 5066,
+    "source_used": "rozetka",
+    "rozetka_price": 5066,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/patriot-p220s1tb25/p393179082/",
+    "product_code": "393179082",
+    "availability": "Є в наявності",
+    "title": "SSD диск Patriot P220 1TB 2.5\" SATAIII TLC (P220S1TB25)",
+    "checked_at": "2026-03-30T20:00:58"
+  },
+  "Kingston NV3 500GB NVMe SSD": {
+    "price": 3958,
+    "source_used": "rozetka",
+    "rozetka_price": 3958,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/",
+    "product_code": "444146633",
+    "availability": "Є в наявності",
+    "title": "SSD диск Kingston NV3 500GB M.2 2280 NVMe PCIe 4.0 x4 3D NAND (SNV3S/500G)",
+    "checked_at": "2026-03-30T20:01:11"
+  },
+  "Kingston NV3 1TB NVMe SSD": {
+    "price": 6299,
+    "source_used": "rozetka",
+    "rozetka_price": 6299,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-1000g/p444146648/",
+    "product_code": "444146648",
+    "availability": "Є в наявності",
+    "title": "SSD диск Kingston NV3 1TB M.2 2280 NVMe PCIe 4.0 x4 3D NAND (SNV3S/1000G)",
+    "checked_at": "2026-03-30T20:01:22"
+  },
+  "Kingston NV3 2TB NVMe SSD": {
+    "price": 11621,
+    "source_used": "rozetka",
+    "rozetka_price": 11621,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-2000g/p444146651/",
+    "product_code": "444146651",
+    "availability": "Є в наявності",
+    "title": "SSD диск Kingston NV3 2TB M.2 2280 NVMe PCIe 4.0 x4 3D NAND (SNV3S/2000G)",
+    "checked_at": "2026-03-30T20:01:34"
+  },
+  "WD Blue SN580 1TB NVMe SSD": {
+    "price": 7542,
+    "source_used": "rozetka",
+    "rozetka_price": 7542,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/western-digital-wds100t3b0e/p404969754/",
+    "product_code": "404969754",
+    "availability": "Є в наявності",
+    "title": "SSD диск Western Digital Blue SN580 NVMe 1TB M.2 2280 PCIe 4.0 x4 3D NAND (TLC) (WDS100T3B0E)",
+    "checked_at": "2026-03-30T20:01:41"
+  },
+  "WD Blue SN580 2TB NVMe SSD": {
+    "price": 13008,
+    "source_used": "rozetka",
+    "rozetka_price": 13008,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/418698843/p418698843/",
+    "product_code": "418698843",
+    "availability": "Є в наявності",
+    "title": "WD Blue SN580 2 TB (WDS200T3B0E)",
+    "checked_at": "2026-03-30T20:01:50"
+  },
+  "Crucial P3 Plus 1TB NVMe SSD": {
+    "price": 10080,
+    "source_used": "rozetka",
+    "rozetka_price": 10080,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/crucial-ct1000p3pssd8/p393614532/",
+    "product_code": "393614532",
+    "availability": "Є в наявності",
+    "title": "Crucial P3 Plus 1TB M.2 2280 NVMe PCIe 4.0 x4 3D NAND TLC (CT1000P3PSSD8)",
+    "checked_at": "2026-03-30T20:01:57"
+  },
+  "Crucial P3 Plus 2TB NVMe SSD": {
+    "price": 13499,
+    "source_used": "rozetka",
+    "rozetka_price": 13499,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/crucial-ct2000p3pssd8/p357399606/",
+    "product_code": "357399606",
+    "availability": "Є в наявності",
+    "title": "SSD диск Crucial P3 Plus 2TB M.2 2280 NVMe PCIe 4.0 x4 3D NAND QLC (CT2000P3PSSD8)",
+    "checked_at": "2026-03-30T20:02:05"
+  },
+  "MSI MAG A550BN 550W 80+ Bronze": {
+    "price": 2499,
+    "source_used": "rozetka",
+    "rozetka_price": 2499,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi_mag_a550bn/p327862552/",
+    "product_code": "327862552",
+    "availability": "є в наявності",
+    "title": "Блок живлення MSI MAG A550BN 550W",
+    "checked_at": "2026-03-30T20:02:13"
+  },
+  "MSI MAG A650BN 650W 80+ Bronze": {
+    "price": 2679,
+    "source_used": "rozetka",
+    "rozetka_price": 2679,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi_mag_a650bn/p327862120/",
+    "product_code": "327862120",
+    "availability": "Є в наявності",
+    "title": "Блок живлення MSI MAG A650BN 650W",
+    "checked_at": "2026-03-30T20:02:21"
+  },
+  "MSI MAG A750BN PCIE5 750W 80+ Bronze": {
+    "price": 2679,
+    "source_used": "rozetka",
+    "rozetka_price": 2679,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-mag-a750bn-pcie5/p415380453/",
+    "product_code": "415380453",
+    "availability": "Є в наявності",
+    "title": "Блок живлення MSI MAG A750BN PCIE5 750W",
+    "checked_at": "2026-03-30T20:02:30"
+  },
+  "DeepCool PL650D 650W 80+ Bronze": {
+    "price": 3399,
+    "source_used": "rozetka",
+    "rozetka_price": 3399,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/deepcool-r-pl650d-fc0b-eu-v2/p494401474/",
+    "product_code": "494401474",
+    "availability": "Є в наявності",
+    "title": "Блок живлення DeepCool PL650D 650W (R-PL650D-FC0B-EU-V2)",
+    "checked_at": "2026-03-30T20:02:38"
+  },
+  "DeepCool PL750D 750W 80+ Bronze": {
+    "price": 3779,
+    "source_used": "rozetka",
+    "rozetka_price": 3779,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/464004354/p464004354/",
+    "product_code": "464004354",
+    "availability": "є в наявності",
+    "title": "Блок живлення Deepcool PL 750W 80+BRONZE ATX3.0 (PL750D)(R-PL750D-FC0B-EU)",
+    "checked_at": "2026-03-30T20:02:45"
+  },
+  "MSI MAG A850GL PCIE5 850W 80+ Gold": {
+    "price": 6699,
+    "source_used": "rozetka",
+    "rozetka_price": 6699,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-mag-a850gl-pcie5/p392203551/",
+    "product_code": "392203551",
+    "availability": "Є в наявності",
+    "title": "Блок живлення MSI MAG A850GL PCIE5",
+    "checked_at": "2026-03-30T20:02:53"
+  },
+  "be quiet! Pure Power 12 M 850W 80+ Gold": {
+    "price": 6229,
+    "source_used": "rozetka",
+    "rozetka_price": 6229,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/be_quiet_bn344/p369446838/",
+    "product_code": "369446838",
+    "availability": "є в наявності",
+    "title": "Блок живлення be quiet! PURE POWER 12 M 850W (BN344)",
+    "checked_at": "2026-03-30T20:03:00"
+  },
+  "Corsair RM850e 850W 80+ Gold": {
+    "price": 10164,
+    "source_used": "rozetka",
+    "rozetka_price": 10164,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/corsair-cp-9020263-eu/p413299899/",
+    "product_code": "413299899",
+    "availability": null,
+    "title": "Блок живлення Corsair RMe RM850e 80 Plus Gold 850 W (CP-9020263-EU)",
+    "checked_at": "2026-03-30T20:03:08"
+  },
+  "MSI MAG A1000GL PCIE5 1000W 80+ Gold": {
+    "price": 9599,
+    "source_used": "rozetka",
+    "rozetka_price": 9599,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-mag-a1000gl-pcie5/p500627719/",
+    "product_code": "500627719",
+    "availability": "Є в наявності",
+    "title": "Блок живлення MSI MAG A1000GL PCIE5",
+    "checked_at": "2026-03-30T20:03:16"
+  },
+  "DeepCool MATREXX 40 3FS Airflow Black": {
+    "price": 2769,
+    "source_used": "rozetka",
+    "rozetka_price": 2769,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/deepcool_matrexx_40_3fs/p277962488/",
+    "product_code": "277962488",
+    "availability": "є в наявності",
+    "title": "Корпус DeepCool Matrexx 40 3FS Black",
+    "checked_at": "2026-03-30T20:03:31"
+  },
+  "DeepCool CC360 ARGB Black": {
+    "price": 2312,
+    "source_used": "rozetka",
+    "rozetka_price": 2312,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/deepcool-r-cc360-bkapm3-g-1/p393129153/",
+    "product_code": "393129153",
+    "availability": "Є в наявності",
+    "title": "Корпус DeepCool CC360 ARGB (R-CC360-BKAPM3-G-1)",
+    "checked_at": "2026-03-30T20:03:40"
+  },
+  "DeepCool CC560 LIMITED V2 Black": {
+    "price": 1885,
+    "source_used": "rozetka",
+    "rozetka_price": 1885,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/deepcool-cc560-limited-v2/p427512869/",
+    "product_code": "427512869",
+    "availability": "Є в наявності",
+    "title": "Корпус DeepCool CC560 LIMITED V2",
+    "checked_at": "2026-03-30T20:03:48"
+  },
+  "DeepCool CC560 V2 Airflow Black": {
+    "price": 2979,
+    "source_used": "rozetka",
+    "rozetka_price": 2979,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/deepcool-r-cc560-bkgaa4-g-2/p418367910/",
+    "product_code": "418367910",
+    "availability": "Є в наявності",
+    "title": "Корпус DeepCool CC560 V2 Black (R-CC560-BKGAA4-G-2)",
+    "checked_at": "2026-03-30T20:03:56"
+  },
+  "Montech AIR 903 MAX Black": {
+    "price": 3559,
+    "source_used": "rozetka",
+    "rozetka_price": 3559,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/montech-air-903-max-b/p407831973/",
+    "product_code": "407831973",
+    "availability": "є в наявності",
+    "title": "Корпус Montech Air 903 Max Black",
+    "checked_at": "2026-03-30T20:04:04"
+  },
+  "Montech AIR 903 MAX White": {
+    "price": 3959,
+    "source_used": "rozetka",
+    "rozetka_price": 3959,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/montech-air-903-max-w/p407831970/",
+    "product_code": "407831970",
+    "availability": "є в наявності",
+    "title": "Корпус Montech Air 903 Max White",
+    "checked_at": "2026-03-30T20:04:11"
+  },
+  "NZXT H6 Flow Black": {
+    "price": 6499,
+    "source_used": "rozetka",
+    "rozetka_price": 6499,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fb-01/p407832048/",
+    "product_code": "407832048",
+    "availability": "Є в наявності",
+    "title": "Корпус NZXT H6 Flow All Black (CC-H61FB-01)",
+    "checked_at": "2026-03-30T20:04:19"
+  },
+  "NZXT H6 Flow RGB Black": {
+    "price": 5590,
+    "source_used": "rozetka",
+    "rozetka_price": 5590,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fb-r1/p407832054/",
+    "product_code": "407832054",
+    "availability": "Є в наявності",
+    "title": "Корпус NZXT H6 Flow RGB All Black (CC-H61FB-R1)",
+    "checked_at": "2026-03-30T20:04:27"
+  },
+  "NZXT H6 Flow RGB White": {
+    "price": 5833,
+    "source_used": "rozetka",
+    "rozetka_price": 5833,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fw-r1/p407832057/",
+    "product_code": "407832057",
+    "availability": "Є в наявності",
+    "title": "Корпус NZXT H6 Flow RGB All White (CC-H61FW-R1)",
+    "checked_at": "2026-03-30T20:04:36"
+  },
+  "AMD Athlon 3000G": {
+    "price": 2178,
+    "source_used": "rozetka",
+    "rozetka_price": 2178,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/316790245/p316790245/",
+    "product_code": "316790245",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Athlon 3000G (YD3000C6M2OFB) (Socket AM4, 4T, 3.6 ГГц, Tray)",
+    "checked_at": "2026-03-30T20:04:44"
+  },
+  "AMD Ryzen 3 3100": {
+    "price": 1898,
+    "source_used": "rozetka",
+    "rozetka_price": 1898,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd_ryzen_3_3100_100_100000284box/p208506481/",
+    "product_code": "208506481",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 3 3100 3.6GHz/16MB (100-100000284BOX) sAM4 BOX",
+    "checked_at": "2026-03-30T20:04:59"
+  },
+  "AMD Ryzen 3 4100": {
+    "price": 2999,
+    "source_used": "rozetka",
+    "rozetka_price": 2999,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000510box/p342332494/",
+    "product_code": "342332494",
+    "availability": "є в наявності",
+    "title": "Процесор AMD Ryzen 3 4100 3.8GHz/4MB (100-100000510BOX) sAM4 BOX",
+    "checked_at": "2026-03-30T20:05:06"
+  },
+  "AMD Ryzen 5 1600AF": {
+    "price": 2299,
+    "source_used": "local",
+    "checked_at": "2026-03-30T20:05:08"
+  },
+  "AMD Ryzen 5 2600": {
+    "price": 2799,
+    "source_used": "local",
+    "checked_at": "2026-03-30T20:05:10"
+  },
+  "AMD Ryzen 5 3600": {
+    "price": 3948,
+    "source_used": "rozetka",
+    "rozetka_price": 3948,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd_ryzen_5_3600/p100191625/",
+    "product_code": "100191625",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 5 3600 3.6GHz/32MB (100-100000031BOX) sAM4 BOX",
+    "checked_at": "2026-03-30T20:05:19"
+  },
+  "AMD Ryzen 5 4500": {
+    "price": 3705,
+    "source_used": "rozetka",
+    "rozetka_price": 3705,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000644box/p343288393/",
+    "product_code": "343288393",
+    "availability": "є в наявності",
+    "title": "Процесор AMD Ryzen 5 4500 3.6GHz/8MB (100-100000644BOX) sAM4 BOX",
+    "checked_at": "2026-03-30T20:05:26"
+  },
+  "AMD Ryzen 5 4600G": {
+    "price": 5500,
+    "source_used": "local",
+    "checked_at": "2026-03-30T20:05:28"
+  },
+  "AMD Ryzen 5 5600G": {
+    "price": 9088,
+    "source_used": "rozetka",
+    "rozetka_price": 9088,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000252box/p310734938/",
+    "product_code": "310734938",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 5 5600G 3.9 GHz / 16 MB (100-100000252BOX) sAM4 BOX",
+    "checked_at": "2026-03-30T20:05:43"
+  },
+  "AMD Ryzen 7 5800X": {
+    "price": 8199,
+    "source_used": "rozetka",
+    "rozetka_price": 8199,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd_100_100000063wof/p257395336/",
+    "product_code": "257395336",
+    "availability": "є в наявності",
+    "title": "Процесор AMD Ryzen 7 5800X 3.8 GHz / 32 MB (100-100000063WOF) sAM4 BOX",
+    "checked_at": "2026-03-30T20:05:57"
+  },
+  "AMD Ryzen 7 5800X3D": {
+    "price": 15237,
+    "source_used": "rozetka",
+    "rozetka_price": 15237,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/351972153/p351972153/",
+    "product_code": "351972153",
+    "availability": "є в наявності",
+    "title": "Процесор AMD Ryzen 7 5800X3D, Box (100-100000651WOF)",
+    "checked_at": "2026-03-30T20:06:04"
+  },
+  "AMD Ryzen 5 7600": {
+    "price": 10963,
+    "source_used": "rozetka",
+    "rozetka_price": 10963,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001015box/p393621414/",
+    "product_code": "393621414",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 5 7600 3.8GHz/32MB (100-100001015BOX) sAM5 BOX",
+    "checked_at": "2026-03-30T20:06:13"
+  },
+  "AMD Ryzen 7 8700G": {
+    "price": 14300,
+    "source_used": "rozetka",
+    "rozetka_price": 14300,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100001236box/p424304409/",
+    "product_code": "424304409",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 7 8700G 4.2GHz/16MB (100-100001236SBX) sAM5 BOX",
+    "checked_at": "2026-03-30T20:06:21"
+  },
+  "AMD Ryzen 7 7700": {
+    "price": 10431,
+    "source_used": "rozetka",
+    "rozetka_price": 10431,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-000000592/p463393374/",
+    "product_code": "463393374",
+    "availability": "Є в наявності",
+    "title": "Процессор AMD Ryzen 7 7700 3.8GHz/32MB (100-000000592) sAM5 Tray",
+    "checked_at": "2026-03-30T20:06:29"
+  },
+  "AMD Ryzen 7 7700X": {
+    "price": 13648,
+    "source_used": "rozetka",
+    "rozetka_price": 13648,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000591wof/p354949062/",
+    "product_code": "354949062",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 7 7700X 4.5GHz/32MB (100-100000591WOF) sAM5 BOX",
+    "checked_at": "2026-03-30T20:06:37"
+  },
+  "AMD Ryzen 7 7800X3D": {
+    "price": 19568,
+    "source_used": "rozetka",
+    "rozetka_price": 19568,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000910wof/p374839311/",
+    "product_code": "374839311",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 7 7800X3D 4.2GHz/96MB (100-100000910WOF) sAM5 BOX",
+    "checked_at": "2026-03-30T20:06:46"
+  },
+  "AMD Ryzen 9 7900": {
+    "price": 18999,
+    "source_used": "rozetka",
+    "rozetka_price": 18999,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000590box/p364753287/",
+    "product_code": "364753287",
+    "availability": "є в наявності",
+    "title": "Процесор AMD Ryzen 9 7900 3.7GHz/64MB (100-100000590BOX) sAM5 BOX",
+    "checked_at": "2026-03-30T20:06:53"
+  },
+  "AMD Ryzen 9 7900X": {
+    "price": 17448,
+    "source_used": "rozetka",
+    "rozetka_price": 17448,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000589wof/p354951138/",
+    "product_code": "354951138",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 9 7900X 4.7GHz/64MB (100-100000589WOF) sAM5 BOX",
+    "checked_at": "2026-03-30T20:07:02"
+  },
+  "AMD Ryzen 9 7950X": {
+    "price": 35499,
+    "source_used": "rozetka",
+    "rozetka_price": 35499,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/processors-amd-151384011/p547241319/",
+    "product_code": "547241319",
+    "availability": "Є в наявності",
+    "title": "Процесор AMD Ryzen 9 7950X (100-100000514WOF)",
+    "checked_at": "2026-03-30T20:07:09"
+  },
+  "AMD Ryzen 9 7950X3D": {
+    "price": 31699,
+    "source_used": "rozetka",
+    "rozetka_price": 31699,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/amd-100-100000908wof/p368408850/",
+    "product_code": "368408850",
+    "availability": "є в наявності",
+    "title": "Процесор AMD Ryzen 9 7950X3D 4.2GHz/128MB (100-100000908WOF) sAM5 BOX",
+    "checked_at": "2026-03-30T20:07:17"
+  },
+  "Intel G7400": {
+    "price": 3365,
+    "source_used": "rozetka",
+    "rozetka_price": 3365,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/430337306/p430337306/",
+    "product_code": "430337306",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Pentium Gold G7400 (3.7GHz, 6MB, s1700) (BX80715G7400) Box",
+    "checked_at": "2026-03-30T20:07:25"
+  },
+  "Intel i3-12100": {
+    "price": 7152,
+    "source_used": "rozetka",
+    "rozetka_price": 7152,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071512100/p331700473/",
+    "product_code": "331700473",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i3-12100 3.3 GHz / 12 MB (BX8071512100) s1700 BOX",
+    "checked_at": "2026-03-30T20:07:33"
+  },
+  "Intel i3-12100F": {
+    "price": 4444,
+    "source_used": "rozetka",
+    "rozetka_price": 4444,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071512100f/p331700560/",
+    "product_code": "331700560",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i3-12100F 3.3GHz/12MB (BX8071512100F) s1700 BOX",
+    "checked_at": "2026-03-30T20:07:42"
+  },
+  "Intel i5-12400": {
+    "price": 11379,
+    "source_used": "rozetka",
+    "rozetka_price": 11379,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071512400/p331700458/",
+    "product_code": "331700458",
+    "availability": "є в наявності",
+    "title": "Процесор Intel Core i5-12400 2.5 GHz / 18 MB (BX8071512400) s1700 BOX",
+    "checked_at": "2026-03-30T20:07:49"
+  },
+  "Intel i5-13400": {
+    "price": 13901,
+    "source_used": "rozetka",
+    "rozetka_price": 13901,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071513400/p393621471/",
+    "product_code": "393621471",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i5-13400 2.5GHz/20MB (BX8071513400) s1700 BOX",
+    "checked_at": "2026-03-30T20:07:57"
+  },
+  "Intel i5-13500": {
+    "price": 15680,
+    "source_used": "rozetka",
+    "rozetka_price": 15680,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071513500/p393621477/",
+    "product_code": "393621477",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i5-13500 2.5GHz/24MB (BX8071513500) s1700 BOX",
+    "checked_at": "2026-03-30T20:08:05"
+  },
+  "Intel i5-13600K": {
+    "price": 13999,
+    "source_used": "local",
+    "checked_at": "2026-03-30T20:08:07"
+  },
+  "Intel i5-13600KF": {
+    "price": 12599,
+    "source_used": "local",
+    "checked_at": "2026-03-30T20:08:09"
+  },
+  "Intel i7-12700F": {
+    "price": 12999,
+    "source_used": "rozetka",
+    "rozetka_price": 12999,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071512700f/p331700551/",
+    "product_code": "331700551",
+    "availability": "є в наявності",
+    "title": "Процесор Intel Core i7-12700F 2.1GHz/25MB (BX8071512700F) s1700 BOX",
+    "checked_at": "2026-03-30T20:08:16"
+  },
+  "Intel i7-13700": {
+    "price": 16499,
+    "source_used": "rozetka",
+    "rozetka_price": 16499,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/534498549/p534498549/",
+    "product_code": "534498549",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i7-13700 (BX8071513700)",
+    "checked_at": "2026-03-30T20:08:24"
+  },
+  "Intel i7-13700F": {
+    "price": 15989,
+    "source_used": "rozetka",
+    "rozetka_price": 15989,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071513700f/p363406311/",
+    "product_code": "363406311",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i7-13700F 2.1GHz/30MB (BX8071513700F) s1700 BOX",
+    "checked_at": "2026-03-30T20:08:32"
+  },
+  "Intel i7-13700K": {
+    "price": 20755,
+    "source_used": "rozetka",
+    "rozetka_price": 20755,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/463572639/p463572639/",
+    "product_code": "463572639",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i7-13700K (BX8071513700K)",
+    "checked_at": "2026-03-30T20:08:41"
+  },
+  "Intel i7-14700K": {
+    "price": 19148,
+    "source_used": "rozetka",
+    "rozetka_price": 19148,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514700k/p396293622/",
+    "product_code": "396293622",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i7-14700K 3.4GHz/33MB (BX8071514700K) s1700 BOX",
+    "checked_at": "2026-03-30T20:08:49"
+  },
+  "Intel i9-14900KF": {
+    "price": 23589,
+    "source_used": "rozetka",
+    "rozetka_price": 23589,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514900kf/p415348404/",
+    "product_code": "415348404",
+    "availability": "Є в наявності",
+    "title": "Процесор Intel Core i9-14900KF 3.2GHz/36MB (BX8071514900KF) s1700 BOX",
+    "checked_at": "2026-03-30T20:08:58"
+  },
+  "Intel i9-14900K": {
+    "price": 27099,
+    "source_used": "rozetka",
+    "rozetka_price": 27099,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514900k/p396292344/",
+    "product_code": "396292344",
+    "availability": "є в наявності",
+    "title": "Процесор Intel Core i9-14900K 3.2GHz/36MB (BX8071514900K) s1700 BOX",
+    "checked_at": "2026-03-30T20:09:06"
+  },
+  "NVIDIA GTX 1050 Ti 4GB": {
+    "price": 6978,
+    "source_used": "rozetka",
+    "rozetka_price": 6978,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/arktek_akn1050tid5s4gh1/p294383743/",
+    "product_code": "294383743",
+    "availability": "Є в наявності",
+    "title": "Відеокарта Arktek PCI-Ex GeForce GTX 1050 Ti Dual Fan 4GB GDDR5 (128bit) (1290/7000) (DVI, HDMI, DisplayPort) (AKN1050TID5S4GH1)",
+    "checked_at": "2026-03-30T20:09:14"
+  },
+  "AMD RX 570 4GB": {
+    "price": 5060,
+    "source_used": "rozetka",
+    "rozetka_price": 5060,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/106476327/p106476327/",
+    "product_code": "106476327",
+    "availability": "Є в наявності",
+    "title": "Sapphire Radeon RX 570 4GD5 NITRO+ (11266-14)",
+    "checked_at": "2026-03-30T20:09:22"
+  },
+  "AMD RX 580 8GB": {
+    "price": 13800,
+    "source_used": "rozetka",
+    "rozetka_price": 13800,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/418376379/p418376379/",
+    "product_code": "418376379",
+    "availability": "Є в наявності",
+    "title": "Відеокарта Peladn AMD Radeon RX 580 8Gb 256-Bit 2048SP Gaming",
+    "checked_at": "2026-03-30T20:09:31"
+  },
+  "NVIDIA GTX 1650 4GB": {
+    "price": 7739,
+    "source_used": "rozetka",
+    "rozetka_price": 7739,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte_gv_n1656oc_4gd/p235971697/",
+    "product_code": "235971697",
+    "availability": "є в наявності",
+    "title": "Відеокарта Gigabyte PCI-Ex GeForce GTX 1650 D6 OC 4GB GDDR6 (128bit) (1590/12000) (DVI-D, HDMI, DisplayPort) (GV-N1656OC-4GD)",
+    "checked_at": "2026-03-30T20:09:38"
+  },
+  "NVIDIA GTX 1660 SUPER 6GB": {
+    "price": 9075,
+    "source_used": "rozetka",
+    "rozetka_price": 9075,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/487709379/p487709379/",
+    "product_code": "487709379",
+    "availability": "Є в наявності",
+    "title": "Відеокарта GIGABYTE GeForce GTX 1660 Super 6GB OC (GV-N166SOC-6GD)",
+    "checked_at": "2026-03-30T20:09:46"
+  },
+  "NVIDIA RTX 2060 6GB": {
+    "price": 11148,
+    "source_used": "rozetka",
+    "rozetka_price": 11148,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/arktek-akn2060d6s6gh1/p408864870/",
+    "product_code": "408864870",
+    "availability": "Є в наявності",
+    "title": "Відеокарта Arktek PCI-Ex GeForce RTX 2060 Dual 6GB GDDR6 (192bit) (1365/14000) (DisplayPort, DVI, HDMI) (AKN2060D6S6GH1)",
+    "checked_at": "2026-03-30T20:09:56"
+  },
+  "NVIDIA RTX 3050 8GB": {
+    "price": 13248,
+    "source_used": "rozetka",
+    "rozetka_price": 13248,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-rtx-3050-ventus-2x-xs-8g-oc/p400053201/",
+    "product_code": "400053201",
+    "availability": "Є в наявності",
+    "title": "Відеокарта MSI PCI-Ex GeForce RTX 3050 Ventus 2X XS 8G OC 8GB GDDR6 (128bit) (1807/14000) (HDMI, DisplayPort, DL-DVI-D) (RTX 3050 VENTUS 2X XS 8G OC)",
+    "checked_at": "2026-03-30T20:10:05"
+  },
+  "AMD RX 6500 XT 4GB": {
+    "price": 9332,
+    "source_used": "rozetka",
+    "rozetka_price": 9332,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/videocards-sapphire-157591635/p563973384/",
+    "product_code": "563973384",
+    "availability": "Є в наявності",
+    "title": "Відеокарта Sapphire Radeon RX 6500 XT Pulse OC 4GB GDDR6 (11314-07-20G)",
+    "checked_at": "2026-03-30T20:10:12"
+  },
+  "AMD RX 6600 8GB": {
+    "price": 12375,
+    "source_used": "rozetka",
+    "rozetka_price": 12375,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/336348286/p336348286/",
+    "product_code": "336348286",
+    "availability": "Є в наявності",
+    "title": "GIGABYTE Radeon RX 6600 EAGLE 8G (GV-R66EAGLE-8GD)",
+    "checked_at": "2026-03-30T20:10:20"
+  },
+  "Intel Arc A580 8GB": {
+    "price": 9499,
+    "source_used": "local",
+    "checked_at": "2026-03-30T20:10:22"
+  },
+  "AMD RX 6600 XT 8GB": {
+    "price": 11275,
+    "source_used": "rozetka",
+    "rozetka_price": 11275,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/336348064/p336348064/",
+    "product_code": "336348064",
+    "availability": "Є в наявності",
+    "title": "PowerColor Radeon RX 6600XT 8 GB Fighter (AXRX 6600XT 8GBD6-3DH)",
+    "checked_at": "2026-03-30T20:10:30"
+  },
+  "AMD RX 6650 XT 8GB": {
+    "price": 13201,
+    "source_used": "rozetka",
+    "rozetka_price": 13201,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/342766651/p342766651/",
+    "product_code": "342766651",
+    "availability": "є в наявності",
+    "title": "Відеокарта AMD Radeon RX 6650 XT 8GB GDDR6 Dual OC Asus (DUAL-RX6650XT-O8G)",
+    "checked_at": "2026-03-30T20:10:37"
+  },
+  "AMD RX 7600 8GB": {
+    "price": 14218,
+    "source_used": "rozetka",
+    "rozetka_price": 14218,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-gv-r76gaming-oc-8gd/p382150818/",
+    "product_code": "382150818",
+    "availability": "Є в наявності",
+    "title": "Відеокарта Gigabyte PCI-Ex Radeon RX 7600 Gaming OC 8GB GDDR6 (128bit) (18000) (2 x HDMI, 2 x DisplayPort) (GV-R76GAMING OC-8GD)",
+    "checked_at": "2026-03-30T20:10:46"
+  },
+  "NVIDIA RTX 3060 12GB": {
+    "price": 23974,
+    "source_used": "rozetka",
+    "rozetka_price": 23974,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-90yv0gb2-m0na10/p393613737/",
+    "product_code": "393613737",
+    "availability": "Є в наявності",
+    "title": "Відеокарта ASUS PCI-Ex GeForce RTX 3060 Dual OC V2 LHR 12GB GDDR6 (192bit) (1837/15000) (1 x HDMI, 3 x DisplayPort) (DUAL-RTX3060-O12G-V2)",
+    "checked_at": "2026-03-30T20:10:54"
+  },
+  "NVIDIA RTX 4060 8GB": {
+    "price": 14499,
+    "source_used": "rozetka",
+    "rozetka_price": 14499,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/389178366/p389178366/",
+    "product_code": "389178366",
+    "availability": "є в наявності",
+    "title": "Відеокарта GF RTX 4060 8GB GDDR6 WindForce OC Gigabyte (GV-N4060WF2OC-8GD)",
+    "checked_at": "2026-03-30T20:11:02"
+  },
+  "NVIDIA RTX 3060 Ti 8GB": {
+    "price": 15675,
+    "source_used": "rozetka",
+    "rozetka_price": 15675,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/336349456/p336349456/",
+    "product_code": "336349456",
+    "availability": "Є в наявності",
+    "title": "ASUS TUF-RTX3060TI-O8G-V2-GAMING",
+    "checked_at": "2026-03-30T20:11:10"
+  },
+  "AMD RX 6700 XT 12GB": {
+    "price": 16225,
+    "source_used": "rozetka",
+    "rozetka_price": 16225,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/336347335/p336347335/",
+    "product_code": "336347335",
+    "availability": "Є в наявності",
+    "title": "ASUS TUF-RX6700XT-O12G-GAMING",
+    "checked_at": "2026-03-30T20:11:19"
+  },
+  "AMD RX 6750 XT 12GB": {
+    "price": 16056,
+    "source_used": "rozetka",
+    "rozetka_price": 16056,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/383539194/p383539194/",
+    "product_code": "383539194",
+    "availability": "є в наявності",
+    "title": "Sapphire PCI-Ex Radeon RX 6750 XT 12GB GDDR6 (192bit) (2512/18000) (1 x HDMI, 3 x DisplayPort) (11318-03-20G)",
+    "checked_at": "2026-03-30T20:11:26"
+  },
+  "NVIDIA RTX 4060 Ti 8GB": {
+    "price": 23375,
+    "source_used": "rozetka",
+    "rozetka_price": 23375,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/418709058/p418709058/",
+    "product_code": "418709058",
+    "availability": "Є в наявності",
+    "title": "GIGABYTE GeForce RTX 4060 Ti EAGLE OC 8G (GV-N406TEAGLE OC-8GD)",
+    "checked_at": "2026-03-30T20:11:34"
+  },
+  "NVIDIA RTX 4060 Ti 16GB": {
+    "price": 24949,
+    "source_used": "rozetka",
+    "rozetka_price": 24949,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/451445330/p451445330/",
+    "product_code": "451445330",
+    "availability": "є в наявності",
+    "title": "Відеокарта Gigabyte GeForce RTX 4060 Ti Gaming OC 16G (GV-N406TGAMING OC-16GD) [110764]",
+    "checked_at": "2026-03-30T20:11:41"
+  },
+  "AMD RX 7700 XT 12GB": {
+    "price": 24452,
+    "source_used": "rozetka",
+    "rozetka_price": 24452,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-gv-r77xtgaming-oc-12gd/p415348275/",
+    "product_code": "415348275",
+    "availability": "є в наявності",
+    "title": "Відеокарта Gigabyte PCI-Ex Radeon RX 7700 XT Gaming OC 12GB GDDR6 (192bit) (2599/18000) (2 х HDMI, 2 x DisplayPort) (GV-R77XTGAMING OC-12GD)",
+    "checked_at": "2026-03-30T20:11:49"
+  },
+  "NVIDIA RTX 4070 12GB": {
+    "price": 25514,
+    "source_used": "rozetka",
+    "rozetka_price": 25514,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-gv-n4070wf2oc-12gd/p413251662/",
+    "product_code": "413251662",
+    "availability": "є в наявності",
+    "title": "Відеокарта Gigabyte PCI-Ex GeForce RTX 4070 WINDFORCE 2X OC 12G 12GB GDDR6X (192bit) (2490/21000) (HDMI, 3 x DisplayPort) (GV-N4070WF2OC-12GD)",
+    "checked_at": "2026-03-30T20:11:57"
+  },
+  "AMD RX 7800 XT 16GB": {
+    "price": 29718,
+    "source_used": "rozetka",
+    "rozetka_price": 29718,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/433208924/p433208924/",
+    "product_code": "433208924",
+    "availability": "є в наявності",
+    "title": "Відеокарта Sapphire AMD RX 7800 XT PULSE GAMING 16ГБ GDDR6/19500 МГц (11330-02-20G)",
+    "checked_at": "2026-03-30T20:12:05"
+  },
+  "NVIDIA RTX 4070 SUPER 12GB": {
+    "price": 41525,
+    "source_used": "rozetka",
+    "rozetka_price": 41525,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/418704402/p418704402/",
+    "product_code": "418704402",
+    "availability": "Є в наявності",
+    "title": "GIGABYTE GeForce RTX 4070 SUPER WINDFORCE OC 12G (GV-N407SWF3OC-12GD)",
+    "checked_at": "2026-03-30T20:12:13"
+  },
+  "AMD RX 7900 GRE 16GB": {
+    "price": 36306,
+    "source_used": "rozetka",
+    "rozetka_price": 36306,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/454121642/p454121642/",
+    "product_code": "454121642",
+    "availability": "є в наявності",
+    "title": "Відеокарта XFX AMD Radeon RX 7900 GRE Gaming 16GB GDDR6 (RX-79GMBABFB) BULK",
+    "checked_at": "2026-03-30T20:12:20"
+  },
+  "NVIDIA RTX 4070 Ti SUPER 16GB": {
+    "price": 53488,
+    "source_used": "rozetka",
+    "rozetka_price": 53488,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/471752154/p471752154/",
+    "product_code": "471752154",
+    "availability": "є в наявності",
+    "title": "Відеокарта GF RTX 4070 Ti Super 16 GB GDDR6X Gaming OC Gigabyte (GV-N407TSGAMING OC-16GD) Black",
+    "checked_at": "2026-03-30T20:12:27"
+  },
+  "AMD RX 7900 XT 20GB": {
+    "price": 35926,
+    "source_used": "rozetka",
+    "rozetka_price": 35926,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/418990260/p418990260/",
+    "product_code": "418990260",
+    "availability": "є в наявності",
+    "title": "Відеокарта Asus TUF-RX7900XT-O20G-GAMING",
+    "checked_at": "2026-03-30T20:12:35"
+  },
+  "AMD RX 7900 XTX 24GB": {
+    "price": 46750,
+    "source_used": "rozetka",
+    "rozetka_price": 46750,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/380698734/p380698734/",
+    "product_code": "380698734",
+    "availability": "Є в наявності",
+    "title": "PowerColor Radeon RX 7900 XTX 24GB Red Devil Limited Edition (RX 7900 XTX 24G-E/OC/LIMITED)",
+    "checked_at": "2026-03-30T20:12:42"
+  },
+  "NVIDIA RTX 4080 SUPER 16GB": {
+    "price": 67043,
+    "source_used": "rozetka",
+    "rozetka_price": 67043,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/462867289/p462867289/",
+    "product_code": "462867289",
+    "availability": "є в наявності",
+    "title": "Відеокарта Asus GeForce RTX 4080 Super 16GB GDDR6X ProArt OC (PROART-RTX4080S-O16G)",
+    "checked_at": "2026-03-30T20:12:49"
+  },
+  "NVIDIA RTX 4090 24GB": {
+    "price": 120999,
+    "source_used": "rozetka",
+    "rozetka_price": 120999,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/366069873/p366069873/",
+    "product_code": "366069873",
+    "availability": "Є в наявності",
+    "title": "GIGABYTE GeForce RTX 4090 GAMING OC 24G (GV-N4090GAMING OC-24GD)",
+    "checked_at": "2026-03-30T20:12:57"
+  },
+  "A520M (AM4, DDR4, mATX)": {
+    "price": 6722,
+    "source_used": "rozetka",
+    "rozetka_price": 6722,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-tuf-gaming-a520m-plus-ii/p367203456/",
+    "product_code": "367203456",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus TUF Gaming A520M-Plus II (sAM4, AMD A520, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:13:05"
+  },
+  "A520M Wi-Fi (AM4, DDR4, mATX)": {
+    "price": 7272,
+    "source_used": "rozetka",
+    "rozetka_price": 7272,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-tuf-gaming-a520m-plus-wifi/p376558923/",
+    "product_code": "376558923",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus TUF GAMING A520M-PLUS WIFI (sAM4, AMD A520, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:13:14"
+  },
+  "B450M (AM4, DDR4, mATX)": {
+    "price": 6702,
+    "source_used": "rozetka",
+    "rozetka_price": 6702,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus_prime_b450m_a_ii/p254594986/",
+    "product_code": "254594986",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus Prime B450M-A II (sAM4, AMD B450, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:13:29"
+  },
+  "B450M Wi-Fi (AM4, DDR4, mATX)": {
+    "price": 4599,
+    "source_used": "rozetka",
+    "rozetka_price": 4599,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi_b550m_pro_vdh_wifi/p266777346/",
+    "product_code": "266777346",
+    "availability": "Є в наявності",
+    "title": "Материнська плата MSI B550M PRO-VDH Wi-Fi (sAM4, AMD B550, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:13:37"
+  },
+  "B550 (AM4, DDR4, ATX)": {
+    "price": 8072,
+    "source_used": "rozetka",
+    "rozetka_price": 8072,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte_b550m_aorus_elite/p243463075/",
+    "product_code": "243463075",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Gigabyte B550M Aorus Elite (sAM4, AMD B550, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:13:46"
+  },
+  "B550 Wi-Fi (AM4, DDR4, ATX)": {
+    "price": 4599,
+    "source_used": "rozetka",
+    "rozetka_price": 4599,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi_b550m_pro_vdh_wifi/p266777346/",
+    "product_code": "266777346",
+    "availability": "Є в наявності",
+    "title": "Материнська плата MSI B550M PRO-VDH Wi-Fi (sAM4, AMD B550, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:13:54"
+  },
+  "X570 (AM4, DDR4, ATX)": {
+    "price": 9999,
+    "source_used": "rozetka",
+    "rozetka_price": 9999,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-x570-aorus-pro/p334979344/",
+    "product_code": "334979344",
+    "availability": "є в наявності",
+    "title": "Материнська плата Gigabyte X570 Aorus Pro (sAM4, AMD X570, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:14:01"
+  },
+  "X570 Wi-Fi (AM4, DDR4, ATX)": {
+    "price": 11587,
+    "source_used": "rozetka",
+    "rozetka_price": 11587,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/312173932/p312173932/",
+    "product_code": "312173932",
+    "availability": "є в наявності",
+    "title": "Материнська плата AsRock X570 Taichi (X570 Taichi) (sAM4, AMD X570, ATX)",
+    "checked_at": "2026-03-30T20:14:09"
+  },
+  "A620M (AM5, DDR5, mATX)": {
+    "price": 3903,
+    "source_used": "rozetka",
+    "rozetka_price": 3903,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/389200071/p389200071/",
+    "product_code": "389200071",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Gigabyte A620M H (A620M H) (Socket AM5, AMD A620, Micro-ATX)",
+    "checked_at": "2026-03-30T20:14:17"
+  },
+  "A620M Wi-Fi (AM5, DDR5, mATX)": {
+    "price": 4777,
+    "source_used": "rozetka",
+    "rozetka_price": 4777,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/415006932/p415006932/",
+    "product_code": "415006932",
+    "availability": "Є в наявності",
+    "title": "Материнська плата MSI AMD A620 SAM5 MATX PRO A620M-E",
+    "checked_at": "2026-03-30T20:14:25"
+  },
+  "B650 (AM5, DDR5, ATX)": {
+    "price": 4599,
+    "source_used": "rozetka",
+    "rozetka_price": 4599,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-b650m-k/p415333035/",
+    "product_code": "415333035",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus PRIME B650M-K (sAM5, AMD B650, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:14:34"
+  },
+  "B650 Wi-Fi (AM5, DDR5, ATX)": {
+    "price": 5879,
+    "source_used": "rozetka",
+    "rozetka_price": 5879,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-b650m-gaming-plus-wifi/p488523059/",
+    "product_code": "488523059",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Gigabyte B650M GAMING PLUS WIFI (sAM5, AMD B650, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:14:42"
+  },
+  "X670E (AM5, DDR5, ATX)": {
+    "price": 16999,
+    "source_used": "local",
+    "checked_at": "2026-03-30T20:14:44"
+  },
+  "X670E Wi-Fi (AM5, DDR5, ATX)": {
+    "price": 20129,
+    "source_used": "rozetka",
+    "rozetka_price": 20129,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/565365911/p565365911/",
+    "product_code": "565365911",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus X670E-A ROG Strix Gaming Wi-Fi Socket AM5 (ROG STRIX X670E-A GAMING WIFI)",
+    "checked_at": "2026-03-30T20:14:52"
+  },
+  "H610M (LGA1700, DDR4, mATX)": {
+    "price": 3250,
+    "source_used": "rozetka",
+    "rozetka_price": 3250,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-h610m-k-ddr4/p369467583/",
+    "product_code": "369467583",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Gigabyte H610M K DDR4 (s1700, Intel H610, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:15:00"
+  },
+  "H610M Wi-Fi (LGA1700, DDR4, mATX)": {
+    "price": 4739,
+    "source_used": "rozetka",
+    "rozetka_price": 4739,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-h610m-a-wifi-d4/p367555899/",
+    "product_code": "367555899",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus PRIME H610M-A Wi-Fi D4 (s1700, Intel H610, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:15:08"
+  },
+  "B660 (LGA1700, DDR4, ATX)": {
+    "price": 7872,
+    "source_used": "rozetka",
+    "rozetka_price": 7872,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-b660m-k-d4/p331718209/",
+    "product_code": "331718209",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus PRIME B660M-K D4 (s1700, Intel B660, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:15:17"
+  },
+  "B660 Wi-Fi (LGA1700, DDR4, ATX)": {
+    "price": 9999,
+    "source_used": "rozetka",
+    "rozetka_price": 9999,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-b660m-a-wifi-d4/p331715836/",
+    "product_code": "331715836",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus PRIME B660M-A Wi-Fi D4 (s1700, Intel B660, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:15:25"
+  },
+  "B760 (LGA1700, DDR4, ATX)": {
+    "price": 11330,
+    "source_used": "rozetka",
+    "rozetka_price": 11330,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-prime-b760-plus-d4/p363889524/",
+    "product_code": "363889524",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus PRIME B760-PLUS D4 (s1700, Intel B760, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:15:33"
+  },
+  "B760 Wi-Fi (LGA1700, DDR4, ATX)": {
+    "price": 8699,
+    "source_used": "rozetka",
+    "rozetka_price": 8699,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-b760m-gaming-plus-wifi/p415570395/",
+    "product_code": "415570395",
+    "availability": "Є в наявності",
+    "title": "Материнська плата MSI B760M GAMING PLUS WIFI (s1700, Intel B760, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:15:41"
+  },
+  "B760 (LGA1700, DDR5, ATX)": {
+    "price": 7399,
+    "source_used": "rozetka",
+    "rozetka_price": 7399,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-pro-b760-p-ii/p436832597/",
+    "product_code": "436832597",
+    "availability": "Є в наявності",
+    "title": "Материнська плата MSI PRO B760-P II (s1700, Intel B760, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:15:49"
+  },
+  "B760 Wi-Fi (LGA1700, DDR5, ATX)": {
+    "price": 8699,
+    "source_used": "rozetka",
+    "rozetka_price": 8699,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-b760m-gaming-plus-wifi/p415570395/",
+    "product_code": "415570395",
+    "availability": "Є в наявності",
+    "title": "Материнська плата MSI B760M GAMING PLUS WIFI (s1700, Intel B760, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:15:57"
+  },
+  "Z690 (LGA1700, DDR5, ATX)": {
+    "price": 9868,
+    "source_used": "rozetka",
+    "rozetka_price": 9868,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/345797275/p345797275/",
+    "product_code": "345797275",
+    "availability": "є в наявності",
+    "title": "Материнська плата ASRock Z690 Steel Legend/D5 Socket 1700",
+    "checked_at": "2026-03-30T20:16:04"
+  },
+  "Z690 Wi-Fi (LGA1700, DDR5, ATX)": {
+    "price": 10090,
+    "source_used": "rozetka",
+    "rozetka_price": 10090,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/463382014/p463382014/",
+    "product_code": "463382014",
+    "availability": "Є в наявності",
+    "title": "Материнська плата ASRock Z690 Pro RS",
+    "checked_at": "2026-03-30T20:16:13"
+  },
+  "Z790 (LGA1700, DDR5, ATX)": {
+    "price": 8679,
+    "source_used": "rozetka",
+    "rozetka_price": 8679,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/gigabyte-z790-d-ax/p432063173/",
+    "product_code": "432063173",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Gigabyte Z790 D AX (s1700, Intel Z790, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:16:22"
+  },
+  "Z790 Wi-Fi (LGA1700, DDR5, ATX)": {
+    "price": 8699,
+    "source_used": "rozetka",
+    "rozetka_price": 8699,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/asus-tuf-gaming-z790-plus-wifi/p370243302/",
+    "product_code": "370243302",
+    "availability": "Є в наявності",
+    "title": "Материнська плата Asus TUF GAMING Z790-PLUS WIFI (s1700, Intel Z790, PCI-Ex16)",
+    "checked_at": "2026-03-30T20:16:29"
+  },
+  "Corsair Vengeance LPX 128GB (4x32) DDR4-3200": {
+    "price": 26629,
+    "source_used": "rozetka",
+    "rozetka_price": 26629,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/corsair-cmh128gx4m4e3200c16/p471995959/",
+    "product_code": "471995959",
+    "availability": "є в наявності",
+    "title": "Оперативна пам'ять Corsair DDR4-3200 131072MB PC4-25600 (Kit of 4x32768) Vengeance RGB PRO SL Black (CMH128GX4M4E3200C16)",
+    "checked_at": "2026-03-30T20:16:36"
+  },
+  "Corsair Vengeance LPX 256GB (8x32) DDR4-3200": {
+    "price": 52999,
+    "source_used": "local",
+    "checked_at": "2026-03-30T20:16:38"
+  },
+  "Kingston ValueRAM 8GB (1x8) DDR5-5200": {
+    "price": 23299,
+    "source_used": "rozetka",
+    "rozetka_price": 23299,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-kvr56u46bs6-8/p410997117/",
+    "product_code": "410997117",
+    "availability": "Є в наявності",
+    "title": "Оперативна пам'ять Kingston DDR5-5600 8192MB PC5-44800 ValueRAM (KVR56U46BS6-8)",
+    "checked_at": "2026-03-30T20:16:46"
+  },
+  "Kingston Fury Beast 16GB (2x8) DDR5-5600": {
+    "price": 23299,
+    "source_used": "rozetka",
+    "rozetka_price": 23299,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston_kf556c40bbak2_16/p342800104/",
+    "product_code": "342800104",
+    "availability": "Є в наявності",
+    "title": "Оперативна пам'ять Kingston FURY DDR5-5600 16384MB PC5-44800 (Kit of 2x8192) Beast RGB Black (KF556C40BBAK2-16)",
+    "checked_at": "2026-03-30T20:17:00"
+  },
+  "Kingston Fury Beast 32GB (2x16) DDR5-5600": {
+    "price": 22199,
+    "source_used": "rozetka",
+    "rozetka_price": 22199,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-fury-exhyperx-kf556c40bbk2-32/p329571487/",
+    "product_code": "329571487",
+    "availability": "Є в наявності",
+    "title": "Оперативна памʼять Kingston Fury DDR5-5600 32768 MB PC5-44800 (Kit of 2x16384) Beast Black (KF556C40BBK2-32)",
+    "checked_at": "2026-03-30T20:17:15"
+  },
+  "Kingston Fury Beast 64GB (2x32) DDR5-5600": {
+    "price": 23299,
+    "source_used": "rozetka",
+    "rozetka_price": 23299,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/380444100/p380444100/",
+    "product_code": "380444100",
+    "availability": "Є в наявності",
+    "title": "Оперативна памʼять Kingston Fury DDR5-5600 65536MB PC5-44800 (Kit of 2x32768) Beast AM5 White (KF556C36BWEK2-64)",
+    "checked_at": "2026-03-30T20:17:31"
+  },
+  "Corsair Vengeance 96GB (2x48) DDR5-6000": {
+    "price": 23299,
+    "source_used": "rozetka",
+    "rozetka_price": 23299,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/corsair-cmk96gx5m2b6000z30/p545910738/",
+    "product_code": "545910738",
+    "availability": "Є в наявності",
+    "title": "Оперативна пам'ять Corsair Vengeance DDR5-6000 98304MB PC5-48000 (Kit of 2x49152MB) Grey (CMK96GX5M2B6000Z30)",
+    "checked_at": "2026-03-30T20:17:41"
+  },
+  "Corsair Vengeance 128GB (4x32) DDR5-6000": {
+    "price": 100000,
+    "source_used": "local",
+    "checked_at": "2026-03-30T20:17:43"
+  },
+  "Corsair Vengeance 192GB (4x48) DDR5-6000": {
+    "price": 140000,
+    "source_used": "local",
+    "checked_at": "2026-03-30T20:17:45"
+  },
+  "Corsair Vengeance 256GB (8x32) DDR5-5600": {
+    "price": 200000,
+    "source_used": "local",
+    "checked_at": "2026-03-30T20:17:47"
+  },
+  "Apacer AS350 128GB SATA SSD": {
+    "price": 1337,
+    "source_used": "rozetka",
+    "rozetka_price": 1337,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/338687497/p338687497/",
+    "product_code": "338687497",
+    "availability": "Є в наявності",
+    "title": "Накопичувач SSD 2.5\" 128GB Apacer (AP128GAS350-1)",
+    "checked_at": "2026-03-30T20:17:57"
+  },
+  "Kingston NV3 512GB NVMe SSD": {
+    "price": 3958,
+    "source_used": "rozetka",
+    "rozetka_price": 3958,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/",
+    "product_code": "444146633",
+    "availability": "Є в наявності",
+    "title": "SSD диск Kingston NV3 500GB M.2 2280 NVMe PCIe 4.0 x4 3D NAND (SNV3S/500G)",
+    "checked_at": "2026-03-30T20:18:13"
+  },
+  "Kingston KC3000 4TB NVMe SSD": {
+    "price": 32348,
+    "source_used": "rozetka",
+    "rozetka_price": 32348,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/kingston-skc3000s-4096g/p323284093/",
+    "product_code": "323284093",
+    "availability": "Є в наявності",
+    "title": "SSD диск Kingston KC3000 4TB M.2 2280 NVMe PCIe Gen 4.0 x4 3D TLC NAND (SKC3000D/4096G)",
+    "checked_at": "2026-03-30T20:18:28"
+  },
+  "Chieftec Value APB-400B8 400W 80+ Bronze": {
+    "price": 1833,
+    "source_used": "rozetka",
+    "rozetka_price": 1833,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/chieftec_apb_400b8/p24204089/",
+    "product_code": "24204089",
+    "availability": "Є в наявності",
+    "title": "Блок живлення Chieftec Value APB-400B8 400W Bulk",
+    "checked_at": "2026-03-30T20:18:37"
+  },
+  "Chieftec Value APB-450B8 450W 80+ Bronze": {
+    "price": 3609,
+    "source_used": "rozetka",
+    "rozetka_price": 3609,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/chieftec-bfx-450bs/p361658700/",
+    "product_code": "361658700",
+    "availability": "Є в наявності",
+    "title": "Блок живлення Chieftec Smart BFX-450BS 450W",
+    "checked_at": "2026-03-30T20:18:46"
+  },
+  "Chieftec Value APB-500B8 500W 80+ Bronze": {
+    "price": 2829,
+    "source_used": "rozetka",
+    "rozetka_price": 2829,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/360615810/p360615810/",
+    "product_code": "360615810",
+    "availability": "Є в наявності",
+    "title": "Блок живлення Chieftec Proton 500W (BDF-500S)",
+    "checked_at": "2026-03-30T20:18:56"
+  },
+  "be quiet! System Power 10 650W 80+ Gold": {
+    "price": 3119,
+    "source_used": "rozetka",
+    "rozetka_price": 3119,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/be-quiet-bn328/p361479369/",
+    "product_code": "361479369",
+    "availability": "є в наявності",
+    "title": "Блок живлення be quiet! System Power 10 650W (BN328)",
+    "checked_at": "2026-03-30T20:19:03"
+  },
+  "MSI MAG A1000GL 1000W 80+ Gold": {
+    "price": 9599,
+    "source_used": "rozetka",
+    "rozetka_price": 9599,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/msi-mag-a1000gl-pcie5/p500627719/",
+    "product_code": "500627719",
+    "availability": "Є в наявності",
+    "title": "Блок живлення MSI MAG A1000GL PCIE5",
+    "checked_at": "2026-03-30T20:19:11"
+  },
+  "DeepCool PX1200G 1200W 80+ Gold": {
+    "price": 10529,
+    "source_used": "rozetka",
+    "rozetka_price": 10529,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/deepcool-px1200g/p388642506/",
+    "product_code": "388642506",
+    "availability": "є в наявності",
+    "title": "Блок живлення DeepCool PX 1200 W 80+Gold (PX1200G)(R-PXC00G-FC0B-EU)",
+    "checked_at": "2026-03-30T20:19:18"
+  },
+  "be quiet! Straight Power 12 1200W 80+ Platinum": {
+    "price": 14306,
+    "source_used": "rozetka",
+    "rozetka_price": 14306,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/be-quiet-bn339/p389043852/",
+    "product_code": "389043852",
+    "availability": "Є в наявності",
+    "title": "Блок живлення be quiet! Straight Power 12 1200 Вт (BN339)",
+    "checked_at": "2026-03-30T20:19:33"
+  },
+  "Zalman S2 TG Showcase Black": {
+    "price": 3526,
+    "source_used": "rozetka",
+    "rozetka_price": 3526,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/cases-zalman-154558163/p555937347/",
+    "product_code": "555937347",
+    "availability": "Є в наявності",
+    "title": "Корпус Zalman S2 TG Black",
+    "checked_at": "2026-03-30T20:19:42"
+  },
+  "Montech AIR 903 MAX Airflow Black": {
+    "price": 3559,
+    "source_used": "rozetka",
+    "rozetka_price": 3559,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/montech-air-903-max-b/p407831973/",
+    "product_code": "407831973",
+    "availability": "є в наявності",
+    "title": "Корпус Montech Air 903 Max Black",
+    "checked_at": "2026-03-30T20:19:49"
+  },
+  "NZXT H6 Flow Showcase Black": {
+    "price": 5590,
+    "source_used": "rozetka",
+    "rozetka_price": 5590,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fb-r1/p407832054/",
+    "product_code": "407832054",
+    "availability": "Є в наявності",
+    "title": "Корпус NZXT H6 Flow RGB All Black (CC-H61FB-R1)",
+    "checked_at": "2026-03-30T20:19:57"
+  },
+  "Corsair 7000D Airflow Full Tower Black": {
+    "price": 23527,
+    "source_used": "rozetka",
+    "rozetka_price": 23527,
+    "rozetka_url": "https://hard.rozetka.com.ua/ua/583335172/p583335172/",
+    "product_code": "583335172",
+    "availability": "Є в наявності",
+    "title": "Корпус Corsair 7000D AIRFLOW Black (CC-9011218-WW)",
+    "checked_at": "2026-03-30T20:20:05"
   }
 }

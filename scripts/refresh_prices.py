@@ -49,6 +49,39 @@ AVAILABILITY_PATTERNS = [
     r"Під\s+замовлення",
 ]
 
+BAD_PRICE_CONTEXT = [
+    "від ",
+    "x 3",
+    "x 4",
+    "x 6",
+    "x 8",
+    "x 12",
+    "x 24",
+    "частинами",
+    "кредит",
+    "доставка",
+    "самовивіз",
+    "гарантія",
+    "monobank",
+    "приватбанк",
+]
+
+GOOD_PRICE_CONTEXT = [
+    "купити",
+    "є в наявності",
+    "код:",
+]
+
+TEXT_END_MARKERS = [
+    "Цей товар у інших продавців",
+    "Усі товари бренду",
+    "Оплата.",
+    "Гарантія.",
+    "Характеристики",
+    "Опис",
+    "Відгуки",
+]
+
 
 def load_json(path: Path) -> dict[str, Any]:
     if not path.exists():
@@ -59,9 +92,11 @@ def load_json(path: Path) -> dict[str, Any]:
         return {}
 
 
+
 def save_json(path: Path, data: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
 
 
 def get_local_price_map() -> dict[str, int]:
@@ -71,12 +106,15 @@ def get_local_price_map() -> dict[str, int]:
     return {part.name: int(part.price) for part in static_parts}
 
 
+
 def normalize_text(text: str) -> str:
     text = text.replace("\xa0", " ")
     text = text.replace("\u2009", " ")
+    text = text.replace("\u202f", " ")
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r"\n{2,}", "\n", text)
     return text.strip()
+
 
 
 def parse_price_to_int(raw_value: str) -> int:
@@ -86,9 +124,11 @@ def parse_price_to_int(raw_value: str) -> int:
     return int(digits)
 
 
+
 def extract_product_code(text: str) -> str | None:
     match = re.search(r"Код:\s*(\d{6,})", text)
     return match.group(1) if match else None
+
 
 
 def extract_availability(text: str) -> str | None:
@@ -99,10 +139,12 @@ def extract_availability(text: str) -> str | None:
     return None
 
 
+
 def sanitize_filename(value: str) -> str:
     value = re.sub(r'[\\/:*?"<>|]+', "_", value)
     value = re.sub(r"\s+", "_", value.strip())
     return value[:120] or "item"
+
 
 
 def save_debug_files(part_name: str, body_text: str, html: str) -> None:
@@ -111,6 +153,7 @@ def save_debug_files(part_name: str, body_text: str, html: str) -> None:
     base = sanitize_filename(part_name)
     (DEBUG_DIR / f"{stamp}_{base}.txt").write_text(body_text, encoding="utf-8")
     (DEBUG_DIR / f"{stamp}_{base}.html").write_text(html, encoding="utf-8")
+
 
 
 def extract_title(page: Any, body_text: str) -> str | None:
@@ -140,12 +183,103 @@ def extract_title(page: Any, body_text: str) -> str | None:
     return None
 
 
-def extract_price_from_visible_dom(page: Any) -> int | None:
+
+def get_min_expected_price(part_name: str) -> int:
+    name = part_name.lower()
+
+    if any(x in name for x in ["rtx", "gtx", "rx ", "arc ", "radeon", "geforce"]):
+        return 1500
+
+    if any(x in name for x in ["ryzen", "intel i", "athlon", "pentium", "celeron"]):
+        return 500
+
+    if any(x in name for x in ["b550", "b650", "b760", "a520", "a620", "h610", "z690", "z790", "x570", "x670", "am4", "am5", "lga1700"]):
+        return 800
+
+    if "ddr4" in name or "ddr5" in name:
+        return 300
+
+    if "ssd" in name or "nvme" in name:
+        return 250
+
+    if any(x in name for x in ["80 bronze", "80 gold", "chieftec", "deepcool", "be quiet", "corsair rm", "mag a"]):
+        return 500
+
+    if any(x in name for x in ["airflow", "flow", "matrexx", "montech", "zalman", "case"]):
+        return 600
+
+    return 100
+
+
+
+def is_bad_context(context: str) -> bool:
+    ctx = normalize_text(context).lower()
+    return any(marker in ctx for marker in BAD_PRICE_CONTEXT)
+
+
+
+def has_good_context(context: str) -> bool:
+    ctx = normalize_text(context).lower()
+    return any(marker in ctx for marker in GOOD_PRICE_CONTEXT)
+
+
+
+def is_suspicious_price(part_name: str, price: int) -> bool:
+    return price < get_min_expected_price(part_name)
+
+
+
+def score_price_candidate(part_name: str, price: int, context: str, top: float | int, left: float | int) -> float:
+    score = 0.0
+
+    if is_bad_context(context):
+        score -= 300
+
+    if has_good_context(context):
+        score += 120
+
+    if is_suspicious_price(part_name, price):
+        score -= 220
+    else:
+        score += 80
+
+    if price >= 1000:
+        score += 15
+
+    try:
+        top_v = float(top)
+    except Exception:
+        top_v = 9999.0
+
+    try:
+        left_v = float(left)
+    except Exception:
+        left_v = 9999.0
+
+    if top_v < 1400:
+        score += 25
+    elif top_v < 2200:
+        score += 8
+    else:
+        score -= 12
+
+    if left_v < 1100:
+        score += 8
+
+    return score
+
+
+
+def extract_price_from_visible_dom(page: Any, part_name: str) -> int | None:
     candidates = page.evaluate(
         """
         () => {
           const out = [];
           const seen = new Set();
+
+          function txt(v) {
+            return (v || '').replace(/\\s+/g, ' ').trim();
+          }
 
           for (const el of document.querySelectorAll('body *')) {
             const style = window.getComputedStyle(el);
@@ -153,23 +287,26 @@ def extract_price_from_visible_dom(page: Any) -> int | None:
 
             const rect = el.getBoundingClientRect();
             if (rect.width < 2 || rect.height < 2) continue;
-            if (rect.top > window.innerHeight * 1.8) continue;
+            if (rect.top > window.innerHeight * 2.2) continue;
 
-            const txt = (el.innerText || '').replace(/\\s+/g, ' ').trim();
-            if (!txt) continue;
-            if (txt.length > 40) continue;
-            if (!/^\\d[\\d\\s]{1,18}₴$/.test(txt)) continue;
+            const ownText = txt(el.innerText);
+            if (!ownText) continue;
+            if (ownText.length > 40) continue;
+            if (!/^\d[\d\s]{1,18}₴$/.test(ownText)) continue;
 
-            const key = `${txt}|${Math.round(rect.top)}|${Math.round(rect.left)}`;
+            const parentText = txt(el.parentElement ? el.parentElement.innerText : '');
+            const grandText = txt(el.parentElement && el.parentElement.parentElement ? el.parentElement.parentElement.innerText : '');
+            const context = txt((ownText + ' ' + parentText + ' ' + grandText).slice(0, 800));
+
+            const key = `${ownText}|${Math.round(rect.top)}|${Math.round(rect.left)}`;
             if (seen.has(key)) continue;
             seen.add(key);
 
             out.push({
-              text: txt,
+              text: ownText,
+              context,
               top: rect.top,
-              left: rect.left,
-              width: rect.width,
-              height: rect.height
+              left: rect.left
             });
           }
 
@@ -186,79 +323,94 @@ def extract_price_from_visible_dom(page: Any) -> int | None:
     if not isinstance(candidates, list):
         return None
 
-    values: list[int] = []
+    scored: list[tuple[float, int]] = []
+
     for item in candidates:
-        text = str(item.get("text", "")).strip()
-        if not text:
+        raw_text = str(item.get("text", "")).strip()
+        context = str(item.get("context", "")).strip()
+
+        if not raw_text:
             continue
+
         try:
-            value = parse_price_to_int(text)
+            price = parse_price_to_int(raw_text)
         except ValueError:
             continue
-        if 100 <= value <= 1_000_000:
-            values.append(value)
 
-    if not values:
+        if not (100 <= price <= 1_000_000):
+            continue
+
+        score = score_price_candidate(
+            part_name=part_name,
+            price=price,
+            context=context,
+            top=item.get("top", 9999),
+            left=item.get("left", 9999),
+        )
+
+        if score >= 0:
+            scored.append((score, price))
+
+    if not scored:
         return None
 
-    # Зазвичай перші 1-2 значення зверху — це основна ціна / стара+нова ціна
-    top_values = values[:3]
-    return min(top_values)
+    scored.sort(key=lambda x: x[0], reverse=True)
+    return scored[0][1]
 
 
-def _segment_after_code(text: str) -> str:
+
+def get_text_segment_near_product(text: str) -> str:
     text = normalize_text(text)
 
     start_match = re.search(r"Код:\s*\d{6,}", text)
     start = start_match.start() if start_match else 0
-    segment = text[start : start + 5000]
+    segment = text[start : start + 7000]
 
-    end_markers = [
-        "Цей товар у інших продавців",
-        "Усі товари бренду",
-        "Оплата.",
-        "Гарантія.",
-        "Лідерська продуктивність",
-        "Ігровий процесор для ПК",
-        "Простий апгрейд",
-    ]
-
-    end_positions = [segment.find(marker) for marker in end_markers if segment.find(marker) > 0]
+    end_positions = [segment.find(marker) for marker in TEXT_END_MARKERS if segment.find(marker) > 0]
     if end_positions:
         segment = segment[: min(end_positions)]
 
     return segment
 
 
-def extract_price_from_text(text: str) -> int:
-    segment = _segment_after_code(text)
+
+def extract_price_from_text(part_name: str, text: str) -> int:
+    segment = get_text_segment_near_product(text)
 
     matches = list(re.finditer(r"([\d][\d\s]{1,18})\s*₴", segment))
-    values: list[int] = []
+    scored: list[tuple[float, int]] = []
 
     for match in matches:
         raw = match.group(1)
+
         try:
-            value = parse_price_to_int(raw)
+            price = parse_price_to_int(raw)
         except ValueError:
             continue
 
-        if not (100 <= value <= 1_000_000):
+        if not (100 <= price <= 1_000_000):
             continue
 
-        context_start = max(0, match.start() - 25)
-        context = segment[context_start : match.start()].lower()
+        ctx_start = max(0, match.start() - 120)
+        ctx_end = min(len(segment), match.end() + 180)
+        context = segment[ctx_start:ctx_end]
 
-        # Відсікаємо "від 1088 ₴ x 4" та схожі блоки розстрочки
-        if "від " in context:
-            continue
+        score = score_price_candidate(
+            part_name=part_name,
+            price=price,
+            context=context,
+            top=400,
+            left=400,
+        )
 
-        values.append(value)
+        if score >= 0:
+            scored.append((score, price))
 
-    if values:
-        return min(values[:3])
+    if not scored:
+        raise ValueError("Не вдалося знайти ціну на сторінці Rozetka")
 
-    raise ValueError("Не вдалося знайти ціну на сторінці Rozetka")
+    scored.sort(key=lambda x: x[0], reverse=True)
+    return scored[0][1]
 
 
 class RozetkaBrowserClient:
@@ -358,9 +510,12 @@ class RozetkaBrowserClient:
             body_text = normalize_text(body_text)
             html = page.content()
 
-            price = extract_price_from_visible_dom(page)
+            price = extract_price_from_visible_dom(page, part_name)
             if price is None:
-                price = extract_price_from_text(body_text)
+                price = extract_price_from_text(part_name, body_text)
+
+            if is_suspicious_price(part_name, price):
+                raise ValueError(f"Підозріла ціна після фільтрації: {price} грн")
 
             return {
                 "price": price,
@@ -404,6 +559,7 @@ class RozetkaBrowserClient:
         raise last_error
 
 
+
 def build_feed_item_from_rozetka(url: str, rozetka_data: dict[str, Any]) -> dict[str, Any]:
     now = datetime.now().isoformat(timespec="seconds")
     return {
@@ -418,12 +574,14 @@ def build_feed_item_from_rozetka(url: str, rozetka_data: dict[str, Any]) -> dict
     }
 
 
+
 def build_feed_item_from_local(local_price: int) -> dict[str, Any]:
     return {
         "price": int(local_price),
         "source_used": "local",
         "checked_at": datetime.now().isoformat(timespec="seconds"),
     }
+
 
 
 def main() -> None:
