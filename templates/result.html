@@ -11,7 +11,7 @@
     <div class="container topbar-nav">
       <a href="/" class="logo-link"><div class="logo">PCColl</div></a>
       <div class="topbar-actions">
-        <a href="/saved-builds" class="topbar-link-btn">Профіль</a>
+        <a href="/saved-builds" class="topbar-link-btn">Збережені збірки</a>
       </div>
     </div>
   </header>
@@ -67,7 +67,7 @@
             <h2>Альтернативні конфігурації</h2>
             <p class="builder-hint">Відкрий будь-яку збірку, щоб переглянути її повний склад нижче.</p>
           </div>
-          <span class="comparison-badge">Для основної збірки показано опис усіх компонентів, для інших — лише змінених</span>
+          <span class="comparison-badge">У всіх варіантах показано повний склад. Змінені комплектуючі позначено окремо.</span>
         </div>
         <div class="alternatives-grid" id="alternativesGrid"></div>
       </div>
@@ -482,17 +482,15 @@
         if (!config) return;
         const entries = orderedEntries(config.parts);
         const changedSet = new Set(config.changed_part_keys || []);
-        const visibleEntries = config.is_primary
-          ? entries
-          : entries.filter(([role]) => changedSet.has(role));
+        const visibleEntries = entries;
 
         detailsTitle.textContent = `Комплектуючі: ${config.title}`;
         if (config.is_primary) {
           detailsHint.textContent = 'Для основної рекомендованої збірки показано опис кожного компонента.';
           detailsModeBadge.textContent = 'Опис усіх компонентів';
         } else {
-          detailsHint.textContent = 'Для альтернативної збірки описано лише ті компоненти, які змінилися відносно основної рекомендації.';
-          detailsModeBadge.textContent = 'Опис лише змінених компонентів';
+          detailsHint.textContent = 'Для альтернативної збірки показано повний склад. Компоненти, що відрізняються від основної рекомендації, позначено бейджем «Змінено».';
+          detailsModeBadge.textContent = 'Повний склад + позначки змін';
         }
 
         if (!visibleEntries.length) {
@@ -504,10 +502,10 @@
         partsEmpty.hidden = true;
         partsGrid.innerHTML = visibleEntries.map(([role, part]) => {
           const label = PART_LABELS[role] || role;
-          const isChanged = config.is_primary || changedSet.has(role);
-          const description = config.is_primary
-            ? (config.part_explanations?.[role] || '')
-            : (config.changed_part_explanations?.[role] || '');
+          const isChanged = changedSet.has(role);
+          const description = config.part_explanations?.[role]
+            || config.changed_part_explanations?.[role]
+            || '';
           const imageHtml = part.image ? `
             <button type="button" class="part-image-button" data-part-image="${escapeHtml(part.image)}" data-part-name="${escapeHtml(part.name || '')}" aria-label="Відкрити збільшене зображення ${escapeHtml(part.name || '')}">
               <div class="part-image-wrap">

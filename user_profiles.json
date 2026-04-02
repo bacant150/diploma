@@ -3,7 +3,7 @@
     "id": "c4d735f7915343e095ad9d6f6892290c",
     "name": "Саша",
     "created_at": "2026-03-31T15:30:49",
-    "last_seen_at": "2026-04-02T10:42:17",
+    "last_seen_at": "2026-04-02T11:12:13",
     "saved_build_ids": [],
     "query_history": [
       {
@@ -494,6 +494,756 @@
           "priority": "balanced",
           "requested_budget": 22500,
           "budget_mode": "auto"
+        },
+        "saved_build_id": null
+      },
+      {
+        "id": "2020617ff35848309d318db928a4e1d7",
+        "created_at": "2026-04-02T11:12:13",
+        "source": "builder_form",
+        "inputs": {
+          "budget_mode": "manual",
+          "budget": 68000,
+          "purpose": "gaming",
+          "resolution": "1080p",
+          "wifi": false,
+          "games": [
+            "cs2",
+            "valorant",
+            "fortnite"
+          ],
+          "graphics_quality": "high",
+          "target_fps": 144,
+          "gpu_mode": "auto",
+          "cpu_brand": "auto",
+          "gpu_brand": "auto",
+          "ram_size": "auto",
+          "ssd_size": "2000",
+          "memory_platform": "auto",
+          "office_apps": [],
+          "office_tabs": "auto",
+          "office_monitors": "auto",
+          "study_apps": [],
+          "study_tabs": "auto",
+          "study_monitors": "auto",
+          "creator_apps": [],
+          "creator_complexity": "auto",
+          "creator_monitors": "auto",
+          "priority": "best",
+          "games_titles": [
+            "Counter-Strike 2",
+            "Valorant",
+            "Fortnite"
+          ],
+          "office_apps_titles": [],
+          "study_apps_titles": [],
+          "creator_apps_titles": []
+        },
+        "result_summary": {
+          "tier": "upper",
+          "total_price": 67548,
+          "recommended_budget": null,
+          "parts_count": 7
+        },
+        "result_snapshot": {
+          "tier": "upper",
+          "total_price": null,
+          "recommended_budget": null,
+          "parts": {
+            "GPU": {
+              "name": "AMD RX 6600 XT 8GB",
+              "price": 11275,
+              "description": null,
+              "image": "/static/images/parts/amd-rx-6600-xt-8gb.webp",
+              "image_filename": "amd-rx-6600-xt-8gb.webp"
+            },
+            "CPU": {
+              "name": "AMD Ryzen 5 9600X",
+              "price": 10748,
+              "description": null,
+              "image": "/static/images/parts/amd-ryzen-5-9600x.webp",
+              "image_filename": "amd-ryzen-5-9600x.webp"
+            },
+            "Motherboard": {
+              "name": "ASUS TUF GAMING A620-PRO WIFI (AM5, DDR5, ATX)",
+              "price": 9203,
+              "description": null,
+              "image": "/static/images/parts/asus-tuf-gaming-a620-pro-wifi-am5-ddr5-atx.webp",
+              "image_filename": "asus-tuf-gaming-a620-pro-wifi-am5-ddr5-atx.webp"
+            },
+            "RAM": {
+              "name": "Kingston Fury Beast 32GB (2x16) DDR5-6000",
+              "price": 23969,
+              "description": null,
+              "image": "/static/images/parts/kingston-fury-beast-32gb-2x16-ddr5-6000.webp",
+              "image_filename": "kingston-fury-beast-32gb-2x16-ddr5-6000.webp"
+            },
+            "SSD": {
+              "name": "WD Blue SN580 1TB NVMe SSD",
+              "price": 7542,
+              "description": null,
+              "image": "/static/images/parts/wd-blue-sn580-1tb-nvme-ssd.webp",
+              "image_filename": "wd-blue-sn580-1tb-nvme-ssd.webp"
+            },
+            "PSU": {
+              "name": "MSI MAG A550BN 550W 80+ Bronze",
+              "price": 2499,
+              "description": null,
+              "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+              "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+            },
+            "Case": {
+              "name": "DeepCool CC360 ARGB Black",
+              "price": 2312,
+              "description": null,
+              "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+              "image_filename": "deepcool-cc360-argb-black.webp"
+            }
+          },
+          "alternatives": [
+            {
+              "is_primary": true,
+              "label": null,
+              "name": null,
+              "total_price": null,
+              "parts": {
+                "GPU": {
+                  "name": "AMD RX 6600 XT 8GB",
+                  "price": 11275,
+                  "description": null,
+                  "image": "/static/images/parts/amd-rx-6600-xt-8gb.webp",
+                  "image_filename": "amd-rx-6600-xt-8gb.webp"
+                },
+                "CPU": {
+                  "name": "AMD Ryzen 5 9600X",
+                  "price": 10748,
+                  "description": null,
+                  "image": "/static/images/parts/amd-ryzen-5-9600x.webp",
+                  "image_filename": "amd-ryzen-5-9600x.webp"
+                },
+                "Motherboard": {
+                  "name": "ASUS TUF GAMING A620-PRO WIFI (AM5, DDR5, ATX)",
+                  "price": 9203,
+                  "description": null,
+                  "image": "/static/images/parts/asus-tuf-gaming-a620-pro-wifi-am5-ddr5-atx.webp",
+                  "image_filename": "asus-tuf-gaming-a620-pro-wifi-am5-ddr5-atx.webp"
+                },
+                "RAM": {
+                  "name": "Kingston Fury Beast 32GB (2x16) DDR5-6000",
+                  "price": 23969,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-fury-beast-32gb-2x16-ddr5-6000.webp",
+                  "image_filename": "kingston-fury-beast-32gb-2x16-ddr5-6000.webp"
+                },
+                "SSD": {
+                  "name": "WD Blue SN580 1TB NVMe SSD",
+                  "price": 7542,
+                  "description": null,
+                  "image": "/static/images/parts/wd-blue-sn580-1tb-nvme-ssd.webp",
+                  "image_filename": "wd-blue-sn580-1tb-nvme-ssd.webp"
+                },
+                "PSU": {
+                  "name": "MSI MAG A550BN 550W 80+ Bronze",
+                  "price": 2499,
+                  "description": null,
+                  "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+                  "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+                },
+                "Case": {
+                  "name": "DeepCool CC360 ARGB Black",
+                  "price": 2312,
+                  "description": null,
+                  "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+                  "image_filename": "deepcool-cc360-argb-black.webp"
+                }
+              },
+              "result_payload": {
+                "tier": "upper",
+                "total_price": null,
+                "recommended_budget": null,
+                "parts": {
+                  "GPU": {
+                    "name": "AMD RX 6600 XT 8GB",
+                    "price": 11275,
+                    "description": null,
+                    "image": "/static/images/parts/amd-rx-6600-xt-8gb.webp",
+                    "image_filename": "amd-rx-6600-xt-8gb.webp"
+                  },
+                  "CPU": {
+                    "name": "AMD Ryzen 5 9600X",
+                    "price": 10748,
+                    "description": null,
+                    "image": "/static/images/parts/amd-ryzen-5-9600x.webp",
+                    "image_filename": "amd-ryzen-5-9600x.webp"
+                  },
+                  "Motherboard": {
+                    "name": "ASUS TUF GAMING A620-PRO WIFI (AM5, DDR5, ATX)",
+                    "price": 9203,
+                    "description": null,
+                    "image": "/static/images/parts/asus-tuf-gaming-a620-pro-wifi-am5-ddr5-atx.webp",
+                    "image_filename": "asus-tuf-gaming-a620-pro-wifi-am5-ddr5-atx.webp"
+                  },
+                  "RAM": {
+                    "name": "Kingston Fury Beast 32GB (2x16) DDR5-6000",
+                    "price": 23969,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-fury-beast-32gb-2x16-ddr5-6000.webp",
+                    "image_filename": "kingston-fury-beast-32gb-2x16-ddr5-6000.webp"
+                  },
+                  "SSD": {
+                    "name": "WD Blue SN580 1TB NVMe SSD",
+                    "price": 7542,
+                    "description": null,
+                    "image": "/static/images/parts/wd-blue-sn580-1tb-nvme-ssd.webp",
+                    "image_filename": "wd-blue-sn580-1tb-nvme-ssd.webp"
+                  },
+                  "PSU": {
+                    "name": "MSI MAG A550BN 550W 80+ Bronze",
+                    "price": 2499,
+                    "description": null,
+                    "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+                    "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+                  },
+                  "Case": {
+                    "name": "DeepCool CC360 ARGB Black",
+                    "price": 2312,
+                    "description": null,
+                    "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+                    "image_filename": "deepcool-cc360-argb-black.webp"
+                  }
+                },
+                "alternatives": [],
+                "notes": [
+                  "Ціль: 1080p, HIGH, 144 FPS у вибраних іграх.",
+                  "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх.",
+                  "Пріоритет підбору: максимальна продуктивність у межах бюджету."
+                ],
+                "total": 67548,
+                "game_requirement": {
+                  "required_gpu_score": 145.7,
+                  "required_cpu_score": 159.5,
+                  "selected_games": [
+                    "cs2",
+                    "valorant",
+                    "fortnite"
+                  ],
+                  "is_active": true
+                },
+                "match_info": {
+                  "match_status": "weak",
+                  "gpu_ratio": 0.69,
+                  "cpu_ratio": 0.94,
+                  "match_note": "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх."
+                },
+                "part_explanations": {
+                  "GPU": "Відеокарта відповідає цілі 1080p, високі налаштування та 144 FPS. Має 8 ГБ відеопам’яті, що важливо для сучасних ігор і текстур.",
+                  "CPU": "Процесор підібраний під ігровий сценарій 1080p, високі налаштування та ціль 144 FPS. Добре поєднується з AMD RX 6600 XT 8GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM5; є вбудована графіка.",
+                  "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM5, підтримка DDR5, є вбудований Wi‑Fi.",
+                  "RAM": "Обсяг оперативної пам’яті 32 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR5.",
+                  "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                  "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+                  "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн."
+                },
+                "priority": "best",
+                "requested_budget": 68000
+              },
+              "key": "priority-best",
+              "title": "Рекомендована конфігурація",
+              "description": "Основна рекомендація відповідно до обраного тобою пріоритету підбору.",
+              "total": 67548,
+              "requested_budget": 68000,
+              "tier": "upper",
+              "tier_title": "Високий",
+              "priority": "best",
+              "priority_title": "Максимальна продуктивність",
+              "delta_text": "Базова рекомендація системи",
+              "parts_excerpt": [
+                {
+                  "label": "Процесор",
+                  "name": "AMD Ryzen 5 9600X"
+                },
+                {
+                  "label": "Відеокарта",
+                  "name": "AMD RX 6600 XT 8GB"
+                },
+                {
+                  "label": "Оперативна пам’ять",
+                  "name": "Kingston Fury Beast 32GB (2x16) DDR5-6000"
+                },
+                {
+                  "label": "SSD",
+                  "name": "WD Blue SN580 1TB NVMe SSD"
+                }
+              ],
+              "notes": [
+                "Ціль: 1080p, HIGH, 144 FPS у вибраних іграх.",
+                "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх.",
+                "Пріоритет підбору: максимальна продуктивність у межах бюджету."
+              ],
+              "card_notes": [
+                "Ціль: 1080p, HIGH, 144 FPS у вибраних іграх.",
+                "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх."
+              ],
+              "part_explanations": {
+                "GPU": "Відеокарта відповідає цілі 1080p, високі налаштування та 144 FPS. Має 8 ГБ відеопам’яті, що важливо для сучасних ігор і текстур.",
+                "CPU": "Процесор підібраний під ігровий сценарій 1080p, високі налаштування та ціль 144 FPS. Добре поєднується з AMD RX 6600 XT 8GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM5; є вбудована графіка.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM5, підтримка DDR5, є вбудований Wi‑Fi.",
+                "RAM": "Обсяг оперативної пам’яті 32 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR5.",
+                "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+                "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн."
+              },
+              "changed_part_keys": [],
+              "changed_part_explanations": {}
+            },
+            {
+              "is_primary": false,
+              "label": null,
+              "name": null,
+              "total_price": null,
+              "parts": {
+                "GPU": {
+                  "name": "NVIDIA RTX 5060 8GB",
+                  "price": 17948,
+                  "description": null,
+                  "image": "/static/images/parts/nvidia-rtx-5060-8gb.webp",
+                  "image_filename": "nvidia-rtx-5060-8gb.webp"
+                },
+                "CPU": {
+                  "name": "Intel i5-13600KF",
+                  "price": 12599,
+                  "description": null,
+                  "image": "/static/images/parts/intel-i5-13600kf.webp",
+                  "image_filename": "intel-i5-13600kf.webp"
+                },
+                "Motherboard": {
+                  "name": "B760 Wi-Fi (LGA1700, DDR4, ATX)",
+                  "price": 8699,
+                  "description": null,
+                  "image": "/static/images/parts/b760-wi-fi-lga1700-ddr4-atx.webp",
+                  "image_filename": "b760-wi-fi-lga1700-ddr4-atx.webp"
+                },
+                "RAM": {
+                  "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+                  "price": 3458,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+                  "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp"
+                },
+                "SSD": {
+                  "name": "Kingston NV3 1TB NVMe SSD",
+                  "price": 6299,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-nv3-1tb-nvme-ssd.webp",
+                  "image_filename": "kingston-nv3-1tb-nvme-ssd.webp"
+                },
+                "PSU": {
+                  "name": "MSI MAG A550BN 550W 80+ Bronze",
+                  "price": 2499,
+                  "description": null,
+                  "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+                  "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+                },
+                "Case": {
+                  "name": "DeepCool CC560 LIMITED V2 Black",
+                  "price": 1885,
+                  "description": null,
+                  "image": "/static/images/parts/deepcool-cc560-limited-v2-black.webp",
+                  "image_filename": "deepcool-cc560-limited-v2-black.webp"
+                }
+              },
+              "result_payload": {
+                "tier": "upper",
+                "total_price": null,
+                "recommended_budget": null,
+                "parts": {
+                  "GPU": {
+                    "name": "NVIDIA RTX 5060 8GB",
+                    "price": 17948,
+                    "description": null,
+                    "image": "/static/images/parts/nvidia-rtx-5060-8gb.webp",
+                    "image_filename": "nvidia-rtx-5060-8gb.webp"
+                  },
+                  "CPU": {
+                    "name": "Intel i5-13600KF",
+                    "price": 12599,
+                    "description": null,
+                    "image": "/static/images/parts/intel-i5-13600kf.webp",
+                    "image_filename": "intel-i5-13600kf.webp"
+                  },
+                  "Motherboard": {
+                    "name": "B760 Wi-Fi (LGA1700, DDR4, ATX)",
+                    "price": 8699,
+                    "description": null,
+                    "image": "/static/images/parts/b760-wi-fi-lga1700-ddr4-atx.webp",
+                    "image_filename": "b760-wi-fi-lga1700-ddr4-atx.webp"
+                  },
+                  "RAM": {
+                    "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+                    "price": 3458,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+                    "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp"
+                  },
+                  "SSD": {
+                    "name": "Kingston NV3 1TB NVMe SSD",
+                    "price": 6299,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-nv3-1tb-nvme-ssd.webp",
+                    "image_filename": "kingston-nv3-1tb-nvme-ssd.webp"
+                  },
+                  "PSU": {
+                    "name": "MSI MAG A550BN 550W 80+ Bronze",
+                    "price": 2499,
+                    "description": null,
+                    "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+                    "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+                  },
+                  "Case": {
+                    "name": "DeepCool CC560 LIMITED V2 Black",
+                    "price": 1885,
+                    "description": null,
+                    "image": "/static/images/parts/deepcool-cc560-limited-v2-black.webp",
+                    "image_filename": "deepcool-cc560-limited-v2-black.webp"
+                  }
+                },
+                "alternatives": [],
+                "notes": [
+                  "Ціль: 1080p, HIGH, 144 FPS у вибраних іграх.",
+                  "Конфігурація відповідає заданим вимогам для вибраних ігор.",
+                  "Пріоритет підбору: бюджетний варіант з акцентом на економію."
+                ],
+                "total": 53387,
+                "game_requirement": {
+                  "required_gpu_score": 145.7,
+                  "required_cpu_score": 159.5,
+                  "selected_games": [
+                    "cs2",
+                    "valorant",
+                    "fortnite"
+                  ],
+                  "is_active": true
+                },
+                "match_info": {
+                  "match_status": "good",
+                  "gpu_ratio": 1.0,
+                  "cpu_ratio": 0.99,
+                  "match_note": "Конфігурація відповідає заданим вимогам для вибраних ігор."
+                },
+                "part_explanations": {
+                  "GPU": "Відеокарта відповідає цілі 1080p, високі налаштування та 144 FPS. Має 8 ГБ відеопам’яті, що важливо для сучасних ігор і текстур.",
+                  "CPU": "Процесор підібраний під ігровий сценарій 1080p, високі налаштування та ціль 144 FPS. Добре поєднується з NVIDIA RTX 5060 8GB і не створює помітного вузького місця для цієї відеокарти. Платформа: LGA1700.",
+                  "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR4, є вбудований Wi‑Fi.",
+                  "RAM": "Обсяг оперативної пам’яті 8 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4.",
+                  "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                  "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+                  "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження."
+                },
+                "priority": "budget",
+                "requested_budget": 53500
+              },
+              "key": "priority-budget",
+              "title": "Бюджетна конфігурація",
+              "description": "Акцент на економнішому підборі без виходу за межі сценарію використання.",
+              "total": 53387,
+              "requested_budget": 53500,
+              "tier": "upper",
+              "tier_title": "Високий",
+              "priority": "budget",
+              "priority_title": "Бюджетний",
+              "delta_text": "Економія 14161 грн відносно основної рекомендації",
+              "parts_excerpt": [
+                {
+                  "label": "Процесор",
+                  "name": "Intel i5-13600KF"
+                },
+                {
+                  "label": "Відеокарта",
+                  "name": "NVIDIA RTX 5060 8GB"
+                },
+                {
+                  "label": "Оперативна пам’ять",
+                  "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200"
+                },
+                {
+                  "label": "SSD",
+                  "name": "Kingston NV3 1TB NVMe SSD"
+                }
+              ],
+              "notes": [
+                "Ціль: 1080p, HIGH, 144 FPS у вибраних іграх.",
+                "Конфігурація відповідає заданим вимогам для вибраних ігор.",
+                "Пріоритет підбору: бюджетний варіант з акцентом на економію."
+              ],
+              "card_notes": [
+                "Ціль: 1080p, HIGH, 144 FPS у вибраних іграх.",
+                "Конфігурація відповідає заданим вимогам для вибраних ігор."
+              ],
+              "part_explanations": {
+                "GPU": "Відеокарта відповідає цілі 1080p, високі налаштування та 144 FPS. Має 8 ГБ відеопам’яті, що важливо для сучасних ігор і текстур.",
+                "CPU": "Процесор підібраний під ігровий сценарій 1080p, високі налаштування та ціль 144 FPS. Добре поєднується з NVIDIA RTX 5060 8GB і не створює помітного вузького місця для цієї відеокарти. Платформа: LGA1700.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR4, є вбудований Wi‑Fi.",
+                "RAM": "Обсяг оперативної пам’яті 8 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4.",
+                "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+                "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження."
+              },
+              "changed_part_keys": [
+                "CPU",
+                "GPU",
+                "Motherboard",
+                "RAM",
+                "SSD",
+                "Case"
+              ],
+              "changed_part_explanations": {
+                "CPU": "Процесор підібраний під ігровий сценарій 1080p, високі налаштування та ціль 144 FPS. Добре поєднується з NVIDIA RTX 5060 8GB і не створює помітного вузького місця для цієї відеокарти. Платформа: LGA1700.",
+                "GPU": "Відеокарта відповідає цілі 1080p, високі налаштування та 144 FPS. Має 8 ГБ відеопам’яті, що важливо для сучасних ігор і текстур.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR4, є вбудований Wi‑Fi.",
+                "RAM": "Обсяг оперативної пам’яті 8 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4.",
+                "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження."
+              }
+            },
+            {
+              "is_primary": false,
+              "label": null,
+              "name": null,
+              "total_price": null,
+              "parts": {
+                "GPU": {
+                  "name": "NVIDIA RTX 5060 8GB",
+                  "price": 17948,
+                  "description": null,
+                  "image": "/static/images/parts/nvidia-rtx-5060-8gb.webp",
+                  "image_filename": "nvidia-rtx-5060-8gb.webp"
+                },
+                "CPU": {
+                  "name": "AMD Ryzen 7 5700X3D",
+                  "price": 10040,
+                  "description": null,
+                  "image": "/static/images/parts/amd-ryzen-7-5700x3d.webp",
+                  "image_filename": "amd-ryzen-7-5700x3d.webp"
+                },
+                "Motherboard": {
+                  "name": "ASRock B550M Pro4 (AM4, DDR4, mATX)",
+                  "price": 9999,
+                  "description": null,
+                  "image": "/static/images/parts/asrock-b550m-pro4-am4-ddr4-matx.webp",
+                  "image_filename": "asrock-b550m-pro4-am4-ddr4-matx.webp"
+                },
+                "RAM": {
+                  "name": "Kingston Fury Beast 16GB (2x8) DDR4-3200",
+                  "price": 8786,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+                  "image_filename": "kingston-fury-beast-16gb-2x8-ddr4-3200.webp"
+                },
+                "SSD": {
+                  "name": "WD Blue SN580 1TB NVMe SSD",
+                  "price": 7542,
+                  "description": null,
+                  "image": "/static/images/parts/wd-blue-sn580-1tb-nvme-ssd.webp",
+                  "image_filename": "wd-blue-sn580-1tb-nvme-ssd.webp"
+                },
+                "PSU": {
+                  "name": "MSI MAG A550BN 550W 80+ Bronze",
+                  "price": 2499,
+                  "description": null,
+                  "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+                  "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+                },
+                "Case": {
+                  "name": "DeepCool CC360 ARGB Black",
+                  "price": 2312,
+                  "description": null,
+                  "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+                  "image_filename": "deepcool-cc360-argb-black.webp"
+                }
+              },
+              "result_payload": {
+                "tier": "upper",
+                "total_price": null,
+                "recommended_budget": null,
+                "parts": {
+                  "GPU": {
+                    "name": "NVIDIA RTX 5060 8GB",
+                    "price": 17948,
+                    "description": null,
+                    "image": "/static/images/parts/nvidia-rtx-5060-8gb.webp",
+                    "image_filename": "nvidia-rtx-5060-8gb.webp"
+                  },
+                  "CPU": {
+                    "name": "AMD Ryzen 7 5700X3D",
+                    "price": 10040,
+                    "description": null,
+                    "image": "/static/images/parts/amd-ryzen-7-5700x3d.webp",
+                    "image_filename": "amd-ryzen-7-5700x3d.webp"
+                  },
+                  "Motherboard": {
+                    "name": "ASRock B550M Pro4 (AM4, DDR4, mATX)",
+                    "price": 9999,
+                    "description": null,
+                    "image": "/static/images/parts/asrock-b550m-pro4-am4-ddr4-matx.webp",
+                    "image_filename": "asrock-b550m-pro4-am4-ddr4-matx.webp"
+                  },
+                  "RAM": {
+                    "name": "Kingston Fury Beast 16GB (2x8) DDR4-3200",
+                    "price": 8786,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+                    "image_filename": "kingston-fury-beast-16gb-2x8-ddr4-3200.webp"
+                  },
+                  "SSD": {
+                    "name": "WD Blue SN580 1TB NVMe SSD",
+                    "price": 7542,
+                    "description": null,
+                    "image": "/static/images/parts/wd-blue-sn580-1tb-nvme-ssd.webp",
+                    "image_filename": "wd-blue-sn580-1tb-nvme-ssd.webp"
+                  },
+                  "PSU": {
+                    "name": "MSI MAG A550BN 550W 80+ Bronze",
+                    "price": 2499,
+                    "description": null,
+                    "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+                    "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+                  },
+                  "Case": {
+                    "name": "DeepCool CC360 ARGB Black",
+                    "price": 2312,
+                    "description": null,
+                    "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+                    "image_filename": "deepcool-cc360-argb-black.webp"
+                  }
+                },
+                "alternatives": [],
+                "notes": [
+                  "Ціль: 1080p, HIGH, 144 FPS у вибраних іграх.",
+                  "Конфігурація близька до цілі, але в окремих сценах може знадобитися невелике зниження налаштувань.",
+                  "Пріоритет підбору: збалансовано (ціна/якість)."
+                ],
+                "total": 59126,
+                "game_requirement": {
+                  "required_gpu_score": 145.7,
+                  "required_cpu_score": 159.5,
+                  "selected_games": [
+                    "cs2",
+                    "valorant",
+                    "fortnite"
+                  ],
+                  "is_active": true
+                },
+                "match_info": {
+                  "match_status": "near",
+                  "gpu_ratio": 1.0,
+                  "cpu_ratio": 0.94,
+                  "match_note": "Конфігурація близька до цілі, але в окремих сценах може знадобитися невелике зниження налаштувань."
+                },
+                "part_explanations": {
+                  "GPU": "Відеокарта відповідає цілі 1080p, високі налаштування та 144 FPS. Має 8 ГБ відеопам’яті, що важливо для сучасних ігор і текстур.",
+                  "CPU": "Процесор підібраний під ігровий сценарій 1080p, високі налаштування та ціль 144 FPS. Добре поєднується з NVIDIA RTX 5060 8GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM4.",
+                  "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4.",
+                  "RAM": "Обсяг оперативної пам’яті 16 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4.",
+                  "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                  "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+                  "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн."
+                },
+                "priority": "balanced",
+                "requested_budget": 61500
+              },
+              "key": "priority-balanced",
+              "title": "Збалансована конфігурація",
+              "description": "Оптимальний компроміс між ціною, якістю та запасом продуктивності.",
+              "total": 59126,
+              "requested_budget": 61500,
+              "tier": "upper",
+              "tier_title": "Високий",
+              "priority": "balanced",
+              "priority_title": "Ціна / якість",
+              "delta_text": "Економія 8422 грн відносно основної рекомендації",
+              "parts_excerpt": [
+                {
+                  "label": "Процесор",
+                  "name": "AMD Ryzen 7 5700X3D"
+                },
+                {
+                  "label": "Відеокарта",
+                  "name": "NVIDIA RTX 5060 8GB"
+                },
+                {
+                  "label": "Оперативна пам’ять",
+                  "name": "Kingston Fury Beast 16GB (2x8) DDR4-3200"
+                },
+                {
+                  "label": "SSD",
+                  "name": "WD Blue SN580 1TB NVMe SSD"
+                }
+              ],
+              "notes": [
+                "Ціль: 1080p, HIGH, 144 FPS у вибраних іграх.",
+                "Конфігурація близька до цілі, але в окремих сценах може знадобитися невелике зниження налаштувань.",
+                "Пріоритет підбору: збалансовано (ціна/якість)."
+              ],
+              "card_notes": [
+                "Ціль: 1080p, HIGH, 144 FPS у вибраних іграх.",
+                "Конфігурація близька до цілі, але в окремих сценах може знадобитися невелике зниження налаштувань."
+              ],
+              "part_explanations": {
+                "GPU": "Відеокарта відповідає цілі 1080p, високі налаштування та 144 FPS. Має 8 ГБ відеопам’яті, що важливо для сучасних ігор і текстур.",
+                "CPU": "Процесор підібраний під ігровий сценарій 1080p, високі налаштування та ціль 144 FPS. Добре поєднується з NVIDIA RTX 5060 8GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM4.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4.",
+                "RAM": "Обсяг оперативної пам’яті 16 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4.",
+                "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+                "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн."
+              },
+              "changed_part_keys": [
+                "CPU",
+                "GPU",
+                "Motherboard",
+                "RAM"
+              ],
+              "changed_part_explanations": {
+                "CPU": "Процесор підібраний під ігровий сценарій 1080p, високі налаштування та ціль 144 FPS. Добре поєднується з NVIDIA RTX 5060 8GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM4.",
+                "GPU": "Відеокарта відповідає цілі 1080p, високі налаштування та 144 FPS. Має 8 ГБ відеопам’яті, що важливо для сучасних ігор і текстур.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4.",
+                "RAM": "Обсяг оперативної пам’яті 16 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4."
+              }
+            }
+          ],
+          "notes": [
+            "Ціль: 1080p, HIGH, 144 FPS у вибраних іграх.",
+            "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх.",
+            "Пріоритет підбору: максимальна продуктивність у межах бюджету."
+          ],
+          "total": 67548,
+          "game_requirement": {
+            "required_gpu_score": 145.7,
+            "required_cpu_score": 159.5,
+            "selected_games": [
+              "cs2",
+              "valorant",
+              "fortnite"
+            ],
+            "is_active": true
+          },
+          "match_info": {
+            "match_status": "weak",
+            "gpu_ratio": 0.69,
+            "cpu_ratio": 0.94,
+            "match_note": "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх."
+          },
+          "part_explanations": {
+            "GPU": "Відеокарта відповідає цілі 1080p, високі налаштування та 144 FPS. Має 8 ГБ відеопам’яті, що важливо для сучасних ігор і текстур.",
+            "CPU": "Процесор підібраний під ігровий сценарій 1080p, високі налаштування та ціль 144 FPS. Добре поєднується з AMD RX 6600 XT 8GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM5; є вбудована графіка.",
+            "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM5, підтримка DDR5, є вбудований Wi‑Fi.",
+            "RAM": "Обсяг оперативної пам’яті 32 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR5.",
+            "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+            "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+            "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн."
+          },
+          "priority": "best",
+          "requested_budget": 68000
         },
         "saved_build_id": null
       }

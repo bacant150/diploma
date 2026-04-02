@@ -32,16 +32,15 @@ STATUS_MESSAGES = {
     'saved': 'Збірку успішно збережено.',
     'renamed': 'Назву збірки оновлено.',
     'deleted': 'Збірку видалено.',
-    'profile_renamed': 'Назву профілю оновлено.',
     'history_deleted': 'Запис видалено з історії.',
     'history_cleared': 'Історію запитів очищено.',
 }
 
 BUDGET_LIMITS = {
-    'gaming': {'min': 12500, 'max': 225000},
-    'office': {'min': 15000, 'max': 110000},
-    'study': {'min': 15000, 'max': 120000},
-    'creator': {'min': 42500, 'max': 235000},
+    'gaming': {'min': 14000, 'max': 250000},
+    'office': {'min': 8000, 'max': 120000},
+    'study': {'min': 9000, 'max': 150000},
+    'creator': {'min': 22000, 'max': 300000},
 }
 
 FPS_LIMITS = {'min': 30, 'max': 500}
