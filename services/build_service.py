@@ -6,7 +6,6 @@ from typing import Any
 from fastapi import HTTPException
 from pydantic import ValidationError
 
-from builder import build_pc, build_pc_alternatives, build_pc_auto_budget
 from config import BUDGET_LIMITS, FPS_LIMITS, PRIORITY_TITLES, PURPOSE_TITLES
 from parts_db import CREATOR_APPS_DB, GAMES_DB, OFFICE_APPS_DB, STUDY_APPS_DB
 from schemas import BuildInputsSchema, BuildInputsViewSchema, BuildPayloadSchema, BuildResultSchema
@@ -131,7 +130,16 @@ def normalize_build_name(build_name: str | None, inputs: dict[str, Any]) -> str:
     return cleaned_name[:120] if cleaned_name else default_build_name(inputs)
 
 
-def result_page_context(request: Any, inputs: dict[str, Any], result: dict[str, Any], *, saved_build_name: str | None = None) -> dict[str, Any]:
+def result_page_context(
+    request: Any,
+    inputs: dict[str, Any],
+    result: dict[str, Any],
+    *,
+    saved_build_name: str | None = None,
+    profile_query_id: str | None = None,
+    profile_name: str | None = None,
+    is_saved_build_view: bool = False,
+) -> dict[str, Any]:
     return {
         'request': request,
         'inputs': inputs,
@@ -139,6 +147,9 @@ def result_page_context(request: Any, inputs: dict[str, Any], result: dict[str, 
         'inputs_json': serialize_for_template(inputs),
         'result_json': serialize_for_template(result),
         'saved_build_name': saved_build_name,
+        'profile_query_id': profile_query_id,
+        'profile_name': profile_name,
+        'is_saved_build_view': is_saved_build_view,
     }
 
 
@@ -189,6 +200,9 @@ def _merge_primary_result_with_alternatives(
 # =========================
 
 def _run_primary_build(payload: dict[str, Any], *, budget_mode: str) -> dict[str, Any]:
+    # Локальний імпорт прибирає циклічну залежність під час pytest/app startup.
+    from builder import build_pc, build_pc_auto_budget
+
     normalized_payload = dict(payload)
 
     if budget_mode == 'auto':
@@ -199,6 +213,9 @@ def _run_primary_build(payload: dict[str, Any], *, budget_mode: str) -> dict[str
 
 
 def _run_alternative_builds(result: dict[str, Any], payload: dict[str, Any], *, budget_mode: str) -> list[dict[str, Any]]:
+    # Локальний імпорт прибирає циклічну залежність під час pytest/app startup.
+    from builder import build_pc_alternatives
+
     return build_pc_alternatives(result, budget_mode=budget_mode, **payload)
 
 

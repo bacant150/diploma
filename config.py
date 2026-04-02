@@ -7,6 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / 'static'
 TEMPLATES_DIR = BASE_DIR / 'templates'
 SAVED_BUILDS_FILE = BASE_DIR / 'saved_builds.json'
+USER_PROFILES_FILE = BASE_DIR / 'user_profiles.json'
 
 PURPOSE_TITLES = {
     'gaming': 'Ігровий ПК',
@@ -31,6 +32,9 @@ STATUS_MESSAGES = {
     'saved': 'Збірку успішно збережено.',
     'renamed': 'Назву збірки оновлено.',
     'deleted': 'Збірку видалено.',
+    'profile_renamed': 'Назву профілю оновлено.',
+    'history_deleted': 'Запис видалено з історії.',
+    'history_cleared': 'Історію запитів очищено.',
 }
 
 BUDGET_LIMITS = {

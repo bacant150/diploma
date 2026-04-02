@@ -11,7 +11,7 @@
     <div class="container topbar-nav">
       <a href="/" class="logo-link"><div class="logo">PCColl</div></a>
       <div class="topbar-actions">
-        <a href="/saved-builds" class="topbar-link-btn">Збережені збірки</a>
+        <a href="/saved-builds" class="topbar-link-btn">Профіль</a>
       </div>
     </div>
   </header>
@@ -45,10 +45,21 @@
 
       {% if saved_build_name %}
       <div class="result-box">
-        <div class="saved-build-badge">Збережена збірка</div>
+        <div class="saved-build-badge">Збережений результат</div>
         <p class="saved-build-name-note"><strong>Назва:</strong> {{ saved_build_name }}</p>
+        {% if profile_name %}
+        <p class="builder-hint"><strong>Профіль:</strong> {{ profile_name }}</p>
+        {% endif %}
+      </div>
+      {% elif profile_name %}
+      <div class="result-box">
+        <div class="saved-build-badge">Поточний профіль</div>
+        <p class="saved-build-name-note"><strong>Профіль:</strong> {{ profile_name }}</p>
       </div>
       {% endif %}
+
+      <textarea id="inputsJsonData" hidden>{{ inputs_json }}</textarea>
+      <textarea id="resultJsonData" hidden>{{ result_json }}</textarea>
 
       <div class="result-box" id="alternativesBox" hidden>
         <div class="result-box-header">
@@ -61,19 +72,28 @@
         <div class="alternatives-grid" id="alternativesGrid"></div>
       </div>
 
+      {% if not is_saved_build_view %}
       <div class="result-box">
         <h2>Зберегти збірку</h2>
-        <p class="builder-hint">Збірка буде збережена локально у браузері на цьому пристрої.</p>
-        <div class="save-build-form">
+        <p class="builder-hint">Збірка буде збережена у поточному профілі разом з історією запиту.</p>
+        <form method="post" action="/saved-builds/save" class="save-build-form">
           <div class="save-build-field">
             <label for="build_name">Назва збірки</label>
             <input type="text" id="build_name" name="build_name" maxlength="120" placeholder="Наприклад: Ігровий ПК для 1440p">
           </div>
-          <button type="button" id="saveBuildBtn" class="hero-btn builder-btn">Зберегти збірку</button>
+          <button type="submit" class="hero-btn builder-btn">Зберегти збірку</button>
           <textarea name="inputs_json" hidden>{{ inputs_json }}</textarea>
           <textarea name="result_json" hidden>{{ result_json }}</textarea>
-        </div>
+          <input type="hidden" name="profile_query_id" value="{{ profile_query_id or '' }}">
+        </form>
       </div>
+      {% else %}
+      <div class="result-box">
+        <h2>Збереження</h2>
+        <p class="builder-hint">Цей результат уже відкритий з історії або зі збереженої збірки. Переглянути всі пов’язані записи можна на сторінці профілю та історії.</p>
+        <a href="/saved-builds" class="hero-btn builder-btn">Відкрити профіль та історію</a>
+      </div>
+      {% endif %}
 
       <div class="result-box">
         <h2>Твої параметри</h2>
@@ -322,9 +342,8 @@
       };
       const TIER_TITLES = { budget: 'Бюджетний', mid: 'Середній', upper: 'Високий', unknown: 'Невизначений' };
 
-      const saveBuildBtn = document.getElementById('saveBuildBtn');
-      const resultJsonField = document.querySelector('textarea[name="result_json"]');
-      const inputsJsonField = document.querySelector('textarea[name="inputs_json"]');
+      const resultJsonField = document.getElementById('resultJsonData') || document.querySelector('textarea[name="result_json"]');
+      const inputsJsonField = document.getElementById('inputsJsonData') || document.querySelector('textarea[name="inputs_json"]');
       const alternativesBox = document.getElementById('alternativesBox');
       const alternativesGrid = document.getElementById('alternativesGrid');
       const summaryTier = document.getElementById('summaryTier');
@@ -360,19 +379,25 @@
       }
 
       function normalizeConfig(config, index) {
-        const normalized = config && typeof config === 'object' ? { ...config } : {};
+        const rawConfig = config && typeof config === 'object' ? { ...config } : {};
+        const payload = rawConfig.result_payload && typeof rawConfig.result_payload === 'object' ? rawConfig.result_payload : {};
+        const normalized = { ...payload, ...rawConfig };
         normalized.key = normalized.key || `cfg-${index}`;
-        normalized.title = normalized.title || (normalized.is_primary ? 'Рекомендована конфігурація' : `Конфігурація ${index + 1}`);
-        normalized.total = Number(normalized.total ?? 0);
-        normalized.tier = normalized.tier || 'unknown';
+        normalized.title = normalized.title || normalized.label || normalized.name || (normalized.is_primary ? 'Рекомендована конфігурація' : `Конфігурація ${index + 1}`);
+        normalized.total = Number(normalized.total ?? normalized.total_price ?? payload.total ?? payload.total_price ?? 0);
+        normalized.tier = normalized.tier || payload.tier || 'unknown';
         normalized.tier_title = normalized.tier_title || TIER_TITLES[normalized.tier] || normalized.tier;
-        normalized.parts = normalized.parts && typeof normalized.parts === 'object' ? normalized.parts : {};
-        normalized.notes = Array.isArray(normalized.notes) ? normalized.notes : [];
+        normalized.parts = normalized.parts && typeof normalized.parts === 'object' ? normalized.parts : (payload.parts && typeof payload.parts === 'object' ? payload.parts : {});
+        normalized.notes = Array.isArray(normalized.notes) ? normalized.notes : (Array.isArray(payload.notes) ? payload.notes : []);
         normalized.card_notes = Array.isArray(normalized.card_notes) ? normalized.card_notes : normalized.notes.slice(0, 2);
         normalized.parts_excerpt = Array.isArray(normalized.parts_excerpt) ? normalized.parts_excerpt : [];
-        normalized.part_explanations = normalized.part_explanations && typeof normalized.part_explanations === 'object' ? normalized.part_explanations : {};
-        normalized.changed_part_keys = Array.isArray(normalized.changed_part_keys) ? normalized.changed_part_keys : [];
-        normalized.changed_part_explanations = normalized.changed_part_explanations && typeof normalized.changed_part_explanations === 'object' ? normalized.changed_part_explanations : {};
+        normalized.part_explanations = normalized.part_explanations && typeof normalized.part_explanations === 'object' ? normalized.part_explanations : (payload.part_explanations && typeof payload.part_explanations === 'object' ? payload.part_explanations : {});
+        normalized.changed_part_keys = Array.isArray(normalized.changed_part_keys) && normalized.changed_part_keys.length
+          ? normalized.changed_part_keys
+          : Object.keys(normalized.parts || {});
+        normalized.changed_part_explanations = normalized.changed_part_explanations && typeof normalized.changed_part_explanations === 'object'
+          ? normalized.changed_part_explanations
+          : normalized.part_explanations;
         return normalized;
       }
 
@@ -385,7 +410,8 @@
           key: 'primary',
           title: 'Рекомендована конфігурація',
           is_primary: true,
-          total: resultPayload.total,
+          total: resultPayload.total ?? resultPayload.total_price,
+          total_price: resultPayload.total_price,
           tier: resultPayload.tier,
           tier_title: TIER_TITLES[resultPayload.tier] || resultPayload.tier,
           parts: resultPayload.parts || {},
@@ -545,63 +571,6 @@
         }
       });
 
-      function getSavedBuilds() {
-        try {
-          const raw = localStorage.getItem('pcoll_saved_builds');
-          const parsed = raw ? JSON.parse(raw) : [];
-          return Array.isArray(parsed) ? parsed : [];
-        } catch (error) {
-          return [];
-        }
-      }
-
-      function setSavedBuilds(builds) {
-        localStorage.setItem('pcoll_saved_builds', JSON.stringify(builds));
-      }
-
-      function defaultBuildName(inputs) {
-        const titles = {
-          gaming: 'Ігровий ПК',
-          office: 'Офісний ПК',
-          study: 'ПК для навчання',
-          creator: 'ПК для монтажу / 3D',
-        };
-        const now = new Date();
-        return `${titles[inputs?.purpose] || 'Збірка ПК'} — ${now.toLocaleString('uk-UA')}`;
-      }
-
-      if (saveBuildBtn) {
-        saveBuildBtn.addEventListener('click', function () {
-          let inputs = {};
-          let currentResult = {};
-          try {
-            inputs = JSON.parse(inputsJsonField?.value || '{}');
-            currentResult = JSON.parse(resultJsonField?.value || '{}');
-          } catch (error) {
-            alert('Не вдалося зчитати дані збірки.');
-            return;
-          }
-
-          const buildNameInput = document.getElementById('build_name');
-          const buildName = ((buildNameInput?.value || '').trim() || defaultBuildName(inputs)).slice(0, 120);
-          const savedBuilds = getSavedBuilds();
-          savedBuilds.push({
-            id: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-            name: buildName,
-            saved_at: new Date().toISOString(),
-            inputs,
-            result: currentResult,
-          });
-
-          try {
-            setSavedBuilds(savedBuilds);
-          } catch (error) {
-            alert('Не вдалося зберегти збірку у браузері.');
-            return;
-          }
-          window.location.href = '/saved-builds?status=saved';
-        });
-      }
     })();
   </script>
 

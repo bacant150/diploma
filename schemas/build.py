@@ -371,17 +371,73 @@ class SavedBuildRecordSchema(BaseModel):
     model_config = ConfigDict(extra="ignore", str_strip_whitespace=True)
 
     id: str
+    profile_id: str | None = None
+    query_id: str | None = None
     name: str = Field(min_length=1, max_length=120)
     saved_at: datetime
     inputs: BuildInputsViewSchema
     result: BuildResultSchema
 
-    @field_validator("id", mode="before")
+    @field_validator("id", "profile_id", "query_id", mode="before")
     @classmethod
-    def normalize_id(cls, value: Any) -> str:
-        return str(value or "").strip()
+    def normalize_ids(cls, value: Any) -> str | None:
+        text = str(value or "").strip()
+        return text or None
 
     @field_validator("name", mode="before")
     @classmethod
     def normalize_name(cls, value: Any) -> str:
         return str(value or "").strip()
+
+
+class QueryResultSummarySchema(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    tier: str | None = None
+    total_price: int | float | None = None
+    recommended_budget: int | float | None = None
+    parts_count: int = 0
+
+
+class QueryHistoryRecordSchema(BaseModel):
+    model_config = ConfigDict(extra="ignore", str_strip_whitespace=True)
+
+    id: str
+    created_at: datetime
+    source: str = "builder_form"
+    inputs: BuildInputsViewSchema
+    result_summary: QueryResultSummarySchema
+    result_snapshot: BuildResultSchema | None = None
+    saved_build_id: str | None = None
+
+    @field_validator("id", "source", "saved_build_id", mode="before")
+    @classmethod
+    def normalize_query_strings(cls, value: Any) -> str | None:
+        text = str(value or "").strip()
+        return text or None
+
+
+class UserProfileRecordSchema(BaseModel):
+    model_config = ConfigDict(extra="ignore", str_strip_whitespace=True)
+
+    id: str
+    name: str = Field(min_length=1, max_length=120)
+    created_at: datetime
+    last_seen_at: datetime
+    saved_build_ids: list[str] = Field(default_factory=list)
+    query_history: list[QueryHistoryRecordSchema] = Field(default_factory=list)
+
+    @field_validator("id", mode="before")
+    @classmethod
+    def normalize_profile_id(cls, value: Any) -> str:
+        return str(value or "").strip()
+
+    @field_validator("name", mode="before")
+    @classmethod
+    def normalize_profile_name(cls, value: Any) -> str:
+        return str(value or "").strip()
+
+    @field_validator("saved_build_ids", mode="before")
+    @classmethod
+    def normalize_saved_build_ids(cls, value: Any) -> list[str]:
+        return _unique_str_list(value)

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Збережені збірки</title>
+  <title>Профіль і збережені збірки</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -13,210 +13,181 @@
         <div class="logo">PCColl</div>
       </a>
       <div class="topbar-actions">
-        <a href="/saved-builds" class="topbar-link-btn">Збережені збірки</a>
+        <a href="/saved-builds" class="topbar-link-btn">Профіль та історія</a>
       </div>
     </div>
   </header>
 
   <section class="saved-builds-page">
     <div class="saved-builds-shell">
-      <div class="section-eyebrow">Твої конфігурації</div>
-      <h1 class="pc-types-title">Збережені збірки</h1>
+      <div class="section-eyebrow">Твій профіль</div>
+      <h1 class="pc-types-title">Профіль, історія запитів і збережені збірки</h1>
       <p class="pc-types-subtitle">
-        Тут зберігаються конфігурації, які ти вирішив залишити. Їх можна переглянути,
-        перейменувати або видалити.
+        Тут зберігається поточний профіль користувача, історія побудови конфігурацій та вибрані збірки.
       </p>
 
-      <div id="statusMessage" class="status-message" hidden></div>
+      {% if status_message %}
+      <div class="status-message">{{ status_message }}</div>
+      {% endif %}
 
-      <div id="savedBuildsContainer" class="saved-builds-grid"></div>
+      <div class="result-box">
+        <div class="result-box-header">
+          <div>
+            <h2>Поточний профіль</h2>
+            <p class="builder-hint">Профіль створюється автоматично й прив’язує до себе історію запитів та збережені конфігурації.</p>
+          </div>
+          <span class="comparison-badge">ID: {{ profile.id }}</span>
+        </div>
 
-      <div id="emptyState" class="empty-state" hidden>
-        <p>У тебе ще немає збережених збірок. Спочатку згенеруй конфігурацію, а потім збережи її на сторінці результату.</p>
-        <a href="/choose-purpose" class="hero-btn builder-btn">Почати підбір</a>
+        <div class="result-summary-grid">
+          <div class="summary-stat-card summary-stat-card--accent">
+            <span class="summary-stat-label">Назва профілю</span>
+            <strong>{{ profile.name }}</strong>
+          </div>
+          <div class="summary-stat-card">
+            <span class="summary-stat-label">Створено</span>
+            <strong>{{ profile.created_at_display }}</strong>
+          </div>
+          <div class="summary-stat-card">
+            <span class="summary-stat-label">Остання активність</span>
+            <strong>{{ profile.last_seen_at_display }}</strong>
+          </div>
+          <div class="summary-stat-card">
+            <span class="summary-stat-label">Запитів в історії</span>
+            <strong>{{ profile.query_count }}</strong>
+          </div>
+          <div class="summary-stat-card">
+            <span class="summary-stat-label">Збережених збірок</span>
+            <strong>{{ profile.saved_build_count }}</strong>
+          </div>
+        </div>
+
+        <form method="post" action="/profile/rename" class="save-build-form">
+          <div class="save-build-field">
+            <label for="profile_name">Назва профілю</label>
+            <input type="text" id="profile_name" name="profile_name" maxlength="120" value="{{ profile.name }}" placeholder="Наприклад: Основний профіль">
+          </div>
+          <button type="submit" class="hero-btn builder-btn">Оновити назву профілю</button>
+        </form>
+      </div>
+
+      <div class="result-box">
+        <div class="result-box-header">
+          <div>
+            <h2>Збережені збірки</h2>
+            <p class="builder-hint">Збірки, які ти залишив у поточному профілі для повторного перегляду й порівняння.</p>
+          </div>
+          <span class="comparison-badge">{{ saved_builds|length }} шт.</span>
+        </div>
+
+        {% if saved_builds %}
+        <div class="saved-builds-grid">
+          {% for build in saved_builds %}
+          <article class="saved-build-card">
+            <h3>{{ build.name }}</h3>
+
+            <div class="saved-build-meta">
+              <div class="saved-build-meta-item">{{ build.purpose_title }}</div>
+              <div class="saved-build-meta-item">{{ build.total_display }} грн</div>
+              <div class="saved-build-meta-item">{{ build.saved_at_display }}</div>
+            </div>
+
+            <p><strong>Рівень:</strong> {{ build.tier_title }}</p>
+            <p><strong>Пріоритет:</strong> {{ build.priority_title }}</p>
+
+            <div class="saved-build-actions">
+              <a href="/saved-builds/{{ build.id }}" class="hero-btn builder-btn">Відкрити</a>
+            </div>
+
+            <div class="saved-build-manage">
+              <form method="post" action="/saved-builds/{{ build.id }}/rename" class="inline-form">
+                <div class="inline-form-field">
+                  <label for="rename-{{ build.id }}">Нова назва</label>
+                  <input type="text" id="rename-{{ build.id }}" name="build_name" value="{{ build.name }}" maxlength="120">
+                </div>
+                <button type="submit" class="hero-btn builder-btn">Зберегти назву</button>
+              </form>
+
+              <form method="post" action="/saved-builds/{{ build.id }}/delete" onsubmit="return confirm('Видалити цю збірку?');">
+                <button type="submit" class="hero-btn delete-btn">Видалити</button>
+              </form>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+          <p>У поточному профілі ще немає збережених збірок.</p>
+          <a href="/choose-purpose" class="hero-btn builder-btn">Створити першу збірку</a>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="result-box">
+        <div class="result-box-header">
+          <div>
+            <h2>Історія запитів</h2>
+            <p class="builder-hint">Тут зберігаються всі останні спроби підбору конфігурації в межах поточного профілю.</p>
+          </div>
+          <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+            <span class="comparison-badge">Останні {{ profile.query_history|length }}</span>
+            {% if profile.query_history %}
+            <form method="post" action="/profile/history/clear" onsubmit="return confirm('Очистити всю історію запитів? Збережені збірки залишаться.');">
+              <button type="submit" class="hero-btn delete-btn">Очистити всю історію</button>
+            </form>
+            {% endif %}
+          </div>
+        </div>
+
+        {% if profile.query_history %}
+        <div class="saved-builds-grid">
+          {% for entry in profile.query_history %}
+          <article class="saved-build-card">
+            <h3>{{ entry.purpose_title }}</h3>
+
+            <div class="saved-build-meta">
+              <div class="saved-build-meta-item">{{ entry.created_at_display }}</div>
+              <div class="saved-build-meta-item">{{ entry.priority_title }}</div>
+              <div class="saved-build-meta-item">{{ entry.total_display }} грн</div>
+            </div>
+
+            <p><strong>Рівень:</strong> {{ entry.tier_title }}</p>
+            <p><strong>Бюджет:</strong> {{ entry.budget_label }}</p>
+            <p><strong>Роздільна здатність:</strong> {{ entry.inputs.resolution }}</p>
+            <p><strong>Wi‑Fi:</strong> {{ 'Так' if entry.inputs.wifi else 'Ні' }}</p>
+
+            {% if entry.selected_titles %}
+            <div class="builder-hint"><strong>Обрані програми / ігри:</strong> {{ entry.selected_titles | join(', ') }}</div>
+            {% endif %}
+
+            <div class="saved-build-actions">
+              {% if entry.open_url %}
+              <a href="{{ entry.open_url }}" class="hero-btn builder-btn">Відкрити конфігурацію</a>
+              {% else %}
+              <a href="/choose-purpose" class="hero-btn builder-btn">Створити схожу збірку</a>
+              {% endif %}
+            </div>
+
+            {% if entry.linked_build_name %}
+            <p class="builder-hint"><strong>Пов’язана збірка:</strong> {{ entry.linked_build_name }}</p>
+            {% elif entry.has_snapshot %}
+            <p class="builder-hint"><strong>Тип запису:</strong> Знімок результату з історії</p>
+            {% endif %}
+
+            <form method="post" action="{{ entry.delete_url }}" onsubmit="return confirm('Видалити цей запис з історії? Збережена збірка, якщо є, залишиться.');" style="margin-top: 14px;">
+              <button type="submit" class="hero-btn delete-btn">Видалити з історії</button>
+            </form>
+          </article>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+          <p>Історія ще порожня. Побудуй першу конфігурацію, і вона з’явиться тут автоматично.</p>
+          <a href="/choose-purpose" class="hero-btn builder-btn">Почати підбір</a>
+        </div>
+        {% endif %}
       </div>
     </div>
   </section>
-
-  <script>
-    const STORAGE_KEY = 'pcoll_saved_builds';
-
-    const PURPOSE_TITLES = {
-      gaming: 'Ігровий ПК',
-      office: 'Офісний ПК',
-      study: 'ПК для навчання',
-      creator: 'ПК для монтажу / 3D',
-    };
-
-    const TIER_TITLES = {
-      budget: 'Бюджетний',
-      mid: 'Середній',
-      upper: 'Високий',
-    };
-
-    function escapeHtml(value) {
-      return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    function getSavedBuilds() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        const parsed = raw ? JSON.parse(raw) : [];
-        return Array.isArray(parsed) ? parsed : [];
-      } catch (error) {
-        return [];
-      }
-    }
-
-    function setSavedBuilds(builds) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(builds));
-    }
-
-    function formatDate(iso) {
-      try {
-        return new Date(iso).toLocaleString('uk-UA');
-      } catch (error) {
-        return iso || 'Без дати';
-      }
-    }
-
-    function showStatus(message) {
-      let statusBox = document.querySelector('.status-message');
-      if (!statusBox) {
-        statusBox = document.createElement('div');
-        statusBox.className = 'status-message';
-        const shell = document.querySelector('.saved-builds-shell');
-        shell.insertBefore(statusBox, document.getElementById('savedBuildsContainer'));
-      }
-      statusBox.textContent = message;
-      statusBox.hidden = false;
-    }
-
-    function openBuild(id) {
-      window.location.href = `/saved-builds/view?id=${encodeURIComponent(id)}`;
-    }
-
-    function renameBuild(id) {
-      const input = document.getElementById(`rename-${id}`);
-      const newName = (input?.value || '').trim();
-
-      if (!newName) {
-        alert('Вкажи нову назву.');
-        return;
-      }
-
-      const builds = getSavedBuilds();
-      const build = builds.find((item) => item.id === id);
-      if (!build) {
-        alert('Збірку не знайдено.');
-        showStatusFromQuery();
-    renderSavedBuilds();
-        return;
-      }
-
-      build.name = newName.slice(0, 120);
-      setSavedBuilds(builds);
-      showStatusFromQuery();
-    renderSavedBuilds();
-      showStatus('Назву збірки оновлено.');
-    }
-
-    function deleteBuild(id) {
-      if (!confirm('Видалити цю збірку?')) {
-        return;
-      }
-
-      const builds = getSavedBuilds().filter((item) => item.id !== id);
-      setSavedBuilds(builds);
-      showStatusFromQuery();
-    renderSavedBuilds();
-      showStatus('Збірку видалено.');
-    }
-
-
-    const STATUS_MESSAGES = {
-      saved: 'Збірку успішно збережено.',
-      renamed: 'Назву збірки оновлено.',
-      deleted: 'Збірку видалено.',
-    };
-
-    function showStatusFromQuery() {
-      const statusKey = new URLSearchParams(window.location.search).get('status');
-      const statusMessage = document.getElementById('statusMessage');
-      if (!statusKey || !statusMessage || !STATUS_MESSAGES[statusKey]) return;
-      statusMessage.textContent = STATUS_MESSAGES[statusKey];
-      statusMessage.hidden = false;
-      const url = new URL(window.location.href);
-      url.searchParams.delete('status');
-      window.history.replaceState({}, '', url.pathname + url.search);
-    }
-
-    function renderSavedBuilds() {
-      const container = document.getElementById('savedBuildsContainer');
-      const emptyState = document.getElementById('emptyState');
-      const builds = getSavedBuilds().slice().reverse();
-
-      container.innerHTML = '';
-
-      if (!builds.length) {
-        emptyState.hidden = false;
-        return;
-      }
-
-      emptyState.hidden = true;
-
-      builds.forEach((build) => {
-        const purposeTitle = PURPOSE_TITLES[build.inputs?.purpose] || 'Збірка';
-        const tierTitle = TIER_TITLES[build.result?.tier] || '—';
-        const total = build.result?.total ?? 0;
-        const savedAt = formatDate(build.saved_at);
-        const parts = Object.values(build.result?.parts || {});
-        const shortParts = parts.length
-          ? parts.slice(0, 4).map((part) => `<li>${escapeHtml(part.name)}</li>`).join('')
-          : '<li>Комплектуючі відсутні</li>';
-
-        const card = document.createElement('article');
-        card.className = 'saved-build-card';
-        card.innerHTML = `
-          <h3>${escapeHtml(build.name || 'Без назви')}</h3>
-
-          <div class="saved-build-meta">
-            <div class="saved-build-meta-item">${escapeHtml(purposeTitle)}</div>
-            <div class="saved-build-meta-item">${escapeHtml(total)} грн</div>
-            <div class="saved-build-meta-item">${escapeHtml(savedAt)}</div>
-          </div>
-
-          <p><strong>Рівень:</strong> ${escapeHtml(tierTitle)}</p>
-          <ul>${shortParts}</ul>
-
-          <div class="saved-build-actions">
-            <button type="button" class="hero-btn builder-btn" onclick="openBuild('${escapeHtml(build.id)}')">Відкрити</button>
-          </div>
-
-          <div class="saved-build-manage">
-            <div class="inline-form">
-              <div class="inline-form-field">
-                <label for="rename-${escapeHtml(build.id)}">Нова назва</label>
-                <input type="text" id="rename-${escapeHtml(build.id)}" value="${escapeHtml(build.name || '')}" maxlength="120">
-              </div>
-              <button type="button" class="hero-btn builder-btn" onclick="renameBuild('${escapeHtml(build.id)}')">Зберегти назву</button>
-            </div>
-
-            <button type="button" class="hero-btn delete-btn" onclick="deleteBuild('${escapeHtml(build.id)}')">Видалити</button>
-          </div>
-        `;
-
-        container.appendChild(card);
-      });
-    }
-
-    showStatusFromQuery();
-    renderSavedBuilds();
-  </script>
 </body>
 </html>
