@@ -52,11 +52,9 @@ except Exception as exc:
 def ai_status_message(ai_status: dict[str, Any]) -> str:
     if ai_status.get('available'):
         return 'Локальна ML-модель успішно завантажена.'
-
     reason = ai_status.get('reason')
     if reason:
         return f'Локальна ML-модель недоступна: {reason}'
-
     return 'Локальна ML-модель тимчасово недоступна.'
 
 
@@ -89,32 +87,28 @@ def build_choose_purpose_context(request: Request) -> dict[str, Any]:
 def _prepared_prediction_alternatives(prediction: dict[str, Any]) -> list[dict[str, Any]]:
     alternatives = prediction.get('alternatives') or []
     prepared_alternatives: list[dict[str, Any]] = []
-
     for item in alternatives:
         if not isinstance(item, dict):
             continue
-
         alt_purpose = item.get('purpose')
         alt_conf = item.get('confidence')
         if alt_purpose is None or alt_conf is None:
             continue
-
         prepared_alternatives.append(
             {
                 'purpose': PURPOSE_TITLES.get(str(alt_purpose), str(alt_purpose)),
                 'confidence': confidence_to_percent(float(alt_conf)),
             }
         )
-
     return prepared_alternatives
 
 
 def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any], int]:
     ai_status = get_ai_health_status(probe=True)
-
     try:
         detect_form = PurposeDetectionFormSchema.model_validate({'description': raw_description})
     except ValidationError:
+        logger.info('AI-визначення пропущено: опис занадто короткий або невалідний.')
         return (
             {
                 'ok': False,
@@ -123,7 +117,7 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
                 'message': 'Опиши потреби трохи детальніше, щоб ШІ міг коректно визначити тип ПК.',
                 'tips': [
                     'Наприклад: ПК для CS2 і Dota 2 у Full HD.',
-                    "Або: комп\'ютер для Excel, M.E.Doc, браузера і документів.",
+                    "Або: комп'ютер для Excel, M.E.Doc, браузера і документів.",
                 ],
                 'threshold_percent': int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
             },
@@ -131,14 +125,14 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
         )
 
     description = detect_form.description
-
     if not ai_status.get('available'):
+        logger.warning('AI-модуль недоступний під час запиту визначення сценарію.')
         return (
             {
                 'ok': False,
                 'accepted': False,
                 'ai_available': False,
-                'message': 'AI-модуль тимчасово недоступний. Автоматичне визначення типу ПК зараз вимкнене.',
+                'message': 'AI-модуль тимчасово недоступний.\nАвтоматичне визначення типу ПК зараз вимкнене.',
                 'details': ai_status_message(ai_status),
                 'tips': [
                     'Обери тип ПК вручну — це працює без AI-модуля.',
@@ -160,7 +154,7 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
                 'ok': False,
                 'accepted': False,
                 'ai_available': False,
-                'message': 'AI-модуль тимчасово недоступний. Автоматичне визначення типу ПК зараз вимкнене.',
+                'message': 'AI-модуль тимчасово недоступний.\nАвтоматичне визначення типу ПК зараз вимкнене.',
                 'details': str(exc),
                 'tips': [
                     'Обери тип ПК вручну — це працює без AI-модуля.',
@@ -179,7 +173,7 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
                 'ok': False,
                 'accepted': False,
                 'ai_available': True,
-                'message': 'Не вдалося обробити опис через помилку AI-модуля. Спробуй ще раз або обери тип ПК вручну.',
+                'message': 'Не вдалося обробити опис через помилку AI-модуля.\nСпробуй ще раз або обери тип ПК вручну.',
                 'tips': ai_refinement_tips(None),
                 'manual_url': '/choose-purpose#manual-purpose-grid',
                 'threshold_percent': int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
@@ -191,10 +185,19 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
     confidence = prediction.get('confidence')
     accepted = bool(prediction.get('accepted'))
     confidence_percent = confidence_to_percent(confidence)
-
     purpose_title = PURPOSE_TITLES.get(raw_purpose, 'Невизначений тип') if raw_purpose else 'Невизначений тип'
     prepared_alternatives = _prepared_prediction_alternatives(prediction)
     matched_keywords = prediction.get('matched_keywords') or {}
+
+    logger.info(
+        'AI-передбачення отримано: accepted=%s purpose=%s confidence=%s text_len=%s alternatives=%s matched_keywords=%s',
+        accepted,
+        raw_purpose,
+        confidence_percent,
+        len(description),
+        len(prepared_alternatives),
+        len(matched_keywords) if isinstance(matched_keywords, dict) else 0,
+    )
 
     if accepted and raw_purpose:
         return (
@@ -207,7 +210,7 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
                 'confidence': confidence,
                 'confidence_percent': confidence_percent,
                 'redirect_url': f'/builder/{raw_purpose}',
-                'message': f'ШІ визначив сценарій: {purpose_title}. Переходимо до конфігуратора.',
+                'message': f'ШІ визначив сценарій: {purpose_title}.\nПереходимо до конфігуратора.',
                 'threshold_percent': int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
                 'alternatives': prepared_alternatives,
                 'matched_keywords': matched_keywords,
@@ -219,10 +222,16 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
     if raw_purpose and confidence_percent is not None:
         message = (
             f'ШІ припускає, що це {purpose_title.lower()}, але впевненість лише '
-            f'{confidence_percent}%. Опиши потреби конкретніше, і тоді система зможе '
+            f'{confidence_percent}%.\nОпиши потреби конкретніше, і тоді система зможе '
             'точніше визначити тип ПК.'
         )
 
+    logger.info(
+        'AI-визначення не прийнято: purpose=%s confidence=%s threshold=%s',
+        raw_purpose,
+        confidence_percent,
+        int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
+    )
     return (
         {
             'ok': True,

@@ -320,5 +320,52 @@ STUDY_APPS_DB = {
 }
 
 CREATOR_APPS_DB = {
-    # Тимчасово порожньо
+    "premiere": {
+        "title": "Adobe Premiere Pro",
+        "cpu_base": 110,
+        "ram_gb": 32,
+        "ssd_gb": 1000,
+        "gpu_need": 90,
+        "multi_monitor": 2,
+    },
+    "davinci": {
+        "title": "DaVinci Resolve",
+        "cpu_base": 118,
+        "ram_gb": 32,
+        "ssd_gb": 1000,
+        "gpu_need": 105,
+        "multi_monitor": 2,
+    },
+    "after_effects": {
+        "title": "Adobe After Effects",
+        "cpu_base": 122,
+        "ram_gb": 32,
+        "ssd_gb": 1000,
+        "gpu_need": 95,
+        "multi_monitor": 2,
+    },
+    "blender": {
+        "title": "Blender",
+        "cpu_base": 120,
+        "ram_gb": 32,
+        "ssd_gb": 1000,
+        "gpu_need": 115,
+        "multi_monitor": 2,
+    },
+    "3dsmax": {
+        "title": "Autodesk 3ds Max",
+        "cpu_base": 116,
+        "ram_gb": 32,
+        "ssd_gb": 1000,
+        "gpu_need": 100,
+        "multi_monitor": 2,
+    },
+    "maya": {
+        "title": "Autodesk Maya",
+        "cpu_base": 118,
+        "ram_gb": 32,
+        "ssd_gb": 1000,
+        "gpu_need": 102,
+        "multi_monitor": 2,
+    },
 }

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from datetime import datetime
 from uuid import uuid4
 
@@ -18,12 +19,16 @@ from utils.validation import extract_json_object
 PROFILE_COOKIE_NAME = 'pcoll_profile_id'
 PROFILE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365
 
+logger = logging.getLogger('pcbuilder.routes.saved_builds')
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 router = APIRouter()
 
 
 def _ensure_profile(request: Request) -> tuple[dict, bool]:
-    return user_profiles_repository.get_or_create(request.cookies.get(PROFILE_COOKIE_NAME))
+    profile, created = user_profiles_repository.get_or_create(request.cookies.get(PROFILE_COOKIE_NAME))
+    if created:
+        logger.info('Створено новий профіль у saved-builds маршрутах: profile_id=%s', profile.get('id'))
+    return profile, created
 
 
 def _set_profile_cookie(response: Response, *, profile_id: str, current_cookie: str | None) -> None:
@@ -50,6 +55,14 @@ def saved_builds_page(request: Request) -> HTMLResponse:
     builds_by_id = {build.get('id'): build for build in saved_builds}
     prepared_profile = user_profiles_repository.prepare_for_dashboard(profile, saved_builds_by_id=builds_by_id)
 
+    logger.info(
+        'Відкрито сторінку профілю та збережених збірок: profile_id=%s saved_builds=%s history=%s status=%s',
+        profile.get('id'),
+        len(saved_builds),
+        prepared_profile.get('query_count'),
+        status or 'none',
+    )
+
     response = templates.TemplateResponse(
         'saved-builds.html',
         {
@@ -67,8 +80,9 @@ def saved_builds_page(request: Request) -> HTMLResponse:
 def saved_build_view_page(request: Request) -> RedirectResponse:
     build_id = str(request.query_params.get('id', '') or '').strip()
     target = f'/saved-builds/{build_id}' if build_id else '/saved-builds'
-    response = RedirectResponse(target, status_code=303)
     profile, _ = _ensure_profile(request)
+    logger.info('Redirect на перегляд збереженої збірки: profile_id=%s build_id=%s', profile.get('id'), build_id or 'missing')
+    response = RedirectResponse(target, status_code=303)
     _set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
     return response
 
@@ -78,12 +92,19 @@ def open_profile_history_entry(request: Request, query_id: str) -> Response:
     profile, _ = _ensure_profile(request)
     entry = user_profiles_repository.find_query(profile['id'], query_id)
     if not entry:
+        logger.warning('Спроба відкрити відсутній запис історії: profile_id=%s query_id=%s', profile.get('id'), query_id)
         raise HTTPException(status_code=404, detail='Запис історії не знайдено.')
 
     linked_build_id = str(entry.get('saved_build_id') or '').strip()
     if linked_build_id:
         saved_build = saved_builds_repository.find_by_id(linked_build_id, profile_id=profile['id'])
         if saved_build:
+            logger.info(
+                'Відкрито запис історії через пов’язану збережену збірку: profile_id=%s query_id=%s build_id=%s',
+                profile.get('id'),
+                query_id,
+                linked_build_id,
+            )
             result = attach_part_images(saved_build.get('result', {}))
             response = templates.TemplateResponse(
                 'result.html',
@@ -102,8 +123,14 @@ def open_profile_history_entry(request: Request, query_id: str) -> Response:
 
     snapshot = entry.get('result_snapshot')
     if not isinstance(snapshot, dict) or not snapshot:
+        logger.warning(
+            'Для запису історії не знайдено result snapshot: profile_id=%s query_id=%s',
+            profile.get('id'),
+            query_id,
+        )
         raise HTTPException(status_code=404, detail='Для цього запису історії не знайдено збережений результат.')
 
+    logger.info('Відкрито запис історії зі snapshot: profile_id=%s query_id=%s', profile.get('id'), query_id)
     result = attach_part_images(snapshot)
     response = templates.TemplateResponse(
         'result.html',
@@ -125,12 +152,19 @@ def delete_profile_history_entry(request: Request, query_id: str) -> RedirectRes
     profile, _ = _ensure_profile(request)
     deleted_entry = user_profiles_repository.delete_query(profile['id'], query_id)
     if not deleted_entry:
+        logger.warning('Спроба видалити відсутній запис історії: profile_id=%s query_id=%s', profile.get('id'), query_id)
         raise HTTPException(status_code=404, detail='Запис історії не знайдено.')
 
     linked_build_id = str(deleted_entry.get('saved_build_id') or '').strip()
     if linked_build_id:
         saved_builds_repository.clear_query_reference(linked_build_id, profile_id=profile['id'])
 
+    logger.info(
+        'Видалено запис історії: profile_id=%s query_id=%s linked_build_id=%s',
+        profile.get('id'),
+        query_id,
+        linked_build_id or 'none',
+    )
     response = RedirectResponse(url='/saved-builds?status=history_deleted', status_code=303)
     _set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
     return response
@@ -141,9 +175,16 @@ def clear_profile_history(request: Request) -> RedirectResponse:
     profile, _ = _ensure_profile(request)
     removed_entries = user_profiles_repository.clear_query_history(profile['id'])
     query_ids = [str(entry.get('id') or '').strip() for entry in removed_entries if str(entry.get('id') or '').strip()]
+    cleared_links = 0
     if query_ids:
-        saved_builds_repository.clear_query_references_for_profile(profile['id'], query_ids=query_ids)
+        cleared_links = saved_builds_repository.clear_query_references_for_profile(profile['id'], query_ids=query_ids)
 
+    logger.info(
+        'Очищено історію запитів: profile_id=%s removed_entries=%s cleared_build_links=%s',
+        profile.get('id'),
+        len(removed_entries),
+        cleared_links,
+    )
     response = RedirectResponse(url='/saved-builds?status=history_cleared', status_code=303)
     _set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
     return response
@@ -185,6 +226,16 @@ async def save_build(request: Request) -> RedirectResponse:
     saved_builds_repository.write_all(saved_builds)
     user_profiles_repository.link_saved_build(profile['id'], build_id, query_id=query_id)
 
+    logger.info(
+        'Збережено збірку: profile_id=%s build_id=%s query_id=%s name=%s purpose=%s tier=%s total=%s',
+        profile.get('id'),
+        build_id,
+        query_id or 'none',
+        build_name,
+        inputs.get('purpose'),
+        result.get('tier'),
+        result.get('total') or result.get('total_price'),
+    )
     response = RedirectResponse(url='/saved-builds?status=saved', status_code=303)
     _set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
     return response
@@ -195,8 +246,10 @@ def open_saved_build(request: Request, build_id: str) -> HTMLResponse:
     profile, _ = _ensure_profile(request)
     saved_build = saved_builds_repository.find_by_id(build_id, profile_id=profile['id'])
     if not saved_build:
+        logger.warning('Спроба відкрити відсутню збережену збірку: profile_id=%s build_id=%s', profile.get('id'), build_id)
         raise HTTPException(status_code=404, detail='Збірку не знайдено.')
 
+    logger.info('Відкрито збережену збірку: profile_id=%s build_id=%s', profile.get('id'), build_id)
     inputs = saved_build.get('inputs', {})
     result = attach_part_images(saved_build.get('result', {}))
     response = templates.TemplateResponse(
@@ -224,12 +277,15 @@ def rename_saved_build(request: Request, build_id: str, build_name: str = Form(.
             continue
         build_profile_id = str(build.get('profile_id') or '').strip()
         if build_profile_id and build_profile_id != profile['id']:
+            logger.warning('Спроба перейменувати чужу або недоступну збірку: profile_id=%s build_id=%s', profile.get('id'), build_id)
             raise HTTPException(status_code=404, detail='Збірку не знайдено.')
         build['name'] = normalize_build_name(build_name, build.get('inputs', {}))
         saved_builds_repository.write_all(saved_builds)
+        logger.info('Перейменовано збірку: profile_id=%s build_id=%s new_name=%s', profile.get('id'), build_id, build['name'])
         response = RedirectResponse(url='/saved-builds?status=renamed', status_code=303)
         _set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
         return response
+    logger.warning('Спроба перейменувати відсутню збірку: profile_id=%s build_id=%s', profile.get('id'), build_id)
     raise HTTPException(status_code=404, detail='Збірку не знайдено.')
 
 
@@ -251,22 +307,12 @@ def delete_saved_build(request: Request, build_id: str) -> RedirectResponse:
         deleted = True
 
     if not deleted:
+        logger.warning('Спроба видалити відсутню збірку: profile_id=%s build_id=%s', profile.get('id'), build_id)
         raise HTTPException(status_code=404, detail='Збірку не знайдено.')
 
     saved_builds_repository.write_all(filtered_builds)
     user_profiles_repository.unlink_saved_build(profile['id'], build_id)
+    logger.info('Видалено збережену збірку: profile_id=%s build_id=%s', profile.get('id'), build_id)
     response = RedirectResponse(url='/saved-builds?status=deleted', status_code=303)
-    _set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
-    return response
-
-
-@router.post('/profile/rename')
-def rename_current_profile(request: Request, profile_name: str = Form(...)) -> RedirectResponse:
-    profile, _ = _ensure_profile(request)
-    updated = user_profiles_repository.rename(profile['id'], profile_name)
-    if not updated:
-        raise HTTPException(status_code=404, detail='Профіль не знайдено.')
-
-    response = RedirectResponse(url='/saved-builds?status=profile_renamed', status_code=303)
     _set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
     return response

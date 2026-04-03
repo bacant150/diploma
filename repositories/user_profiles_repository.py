@@ -21,11 +21,16 @@ class UserProfilesRepository:
 
     def load_all(self) -> list[dict[str, Any]]:
         if not self.file_path.exists():
+            logger.info('Файл профілів ще не існує: %s', self.file_path)
             return []
 
         try:
             raw_profiles = json.loads(self.file_path.read_text(encoding='utf-8'))
-        except (json.JSONDecodeError, OSError):
+        except json.JSONDecodeError:
+            logger.exception('Не вдалося прочитати user_profiles.json через JSONDecodeError.')
+            return []
+        except OSError:
+            logger.exception('Не вдалося прочитати файл профілів: %s', self.file_path)
             return []
 
         if not isinstance(raw_profiles, list):
@@ -46,6 +51,7 @@ class UserProfilesRepository:
                 continue
             validated_profiles.append(profile.model_dump(mode='json'))
 
+        logger.info('Завантажено профілі користувачів: count=%s', len(validated_profiles))
         return validated_profiles
 
     def write_all(self, profiles: list[dict[str, Any]]) -> None:
@@ -58,9 +64,10 @@ class UserProfilesRepository:
             json.dumps(normalized_profiles, ensure_ascii=False, indent=2),
             encoding='utf-8',
         )
+        logger.info('Записано профілі користувачів у файл: path=%s count=%s', self.file_path, len(normalized_profiles))
 
     def _default_profile_name(self, now: datetime) -> str:
-        return f"Профіль від {now.strftime('%d.%m.%Y %H:%M')}"
+        return f'Профіль від {now.strftime("%d.%m.%Y %H:%M")}'
 
     def get_or_create(self, profile_id: str | None) -> tuple[dict[str, Any], bool]:
         normalized_profile_id = str(profile_id or '').strip()
@@ -71,6 +78,7 @@ class UserProfilesRepository:
             if profile.get('id') == normalized_profile_id:
                 profile['last_seen_at'] = now.isoformat(timespec='seconds')
                 self.write_all(profiles)
+                logger.info('Використано наявний профіль: profile_id=%s', normalized_profile_id)
                 return profile, False
 
         profile = UserProfileRecordSchema.model_validate(
@@ -85,19 +93,23 @@ class UserProfilesRepository:
         ).model_dump(mode='json')
         profiles.append(profile)
         self.write_all(profiles)
+        logger.info('Створено новий профіль користувача: profile_id=%s', profile.get('id'))
         return profile, True
 
     def find_by_id(self, profile_id: str) -> dict[str, Any] | None:
         normalized_profile_id = str(profile_id or '').strip()
         for profile in self.load_all():
             if profile.get('id') == normalized_profile_id:
+                logger.info('Знайдено профіль: profile_id=%s', normalized_profile_id)
                 return profile
+        logger.info('Профіль не знайдено: profile_id=%s', normalized_profile_id)
         return None
 
     def rename(self, profile_id: str, profile_name: str) -> dict[str, Any] | None:
         normalized_profile_id = str(profile_id or '').strip()
         cleaned_name = str(profile_name or '').strip()[:120]
         if not normalized_profile_id or not cleaned_name:
+            logger.warning('Спроба перейменування профілю з невалідними даними: profile_id=%s', normalized_profile_id or 'missing')
             return None
 
         profiles = self.load_all()
@@ -107,7 +119,9 @@ class UserProfilesRepository:
             profile['name'] = cleaned_name
             profile['last_seen_at'] = datetime.now().isoformat(timespec='seconds')
             self.write_all(profiles)
+            logger.info('Перейменовано профіль: profile_id=%s new_name=%s', normalized_profile_id, cleaned_name)
             return profile
+        logger.warning('Не знайдено профіль для перейменування: profile_id=%s', normalized_profile_id)
         return None
 
     def add_query(self, profile_id: str, inputs: dict[str, Any], result: dict[str, Any], *, source: str = 'builder_form') -> dict[str, Any]:
@@ -143,8 +157,18 @@ class UserProfilesRepository:
             profile['query_history'] = history[-MAX_HISTORY_ITEMS:]
             profile['last_seen_at'] = now.isoformat(timespec='seconds')
             self.write_all(profiles)
+            logger.info(
+                'Додано запис в історію профілю: profile_id=%s query_id=%s purpose=%s tier=%s total=%s history_size=%s',
+                normalized_profile_id,
+                query_record.get('id'),
+                inputs.get('purpose'),
+                summary.get('tier'),
+                summary.get('total_price'),
+                len(profile['query_history']),
+            )
             return query_record
 
+        logger.error('Профіль не знайдено для додавання історії запитів: profile_id=%s', normalized_profile_id)
         raise ValueError('Профіль не знайдено для додавання історії запитів.')
 
     def find_query(self, profile_id: str, query_id: str) -> dict[str, Any] | None:
@@ -159,7 +183,9 @@ class UserProfilesRepository:
 
         for query in profile.get('query_history', []):
             if str(query.get('id') or '').strip() == normalized_query_id:
+                logger.info('Знайдено запис історії: profile_id=%s query_id=%s', normalized_profile_id, normalized_query_id)
                 return query
+        logger.info('Запис історії не знайдено: profile_id=%s query_id=%s', normalized_profile_id, normalized_query_id)
         return None
 
     def delete_query(self, profile_id: str, query_id: str) -> dict[str, Any] | None:
@@ -183,11 +209,18 @@ class UserProfilesRepository:
                 remaining_history.append(entry)
 
             if deleted_entry is None:
+                logger.warning('Не знайдено запис історії для видалення: profile_id=%s query_id=%s', normalized_profile_id, normalized_query_id)
                 return None
 
             profile['query_history'] = remaining_history
             profile['last_seen_at'] = datetime.now().isoformat(timespec='seconds')
             self.write_all(profiles)
+            logger.info(
+                'Видалено запис історії профілю: profile_id=%s query_id=%s remaining=%s',
+                normalized_profile_id,
+                normalized_query_id,
+                len(remaining_history),
+            )
             return deleted_entry
 
         return None
@@ -206,6 +239,7 @@ class UserProfilesRepository:
             profile['query_history'] = []
             profile['last_seen_at'] = datetime.now().isoformat(timespec='seconds')
             self.write_all(profiles)
+            logger.info('Очищено історію профілю: profile_id=%s removed=%s', normalized_profile_id, len(removed_history))
             return removed_history
 
         return []
@@ -235,6 +269,12 @@ class UserProfilesRepository:
 
             profile['last_seen_at'] = datetime.now().isoformat(timespec='seconds')
             self.write_all(profiles)
+            logger.info(
+                'Прив’язано збережену збірку до профілю: profile_id=%s build_id=%s query_id=%s',
+                normalized_profile_id,
+                normalized_build_id,
+                normalized_query_id or 'none',
+            )
             return
 
     def unlink_saved_build(self, profile_id: str, build_id: str) -> None:
@@ -259,6 +299,7 @@ class UserProfilesRepository:
 
             profile['last_seen_at'] = datetime.now().isoformat(timespec='seconds')
             self.write_all(profiles)
+            logger.info('Відв’язано збережену збірку від профілю: profile_id=%s build_id=%s', normalized_profile_id, normalized_build_id)
             return
 
     def prepare_for_dashboard(self, profile: dict[str, Any], *, saved_builds_by_id: dict[str, dict[str, Any]] | None = None) -> dict[str, Any]:

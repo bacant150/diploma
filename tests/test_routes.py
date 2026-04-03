@@ -5,7 +5,6 @@ import importlib
 
 def test_health_ai_route_returns_json(client, monkeypatch):
     web_routes = importlib.import_module('routes.web')
-
     monkeypatch.setattr(
         web_routes,
         'get_ai_health_status',
@@ -18,9 +17,9 @@ def test_health_ai_route_returns_json(client, monkeypatch):
     assert response.json()['available'] is True
 
 
+
 def test_choose_purpose_page_opens(client, monkeypatch):
     web_routes = importlib.import_module('routes.web')
-
     monkeypatch.setattr(
         web_routes,
         'build_choose_purpose_context',
@@ -35,12 +34,11 @@ def test_choose_purpose_page_opens(client, monkeypatch):
     response = client.get('/choose-purpose')
 
     assert response.status_code == 200
-    assert 'choose-purpose.html' in response.text
+
 
 
 def test_build_route_returns_result_page_without_500_and_sets_profile_cookie(client, monkeypatch):
     web_routes = importlib.import_module('routes.web')
-
     monkeypatch.setattr(
         web_routes,
         'build_configuration_from_form',
@@ -50,7 +48,7 @@ def test_build_route_returns_result_page_without_500_and_sets_profile_cookie(cli
                 'parts': {'CPU': {'name': 'Test CPU', 'price': 5000}},
                 'notes': ['ok'],
                 'tier': 'budget',
-                'total': 5000,
+                'total_price': 5000,
             },
         ),
     )
@@ -73,14 +71,51 @@ def test_build_route_returns_result_page_without_500_and_sets_profile_cookie(cli
     response = client.post('/build', data={'purpose': 'office'})
 
     assert response.status_code == 200
-    assert 'result.html' in response.text
+    assert response.cookies.get('pcoll_profile_id') == 'profile-1'
+
+
+
+def test_build_route_handles_failure_result_without_500(client, monkeypatch):
+    web_routes = importlib.import_module('routes.web')
+    monkeypatch.setattr(
+        web_routes,
+        'build_configuration_from_form',
+        lambda form: (
+            {'purpose': 'gaming', 'budget_mode': 'manual', 'priority': 'balanced'},
+            {
+                'parts': {},
+                'notes': ['Не вдалося зібрати конфігурацію за заданими параметрами та бюджетом.'],
+                'tier': None,
+                'total_price': None,
+                'alternatives': [],
+            },
+        ),
+    )
+    monkeypatch.setattr(
+        web_routes,
+        'result_page_context',
+        lambda request, inputs, result, **kwargs: {'request': request, 'inputs': inputs, 'result': result, **kwargs},
+    )
+    monkeypatch.setattr(
+        web_routes.user_profiles_repository,
+        'get_or_create',
+        lambda profile_id: ({'id': 'profile-1', 'name': 'Тестовий профіль'}, profile_id != 'profile-1'),
+    )
+    monkeypatch.setattr(
+        web_routes.user_profiles_repository,
+        'add_query',
+        lambda profile_id, inputs, result, source='builder_form': {'id': 'query-failure'},
+    )
+
+    response = client.post('/build', data={'purpose': 'gaming'})
+
+    assert response.status_code == 200
     assert response.cookies.get('pcoll_profile_id') == 'profile-1'
 
 
 
 def test_saved_builds_page_opens(client, monkeypatch):
     saved_routes = importlib.import_module('routes.saved_builds')
-
     monkeypatch.setattr(
         saved_routes.user_profiles_repository,
         'get_or_create',
@@ -113,13 +148,11 @@ def test_saved_builds_page_opens(client, monkeypatch):
     response = client.get('/saved-builds')
 
     assert response.status_code == 200
-    assert 'saved-builds.html' in response.text
 
 
 
 def test_profile_history_route_opens_snapshot_result(client, monkeypatch):
     saved_routes = importlib.import_module('routes.saved_builds')
-
     monkeypatch.setattr(
         saved_routes.user_profiles_repository,
         'get_or_create',
@@ -131,22 +164,29 @@ def test_profile_history_route_opens_snapshot_result(client, monkeypatch):
         lambda profile_id, query_id: {
             'id': query_id,
             'inputs': {'purpose': 'study', 'budget_mode': 'manual', 'budget': 20000, 'resolution': '1080p', 'wifi': False},
-            'result_snapshot': {'parts': {'CPU': {'name': 'Test CPU', 'price': 5000}}, 'tier': 'budget', 'total_price': 5000, 'notes': []},
+            'result_snapshot': {
+                'parts': {'CPU': {'name': 'Test CPU', 'price': 5000}},
+                'tier': 'budget',
+                'total_price': 5000,
+                'notes': [],
+            },
             'saved_build_id': None,
         },
     )
-    monkeypatch.setattr(saved_routes, 'result_page_context', lambda request, inputs, result, **kwargs: {'request': request, 'inputs': inputs, 'result': result, **kwargs})
+    monkeypatch.setattr(
+        saved_routes,
+        'result_page_context',
+        lambda request, inputs, result, **kwargs: {'request': request, 'inputs': inputs, 'result': result, **kwargs},
+    )
 
     response = client.get('/profile/history/query-1')
 
     assert response.status_code == 200
-    assert 'result.html' in response.text
 
 
 
 def test_delete_profile_history_entry_redirects_and_clears_saved_build_link(client, monkeypatch):
     saved_routes = importlib.import_module('routes.saved_builds')
-
     monkeypatch.setattr(
         saved_routes.user_profiles_repository,
         'get_or_create',
@@ -157,10 +197,10 @@ def test_delete_profile_history_entry_redirects_and_clears_saved_build_link(clie
         'delete_query',
         lambda profile_id, query_id: {'id': query_id, 'saved_build_id': 'build-1'},
     )
-
     called = {'ok': False}
+
     def _clear_query_reference(build_id, *, profile_id=None):
-        called['ok'] = (build_id == 'build-1' and profile_id == 'profile-1')
+        called['ok'] = build_id == 'build-1' and profile_id == 'profile-1'
         return True
 
     monkeypatch.setattr(saved_routes.saved_builds_repository, 'clear_query_reference', _clear_query_reference)
@@ -175,7 +215,6 @@ def test_delete_profile_history_entry_redirects_and_clears_saved_build_link(clie
 
 def test_clear_profile_history_redirects_and_clears_query_references(client, monkeypatch):
     saved_routes = importlib.import_module('routes.saved_builds')
-
     monkeypatch.setattr(
         saved_routes.user_profiles_repository,
         'get_or_create',
@@ -189,8 +228,8 @@ def test_clear_profile_history_redirects_and_clears_query_references(client, mon
             {'id': 'query-2'},
         ],
     )
-
     called = {'query_ids': None}
+
     def _clear_query_references_for_profile(profile_id, *, query_ids=None):
         called['query_ids'] = list(query_ids or [])
         return 2

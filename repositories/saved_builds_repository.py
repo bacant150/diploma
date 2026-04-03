@@ -18,11 +18,16 @@ class SavedBuildsRepository:
 
     def load_all(self) -> list[dict[str, Any]]:
         if not self.file_path.exists():
+            logger.info('Файл збережених збірок ще не існує: %s', self.file_path)
             return []
 
         try:
             raw_saved_builds = json.loads(self.file_path.read_text(encoding='utf-8'))
-        except (json.JSONDecodeError, OSError):
+        except json.JSONDecodeError:
+            logger.exception('Не вдалося прочитати saved_builds.json через JSONDecodeError.')
+            return []
+        except OSError:
+            logger.exception('Не вдалося прочитати файл збережених збірок: %s', self.file_path)
             return []
 
         if not isinstance(raw_saved_builds, list):
@@ -43,17 +48,21 @@ class SavedBuildsRepository:
                 continue
             validated_builds.append(build.model_dump(mode='json'))
 
+        logger.info('Завантажено збережені збірки: count=%s', len(validated_builds))
         return validated_builds
 
     def load_by_profile(self, profile_id: str) -> list[dict[str, Any]]:
         normalized_profile_id = str(profile_id or '').strip()
         if not normalized_profile_id:
+            logger.warning('Спроба завантажити збірки без profile_id.')
             return []
-        return [
+        builds = [
             build
             for build in self.load_all()
             if build.get('profile_id') in {None, '', normalized_profile_id}
         ]
+        logger.info('Завантажено збірки профілю: profile_id=%s count=%s', normalized_profile_id, len(builds))
+        return builds
 
     def write_all(self, saved_builds: list[dict[str, Any]]) -> None:
         normalized_builds: list[dict[str, Any]] = []
@@ -65,6 +74,7 @@ class SavedBuildsRepository:
             json.dumps(normalized_builds, ensure_ascii=False, indent=2),
             encoding='utf-8',
         )
+        logger.info('Записано збережені збірки у файл: path=%s count=%s', self.file_path, len(normalized_builds))
 
     def find_by_id(self, build_id: str, *, profile_id: str | None = None) -> dict[str, Any] | None:
         normalized_profile_id = str(profile_id or '').strip()
@@ -73,8 +83,16 @@ class SavedBuildsRepository:
                 continue
             build_profile_id = str(build.get('profile_id') or '').strip()
             if normalized_profile_id and build_profile_id and build_profile_id != normalized_profile_id:
+                logger.warning(
+                    'Збірку знайдено, але доступ до неї заборонено іншим profile_id: requested=%s actual=%s build_id=%s',
+                    normalized_profile_id,
+                    build_profile_id,
+                    build_id,
+                )
                 continue
+            logger.info('Знайдено збережену збірку: build_id=%s profile_id=%s', build_id, build_profile_id or 'legacy')
             return build
+        logger.info('Збережену збірку не знайдено: build_id=%s profile_id=%s', build_id, normalized_profile_id or 'any')
         return None
 
     def clear_query_reference(self, build_id: str, *, profile_id: str | None = None) -> bool:
@@ -92,6 +110,7 @@ class SavedBuildsRepository:
             if normalized_profile_id and build_profile_id and build_profile_id != normalized_profile_id:
                 continue
             if build.get('query_id') is None:
+                logger.info('У збірки вже очищено query reference: build_id=%s', normalized_build_id)
                 return True
             build['query_id'] = None
             updated = True
@@ -99,6 +118,7 @@ class SavedBuildsRepository:
 
         if updated:
             self.write_all(builds)
+            logger.info('Очищено query reference у збереженої збірки: build_id=%s profile_id=%s', normalized_build_id, normalized_profile_id or 'any')
         return updated
 
     def clear_query_references_for_profile(self, profile_id: str, *, query_ids: list[str] | None = None) -> int:
@@ -125,6 +145,12 @@ class SavedBuildsRepository:
 
         if updated:
             self.write_all(builds)
+            logger.info(
+                'Очищено query references для профілю: profile_id=%s cleared=%s filter_count=%s',
+                normalized_profile_id,
+                updated_count,
+                len(normalized_query_ids),
+            )
         return updated_count
 
     def prepare_for_list(self, build: dict[str, Any]) -> dict[str, Any]:
