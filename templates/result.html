@@ -61,17 +61,6 @@
       <textarea id="inputsJsonData" hidden>{{ inputs_json }}</textarea>
       <textarea id="resultJsonData" hidden>{{ result_json }}</textarea>
 
-      <div class="result-box" id="alternativesBox" hidden>
-        <div class="result-box-header">
-          <div>
-            <h2>Альтернативні конфігурації</h2>
-            <p class="builder-hint">Відкрий будь-яку збірку, щоб переглянути її повний склад нижче.</p>
-          </div>
-          <span class="comparison-badge">У всіх варіантах показано повний склад. Змінені комплектуючі позначено окремо.</span>
-        </div>
-        <div class="alternatives-grid" id="alternativesGrid"></div>
-      </div>
-
       {% if not is_saved_build_view %}
       <div class="result-box">
         <h2>Зберегти збірку</h2>
@@ -94,6 +83,18 @@
         <a href="/saved-builds" class="hero-btn builder-btn">Відкрити профіль та історію</a>
       </div>
       {% endif %}
+
+
+      <div class="result-box" id="alternativesBox" hidden>
+        <div class="result-box-header">
+          <div>
+            <h2>Альтернативні конфігурації</h2>
+            <p class="builder-hint">Відкрий будь-яку збірку, щоб переглянути її повний склад нижче.</p>
+          </div>
+          <span class="comparison-badge">Змінені комплектуючі у збірках — позначено окремо.</span>
+        </div>
+        <div class="alternatives-grid" id="alternativesGrid"></div>
+      </div>
 
       <div class="result-box">
         <h2>Твої параметри</h2>
@@ -564,7 +565,11 @@
         if (switchButton) {
           activeKey = switchButton.getAttribute('data-config-key') || activeKey;
           renderAll();
-          window.scrollTo({ top: Math.max(document.querySelector('.result-summary-grid')?.offsetTop - 24 || 0, 0), behavior: 'smooth' });
+          const detailsSection = document.getElementById('detailsTitle')?.closest('.result-box');
+          if (detailsSection) {
+            const top = Math.max(detailsSection.getBoundingClientRect().top + window.scrollY - 24, 0);
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
           return;
         }
       });

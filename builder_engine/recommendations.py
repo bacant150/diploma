@@ -95,13 +95,13 @@ def _auto_budget_settings(purpose: str, gpu_mode: str = "auto") -> Dict[str, int
     if purpose == "gaming":
         if gpu_mode == "integrated":
             return {"start": 9000, "stop": 50000, "coarse_step": 3000, "fine_step": 500}
-        return {"start": 14000, "stop": 250000, "coarse_step": 5000, "fine_step": 1000}
+        return {"start": 25000, "stop": 250000, "coarse_step": 5000, "fine_step": 1000}
     if purpose == "office":
-        return {"start": 8000, "stop": 120000, "coarse_step": 3000, "fine_step": 500}
+        return {"start": 15500, "stop": 120000, "coarse_step": 3000, "fine_step": 500}
     if purpose == "study":
-        return {"start": 9000, "stop": 150000, "coarse_step": 3000, "fine_step": 500}
+        return {"start": 16500, "stop": 150000, "coarse_step": 3000, "fine_step": 500}
     if purpose == "creator":
-        return {"start": 22000, "stop": 300000, "coarse_step": 8000, "fine_step": 2000}
+        return {"start": 35000, "stop": 300000, "coarse_step": 8000, "fine_step": 2000}
     return {"start": 7000, "stop": 150000, "coarse_step": 3000, "fine_step": 500}
 
 

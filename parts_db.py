@@ -316,7 +316,86 @@ OFFICE_APPS_DB = {
 }
 
 STUDY_APPS_DB = {
-    # Тимчасово порожньо
+    "docs": {
+        "title": "Word / Google Docs",
+        "cpu_base": 26,
+        "ram_gb": 4,
+        "ssd_gb": 128,
+        "gpu_need": 0,
+        "multi_monitor": 1,
+    },
+    "browser": {
+        "title": "Браузер / онлайн-навчання",
+        "cpu_base": 34,
+        "ram_gb": 8,
+        "ssd_gb": 256,
+        "gpu_need": 0,
+        "multi_monitor": 1,
+    },
+    "zoom": {
+        "title": "Zoom / Microsoft Teams",
+        "cpu_base": 46,
+        "ram_gb": 8,
+        "ssd_gb": 256,
+        "gpu_need": 6,
+        "multi_monitor": 1,
+    },
+    "programming": {
+        "title": "VS Code / програмування",
+        "cpu_base": 72,
+        "ram_gb": 16,
+        "ssd_gb": 512,
+        "gpu_need": 5,
+        "multi_monitor": 2,
+    },
+    "python": {
+        "title": "Python / навчальні проєкти",
+        "cpu_base": 62,
+        "ram_gb": 16,
+        "ssd_gb": 512,
+        "gpu_need": 4,
+        "multi_monitor": 1,
+    },
+    "cplusplus": {
+        "title": "C/C++ / технічне навчання",
+        "cpu_base": 68,
+        "ram_gb": 16,
+        "ssd_gb": 512,
+        "gpu_need": 5,
+        "multi_monitor": 1,
+    },
+    "android_studio": {
+        "title": "Android Studio",
+        "cpu_base": 94,
+        "ram_gb": 16,
+        "ssd_gb": 512,
+        "gpu_need": 10,
+        "multi_monitor": 2,
+    },
+    "pycharm": {
+        "title": "PyCharm / IntelliJ IDEA",
+        "cpu_base": 82,
+        "ram_gb": 16,
+        "ssd_gb": 512,
+        "gpu_need": 5,
+        "multi_monitor": 2,
+    },
+    "autocad": {
+        "title": "AutoCAD / технічні дисципліни",
+        "cpu_base": 98,
+        "ram_gb": 16,
+        "ssd_gb": 512,
+        "gpu_need": 45,
+        "multi_monitor": 2,
+    },
+    "matlab": {
+        "title": "MATLAB / розрахунки",
+        "cpu_base": 88,
+        "ram_gb": 16,
+        "ssd_gb": 512,
+        "gpu_need": 12,
+        "multi_monitor": 1,
+    },
 }
 
 CREATOR_APPS_DB = {

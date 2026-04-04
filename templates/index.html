@@ -50,8 +50,9 @@
 
         <div class="form-group" id="budgetGroup">
           <label for="budget">Бюджет (грн)</label>
-          <input type="number" id="budget" name="budget" min="{{ budget_min }}" max="{{ budget_max }}" value="{{ budget_min }}" step="500">
+          <input type="number" id="budget" name="budget" min="{{ budget_min }}" max="{{ budget_max }}" value="{{ budget_min }}" step="1">
           <p class="builder-hint">Доступний діапазон для цього сценарію: від {{ budget_min }} до {{ budget_max }} грн.</p>
+          <p class="builder-hint">Якщо обрати жорсткі обмеження, наприклад багато оперативної пам'яті чи SSD, може знадобитися більший бюджет.</p>
         </div>
 
 

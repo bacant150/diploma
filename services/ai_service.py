@@ -16,6 +16,9 @@ logger = logging.getLogger('pcbuilder.ai')
 try:
     from ml.predict import (
         ACCEPTANCE_THRESHOLD as AI_ACCEPTANCE_THRESHOLD,
+        AUTO_ACCEPT_THRESHOLD,
+        CONFIRM_THRESHOLD,
+        MARGIN_THRESHOLD,
         ModelUnavailableError,
         get_model_status,
         predict_purpose,
@@ -26,7 +29,10 @@ except Exception as exc:
     AI_IMPORT_ERROR = f'{type(exc).__name__}: {exc}'
     logger.exception('Не вдалося імпортувати AI-модуль.')
 
-    AI_ACCEPTANCE_THRESHOLD = 0.30
+    AI_ACCEPTANCE_THRESHOLD = 0.35
+    AUTO_ACCEPT_THRESHOLD = 0.55
+    CONFIRM_THRESHOLD = 0.35
+    MARGIN_THRESHOLD = 0.12
 
     class ModelUnavailableError(RuntimeError):
         """Raised when the local AI model is unavailable."""
@@ -78,6 +84,9 @@ def build_choose_purpose_context(request: Request) -> dict[str, Any]:
         'request': request,
         'purpose_titles': PURPOSE_TITLES,
         'ai_threshold_percent': int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
+        'ai_auto_accept_percent': int(round(AUTO_ACCEPT_THRESHOLD * 100)),
+        'ai_confirm_percent': int(round(CONFIRM_THRESHOLD * 100)),
+        'ai_margin_percent': int(round(MARGIN_THRESHOLD * 100)),
         'ai_available': bool(ai_status.get('available')),
         'ai_status_message': ai_status_message(ai_status),
         'ai_status_reason': ai_status.get('reason'),
@@ -113,6 +122,8 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
             {
                 'ok': False,
                 'accepted': False,
+                'decision_mode': 'manual',
+                'requires_confirmation': False,
                 'ai_available': bool(ai_status.get('available')),
                 'message': 'Опиши потреби трохи детальніше, щоб ШІ міг коректно визначити тип ПК.',
                 'tips': [
@@ -131,6 +142,8 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
             {
                 'ok': False,
                 'accepted': False,
+                'decision_mode': 'manual',
+                'requires_confirmation': False,
                 'ai_available': False,
                 'message': 'AI-модуль тимчасово недоступний.\nАвтоматичне визначення типу ПК зараз вимкнене.',
                 'details': ai_status_message(ai_status),
@@ -153,6 +166,8 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
             {
                 'ok': False,
                 'accepted': False,
+                'decision_mode': 'manual',
+                'requires_confirmation': False,
                 'ai_available': False,
                 'message': 'AI-модуль тимчасово недоступний.\nАвтоматичне визначення типу ПК зараз вимкнене.',
                 'details': str(exc),
@@ -172,6 +187,8 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
             {
                 'ok': False,
                 'accepted': False,
+                'decision_mode': 'manual',
+                'requires_confirmation': False,
                 'ai_available': True,
                 'message': 'Не вдалося обробити опис через помилку AI-модуля.\nСпробуй ще раз або обери тип ПК вручну.',
                 'tips': ai_refinement_tips(None),
@@ -184,36 +201,73 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
     raw_purpose = prediction.get('raw_purpose')
     confidence = prediction.get('confidence')
     accepted = bool(prediction.get('accepted'))
+    decision_mode = str(prediction.get('decision_mode') or 'manual')
     confidence_percent = confidence_to_percent(confidence)
+    margin_percent = confidence_to_percent(prediction.get('margin'))
     purpose_title = PURPOSE_TITLES.get(raw_purpose, 'Невизначений тип') if raw_purpose else 'Невизначений тип'
     prepared_alternatives = _prepared_prediction_alternatives(prediction)
     matched_keywords = prediction.get('matched_keywords') or {}
+    matched_rule_signals = prediction.get('matched_rule_signals') or {}
 
     logger.info(
-        'AI-передбачення отримано: accepted=%s purpose=%s confidence=%s text_len=%s alternatives=%s matched_keywords=%s',
+        'AI-передбачення отримано: mode=%s accepted=%s purpose=%s confidence=%s margin=%s text_len=%s alternatives=%s matched_keywords=%s rule_signals=%s',
+        decision_mode,
         accepted,
         raw_purpose,
         confidence_percent,
+        margin_percent,
         len(description),
         len(prepared_alternatives),
         len(matched_keywords) if isinstance(matched_keywords, dict) else 0,
+        len(matched_rule_signals) if isinstance(matched_rule_signals, dict) else 0,
     )
+
+    base_payload = {
+        'ok': True,
+        'accepted': accepted,
+        'decision_mode': decision_mode,
+        'requires_confirmation': decision_mode == 'confirm' and bool(raw_purpose),
+        'ai_available': True,
+        'purpose': raw_purpose if accepted else None,
+        'suggested_purpose': raw_purpose,
+        'purpose_title': purpose_title,
+        'confidence': confidence,
+        'confidence_percent': confidence_percent,
+        'margin': prediction.get('margin'),
+        'margin_percent': margin_percent,
+        'threshold_percent': int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
+        'auto_accept_percent': int(round(AUTO_ACCEPT_THRESHOLD * 100)),
+        'confirm_percent': int(round(CONFIRM_THRESHOLD * 100)),
+        'margin_threshold_percent': int(round(MARGIN_THRESHOLD * 100)),
+        'alternatives': prepared_alternatives,
+        'matched_keywords': matched_keywords,
+        'matched_rule_signals': matched_rule_signals,
+        'manual_url': '/choose-purpose#manual-purpose-grid',
+    }
 
     if accepted and raw_purpose:
         return (
             {
-                'ok': True,
-                'accepted': True,
-                'ai_available': True,
+                **base_payload,
                 'purpose': raw_purpose,
-                'purpose_title': purpose_title,
-                'confidence': confidence,
-                'confidence_percent': confidence_percent,
                 'redirect_url': f'/builder/{raw_purpose}',
-                'message': f'ШІ визначив сценарій: {purpose_title}.\nПереходимо до конфігуратора.',
-                'threshold_percent': int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
-                'alternatives': prepared_alternatives,
-                'matched_keywords': matched_keywords,
+                'confirm_url': f'/builder/{raw_purpose}',
+                'message': f'ШІ впевнено визначив сценарій: {purpose_title}.\nПереходимо до конфігуратора.',
+            },
+            200,
+        )
+
+    if decision_mode == 'confirm' and raw_purpose:
+        message = (
+            f'ШІ припускає, що це {purpose_title.lower()} ({confidence_percent}%), '
+            'але краще підтвердити вибір перед переходом до конфігуратора.'
+        )
+        return (
+            {
+                **base_payload,
+                'confirm_url': f'/builder/{raw_purpose}',
+                'message': message,
+                'tips': ai_refinement_tips(raw_purpose),
             },
             200,
         )
@@ -221,31 +275,24 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
     message = 'ШІ поки не впевнений у виборі сценарію. Напиши, будь ласка, конкретніше, для чого потрібен ПК.'
     if raw_purpose and confidence_percent is not None:
         message = (
-            f'ШІ припускає, що це {purpose_title.lower()}, але впевненість лише '
-            f'{confidence_percent}%.\nОпиши потреби конкретніше, і тоді система зможе '
-            'точніше визначити тип ПК.'
+            f'ШІ має лише попереднє припущення: {purpose_title.lower()} ({confidence_percent}%).\n'
+            'Краще уточнити опис або вибрати тип ПК вручну.'
         )
 
     logger.info(
-        'AI-визначення не прийнято: purpose=%s confidence=%s threshold=%s',
+        'AI-визначення переведено в ручний режим: purpose=%s confidence=%s margin=%s threshold=%s',
         raw_purpose,
         confidence_percent,
+        margin_percent,
         int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
     )
     return (
         {
-            'ok': True,
-            'accepted': False,
-            'ai_available': True,
-            'purpose': raw_purpose,
-            'purpose_title': purpose_title,
-            'confidence': confidence,
-            'confidence_percent': confidence_percent,
+            **base_payload,
+            'purpose': None,
+            'requires_confirmation': False,
             'message': message,
             'tips': ai_refinement_tips(raw_purpose),
-            'threshold_percent': int(round(AI_ACCEPTANCE_THRESHOLD * 100)),
-            'alternatives': prepared_alternatives,
-            'matched_keywords': matched_keywords,
         },
         200,
     )
