@@ -140,7 +140,7 @@ def open_profile_history_entry(request: Request, query_id: str) -> Response:
             result,
             profile_query_id=entry.get('id'),
             profile_name=profile.get('name'),
-            is_saved_build_view=True,
+            is_saved_build_view=False,
         ),
     )
     _set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))

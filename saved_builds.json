@@ -1,1 +1,719 @@
-[]
+[
+  {
+    "id": "3afd36facb8847cea68d91cdb3dbc82a",
+    "profile_id": "c4d735f7915343e095ad9d6f6892290c",
+    "query_id": "f87ffff6d7df4d7089f9bb6772042709",
+    "name": "Збірка для редагування",
+    "saved_at": "2026-04-04T19:02:59",
+    "inputs": {
+      "budget_mode": "manual",
+      "budget": 35000,
+      "purpose": "creator",
+      "resolution": "1080p",
+      "wifi": false,
+      "games": [],
+      "graphics_quality": "high",
+      "target_fps": 60,
+      "gpu_mode": "auto",
+      "cpu_brand": "auto",
+      "gpu_brand": "auto",
+      "ram_size": "auto",
+      "ssd_size": "auto",
+      "memory_platform": "auto",
+      "office_apps": [],
+      "office_tabs": "auto",
+      "office_monitors": "auto",
+      "study_apps": [],
+      "study_tabs": "auto",
+      "study_monitors": "auto",
+      "creator_apps": [
+        "premiere"
+      ],
+      "creator_complexity": "auto",
+      "creator_monitors": "auto",
+      "priority": "balanced",
+      "games_titles": [],
+      "office_apps_titles": [],
+      "study_apps_titles": [],
+      "creator_apps_titles": [
+        "Adobe Premiere Pro"
+      ]
+    },
+    "result": {
+      "tier": "mid",
+      "total_price": 31398,
+      "recommended_budget": null,
+      "parts": {
+        "GPU": {
+          "name": "Intel Arc A580 8GB",
+          "price": 9499,
+          "description": null,
+          "image": "/static/images/parts/intel-arc-a580-8gb.webp",
+          "image_filename": "intel-arc-a580-8gb.webp"
+        },
+        "CPU": {
+          "name": "AMD Ryzen 5 4600G",
+          "price": 5500,
+          "description": null,
+          "image": "/static/images/parts/amd-ryzen-5-4600g.webp",
+          "image_filename": "amd-ryzen-5-4600g.webp"
+        },
+        "Motherboard": {
+          "name": "B450M Wi-Fi (AM4, DDR4, mATX)",
+          "price": 4599,
+          "description": null,
+          "image": "/static/images/parts/b450m-wi-fi-am4-ddr4-matx.webp",
+          "image_filename": "b450m-wi-fi-am4-ddr4-matx.webp"
+        },
+        "RAM": {
+          "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+          "price": 3458,
+          "description": null,
+          "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+          "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp"
+        },
+        "SSD": {
+          "name": "Kingston NV3 512GB NVMe SSD",
+          "price": 3958,
+          "description": null,
+          "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+          "image_filename": "kingston-nv3-512gb-nvme-ssd.webp"
+        },
+        "PSU": {
+          "name": "MSI MAG A550BN 550W 80+ Bronze",
+          "price": 2499,
+          "description": null,
+          "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+          "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+        },
+        "Case": {
+          "name": "DeepCool CC560 LIMITED V2 Black",
+          "price": 1885,
+          "description": null,
+          "image": "/static/images/parts/deepcool-cc560-limited-v2-black.webp",
+          "image_filename": "deepcool-cc560-limited-v2-black.webp"
+        }
+      },
+      "alternatives": [
+        {
+          "is_primary": true,
+          "label": null,
+          "name": null,
+          "total_price": null,
+          "parts": {
+            "GPU": {
+              "name": "Intel Arc A580 8GB",
+              "price": 9499,
+              "description": null,
+              "image": "/static/images/parts/intel-arc-a580-8gb.webp",
+              "image_filename": "intel-arc-a580-8gb.webp"
+            },
+            "CPU": {
+              "name": "AMD Ryzen 5 4600G",
+              "price": 5500,
+              "description": null,
+              "image": "/static/images/parts/amd-ryzen-5-4600g.webp",
+              "image_filename": "amd-ryzen-5-4600g.webp"
+            },
+            "Motherboard": {
+              "name": "B450M Wi-Fi (AM4, DDR4, mATX)",
+              "price": 4599,
+              "description": null,
+              "image": "/static/images/parts/b450m-wi-fi-am4-ddr4-matx.webp",
+              "image_filename": "b450m-wi-fi-am4-ddr4-matx.webp"
+            },
+            "RAM": {
+              "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+              "price": 3458,
+              "description": null,
+              "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+              "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp"
+            },
+            "SSD": {
+              "name": "Kingston NV3 512GB NVMe SSD",
+              "price": 3958,
+              "description": null,
+              "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+              "image_filename": "kingston-nv3-512gb-nvme-ssd.webp"
+            },
+            "PSU": {
+              "name": "MSI MAG A550BN 550W 80+ Bronze",
+              "price": 2499,
+              "description": null,
+              "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+              "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+            },
+            "Case": {
+              "name": "DeepCool CC560 LIMITED V2 Black",
+              "price": 1885,
+              "description": null,
+              "image": "/static/images/parts/deepcool-cc560-limited-v2-black.webp",
+              "image_filename": "deepcool-cc560-limited-v2-black.webp"
+            }
+          },
+          "result_payload": {
+            "tier": "mid",
+            "total_price": 31398,
+            "recommended_budget": null,
+            "parts": {
+              "GPU": {
+                "name": "Intel Arc A580 8GB",
+                "price": 9499,
+                "description": null,
+                "image": "/static/images/parts/intel-arc-a580-8gb.webp",
+                "image_filename": "intel-arc-a580-8gb.webp"
+              },
+              "CPU": {
+                "name": "AMD Ryzen 5 4600G",
+                "price": 5500,
+                "description": null,
+                "image": "/static/images/parts/amd-ryzen-5-4600g.webp",
+                "image_filename": "amd-ryzen-5-4600g.webp"
+              },
+              "Motherboard": {
+                "name": "B450M Wi-Fi (AM4, DDR4, mATX)",
+                "price": 4599,
+                "description": null,
+                "image": "/static/images/parts/b450m-wi-fi-am4-ddr4-matx.webp",
+                "image_filename": "b450m-wi-fi-am4-ddr4-matx.webp"
+              },
+              "RAM": {
+                "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+                "price": 3458,
+                "description": null,
+                "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+                "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp"
+              },
+              "SSD": {
+                "name": "Kingston NV3 512GB NVMe SSD",
+                "price": 3958,
+                "description": null,
+                "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+                "image_filename": "kingston-nv3-512gb-nvme-ssd.webp"
+              },
+              "PSU": {
+                "name": "MSI MAG A550BN 550W 80+ Bronze",
+                "price": 2499,
+                "description": null,
+                "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+                "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+              },
+              "Case": {
+                "name": "DeepCool CC560 LIMITED V2 Black",
+                "price": 1885,
+                "description": null,
+                "image": "/static/images/parts/deepcool-cc560-limited-v2-black.webp",
+                "image_filename": "deepcool-cc560-limited-v2-black.webp"
+              }
+            },
+            "alternatives": [],
+            "notes": [
+              "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких 3D/монтажних задач може бути на межі.",
+              "Сценарій підбору: Adobe Premiere Pro; складність проєктів — авто; монітори — авто; цільова роздільна здатність — 1080p.",
+              "Пріоритет підбору: збалансовано (ціна/якість)."
+            ],
+            "total": 31398,
+            "creator_requirement": {
+              "selected_apps": [
+                "premiere"
+              ],
+              "required_cpu_score": 110.0,
+              "required_ram_gb": 32,
+              "required_ssd_gb": 1000,
+              "required_gpu_score": 90.0,
+              "required_vram_gb": 6,
+              "requires_dedicated_gpu": true,
+              "project_complexity": "auto",
+              "monitors": "auto"
+            },
+            "part_explanations": {
+              "GPU": "Відеокарта прискорює монтаж, GPU-ефекти, 3D та рендеринг. 8 гб відеопам’яті корисно для складніших сцен, таймлайнів і проєктів.",
+              "CPU": "Процесор орієнтований на монтаж, рендеринг і багатопотокові задачі, тому дає хороший запас для важчих творчих проєктів. Платформа: AM4; є вбудована графіка.",
+              "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4, є вбудований Wi‑Fi.",
+              "RAM": "Обсяг 8 ГБ дає запас для монтажу, важчих проєктів, багатозадачності та кешування робочих даних. Використовується пам’ять стандарту DDR4.",
+              "SSD": "Накопичувач на 512 ГБ підібраний для системи, програм і робочих файлів, щоб проєкти відкривалися та зберігалися швидше.",
+              "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+              "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження."
+            },
+            "priority": "balanced",
+            "requested_budget": 31500
+          },
+          "key": "priority-balanced",
+          "title": "Рекомендована конфігурація",
+          "description": "Основна рекомендація відповідно до обраного тобою пріоритету підбору.",
+          "total": 31398,
+          "requested_budget": 31500,
+          "tier": "mid",
+          "tier_title": "Середній",
+          "priority": "balanced",
+          "priority_title": "Ціна / якість",
+          "delta_text": "Базова рекомендація системи",
+          "parts_excerpt": [
+            {
+              "label": "Процесор",
+              "name": "AMD Ryzen 5 4600G"
+            },
+            {
+              "label": "Відеокарта",
+              "name": "Intel Arc A580 8GB"
+            },
+            {
+              "label": "Оперативна пам’ять",
+              "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200"
+            },
+            {
+              "label": "SSD",
+              "name": "Kingston NV3 512GB NVMe SSD"
+            }
+          ],
+          "notes": [
+            "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких 3D/монтажних задач може бути на межі.",
+            "Сценарій підбору: Adobe Premiere Pro; складність проєктів — авто; монітори — авто; цільова роздільна здатність — 1080p.",
+            "Пріоритет підбору: збалансовано (ціна/якість)."
+          ],
+          "card_notes": [
+            "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких 3D/монтажних задач може бути на межі.",
+            "Сценарій підбору: Adobe Premiere Pro; складність проєктів — авто; монітори — авто; цільова роздільна здатність — 1080p."
+          ],
+          "part_explanations": {
+            "GPU": "Відеокарта прискорює монтаж, GPU-ефекти, 3D та рендеринг. 8 гб відеопам’яті корисно для складніших сцен, таймлайнів і проєктів.",
+            "CPU": "Процесор орієнтований на монтаж, рендеринг і багатопотокові задачі, тому дає хороший запас для важчих творчих проєктів. Платформа: AM4; є вбудована графіка.",
+            "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4, є вбудований Wi‑Fi.",
+            "RAM": "Обсяг 8 ГБ дає запас для монтажу, важчих проєктів, багатозадачності та кешування робочих даних. Використовується пам’ять стандарту DDR4.",
+            "SSD": "Накопичувач на 512 ГБ підібраний для системи, програм і робочих файлів, щоб проєкти відкривалися та зберігалися швидше.",
+            "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+            "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження."
+          },
+          "changed_part_keys": [],
+          "changed_part_explanations": {}
+        },
+        {
+          "is_primary": false,
+          "label": null,
+          "name": null,
+          "total_price": null,
+          "parts": {
+            "GPU": {
+              "name": "Intel Arc A580 8GB",
+              "price": 9499,
+              "description": null,
+              "image": "/static/images/parts/intel-arc-a580-8gb.webp",
+              "image_filename": "intel-arc-a580-8gb.webp"
+            },
+            "CPU": {
+              "name": "AMD Ryzen 5 4600G",
+              "price": 5500,
+              "description": null,
+              "image": "/static/images/parts/amd-ryzen-5-4600g.webp",
+              "image_filename": "amd-ryzen-5-4600g.webp"
+            },
+            "Motherboard": {
+              "name": "B450M Wi-Fi (AM4, DDR4, mATX)",
+              "price": 4599,
+              "description": null,
+              "image": "/static/images/parts/b450m-wi-fi-am4-ddr4-matx.webp",
+              "image_filename": "b450m-wi-fi-am4-ddr4-matx.webp"
+            },
+            "RAM": {
+              "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+              "price": 3458,
+              "description": null,
+              "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+              "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp"
+            },
+            "SSD": {
+              "name": "Kingston NV3 512GB NVMe SSD",
+              "price": 3958,
+              "description": null,
+              "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+              "image_filename": "kingston-nv3-512gb-nvme-ssd.webp"
+            },
+            "PSU": {
+              "name": "MSI MAG A550BN 550W 80+ Bronze",
+              "price": 2499,
+              "description": null,
+              "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+              "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+            },
+            "Case": {
+              "name": "DeepCool CC360 ARGB Black",
+              "price": 2312,
+              "description": null,
+              "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+              "image_filename": "deepcool-cc360-argb-black.webp"
+            }
+          },
+          "result_payload": {
+            "tier": "mid",
+            "total_price": 31825,
+            "recommended_budget": null,
+            "parts": {
+              "GPU": {
+                "name": "Intel Arc A580 8GB",
+                "price": 9499,
+                "description": null,
+                "image": "/static/images/parts/intel-arc-a580-8gb.webp",
+                "image_filename": "intel-arc-a580-8gb.webp"
+              },
+              "CPU": {
+                "name": "AMD Ryzen 5 4600G",
+                "price": 5500,
+                "description": null,
+                "image": "/static/images/parts/amd-ryzen-5-4600g.webp",
+                "image_filename": "amd-ryzen-5-4600g.webp"
+              },
+              "Motherboard": {
+                "name": "B450M Wi-Fi (AM4, DDR4, mATX)",
+                "price": 4599,
+                "description": null,
+                "image": "/static/images/parts/b450m-wi-fi-am4-ddr4-matx.webp",
+                "image_filename": "b450m-wi-fi-am4-ddr4-matx.webp"
+              },
+              "RAM": {
+                "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+                "price": 3458,
+                "description": null,
+                "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+                "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp"
+              },
+              "SSD": {
+                "name": "Kingston NV3 512GB NVMe SSD",
+                "price": 3958,
+                "description": null,
+                "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+                "image_filename": "kingston-nv3-512gb-nvme-ssd.webp"
+              },
+              "PSU": {
+                "name": "MSI MAG A550BN 550W 80+ Bronze",
+                "price": 2499,
+                "description": null,
+                "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+                "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+              },
+              "Case": {
+                "name": "DeepCool CC360 ARGB Black",
+                "price": 2312,
+                "description": null,
+                "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+                "image_filename": "deepcool-cc360-argb-black.webp"
+              }
+            },
+            "alternatives": [],
+            "notes": [
+              "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких 3D/монтажних задач може бути на межі.",
+              "Сценарій підбору: Adobe Premiere Pro; складність проєктів — авто; монітори — авто; цільова роздільна здатність — 1080p.",
+              "Пріоритет підбору: бюджетний варіант з акцентом на економію."
+            ],
+            "total": 31825,
+            "creator_requirement": {
+              "selected_apps": [
+                "premiere"
+              ],
+              "required_cpu_score": 110.0,
+              "required_ram_gb": 32,
+              "required_ssd_gb": 1000,
+              "required_gpu_score": 90.0,
+              "required_vram_gb": 6,
+              "requires_dedicated_gpu": true,
+              "project_complexity": "auto",
+              "monitors": "auto"
+            },
+            "part_explanations": {
+              "GPU": "Відеокарта прискорює монтаж, GPU-ефекти, 3D та рендеринг. 8 гб відеопам’яті корисно для складніших сцен, таймлайнів і проєктів.",
+              "CPU": "Процесор орієнтований на монтаж, рендеринг і багатопотокові задачі, тому дає хороший запас для важчих творчих проєктів. Платформа: AM4; є вбудована графіка.",
+              "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4, є вбудований Wi‑Fi.",
+              "RAM": "Обсяг 8 ГБ дає запас для монтажу, важчих проєктів, багатозадачності та кешування робочих даних. Використовується пам’ять стандарту DDR4.",
+              "SSD": "Накопичувач на 512 ГБ підібраний для системи, програм і робочих файлів, щоб проєкти відкривалися та зберігалися швидше.",
+              "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+              "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн."
+            },
+            "priority": "budget",
+            "requested_budget": 32000
+          },
+          "key": "priority-budget",
+          "title": "Бюджетна конфігурація",
+          "description": "Акцент на економнішому підборі без виходу за межі сценарію використання.",
+          "total": 31825,
+          "requested_budget": 28000,
+          "tier": "mid",
+          "tier_title": "Середній",
+          "priority": "budget",
+          "priority_title": "Бюджетний",
+          "delta_text": "Дорожче на 427 грн відносно основної рекомендації",
+          "parts_excerpt": [
+            {
+              "label": "Процесор",
+              "name": "AMD Ryzen 5 4600G"
+            },
+            {
+              "label": "Відеокарта",
+              "name": "Intel Arc A580 8GB"
+            },
+            {
+              "label": "Оперативна пам’ять",
+              "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200"
+            },
+            {
+              "label": "SSD",
+              "name": "Kingston NV3 512GB NVMe SSD"
+            }
+          ],
+          "notes": [
+            "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких 3D/монтажних задач може бути на межі.",
+            "Сценарій підбору: Adobe Premiere Pro; складність проєктів — авто; монітори — авто; цільова роздільна здатність — 1080p.",
+            "Пріоритет підбору: бюджетний варіант з акцентом на економію."
+          ],
+          "card_notes": [
+            "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких 3D/монтажних задач може бути на межі.",
+            "Сценарій підбору: Adobe Premiere Pro; складність проєктів — авто; монітори — авто; цільова роздільна здатність — 1080p."
+          ],
+          "part_explanations": {
+            "GPU": "Відеокарта прискорює монтаж, GPU-ефекти, 3D та рендеринг. 8 гб відеопам’яті корисно для складніших сцен, таймлайнів і проєктів.",
+            "CPU": "Процесор орієнтований на монтаж, рендеринг і багатопотокові задачі, тому дає хороший запас для важчих творчих проєктів. Платформа: AM4; є вбудована графіка.",
+            "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4, є вбудований Wi‑Fi.",
+            "RAM": "Обсяг 8 ГБ дає запас для монтажу, важчих проєктів, багатозадачності та кешування робочих даних. Використовується пам’ять стандарту DDR4.",
+            "SSD": "Накопичувач на 512 ГБ підібраний для системи, програм і робочих файлів, щоб проєкти відкривалися та зберігалися швидше.",
+            "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+            "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн."
+          },
+          "changed_part_keys": [
+            "Case"
+          ],
+          "changed_part_explanations": {
+            "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн."
+          }
+        },
+        {
+          "is_primary": false,
+          "label": null,
+          "name": null,
+          "total_price": null,
+          "parts": {
+            "GPU": {
+              "name": "Intel Arc A580 8GB",
+              "price": 9499,
+              "description": null,
+              "image": "/static/images/parts/intel-arc-a580-8gb.webp",
+              "image_filename": "intel-arc-a580-8gb.webp"
+            },
+            "CPU": {
+              "name": "Intel i5-13400F",
+              "price": 7829,
+              "description": null,
+              "image": "/static/images/parts/intel-i5-13400f.webp",
+              "image_filename": "intel-i5-13400f.webp"
+            },
+            "Motherboard": {
+              "name": "H610M Wi-Fi (LGA1700, DDR4, mATX)",
+              "price": 4739,
+              "description": null,
+              "image": "/static/images/parts/h610m-wi-fi-lga1700-ddr4-matx.webp",
+              "image_filename": "h610m-wi-fi-lga1700-ddr4-matx.webp"
+            },
+            "RAM": {
+              "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+              "price": 3458,
+              "description": null,
+              "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+              "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp"
+            },
+            "SSD": {
+              "name": "Kingston NV3 512GB NVMe SSD",
+              "price": 3958,
+              "description": null,
+              "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+              "image_filename": "kingston-nv3-512gb-nvme-ssd.webp"
+            },
+            "PSU": {
+              "name": "MSI MAG A550BN 550W 80+ Bronze",
+              "price": 2499,
+              "description": null,
+              "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+              "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+            },
+            "Case": {
+              "name": "DeepCool CC360 ARGB Black",
+              "price": 2312,
+              "description": null,
+              "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+              "image_filename": "deepcool-cc360-argb-black.webp"
+            }
+          },
+          "result_payload": {
+            "tier": "upper",
+            "total_price": 34294,
+            "recommended_budget": null,
+            "parts": {
+              "GPU": {
+                "name": "Intel Arc A580 8GB",
+                "price": 9499,
+                "description": null,
+                "image": "/static/images/parts/intel-arc-a580-8gb.webp",
+                "image_filename": "intel-arc-a580-8gb.webp"
+              },
+              "CPU": {
+                "name": "Intel i5-13400F",
+                "price": 7829,
+                "description": null,
+                "image": "/static/images/parts/intel-i5-13400f.webp",
+                "image_filename": "intel-i5-13400f.webp"
+              },
+              "Motherboard": {
+                "name": "H610M Wi-Fi (LGA1700, DDR4, mATX)",
+                "price": 4739,
+                "description": null,
+                "image": "/static/images/parts/h610m-wi-fi-lga1700-ddr4-matx.webp",
+                "image_filename": "h610m-wi-fi-lga1700-ddr4-matx.webp"
+              },
+              "RAM": {
+                "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+                "price": 3458,
+                "description": null,
+                "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+                "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp"
+              },
+              "SSD": {
+                "name": "Kingston NV3 512GB NVMe SSD",
+                "price": 3958,
+                "description": null,
+                "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+                "image_filename": "kingston-nv3-512gb-nvme-ssd.webp"
+              },
+              "PSU": {
+                "name": "MSI MAG A550BN 550W 80+ Bronze",
+                "price": 2499,
+                "description": null,
+                "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+                "image_filename": "msi-mag-a550bn-550w-80-bronze.webp"
+              },
+              "Case": {
+                "name": "DeepCool CC360 ARGB Black",
+                "price": 2312,
+                "description": null,
+                "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+                "image_filename": "deepcool-cc360-argb-black.webp"
+              }
+            },
+            "alternatives": [],
+            "notes": [
+              "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких 3D/монтажних задач може бути на межі.",
+              "Сценарій підбору: Adobe Premiere Pro; складність проєктів — авто; монітори — авто; цільова роздільна здатність — 1080p.",
+              "Пріоритет підбору: максимальна продуктивність у межах бюджету."
+            ],
+            "total": 34294,
+            "creator_requirement": {
+              "selected_apps": [
+                "premiere"
+              ],
+              "required_cpu_score": 110.0,
+              "required_ram_gb": 32,
+              "required_ssd_gb": 1000,
+              "required_gpu_score": 90.0,
+              "required_vram_gb": 6,
+              "requires_dedicated_gpu": true,
+              "project_complexity": "auto",
+              "monitors": "auto"
+            },
+            "part_explanations": {
+              "GPU": "Відеокарта прискорює монтаж, GPU-ефекти, 3D та рендеринг. 8 гб відеопам’яті корисно для складніших сцен, таймлайнів і проєктів.",
+              "CPU": "Процесор орієнтований на монтаж, рендеринг і багатопотокові задачі, тому дає хороший запас для важчих творчих проєктів. Платформа: LGA1700.",
+              "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR4, є вбудований Wi‑Fi.",
+              "RAM": "Обсяг 8 ГБ дає запас для монтажу, важчих проєктів, багатозадачності та кешування робочих даних. Використовується пам’ять стандарту DDR4.",
+              "SSD": "Накопичувач на 512 ГБ підібраний для системи, програм і робочих файлів, щоб проєкти відкривалися та зберігалися швидше.",
+              "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+              "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн."
+            },
+            "priority": "best",
+            "requested_budget": 35000
+          },
+          "key": "priority-best",
+          "title": "Конфігурація максимальної продуктивності",
+          "description": "Максимально продуктивний варіант у межах заданих параметрів.",
+          "total": 34294,
+          "requested_budget": 35000,
+          "tier": "upper",
+          "tier_title": "Високий",
+          "priority": "best",
+          "priority_title": "Максимальна продуктивність",
+          "delta_text": "Дорожче на 2896 грн відносно основної рекомендації",
+          "parts_excerpt": [
+            {
+              "label": "Процесор",
+              "name": "Intel i5-13400F"
+            },
+            {
+              "label": "Відеокарта",
+              "name": "Intel Arc A580 8GB"
+            },
+            {
+              "label": "Оперативна пам’ять",
+              "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200"
+            },
+            {
+              "label": "SSD",
+              "name": "Kingston NV3 512GB NVMe SSD"
+            }
+          ],
+          "notes": [
+            "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких 3D/монтажних задач може бути на межі.",
+            "Сценарій підбору: Adobe Premiere Pro; складність проєктів — авто; монітори — авто; цільова роздільна здатність — 1080p.",
+            "Пріоритет підбору: максимальна продуктивність у межах бюджету."
+          ],
+          "card_notes": [
+            "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких 3D/монтажних задач може бути на межі.",
+            "Сценарій підбору: Adobe Premiere Pro; складність проєктів — авто; монітори — авто; цільова роздільна здатність — 1080p."
+          ],
+          "part_explanations": {
+            "GPU": "Відеокарта прискорює монтаж, GPU-ефекти, 3D та рендеринг. 8 гб відеопам’яті корисно для складніших сцен, таймлайнів і проєктів.",
+            "CPU": "Процесор орієнтований на монтаж, рендеринг і багатопотокові задачі, тому дає хороший запас для важчих творчих проєктів. Платформа: LGA1700.",
+            "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR4, є вбудований Wi‑Fi.",
+            "RAM": "Обсяг 8 ГБ дає запас для монтажу, важчих проєктів, багатозадачності та кешування робочих даних. Використовується пам’ять стандарту DDR4.",
+            "SSD": "Накопичувач на 512 ГБ підібраний для системи, програм і робочих файлів, щоб проєкти відкривалися та зберігалися швидше.",
+            "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+            "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн."
+          },
+          "changed_part_keys": [
+            "CPU",
+            "Motherboard",
+            "Case"
+          ],
+          "changed_part_explanations": {
+            "CPU": "Процесор орієнтований на монтаж, рендеринг і багатопотокові задачі, тому дає хороший запас для важчих творчих проєктів. Платформа: LGA1700.",
+            "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR4, є вбудований Wi‑Fi.",
+            "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн."
+          }
+        }
+      ],
+      "notes": [
+        "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких 3D/монтажних задач може бути на межі.",
+        "Сценарій підбору: Adobe Premiere Pro; складність проєктів — авто; монітори — авто; цільова роздільна здатність — 1080p.",
+        "Пріоритет підбору: збалансовано (ціна/якість)."
+      ],
+      "total": 31398,
+      "creator_requirement": {
+        "selected_apps": [
+          "premiere"
+        ],
+        "required_cpu_score": 110.0,
+        "required_ram_gb": 32,
+        "required_ssd_gb": 1000,
+        "required_gpu_score": 90.0,
+        "required_vram_gb": 6,
+        "requires_dedicated_gpu": true,
+        "project_complexity": "auto",
+        "monitors": "auto"
+      },
+      "part_explanations": {
+        "GPU": "Відеокарта прискорює монтаж, GPU-ефекти, 3D та рендеринг. 8 гб відеопам’яті корисно для складніших сцен, таймлайнів і проєктів.",
+        "CPU": "Процесор орієнтований на монтаж, рендеринг і багатопотокові задачі, тому дає хороший запас для важчих творчих проєктів. Платформа: AM4; є вбудована графіка.",
+        "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4, є вбудований Wi‑Fi.",
+        "RAM": "Обсяг 8 ГБ дає запас для монтажу, важчих проєктів, багатозадачності та кешування робочих даних. Використовується пам’ять стандарту DDR4.",
+        "SSD": "Накопичувач на 512 ГБ підібраний для системи, програм і робочих файлів, щоб проєкти відкривалися та зберігалися швидше.",
+        "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень.",
+        "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження."
+      },
+      "priority": "balanced",
+      "requested_budget": 31500
+    }
+  }
+]
