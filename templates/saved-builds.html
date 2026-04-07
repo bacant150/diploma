@@ -221,15 +221,26 @@
 
     .saved-builds-grid {
       align-items: start;
+      grid-auto-flow: row dense;
     }
 
     .saved-build-card {
       align-self: start;
       height: auto;
+      min-width: 0;
+    }
+
+    .saved-build-card > * {
+      min-width: 0;
+    }
+
+    .saved-build-card:has(.details-toggle[open]) {
+      grid-column: 1 / -1;
     }
 
     .details-toggle {
       margin-top: 0;
+      min-width: 0;
     }
 
     .details-toggle summary {
@@ -240,6 +251,7 @@
       flex-direction: row;
       align-items: center;
       gap: 8px;
+      min-width: 0;
     }
 
     .details-toggle-label small {
@@ -249,6 +261,7 @@
     .build-details-body.build-details-body--compact {
       padding: 0 14px 14px;
       gap: 12px;
+      min-width: 0;
     }
 
     .build-compact-top {
@@ -263,6 +276,8 @@
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
       line-height: 1.4;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
     .build-compact-chip-label {
@@ -277,7 +292,11 @@
     .build-compact-grid {
       display: grid;
       gap: 12px;
-      grid-template-columns: 1fr 1.2fr;
+      grid-template-columns: minmax(240px, 0.9fr) minmax(0, 1.1fr);
+    }
+
+    .saved-build-card:has(.details-toggle[open]) .build-compact-grid {
+      grid-template-columns: minmax(260px, 0.85fr) minmax(0, 1.15fr);
     }
 
     .build-compact-panel {
@@ -286,6 +305,7 @@
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       min-width: 0;
+      overflow: hidden;
     }
 
     .build-compact-panel h4 {
@@ -301,41 +321,55 @@
       color: rgba(255, 255, 255, 0.9);
     }
 
+    .build-compact-list li {
+      overflow-wrap: anywhere;
+    }
+
     .parts-compact-grid {
       display: grid;
       gap: 8px;
+      min-width: 0;
     }
 
     .part-compact-row {
       display: grid;
-      grid-template-columns: 130px 1fr auto;
+      grid-template-columns: minmax(96px, 124px) minmax(0, 1fr) auto;
       gap: 10px;
       align-items: start;
       border-radius: 10px;
       padding: 8px 10px;
       background: rgba(15, 23, 42, 0.35);
       border: 1px solid rgba(255, 255, 255, 0.06);
+      min-width: 0;
     }
 
     .part-compact-role {
       font-size: 0.82rem;
       color: rgba(255, 255, 255, 0.7);
+      overflow-wrap: anywhere;
     }
 
     .part-compact-name {
       min-width: 0;
       line-height: 1.35;
       font-weight: 600;
+      overflow-wrap: anywhere;
     }
 
     .part-compact-price {
       white-space: nowrap;
       font-weight: 700;
       color: rgba(94, 234, 212, 0.92);
+      text-align: right;
     }
 
-    @media (max-width: 980px) {
-      .build-compact-grid {
+    @media (max-width: 1100px) {
+      .saved-build-card:has(.details-toggle[open]) {
+        grid-column: auto;
+      }
+
+      .build-compact-grid,
+      .saved-build-card:has(.details-toggle[open]) .build-compact-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -343,6 +377,10 @@
     @media (max-width: 720px) {
       .part-compact-row {
         grid-template-columns: 1fr;
+      }
+
+      .part-compact-price {
+        text-align: left;
       }
     }
 
