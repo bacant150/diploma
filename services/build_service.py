@@ -330,12 +330,19 @@ def _run_alternative_builds(
 
 
 def build_configuration_from_form(form: Any) -> tuple[dict[str, Any], dict[str, Any]]:
+    # Скидаємо кеш повторюваних selection-логів на початку кожного запиту,
+    # щоб у консолі не дублювалися десятки однакових fallback-повідомлень.
+    from builder_engine.common import reset_selection_log_cache
+
+    reset_selection_log_cache()
     try:
         inputs = extract_user_inputs(form)
     except ValidationError as exc:
+        details = "; ".join(validation_error_messages(exc))
+        logger.warning("Валідація форми побудови конфігурації не пройдена: %s", details)
         raise HTTPException(
             status_code=400,
-            detail="; ".join(validation_error_messages(exc)),
+            detail=details,
         ) from exc
 
     logger.info(

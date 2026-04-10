@@ -399,6 +399,9 @@
         normalized.changed_part_explanations = normalized.changed_part_explanations && typeof normalized.changed_part_explanations === 'object'
           ? normalized.changed_part_explanations
           : normalized.part_explanations;
+        normalized.market_summary = normalized.market_summary && typeof normalized.market_summary === 'object'
+          ? normalized.market_summary
+          : (payload.market_summary && typeof payload.market_summary === 'object' ? payload.market_summary : {});
         return normalized;
       }
 
@@ -447,6 +450,10 @@
           const notesHtml = config.card_notes.length
             ? `<ul class="alternative-notes">${config.card_notes.map((note) => `<li>${escapeHtml(note)}</li>`).join('')}</ul>`
             : '';
+          const marketSummary = config.market_summary || {};
+          const marketHtml = marketSummary.total
+            ? `<div class="market-summary market-summary--${escapeHtml(marketSummary.status || 'unknown')}">${escapeHtml(marketSummary.label || '')}</div>`
+            : '';
 
           return `
             <article class="alternative-card${config.is_primary ? ' alternative-card--primary' : ''}${config.key === activeKey ? ' is-active' : ''}">
@@ -469,6 +476,7 @@
 
               <div class="alternative-delta">${escapeHtml(config.delta_text || '')}</div>
               ${excerptHtml}
+              ${marketHtml}
               ${notesHtml}
 
               <button type="button" class="alternative-open-btn" data-config-key="${escapeHtml(config.key)}">
@@ -515,6 +523,13 @@
             </button>` : '';
           const badgeHtml = !config.is_primary && isChanged ? '<span class="part-change-badge">Змінено</span>' : '';
           const descriptionHtml = description ? `<p class="part-description">${escapeHtml(description)}</p>` : '';
+          const marketMetaHtml = (part.store || part.availability || part.checked_at_display || part.product_url) ? `
+            <div class="part-market-meta">
+              ${part.store ? `<div><strong>Магазин:</strong> ${escapeHtml(part.store)}</div>` : ''}
+              ${part.availability ? `<div><strong>Наявність:</strong> <span class="availability-pill availability-pill--${part.in_stock === true ? 'yes' : part.in_stock === false ? 'no' : 'unknown'}">${escapeHtml(part.availability)}</span></div>` : ''}
+              ${part.checked_at_display ? `<div><strong>Оновлено:</strong> ${escapeHtml(part.checked_at_display)}</div>` : ''}
+              ${part.product_url ? `<div><a href="${escapeHtml(part.product_url)}" target="_blank" rel="noopener noreferrer">Відкрити товар</a></div>` : ''}
+            </div>` : '';
 
           return `
             <div class="part-card${!config.is_primary && isChanged ? ' part-card--changed' : ''}">
@@ -526,6 +541,7 @@
               <div class="part-model">${escapeHtml(part.name || '—')}</div>
               <div class="part-price">${escapeHtml(part.price || 0)} грн</div>
               ${descriptionHtml}
+              ${marketMetaHtml}
             </div>
           `;
         }).join('');

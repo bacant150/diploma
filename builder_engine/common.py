@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional, Tuple
+import logging
+from typing import Dict, List, Optional
 
 from parts_db import PARTS, Part, GAMES_DB, OFFICE_APPS_DB
 
@@ -17,22 +18,53 @@ except ImportError:
 
 VALID_MB_SOCKETS = {"AM4", "AM5", "LGA1700"}
 
+logger = logging.getLogger("pcbuilder.builder.selection")
+
+_SELECTION_LOG_CACHE: set[tuple[object, ...]] = set()
+
+
+def reset_selection_log_cache() -> None:
+    _SELECTION_LOG_CACHE.clear()
+
+
+def _log_selection_once(key: tuple[object, ...], message: str, *args: object) -> None:
+    if key in _SELECTION_LOG_CACHE:
+        return
+    _SELECTION_LOG_CACHE.add(key)
+    logger.info(message, *args)
+
+
 def _cat(cat: str) -> List[Part]:
     return [p for p in PARTS if p.category == cat]
+
+
+def _availability_rank(part: Part) -> int:
+    in_stock = part.meta.get("in_stock")
+    if in_stock is True:
+        return 2
+    if in_stock is False:
+        return 0
+
+    availability = str(part.meta.get("availability") or "").lower()
+    if "є в наявності" in availability or "готовий до відправлення" in availability:
+        return 2
+    if availability:
+        return 1
+    return 1
 
 
 def _pick_cheapest(cands: List[Part], max_price: int) -> Optional[Part]:
     fits = [p for p in cands if p.price <= max_price]
     if not fits:
         return None
-    return min(fits, key=lambda p: p.price)
+    return min(fits, key=lambda p: (-_availability_rank(p), p.price, p.name))
 
 
 def _pick_best(cands: List[Part], max_price: int) -> Optional[Part]:
     fits = [p for p in cands if p.price <= max_price]
     if not fits:
         return None
-    return max(fits, key=lambda p: p.price)
+    return max(fits, key=lambda p: (_availability_rank(p), p.price, p.name))
 
 
 def _pick_preferred(cands: List[Part], max_price: int, preferred_names: List[str]) -> Optional[Part]:
@@ -43,7 +75,7 @@ def _pick_preferred(cands: List[Part], max_price: int, preferred_names: List[str
     name_to_rank = {name: i for i, name in enumerate(preferred_names)}
 
     def sort_key(p: Part):
-        return (name_to_rank.get(p.name, 10_000), -p.price)
+        return (name_to_rank.get(p.name, 10_000), -_availability_rank(p), -p.price)
 
     fits.sort(key=sort_key)
     return fits[0]
@@ -107,18 +139,42 @@ def _pick_motherboard(cpu: Part, wifi: bool, max_price: int, prefer_ddr4: bool =
 
     if wifi:
         wifi_mbs = [p for p in mbs if p.meta.get("wifi") is True]
-        return _pick_best(wifi_mbs, max_price) or _pick_best(mbs, max_price)
+        wifi_selected = _pick_best(wifi_mbs, max_price)
+        if wifi_selected:
+            return wifi_selected
+
+        fallback_selected = _pick_best(mbs, max_price)
+        if fallback_selected:
+            _log_selection_once(
+                ("mb_wifi_fallback", cpu.name, fallback_selected.name),
+                "Материнська плата з Wi-Fi не знайдена в бюджеті, використовується fallback без Wi-Fi: cpu=%s budget=%s selected=%s",
+                cpu.name,
+                max_price,
+                fallback_selected.name,
+            )
+        return fallback_selected
 
     return _pick_best(mbs, max_price)
 
 
 def _pick_ram(ram_type: str, targets: List[int], max_price: int) -> Optional[Part]:
-    for size in targets:
+    primary_target = targets[0] if targets else None
+
+    for index, size in enumerate(targets):
         cand = _pick_best(
             [p for p in _cat("ram") if p.meta.get("ram_type") == ram_type and p.meta.get("size_gb") == size],
             max_price,
         )
         if cand:
+            if index > 0 and primary_target is not None:
+                _log_selection_once(
+                    ("ram_size_fallback", ram_type, primary_target, size, cand.name),
+                    "RAM підібрано через fallback за обсягом: requested=%s selected=%s budget=%s part=%s",
+                    primary_target,
+                    size,
+                    max_price,
+                    cand.name,
+                )
             return cand
     return None
 
@@ -198,8 +254,30 @@ def _pick_motherboard_for_platform(cpu: Part, wifi: bool, max_price: int, memory
 
 def _pick_psu(required_watt: int, max_price: int) -> Optional[Part]:
     psus = [p for p in _cat("psu") if p.meta.get("watt", 0) >= required_watt]
-    return _pick_cheapest(psus, max_price) or _pick_best(_cat("psu"), max_price)
+    selected = _pick_cheapest(psus, max_price)
+    if selected:
+        return selected
 
+    fallback_selected = _pick_best(_cat("psu"), max_price)
+    if fallback_selected:
+        _log_selection_once(
+            ("psu_watt_fallback", required_watt, fallback_selected.name, fallback_selected.meta.get("watt")),
+            "БЖ потрібної потужності не знайдено, використовується fallback: required=%s budget=%s selected=%s selected_watt=%s",
+            required_watt,
+            max_price,
+            fallback_selected.name,
+            fallback_selected.meta.get("watt"),
+        )
+    return fallback_selected
+
+
+def _psu_is_safe(psu: Optional[Part], required_watt: int, *, minimum_ratio: float = 1.0) -> bool:
+    if psu is None:
+        return False
+    actual_watt = int(psu.meta.get("watt", 0) or 0)
+    if required_watt <= 0:
+        return actual_watt > 0
+    return actual_watt >= max(required_watt * minimum_ratio, 1)
 
 
 def _pick_case(max_price: int, premium: bool = False) -> Optional[Part]:
@@ -259,7 +337,19 @@ def _estimate_required_watt(cpu: Optional[Part], gpu: Optional[Part], purpose: s
 
 def _result(parts: Dict[str, Part], notes: List[str], tier: str, budget: int, meta: Optional[Dict[str, object]] = None) -> Dict[str, object]:
     total = sum(p.price for p in parts.values())
-    parts_out = {k: {"name": v.name, "price": v.price} for k, v in parts.items()}
+    parts_out = {
+        k: {
+            "name": v.name,
+            "price": v.price,
+            "store": v.meta.get("store"),
+            "source_used": v.meta.get("source_used"),
+            "availability": v.meta.get("availability"),
+            "in_stock": v.meta.get("in_stock"),
+            "checked_at": v.meta.get("checked_at"),
+            "product_url": v.meta.get("product_url") or v.meta.get("rozetka_url"),
+        }
+        for k, v in parts.items()
+    }
     result = {
         "parts": parts_out,
         "total": total,
@@ -278,6 +368,7 @@ def _fail(message: str, tier: str = "unknown") -> Dict[str, object]:
         "notes": [message],
         "tier": tier,
     }
+
 
 def _cpu_brand_matches(cpu: Part, cpu_brand: str) -> bool:
     if cpu_brand == "auto":
@@ -299,7 +390,6 @@ def _gpu_brand_matches(gpu: Part, gpu_brand: str) -> bool:
     if gpu_brand == "nvidia":
         return name.startswith("nvidia")
     return True
-
 
 
 def _igpu_game_score(cpu: Part) -> int:
@@ -326,6 +416,7 @@ def _igpu_game_score(cpu: Part) -> int:
     }
     return scores.get(cpu.name, 18 if cpu.meta.get("igpu") else 0)
 
+
 def _find_part_by_name(name: str) -> Optional[Part]:
     """Повертає першу комплектуючу з бази за точною назвою."""
     for part in PARTS:
@@ -349,5 +440,6 @@ def _rebuild_parts_from_result(result: Dict[str, object]) -> Dict[str, Part]:
         if part:
             rebuilt[str(role)] = part
     return rebuilt
+
 
 __all__ = [name for name in globals() if not name.startswith("__")]

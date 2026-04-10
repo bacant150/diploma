@@ -264,11 +264,41 @@ def _build_runtime_parts() -> List[Part]:
     for part in _STATIC_PARTS:
         entry = price_feed.get(part.name, {})
         live_price = entry.get("price")
+        live_meta = dict(part.meta)
+
+        if isinstance(entry, dict) and entry:
+            store = entry.get("store")
+            source_used = entry.get("source_used")
+            product_url = entry.get("product_url") or entry.get("rozetka_url")
+            availability = entry.get("availability")
+
+            if not store and source_used == "rozetka":
+                store = "Rozetka"
+
+            in_stock = entry.get("in_stock")
+            if in_stock is None and isinstance(availability, str):
+                availability_lower = availability.lower()
+                if "є в наявності" in availability_lower or "готовий до відправлення" in availability_lower:
+                    in_stock = True
+                elif availability_lower:
+                    in_stock = False
+
+            live_meta.update(
+                {
+                    "store": store,
+                    "source_used": source_used,
+                    "availability": availability,
+                    "in_stock": in_stock,
+                    "checked_at": entry.get("checked_at"),
+                    "product_url": product_url,
+                    "rozetka_url": entry.get("rozetka_url"),
+                }
+            )
 
         if isinstance(live_price, (int, float)) and live_price > 0:
-            runtime_parts.append(Part(part.category, part.name, int(live_price), part.meta))
+            runtime_parts.append(Part(part.category, part.name, int(live_price), live_meta))
         else:
-            runtime_parts.append(part)
+            runtime_parts.append(Part(part.category, part.name, part.price, live_meta))
 
     return runtime_parts
 

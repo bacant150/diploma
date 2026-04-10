@@ -2,10 +2,43 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional, Tuple
 
+from config import BUDGET_LIMITS
 from .common import *  # noqa: F401,F403
 from .core import build_pc
 from .explanations import _part_label
 from .scoring import *  # noqa: F401,F403
+
+
+
+def _parts_objects_from_payload(parts: Dict[str, object]) -> Dict[str, Part]:
+    rebuilt: Dict[str, Part] = {}
+    if not isinstance(parts, dict):
+        return rebuilt
+
+    for key, data in parts.items():
+        if not isinstance(data, dict):
+            continue
+        name = data.get("name")
+        part = next((item for item in PARTS if item.name == name), None)
+        if part:
+            rebuilt[str(key)] = part
+    return rebuilt
+
+
+def _result_total_score(total: float) -> float:
+    return min(total / 10000.0, 20.0)
+
+
+def _purpose_budget_minimum(purpose: str, default: int = 7000) -> int:
+    limits = BUDGET_LIMITS.get(purpose, {})
+    value = limits.get("min", default)
+    return int(value) if isinstance(value, (int, float)) else default
+
+
+def _purpose_budget_maximum(purpose: str, default: int = 150000) -> int:
+    limits = BUDGET_LIMITS.get(purpose, {})
+    value = limits.get("max", default)
+    return int(value) if isinstance(value, (int, float)) else default
 
 def _is_result_acceptable_for_auto_budget(result: Dict[str, object], purpose: str) -> bool:
     """Перевіряє, чи підходить знайдена збірка як мінімально достатня для авто-бюджету."""
@@ -95,13 +128,33 @@ def _auto_budget_settings(purpose: str, gpu_mode: str = "auto") -> Dict[str, int
     if purpose == "gaming":
         if gpu_mode == "integrated":
             return {"start": 9000, "stop": 50000, "coarse_step": 3000, "fine_step": 500}
-        return {"start": 25000, "stop": 250000, "coarse_step": 5000, "fine_step": 1000}
+        return {
+            "start": _purpose_budget_minimum("gaming", 25000),
+            "stop": _purpose_budget_maximum("gaming", 250000),
+            "coarse_step": 5000,
+            "fine_step": 1000,
+        }
     if purpose == "office":
-        return {"start": 15500, "stop": 120000, "coarse_step": 3000, "fine_step": 500}
+        return {
+            "start": _purpose_budget_minimum("office", 16500),
+            "stop": _purpose_budget_maximum("office", 120000),
+            "coarse_step": 3000,
+            "fine_step": 500,
+        }
     if purpose == "study":
-        return {"start": 16500, "stop": 150000, "coarse_step": 3000, "fine_step": 500}
+        return {
+            "start": _purpose_budget_minimum("study", 19500),
+            "stop": _purpose_budget_maximum("study", 150000),
+            "coarse_step": 3000,
+            "fine_step": 500,
+        }
     if purpose == "creator":
-        return {"start": 35000, "stop": 300000, "coarse_step": 8000, "fine_step": 2000}
+        return {
+            "start": _purpose_budget_minimum("creator", 35000),
+            "stop": _purpose_budget_maximum("creator", 300000),
+            "coarse_step": 8000,
+            "fine_step": 2000,
+        }
     return {"start": 7000, "stop": 150000, "coarse_step": 3000, "fine_step": 500}
 
 
@@ -116,6 +169,57 @@ def _status_rank(status: str) -> float:
     }.get(status, 0.0)
 
 
+def _market_summary_from_parts(parts: Dict[str, object]) -> Dict[str, object]:
+    summary = {
+        "total": 0,
+        "in_stock": 0,
+        "unknown": 0,
+        "out_of_stock": 0,
+        "availability_score": 0.0,
+        "status": "unknown",
+        "label": "Наявність не перевірена",
+    }
+    if not isinstance(parts, dict) or not parts:
+        return summary
+
+    for part in parts.values():
+        if not isinstance(part, dict):
+            continue
+        summary["total"] += 1
+        in_stock = part.get("in_stock")
+        if in_stock is True:
+            summary["in_stock"] += 1
+        elif in_stock is False:
+            summary["out_of_stock"] += 1
+        else:
+            summary["unknown"] += 1
+
+    total = max(int(summary["total"]), 1)
+    score = (float(summary["in_stock"]) * 1.0 + float(summary["unknown"]) * 0.45) / total
+    summary["availability_score"] = round(score, 3)
+
+    if summary["out_of_stock"] == 0 and summary["in_stock"] == summary["total"]:
+        summary["status"] = "excellent"
+        summary["label"] = "Усі комплектуючі в наявності"
+    elif summary["out_of_stock"] == 0 and summary["in_stock"] > 0:
+        summary["status"] = "good"
+        summary["label"] = "Переважно в наявності"
+    elif summary["out_of_stock"] == 0:
+        summary["status"] = "unknown"
+        summary["label"] = "Наявність частково невідома"
+    else:
+        summary["status"] = "warning"
+        summary["label"] = f"Є недоступні позиції: {summary['out_of_stock']}"
+
+    return summary
+
+
+def _market_score_bonus(parts: Dict[str, object]) -> float:
+    summary = _market_summary_from_parts(parts)
+    bonus = float(summary["in_stock"]) * 3.0 + float(summary["unknown"]) * 0.8 - float(summary["out_of_stock"]) * 9.0
+    return bonus + float(summary["availability_score"]) * 12.0
+
+
 def _auto_budget_candidate_score(result: Dict[str, object], purpose: str) -> float:
     """Оцінює, наскільки конфігурація близька до цілі, якщо точний збіг не знайдено."""
     parts = result.get("parts", {})
@@ -123,6 +227,7 @@ def _auto_budget_candidate_score(result: Dict[str, object], purpose: str) -> flo
         return -1_000_000.0
 
     total = float(result.get("total", 0) or 0)
+    market_bonus = _market_score_bonus(parts if isinstance(parts, dict) else {})
 
     if purpose == "gaming":
         match_info = result.get("match_info", {}) if isinstance(result.get("match_info"), dict) else {}
@@ -162,54 +267,33 @@ def _auto_budget_candidate_score(result: Dict[str, object], purpose: str) -> flo
         if isinstance(requirement, dict) and requirement.get("is_active") and min_ratio < 0.75:
             score -= 80.0
 
-        return score + min(total / 10000.0, 20.0)
+        return score + _result_total_score(total) + market_bonus
 
     if purpose == "office":
         requirement = result.get("office_requirement", {}) if isinstance(result.get("office_requirement"), dict) else {}
-        parts_obj = {}
-        if isinstance(parts, dict):
-            for key, data in parts.items():
-                if isinstance(data, dict):
-                    name = data.get("name")
-                    part = next((p for p in PARTS if p.name == name), None)
-                    if part:
-                        parts_obj[key] = part
+        parts_obj = _parts_objects_from_payload(parts)
         if parts_obj and requirement:
             status = _office_match_status(parts_obj, requirement)
-            return _status_rank(status) + min(total / 10000.0, 20.0)
-        return min(total / 10000.0, 20.0)
+            return _status_rank(status) + _result_total_score(total) + market_bonus
+        return _result_total_score(total) + market_bonus
 
     if purpose == "study":
         requirement = result.get("study_requirement", {}) if isinstance(result.get("study_requirement"), dict) else {}
-        parts_obj = {}
-        if isinstance(parts, dict):
-            for key, data in parts.items():
-                if isinstance(data, dict):
-                    name = data.get("name")
-                    part = next((p for p in PARTS if p.name == name), None)
-                    if part:
-                        parts_obj[key] = part
+        parts_obj = _parts_objects_from_payload(parts)
         if parts_obj and requirement:
             status = _study_match_status(parts_obj, requirement)
-            return _status_rank(status) + min(total / 10000.0, 20.0)
-        return min(total / 10000.0, 20.0)
+            return _status_rank(status) + _result_total_score(total) + market_bonus
+        return _result_total_score(total) + market_bonus
 
     if purpose == "creator":
         requirement = result.get("creator_requirement", {}) if isinstance(result.get("creator_requirement"), dict) else {}
-        parts_obj = {}
-        if isinstance(parts, dict):
-            for key, data in parts.items():
-                if isinstance(data, dict):
-                    name = data.get("name")
-                    part = next((p for p in PARTS if p.name == name), None)
-                    if part:
-                        parts_obj[key] = part
+        parts_obj = _parts_objects_from_payload(parts)
         if parts_obj and requirement:
             status = _creator_match_status(parts_obj, requirement)
-            return _status_rank(status) + min(total / 10000.0, 20.0)
-        return min(total / 10000.0, 20.0)
+            return _status_rank(status) + _result_total_score(total) + market_bonus
+        return _result_total_score(total) + market_bonus
 
-    return min(total / 10000.0, 20.0)
+    return _result_total_score(total) + market_bonus
 
 
 def build_pc_auto_budget(
@@ -360,6 +444,7 @@ def _priority_card_title(priority: str) -> str:
         "best": "Максимальна продуктивність",
     }.get(priority, "Автоматичний підбір")
 
+
 def _changed_part_keys(primary_result: Dict[str, object], variant_result: Dict[str, object]) -> List[str]:
     primary_parts = primary_result.get("parts", {})
     variant_parts = variant_result.get("parts", {})
@@ -480,32 +565,47 @@ def _unique_budget_sequence(values: List[int]) -> List[int]:
     return result
 
 
-
 def _manual_priority_targets(max_budget: int, purpose: str) -> Dict[str, int]:
     if max_budget <= 0:
         return {"budget": 0, "balanced": 0, "best": 0}
 
+    minimum_budget = _purpose_budget_minimum(purpose, 7000)
+    rounded_max_budget = _round_budget_up(max_budget, step=500)
+    if rounded_max_budget <= minimum_budget:
+        return {
+            "budget": rounded_max_budget,
+            "balanced": rounded_max_budget,
+            "best": rounded_max_budget,
+        }
+
     budget_factor, balanced_factor = {
-        "office": (0.82, 0.92),
-        "study": (0.84, 0.93),
+        "office": (0.88, 0.96),
+        "study": (0.88, 0.95),
         "gaming": (0.78, 0.90),
         "creator": (0.80, 0.90),
     }.get(purpose, (0.82, 0.92))
 
     step = max(1000, _priority_budget_step(purpose) // 2)
-    best_target = _round_budget_up(max_budget, step=500)
+    best_target = rounded_max_budget
     balanced_target = min(best_target, _round_budget_up(int(max_budget * balanced_factor), step=500))
     budget_target = min(best_target, _round_budget_up(int(max_budget * budget_factor), step=500))
 
+    balanced_target = max(minimum_budget, balanced_target)
+    budget_target = max(minimum_budget, budget_target)
+
     if balanced_target >= best_target:
-        balanced_target = max(7000, best_target - step)
+        balanced_target = max(minimum_budget, best_target - step)
     if budget_target >= balanced_target:
-        budget_target = max(7000, balanced_target - step)
+        budget_target = max(minimum_budget, balanced_target - step)
+
+    if purpose == "office" and max_budget <= 20000:
+        budget_target = max(minimum_budget, min(best_target, max_budget - 500))
+        balanced_target = best_target
 
     return {
-        "budget": max(7000, budget_target),
-        "balanced": max(7000, balanced_target),
-        "best": max(7000, best_target),
+        "budget": max(minimum_budget, budget_target),
+        "balanced": max(minimum_budget, balanced_target),
+        "best": max(minimum_budget, best_target),
     }
 
 
@@ -564,7 +664,10 @@ def _priority_variant_kwargs(common_kwargs: Dict[str, Any], priority: str, purpo
 
     if variant_kwargs.get("ram_size") == "auto":
         if purpose in {"office", "study"}:
-            variant_kwargs["ram_size"] = "16" if priority != "best" or target_budget < 26000 else "32"
+            if target_budget < 20000:
+                variant_kwargs["ram_size"] = "auto"
+            else:
+                variant_kwargs["ram_size"] = "16" if priority != "best" or target_budget < 26000 else "32"
         elif purpose == "gaming":
             if priority == "budget":
                 variant_kwargs["ram_size"] = "16"
@@ -577,7 +680,9 @@ def _priority_variant_kwargs(common_kwargs: Dict[str, Any], priority: str, purpo
 
     if variant_kwargs.get("ssd_size") == "auto":
         if purpose in {"office", "study"}:
-            if priority == "budget":
+            if target_budget < 20000:
+                variant_kwargs["ssd_size"] = "auto"
+            elif priority == "budget":
                 variant_kwargs["ssd_size"] = "512"
             elif priority == "balanced":
                 variant_kwargs["ssd_size"] = "1000"
@@ -643,13 +748,14 @@ def _candidate_budgets_for_variant(
     manual_budget_cap: int,
 ) -> List[int]:
     step = max(500, _priority_budget_step(purpose) // 2)
+    minimum_budget = _purpose_budget_minimum(purpose, 7000)
 
     if budget_mode == "auto":
         budgets = [initial_budget]
         if priority == "budget":
-            budgets += [max(7000, initial_budget - step), initial_budget + step, initial_budget + step * 2]
+            budgets += [max(minimum_budget, initial_budget - step), initial_budget + step, initial_budget + step * 2]
         elif priority == "balanced":
-            budgets += [initial_budget + step, max(7000, initial_budget - step), initial_budget + step * 2]
+            budgets += [initial_budget + step, max(minimum_budget, initial_budget - step), initial_budget + step * 2]
         else:
             budgets += [initial_budget + step, initial_budget + step * 2, initial_budget + step * 3]
         return _unique_budget_sequence(budgets)
@@ -657,12 +763,12 @@ def _candidate_budgets_for_variant(
     cap = max(manual_budget_cap, initial_budget)
     budgets = [initial_budget]
     if priority == "budget":
-        budgets += [max(7000, initial_budget - step), max(7000, initial_budget - step * 2), min(cap, initial_budget + step)]
+        budgets += [max(minimum_budget, initial_budget - step), max(minimum_budget, initial_budget - step * 2), min(cap, initial_budget + step)]
     elif priority == "balanced":
-        budgets += [min(cap, initial_budget + step), max(7000, initial_budget - step), cap]
+        budgets += [min(cap, initial_budget + step), max(minimum_budget, initial_budget - step), cap]
     else:
-        budgets += [cap, max(7000, cap - step), max(7000, cap - step * 2)]
-    return _unique_budget_sequence([value for value in budgets if value <= cap])
+        budgets += [cap, max(minimum_budget, cap - step), max(minimum_budget, cap - step * 2)]
+    return _unique_budget_sequence([value for value in budgets if minimum_budget <= value <= cap])
 
 
 
@@ -740,6 +846,7 @@ def _make_alternative_card(
     raw_parts = result.get("parts", {})
     if not isinstance(raw_parts, dict):
         raw_parts = {}
+    market_summary = _market_summary_from_parts(raw_parts)
 
     return {
         "key": key,
@@ -760,6 +867,7 @@ def _make_alternative_card(
         "part_explanations": part_explanations,
         "changed_part_keys": changed_keys,
         "changed_part_explanations": changed_explanations,
+        "market_summary": market_summary,
         "_result": result,
     }
 
@@ -845,6 +953,11 @@ def build_pc_alternatives(
             used_signatures=used_signatures,
             manual_budget_cap=manual_budget,
         )
+
+        if not variant_result.get("parts") and is_primary and base_result.get("parts"):
+            variant_result = dict(base_result)
+            variant_result["priority"] = priority
+            variant_result["requested_budget"] = _requested_budget_for_result(base_result, budget_mode, target_budget)
 
         if not variant_result.get("parts"):
             continue

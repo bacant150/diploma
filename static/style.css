@@ -2116,3 +2116,55 @@ body.modal-open {
         flex-direction: column;
     }
 }
+
+.market-summary {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(255,255,255,0.04);
+}
+
+.market-summary--excellent,
+.market-summary--good {
+  border: 1px solid rgba(76, 175, 80, 0.35);
+}
+
+.market-summary--warning {
+  border: 1px solid rgba(255, 152, 0, 0.35);
+}
+
+.part-market-meta {
+  margin-top: 10px;
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.82);
+}
+
+.part-market-meta a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.availability-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.availability-pill--yes {
+  background: rgba(76, 175, 80, 0.18);
+}
+
+.availability-pill--no {
+  background: rgba(244, 67, 54, 0.18);
+}
+
+.availability-pill--unknown {
+  background: rgba(255, 255, 255, 0.12);
+}

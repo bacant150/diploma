@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 from .common import *  # noqa: F401,F403
 from .scoring import *  # noqa: F401,F403
@@ -17,7 +17,7 @@ def _build_gaming_pc_integrated(
     ssd_size: str = "auto",
     memory_platform: str = "auto",
 ) -> Dict[str, object]:
-    """Підбирає конфігурацію для офісного сценарію з урахуванням фільтрів користувача."""
+    """Підбирає ігрову конфігурацію на вбудованій графіці для дуже обмеженого бюджету."""
     notes: List[str] = []
     tier = "budget" if budget <= 18000 else "mid"
     requirement = _calculate_gaming_requirement(games, resolution, graphics_quality, target_fps)
@@ -455,8 +455,9 @@ def build_gaming_pc(
                     continue
                 partial["SSD"] = ssd
                 spent = sum(p.price for p in partial.values())
-                psu = _pick_psu(_estimate_required_watt(cpu, gpu, "gaming"), min(int(budget * 0.11), budget - spent)) or _pick_psu(_estimate_required_watt(cpu, gpu, "gaming"), budget - spent)
-                if not psu:
+                required_watt = _estimate_required_watt(cpu, gpu, "gaming")
+                psu = _pick_psu(required_watt, min(int(budget * 0.11), budget - spent)) or _pick_psu(required_watt, budget - spent)
+                if not _psu_is_safe(psu, required_watt):
                     continue
                 partial["PSU"] = psu
                 spent = sum(p.price for p in partial.values())
@@ -581,8 +582,9 @@ def build_creator_pc(
             partial["SSD"] = ssd
             spent = sum(p.price for p in partial.values())
 
-            psu = _pick_psu(_estimate_required_watt(cpu, gpu, "creator"), min(int(budget * 0.11), budget - spent)) or _pick_psu(_estimate_required_watt(cpu, gpu, "creator"), budget - spent)
-            if not psu:
+            required_watt = _estimate_required_watt(cpu, gpu, "creator")
+            psu = _pick_psu(required_watt, min(int(budget * 0.11), budget - spent)) or _pick_psu(required_watt, budget - spent)
+            if not _psu_is_safe(psu, required_watt):
                 continue
             partial["PSU"] = psu
             spent = sum(p.price for p in partial.values())

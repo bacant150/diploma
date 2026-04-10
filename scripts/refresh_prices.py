@@ -562,13 +562,25 @@ class RozetkaBrowserClient:
 
 def build_feed_item_from_rozetka(url: str, rozetka_data: dict[str, Any]) -> dict[str, Any]:
     now = datetime.now().isoformat(timespec="seconds")
+    availability = rozetka_data.get("availability")
+    availability_text = str(availability or "").strip().lower()
+    if not availability_text:
+        in_stock = None
+    elif "нема" in availability_text or "відсут" in availability_text:
+        in_stock = False
+    else:
+        in_stock = True
+
     return {
         "price": int(rozetka_data["price"]),
         "source_used": "rozetka",
+        "store": "Rozetka",
         "rozetka_price": int(rozetka_data["price"]),
         "rozetka_url": url,
+        "product_url": url,
         "product_code": rozetka_data.get("product_code"),
-        "availability": rozetka_data.get("availability"),
+        "availability": availability,
+        "in_stock": in_stock,
         "title": rozetka_data.get("title"),
         "checked_at": now,
     }
@@ -579,6 +591,9 @@ def build_feed_item_from_local(local_price: int) -> dict[str, Any]:
     return {
         "price": int(local_price),
         "source_used": "local",
+        "store": "Локальна база",
+        "availability": "Наявність невідома",
+        "in_stock": None,
         "checked_at": datetime.now().isoformat(timespec="seconds"),
     }
 

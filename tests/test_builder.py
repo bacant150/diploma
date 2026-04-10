@@ -129,3 +129,25 @@ def test_build_pc_auto_budget_returns_real_total():
     assert isinstance(result, dict)
     assert result.get('parts')
     assert _total_value(result) > 0
+
+
+def test_build_pc_alternatives_office_low_budget_keeps_primary_card():
+    payload = _payload(purpose='office', budget=16500, priority='balanced', office_apps=['excel'])
+    primary_result = build_pc(**payload)
+
+    alternatives = build_pc_alternatives(primary_result, budget_mode='manual', **payload)
+
+    assert alternatives
+    assert alternatives[0].get('is_primary') is True
+    assert alternatives[0].get('_result', {}).get('parts')
+
+
+
+def test_build_pc_gaming_returns_psu_without_power_error():
+    result = build_pc(**_payload(purpose='gaming', budget=85000, priority='best', games=['cs2', 'cyberpunk_2077']))
+
+    compatibility = result.get('compatibility') or {}
+    psu_errors = [item for item in compatibility.get('errors', []) if 'БЖ' in item or 'потужн' in item]
+
+    assert result.get('parts')
+    assert not psu_errors

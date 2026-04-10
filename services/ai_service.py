@@ -117,7 +117,7 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
     try:
         detect_form = PurposeDetectionFormSchema.model_validate({'description': raw_description})
     except ValidationError:
-        logger.info('AI-визначення пропущено: опис занадто короткий або невалідний.')
+        logger.info('AI-визначення пропущено: опис занадто короткий або невалідний. text_len=%s', len(str(raw_description or '')))
         return (
             {
                 'ok': False,
@@ -137,7 +137,7 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
 
     description = detect_form.description
     if not ai_status.get('available'):
-        logger.warning('AI-модуль недоступний під час запиту визначення сценарію.')
+        logger.warning('AI-модуль недоступний під час запиту визначення сценарію. text_len=%s', len(description))
         return (
             {
                 'ok': False,
@@ -161,7 +161,7 @@ def detect_purpose_from_description(raw_description: Any) -> tuple[dict[str, Any
     try:
         prediction = predict_purpose(description)
     except ModelUnavailableError as exc:
-        logger.warning('AI-модель стала недоступною під час запиту: %s', exc)
+        logger.warning('AI-модель стала недоступною під час запиту: %s text_len=%s', exc, len(description))
         return (
             {
                 'ok': False,
