@@ -2140,11 +2140,11 @@ body.modal-open {
   display: grid;
   gap: 6px;
   font-size: 13px;
-  color: rgba(255,255,255,0.82);
+  color: #5f4a42;
 }
 
 .part-market-meta a {
-  color: inherit;
+  color: #8f4032;
   text-decoration: underline;
 }
 
@@ -2155,16 +2155,20 @@ body.modal-open {
   border-radius: 999px;
   font-size: 12px;
   font-weight: 700;
+  color: #4f3b34;
 }
 
 .availability-pill--yes {
   background: rgba(76, 175, 80, 0.18);
+  color: #256c2b;
 }
 
 .availability-pill--no {
   background: rgba(244, 67, 54, 0.18);
+  color: #a1332c;
 }
 
 .availability-pill--unknown {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(95, 74, 66, 0.12);
+  color: #5f4a42;
 }

@@ -3,8 +3,3373 @@
     "id": "c4d735f7915343e095ad9d6f6892290c",
     "name": "Саша",
     "created_at": "2026-03-31T15:30:49",
-    "last_seen_at": "2026-04-07T22:10:09",
-    "saved_build_ids": [],
-    "query_history": []
+    "last_seen_at": "2026-04-15T12:34:48",
+    "saved_build_ids": [
+      "9b400670831042fba21b4d706c379328"
+    ],
+    "query_history": [
+      {
+        "id": "8d584f4afc334445a91f6d73f5303812",
+        "created_at": "2026-04-15T10:21:05",
+        "source": "builder_form",
+        "inputs": {
+          "budget_mode": "auto",
+          "budget": 0,
+          "purpose": "study",
+          "resolution": "1080p",
+          "wifi": false,
+          "games": [],
+          "graphics_quality": "high",
+          "target_fps": 60,
+          "gpu_mode": "integrated",
+          "cpu_brand": "intel",
+          "gpu_brand": "auto",
+          "ram_size": "16",
+          "ssd_size": "512",
+          "memory_platform": "auto",
+          "office_apps": [],
+          "office_tabs": "auto",
+          "office_monitors": "auto",
+          "study_apps": [
+            "docs",
+            "browser",
+            "python",
+            "pycharm"
+          ],
+          "study_tabs": "10_30",
+          "study_monitors": "1",
+          "creator_apps": [],
+          "creator_complexity": "auto",
+          "creator_monitors": "auto",
+          "priority": "budget",
+          "games_titles": [],
+          "office_apps_titles": [],
+          "study_apps_titles": [
+            "Word / Google Docs",
+            "Браузер / онлайн-навчання",
+            "Python / навчальні проєкти",
+            "PyCharm / IntelliJ IDEA"
+          ],
+          "creator_apps_titles": []
+        },
+        "result_summary": {
+          "tier": "upper",
+          "total_price": 50573,
+          "recommended_budget": 79500,
+          "parts_count": 6
+        },
+        "result_snapshot": {
+          "tier": "upper",
+          "total_price": 50573,
+          "recommended_budget": 79500,
+          "parts": {
+            "CPU": {
+              "name": "Intel i7-14700",
+              "price": 19076,
+              "description": null,
+              "image": "/static/images/parts/intel-i7-14700.webp",
+              "image_filename": "intel-i7-14700.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T19:53:52",
+              "product_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514700/p413419965/",
+              "checked_at_display": "30.03.2026 19:53"
+            },
+            "Motherboard": {
+              "name": "B760 (LGA1700, DDR4, ATX)",
+              "price": 11330,
+              "description": null,
+              "image": "/static/images/parts/b760-lga1700-ddr4-atx.webp",
+              "image_filename": "b760-lga1700-ddr4-atx.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T20:15:33",
+              "product_url": "https://hard.rozetka.com.ua/ua/asus-prime-b760-plus-d4/p363889524/",
+              "checked_at_display": "30.03.2026 20:15"
+            },
+            "RAM": {
+              "name": "Kingston Fury Beast 16GB (2x8) DDR4-3200",
+              "price": 8786,
+              "description": null,
+              "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+              "image_filename": "kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T19:58:52",
+              "product_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bbk2_16/p310064023/",
+              "checked_at_display": "30.03.2026 19:58"
+            },
+            "SSD": {
+              "name": "Kingston NV3 512GB NVMe SSD",
+              "price": 3958,
+              "description": null,
+              "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+              "image_filename": "kingston-nv3-512gb-nvme-ssd.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T20:18:13",
+              "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/",
+              "checked_at_display": "30.03.2026 20:18"
+            },
+            "PSU": {
+              "name": "Chieftec Value APB-400B8 400W 80+ Bronze",
+              "price": 1833,
+              "description": null,
+              "image": "/static/images/parts/chieftec-value-apb-400b8-400w-80-bronze.webp",
+              "image_filename": "chieftec-value-apb-400b8-400w-80-bronze.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T20:18:37",
+              "product_url": "https://hard.rozetka.com.ua/ua/chieftec_apb_400b8/p24204089/",
+              "checked_at_display": "30.03.2026 20:18"
+            },
+            "Case": {
+              "name": "NZXT H6 Flow RGB Black",
+              "price": 5590,
+              "description": null,
+              "image": "/static/images/parts/nzxt-h6-flow-rgb-black.webp",
+              "image_filename": "nzxt-h6-flow-rgb-black.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T20:04:27",
+              "product_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fb-r1/p407832054/",
+              "checked_at_display": "30.03.2026 20:04"
+            }
+          },
+          "alternatives": [
+            {
+              "is_primary": true,
+              "label": null,
+              "name": null,
+              "total_price": null,
+              "parts": {
+                "CPU": {
+                  "name": "Intel i7-14700",
+                  "price": 19076,
+                  "description": null,
+                  "image": "/static/images/parts/intel-i7-14700.webp",
+                  "image_filename": "intel-i7-14700.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:53:52",
+                  "product_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514700/p413419965/",
+                  "checked_at_display": "30.03.2026 19:53"
+                },
+                "Motherboard": {
+                  "name": "B760 (LGA1700, DDR4, ATX)",
+                  "price": 11330,
+                  "description": null,
+                  "image": "/static/images/parts/b760-lga1700-ddr4-atx.webp",
+                  "image_filename": "b760-lga1700-ddr4-atx.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:15:33",
+                  "product_url": "https://hard.rozetka.com.ua/ua/asus-prime-b760-plus-d4/p363889524/",
+                  "checked_at_display": "30.03.2026 20:15"
+                },
+                "RAM": {
+                  "name": "Kingston Fury Beast 16GB (2x8) DDR4-3200",
+                  "price": 8786,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+                  "image_filename": "kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:58:52",
+                  "product_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bbk2_16/p310064023/",
+                  "checked_at_display": "30.03.2026 19:58"
+                },
+                "SSD": {
+                  "name": "Kingston NV3 512GB NVMe SSD",
+                  "price": 3958,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+                  "image_filename": "kingston-nv3-512gb-nvme-ssd.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:18:13",
+                  "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/",
+                  "checked_at_display": "30.03.2026 20:18"
+                },
+                "PSU": {
+                  "name": "Chieftec Value APB-400B8 400W 80+ Bronze",
+                  "price": 1833,
+                  "description": null,
+                  "image": "/static/images/parts/chieftec-value-apb-400b8-400w-80-bronze.webp",
+                  "image_filename": "chieftec-value-apb-400b8-400w-80-bronze.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:18:37",
+                  "product_url": "https://hard.rozetka.com.ua/ua/chieftec_apb_400b8/p24204089/",
+                  "checked_at_display": "30.03.2026 20:18"
+                },
+                "Case": {
+                  "name": "NZXT H6 Flow RGB Black",
+                  "price": 5590,
+                  "description": null,
+                  "image": "/static/images/parts/nzxt-h6-flow-rgb-black.webp",
+                  "image_filename": "nzxt-h6-flow-rgb-black.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:04:27",
+                  "product_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fb-r1/p407832054/",
+                  "checked_at_display": "30.03.2026 20:04"
+                }
+              },
+              "result_payload": {
+                "tier": "upper",
+                "total_price": 50573,
+                "recommended_budget": 79500,
+                "parts": {
+                  "CPU": {
+                    "name": "Intel i7-14700",
+                    "price": 19076,
+                    "description": null,
+                    "image": "/static/images/parts/intel-i7-14700.webp",
+                    "image_filename": "intel-i7-14700.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:53:52",
+                    "product_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514700/p413419965/",
+                    "checked_at_display": "30.03.2026 19:53"
+                  },
+                  "Motherboard": {
+                    "name": "B760 (LGA1700, DDR4, ATX)",
+                    "price": 11330,
+                    "description": null,
+                    "image": "/static/images/parts/b760-lga1700-ddr4-atx.webp",
+                    "image_filename": "b760-lga1700-ddr4-atx.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:15:33",
+                    "product_url": "https://hard.rozetka.com.ua/ua/asus-prime-b760-plus-d4/p363889524/",
+                    "checked_at_display": "30.03.2026 20:15"
+                  },
+                  "RAM": {
+                    "name": "Kingston Fury Beast 16GB (2x8) DDR4-3200",
+                    "price": 8786,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+                    "image_filename": "kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:58:52",
+                    "product_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bbk2_16/p310064023/",
+                    "checked_at_display": "30.03.2026 19:58"
+                  },
+                  "SSD": {
+                    "name": "Kingston NV3 512GB NVMe SSD",
+                    "price": 3958,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+                    "image_filename": "kingston-nv3-512gb-nvme-ssd.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:18:13",
+                    "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/",
+                    "checked_at_display": "30.03.2026 20:18"
+                  },
+                  "PSU": {
+                    "name": "Chieftec Value APB-400B8 400W 80+ Bronze",
+                    "price": 1833,
+                    "description": null,
+                    "image": "/static/images/parts/chieftec-value-apb-400b8-400w-80-bronze.webp",
+                    "image_filename": "chieftec-value-apb-400b8-400w-80-bronze.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:18:37",
+                    "product_url": "https://hard.rozetka.com.ua/ua/chieftec_apb_400b8/p24204089/",
+                    "checked_at_display": "30.03.2026 20:18"
+                  },
+                  "Case": {
+                    "name": "NZXT H6 Flow RGB Black",
+                    "price": 5590,
+                    "description": null,
+                    "image": "/static/images/parts/nzxt-h6-flow-rgb-black.webp",
+                    "image_filename": "nzxt-h6-flow-rgb-black.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:04:27",
+                    "product_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fb-r1/p407832054/",
+                    "checked_at_display": "30.03.2026 20:04"
+                  }
+                },
+                "alternatives": [],
+                "notes": [
+                  "Орієнтир бюджету для режиму «Бюджетний»: 79500 грн.",
+                  "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких задач може бути на межі.",
+                  "Сценарій підбору: Word / Google Docs, Браузер / онлайн-навчання, Python / навчальні проєкти, PyCharm / IntelliJ IDEA; вкладки — 10-30; монітори — 1; збірка сформована без дискретної відеокарти.",
+                  "Пріоритет підбору: бюджетний варіант з акцентом на економію."
+                ],
+                "total": 50573,
+                "study_requirement": {
+                  "selected_apps": [
+                    "docs",
+                    "browser",
+                    "python",
+                    "pycharm"
+                  ],
+                  "required_cpu_score": 106.0,
+                  "required_ram_gb": 32,
+                  "required_ssd_gb": 512,
+                  "required_gpu_score": 5.0,
+                  "requires_dedicated_gpu": false,
+                  "tabs": "10_30",
+                  "monitors": "1"
+                },
+                "part_explanations": {
+                  "CPU": "Процесор підібраний для навчання, програмування, браузера та повсякденних задач із запасом по чуйності системи. Платформа: LGA1700; є вбудована графіка. Платформа узгоджена з материнською платою за сокетом LGA1700.",
+                  "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR4. Додатково враховано: форм-фактор ATX, підтримка DDR4.",
+                  "RAM": "Обсяг 16 ГБ підходить для навчання, програмування, відеозв’язку та повсякденної багатозадачності. Використовується пам’ять стандарту DDR4. Тип пам’яті сумісний із материнською платою: DDR4.",
+                  "SSD": "SSD на 512 ГБ дає швидкий запуск системи, навчальних програм і достатній простір для файлів та проєктів.",
+                  "PSU": "Блок живлення на 400 Вт підібраний як найближчий доступний варіант під цю конфігурацію. Орієнтовний запас потужності становить близько 155 Вт.",
+                  "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн, вищий клас виконання. Корпус розрахований на плату формату ATX у класі ATX."
+                },
+                "compatibility": {
+                  "status": "ok",
+                  "checks": [
+                    {
+                      "code": "cpu_socket",
+                      "status": "ok",
+                      "message": "Процесор і материнська плата сумісні за сокетом LGA1700."
+                    },
+                    {
+                      "code": "memory_type",
+                      "status": "ok",
+                      "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+                    },
+                    {
+                      "code": "form_factor",
+                      "status": "ok",
+                      "message": "Корпус ATX підтримує плату ATX."
+                    },
+                    {
+                      "code": "psu_headroom",
+                      "status": "ok",
+                      "message": "Блок живлення 400 Вт має хороший запас над орієнтовною потребою 245 Вт."
+                    },
+                    {
+                      "code": "ram_capacity",
+                      "status": "ok",
+                      "message": "Обсяг ОЗП 16 ГБ відповідає сценарію study."
+                    },
+                    {
+                      "code": "ssd_capacity",
+                      "status": "ok",
+                      "message": "SSD 512 ГБ відповідає очікуваному мінімуму для сценарію study."
+                    }
+                  ],
+                  "errors": [],
+                  "warnings": [],
+                  "estimated_required_watt": 245,
+                  "psu_watt": 400
+                },
+                "compatibility_checks": [
+                  {
+                    "code": "cpu_socket",
+                    "status": "ok",
+                    "message": "Процесор і материнська плата сумісні за сокетом LGA1700."
+                  },
+                  {
+                    "code": "memory_type",
+                    "status": "ok",
+                    "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+                  },
+                  {
+                    "code": "form_factor",
+                    "status": "ok",
+                    "message": "Корпус ATX підтримує плату ATX."
+                  },
+                  {
+                    "code": "psu_headroom",
+                    "status": "ok",
+                    "message": "Блок живлення 400 Вт має хороший запас над орієнтовною потребою 245 Вт."
+                  },
+                  {
+                    "code": "ram_capacity",
+                    "status": "ok",
+                    "message": "Обсяг ОЗП 16 ГБ відповідає сценарію study."
+                  },
+                  {
+                    "code": "ssd_capacity",
+                    "status": "ok",
+                    "message": "SSD 512 ГБ відповідає очікуваному мінімуму для сценарію study."
+                  }
+                ],
+                "priority": "budget",
+                "requested_budget": 79500,
+                "budget_mode": "auto"
+              },
+              "key": "priority-budget",
+              "title": "Рекомендована конфігурація",
+              "description": "Основна рекомендація відповідно до обраного тобою пріоритету підбору.",
+              "total": 50573,
+              "requested_budget": 79500,
+              "tier": "upper",
+              "tier_title": "Високий",
+              "priority": "budget",
+              "priority_title": "Бюджетний",
+              "delta_text": "Базова рекомендація системи",
+              "parts_excerpt": [
+                {
+                  "label": "Процесор",
+                  "name": "Intel i7-14700"
+                },
+                {
+                  "label": "Відеокарта",
+                  "name": "Вбудована графіка процесора"
+                },
+                {
+                  "label": "Оперативна пам’ять",
+                  "name": "Kingston Fury Beast 16GB (2x8) DDR4-3200"
+                },
+                {
+                  "label": "SSD",
+                  "name": "Kingston NV3 512GB NVMe SSD"
+                }
+              ],
+              "notes": [
+                "Орієнтир бюджету для режиму «Бюджетний»: 79500 грн.",
+                "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких задач може бути на межі.",
+                "Сценарій підбору: Word / Google Docs, Браузер / онлайн-навчання, Python / навчальні проєкти, PyCharm / IntelliJ IDEA; вкладки — 10-30; монітори — 1; збірка сформована без дискретної відеокарти.",
+                "Пріоритет підбору: бюджетний варіант з акцентом на економію."
+              ],
+              "card_notes": [
+                "Орієнтир бюджету для режиму «Бюджетний»: 79500 грн.",
+                "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких задач може бути на межі."
+              ],
+              "part_explanations": {
+                "CPU": "Процесор підібраний для навчання, програмування, браузера та повсякденних задач із запасом по чуйності системи. Платформа: LGA1700; є вбудована графіка. Платформа узгоджена з материнською платою за сокетом LGA1700.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR4. Додатково враховано: форм-фактор ATX, підтримка DDR4.",
+                "RAM": "Обсяг 16 ГБ підходить для навчання, програмування, відеозв’язку та повсякденної багатозадачності. Використовується пам’ять стандарту DDR4. Тип пам’яті сумісний із материнською платою: DDR4.",
+                "SSD": "SSD на 512 ГБ дає швидкий запуск системи, навчальних програм і достатній простір для файлів та проєктів.",
+                "PSU": "Блок живлення на 400 Вт підібраний як найближчий доступний варіант під цю конфігурацію. Орієнтовний запас потужності становить близько 155 Вт.",
+                "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн, вищий клас виконання. Корпус розрахований на плату формату ATX у класі ATX."
+              },
+              "changed_part_keys": [],
+              "changed_part_explanations": {},
+              "market_summary": {
+                "total": 6,
+                "in_stock": 6,
+                "unknown": 0,
+                "out_of_stock": 0,
+                "availability_score": 1.0,
+                "status": "excellent",
+                "label": "Усі комплектуючі в наявності"
+              }
+            },
+            {
+              "is_primary": false,
+              "label": null,
+              "name": null,
+              "total_price": null,
+              "parts": {
+                "CPU": {
+                  "name": "Intel i7-14700",
+                  "price": 19076,
+                  "description": null,
+                  "image": "/static/images/parts/intel-i7-14700.webp",
+                  "image_filename": "intel-i7-14700.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:53:52",
+                  "product_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514700/p413419965/",
+                  "checked_at_display": "30.03.2026 19:53"
+                },
+                "Motherboard": {
+                  "name": "MSI PRO B760M-P (LGA1700, DDR5, mATX)",
+                  "price": 15899,
+                  "description": null,
+                  "image": "/static/images/parts/msi-pro-b760m-p-lga1700-ddr5-matx.webp",
+                  "image_filename": "msi-pro-b760m-p-lga1700-ddr5-matx.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:58:11",
+                  "product_url": "https://hard.rozetka.com.ua/ua/msi-pro-b760m-p/p386918160/",
+                  "checked_at_display": "30.03.2026 19:58"
+                },
+                "RAM": {
+                  "name": "Kingston Fury Beast 16GB (2x8) DDR5-5600",
+                  "price": 23299,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr5-5600.webp",
+                  "image_filename": "kingston-fury-beast-16gb-2x8-ddr5-5600.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:17:00",
+                  "product_url": "https://hard.rozetka.com.ua/ua/kingston_kf556c40bbak2_16/p342800104/",
+                  "checked_at_display": "30.03.2026 20:17"
+                },
+                "SSD": {
+                  "name": "Kingston NV3 512GB NVMe SSD",
+                  "price": 3958,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+                  "image_filename": "kingston-nv3-512gb-nvme-ssd.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:18:13",
+                  "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/",
+                  "checked_at_display": "30.03.2026 20:18"
+                },
+                "PSU": {
+                  "name": "Chieftec Value APB-400B8 400W 80+ Bronze",
+                  "price": 1833,
+                  "description": null,
+                  "image": "/static/images/parts/chieftec-value-apb-400b8-400w-80-bronze.webp",
+                  "image_filename": "chieftec-value-apb-400b8-400w-80-bronze.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:18:37",
+                  "product_url": "https://hard.rozetka.com.ua/ua/chieftec_apb_400b8/p24204089/",
+                  "checked_at_display": "30.03.2026 20:18"
+                },
+                "Case": {
+                  "name": "NZXT H6 Flow RGB Black",
+                  "price": 5590,
+                  "description": null,
+                  "image": "/static/images/parts/nzxt-h6-flow-rgb-black.webp",
+                  "image_filename": "nzxt-h6-flow-rgb-black.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:04:27",
+                  "product_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fb-r1/p407832054/",
+                  "checked_at_display": "30.03.2026 20:04"
+                }
+              },
+              "result_payload": {
+                "tier": "upper",
+                "total_price": 69655,
+                "recommended_budget": 89500,
+                "parts": {
+                  "CPU": {
+                    "name": "Intel i7-14700",
+                    "price": 19076,
+                    "description": null,
+                    "image": "/static/images/parts/intel-i7-14700.webp",
+                    "image_filename": "intel-i7-14700.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:53:52",
+                    "product_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514700/p413419965/",
+                    "checked_at_display": "30.03.2026 19:53"
+                  },
+                  "Motherboard": {
+                    "name": "MSI PRO B760M-P (LGA1700, DDR5, mATX)",
+                    "price": 15899,
+                    "description": null,
+                    "image": "/static/images/parts/msi-pro-b760m-p-lga1700-ddr5-matx.webp",
+                    "image_filename": "msi-pro-b760m-p-lga1700-ddr5-matx.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:58:11",
+                    "product_url": "https://hard.rozetka.com.ua/ua/msi-pro-b760m-p/p386918160/",
+                    "checked_at_display": "30.03.2026 19:58"
+                  },
+                  "RAM": {
+                    "name": "Kingston Fury Beast 16GB (2x8) DDR5-5600",
+                    "price": 23299,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr5-5600.webp",
+                    "image_filename": "kingston-fury-beast-16gb-2x8-ddr5-5600.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:17:00",
+                    "product_url": "https://hard.rozetka.com.ua/ua/kingston_kf556c40bbak2_16/p342800104/",
+                    "checked_at_display": "30.03.2026 20:17"
+                  },
+                  "SSD": {
+                    "name": "Kingston NV3 512GB NVMe SSD",
+                    "price": 3958,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+                    "image_filename": "kingston-nv3-512gb-nvme-ssd.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:18:13",
+                    "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/",
+                    "checked_at_display": "30.03.2026 20:18"
+                  },
+                  "PSU": {
+                    "name": "Chieftec Value APB-400B8 400W 80+ Bronze",
+                    "price": 1833,
+                    "description": null,
+                    "image": "/static/images/parts/chieftec-value-apb-400b8-400w-80-bronze.webp",
+                    "image_filename": "chieftec-value-apb-400b8-400w-80-bronze.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:18:37",
+                    "product_url": "https://hard.rozetka.com.ua/ua/chieftec_apb_400b8/p24204089/",
+                    "checked_at_display": "30.03.2026 20:18"
+                  },
+                  "Case": {
+                    "name": "NZXT H6 Flow RGB Black",
+                    "price": 5590,
+                    "description": null,
+                    "image": "/static/images/parts/nzxt-h6-flow-rgb-black.webp",
+                    "image_filename": "nzxt-h6-flow-rgb-black.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:04:27",
+                    "product_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fb-r1/p407832054/",
+                    "checked_at_display": "30.03.2026 20:04"
+                  }
+                },
+                "alternatives": [],
+                "notes": [
+                  "Орієнтир бюджету для режиму «Ціна / якість»: 89500 грн.",
+                  "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких задач може бути на межі.",
+                  "Сценарій підбору: Word / Google Docs, Браузер / онлайн-навчання, Python / навчальні проєкти, PyCharm / IntelliJ IDEA; вкладки — 10-30; монітори — 1; збірка сформована без дискретної відеокарти.",
+                  "Пріоритет підбору: збалансовано (ціна/якість)."
+                ],
+                "total": 69655,
+                "study_requirement": {
+                  "selected_apps": [
+                    "docs",
+                    "browser",
+                    "python",
+                    "pycharm"
+                  ],
+                  "required_cpu_score": 106.0,
+                  "required_ram_gb": 32,
+                  "required_ssd_gb": 512,
+                  "required_gpu_score": 5.0,
+                  "requires_dedicated_gpu": false,
+                  "tabs": "10_30",
+                  "monitors": "1"
+                },
+                "part_explanations": {
+                  "CPU": "Процесор підібраний для навчання, програмування, браузера та повсякденних задач із запасом по чуйності системи. Платформа: LGA1700; є вбудована графіка. Платформа узгоджена з материнською платою за сокетом LGA1700.",
+                  "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR5. Додатково враховано: форм-фактор mATX, підтримка DDR5.",
+                  "RAM": "Обсяг 16 ГБ підходить для навчання, програмування, відеозв’язку та повсякденної багатозадачності. Використовується пам’ять стандарту DDR5. Тип пам’яті сумісний із материнською платою: DDR5.",
+                  "SSD": "SSD на 512 ГБ дає швидкий запуск системи, навчальних програм і достатній простір для файлів та проєктів.",
+                  "PSU": "Блок живлення на 400 Вт підібраний як найближчий доступний варіант під цю конфігурацію. Орієнтовний запас потужності становить близько 155 Вт.",
+                  "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн, вищий клас виконання. Корпус розрахований на плату формату mATX у класі ATX."
+                },
+                "compatibility": {
+                  "status": "ok",
+                  "checks": [
+                    {
+                      "code": "cpu_socket",
+                      "status": "ok",
+                      "message": "Процесор і материнська плата сумісні за сокетом LGA1700."
+                    },
+                    {
+                      "code": "memory_type",
+                      "status": "ok",
+                      "message": "ОЗП і материнська плата узгоджені за стандартом DDR5."
+                    },
+                    {
+                      "code": "form_factor",
+                      "status": "ok",
+                      "message": "Корпус ATX підтримує плату mATX."
+                    },
+                    {
+                      "code": "psu_headroom",
+                      "status": "ok",
+                      "message": "Блок живлення 400 Вт має хороший запас над орієнтовною потребою 245 Вт."
+                    },
+                    {
+                      "code": "ram_capacity",
+                      "status": "ok",
+                      "message": "Обсяг ОЗП 16 ГБ відповідає сценарію study."
+                    },
+                    {
+                      "code": "ssd_capacity",
+                      "status": "ok",
+                      "message": "SSD 512 ГБ відповідає очікуваному мінімуму для сценарію study."
+                    }
+                  ],
+                  "errors": [],
+                  "warnings": [],
+                  "estimated_required_watt": 245,
+                  "psu_watt": 400
+                },
+                "compatibility_checks": [
+                  {
+                    "code": "cpu_socket",
+                    "status": "ok",
+                    "message": "Процесор і материнська плата сумісні за сокетом LGA1700."
+                  },
+                  {
+                    "code": "memory_type",
+                    "status": "ok",
+                    "message": "ОЗП і материнська плата узгоджені за стандартом DDR5."
+                  },
+                  {
+                    "code": "form_factor",
+                    "status": "ok",
+                    "message": "Корпус ATX підтримує плату mATX."
+                  },
+                  {
+                    "code": "psu_headroom",
+                    "status": "ok",
+                    "message": "Блок живлення 400 Вт має хороший запас над орієнтовною потребою 245 Вт."
+                  },
+                  {
+                    "code": "ram_capacity",
+                    "status": "ok",
+                    "message": "Обсяг ОЗП 16 ГБ відповідає сценарію study."
+                  },
+                  {
+                    "code": "ssd_capacity",
+                    "status": "ok",
+                    "message": "SSD 512 ГБ відповідає очікуваному мінімуму для сценарію study."
+                  }
+                ],
+                "priority": "balanced",
+                "requested_budget": 89500,
+                "budget_mode": "auto"
+              },
+              "key": "priority-balanced",
+              "title": "Збалансована конфігурація",
+              "description": "Оптимальний компроміс між ціною, якістю та запасом продуктивності.",
+              "total": 69655,
+              "requested_budget": 89500,
+              "tier": "upper",
+              "tier_title": "Високий",
+              "priority": "balanced",
+              "priority_title": "Ціна / якість",
+              "delta_text": "Дорожче на 19082 грн відносно основної рекомендації",
+              "parts_excerpt": [
+                {
+                  "label": "Процесор",
+                  "name": "Intel i7-14700"
+                },
+                {
+                  "label": "Відеокарта",
+                  "name": "Вбудована графіка процесора"
+                },
+                {
+                  "label": "Оперативна пам’ять",
+                  "name": "Kingston Fury Beast 16GB (2x8) DDR5-5600"
+                },
+                {
+                  "label": "SSD",
+                  "name": "Kingston NV3 512GB NVMe SSD"
+                }
+              ],
+              "notes": [
+                "Орієнтир бюджету для режиму «Ціна / якість»: 89500 грн.",
+                "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких задач може бути на межі.",
+                "Сценарій підбору: Word / Google Docs, Браузер / онлайн-навчання, Python / навчальні проєкти, PyCharm / IntelliJ IDEA; вкладки — 10-30; монітори — 1; збірка сформована без дискретної відеокарти.",
+                "Пріоритет підбору: збалансовано (ціна/якість)."
+              ],
+              "card_notes": [
+                "Орієнтир бюджету для режиму «Ціна / якість»: 89500 грн.",
+                "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких задач може бути на межі."
+              ],
+              "part_explanations": {
+                "CPU": "Процесор підібраний для навчання, програмування, браузера та повсякденних задач із запасом по чуйності системи. Платформа: LGA1700; є вбудована графіка. Платформа узгоджена з материнською платою за сокетом LGA1700.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR5. Додатково враховано: форм-фактор mATX, підтримка DDR5.",
+                "RAM": "Обсяг 16 ГБ підходить для навчання, програмування, відеозв’язку та повсякденної багатозадачності. Використовується пам’ять стандарту DDR5. Тип пам’яті сумісний із материнською платою: DDR5.",
+                "SSD": "SSD на 512 ГБ дає швидкий запуск системи, навчальних програм і достатній простір для файлів та проєктів.",
+                "PSU": "Блок живлення на 400 Вт підібраний як найближчий доступний варіант під цю конфігурацію. Орієнтовний запас потужності становить близько 155 Вт.",
+                "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн, вищий клас виконання. Корпус розрахований на плату формату mATX у класі ATX."
+              },
+              "changed_part_keys": [
+                "Motherboard",
+                "RAM"
+              ],
+              "changed_part_explanations": {
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR5. Додатково враховано: форм-фактор mATX, підтримка DDR5.",
+                "RAM": "Обсяг 16 ГБ підходить для навчання, програмування, відеозв’язку та повсякденної багатозадачності. Використовується пам’ять стандарту DDR5. Тип пам’яті сумісний із материнською платою: DDR5."
+              },
+              "market_summary": {
+                "total": 6,
+                "in_stock": 6,
+                "unknown": 0,
+                "out_of_stock": 0,
+                "availability_score": 1.0,
+                "status": "excellent",
+                "label": "Усі комплектуючі в наявності"
+              }
+            },
+            {
+              "is_primary": false,
+              "label": null,
+              "name": null,
+              "total_price": null,
+              "parts": {
+                "CPU": {
+                  "name": "Intel i7-14700",
+                  "price": 19076,
+                  "description": null,
+                  "image": "/static/images/parts/intel-i7-14700.webp",
+                  "image_filename": "intel-i7-14700.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:53:52",
+                  "product_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514700/p413419965/",
+                  "checked_at_display": "30.03.2026 19:53"
+                },
+                "Motherboard": {
+                  "name": "MSI PRO B760M-P (LGA1700, DDR5, mATX)",
+                  "price": 15899,
+                  "description": null,
+                  "image": "/static/images/parts/msi-pro-b760m-p-lga1700-ddr5-matx.webp",
+                  "image_filename": "msi-pro-b760m-p-lga1700-ddr5-matx.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:58:11",
+                  "product_url": "https://hard.rozetka.com.ua/ua/msi-pro-b760m-p/p386918160/",
+                  "checked_at_display": "30.03.2026 19:58"
+                },
+                "RAM": {
+                  "name": "Kingston Fury Beast 16GB (2x8) DDR5-6000",
+                  "price": 18059,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr5-6000.webp",
+                  "image_filename": "kingston-fury-beast-16gb-2x8-ddr5-6000.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:59:17",
+                  "product_url": "https://hard.rozetka.com.ua/ua/memory-kingston-149879101/p542800110/",
+                  "checked_at_display": "30.03.2026 19:59"
+                },
+                "SSD": {
+                  "name": "Kingston NV3 512GB NVMe SSD",
+                  "price": 3958,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+                  "image_filename": "kingston-nv3-512gb-nvme-ssd.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:18:13",
+                  "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/",
+                  "checked_at_display": "30.03.2026 20:18"
+                },
+                "PSU": {
+                  "name": "Chieftec Value APB-400B8 400W 80+ Bronze",
+                  "price": 1833,
+                  "description": null,
+                  "image": "/static/images/parts/chieftec-value-apb-400b8-400w-80-bronze.webp",
+                  "image_filename": "chieftec-value-apb-400b8-400w-80-bronze.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:18:37",
+                  "product_url": "https://hard.rozetka.com.ua/ua/chieftec_apb_400b8/p24204089/",
+                  "checked_at_display": "30.03.2026 20:18"
+                },
+                "Case": {
+                  "name": "NZXT H6 Flow RGB Black",
+                  "price": 5590,
+                  "description": null,
+                  "image": "/static/images/parts/nzxt-h6-flow-rgb-black.webp",
+                  "image_filename": "nzxt-h6-flow-rgb-black.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:04:27",
+                  "product_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fb-r1/p407832054/",
+                  "checked_at_display": "30.03.2026 20:04"
+                }
+              },
+              "result_payload": {
+                "tier": "upper",
+                "total_price": 64415,
+                "recommended_budget": 102000,
+                "parts": {
+                  "CPU": {
+                    "name": "Intel i7-14700",
+                    "price": 19076,
+                    "description": null,
+                    "image": "/static/images/parts/intel-i7-14700.webp",
+                    "image_filename": "intel-i7-14700.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:53:52",
+                    "product_url": "https://hard.rozetka.com.ua/ua/intel-bx8071514700/p413419965/",
+                    "checked_at_display": "30.03.2026 19:53"
+                  },
+                  "Motherboard": {
+                    "name": "MSI PRO B760M-P (LGA1700, DDR5, mATX)",
+                    "price": 15899,
+                    "description": null,
+                    "image": "/static/images/parts/msi-pro-b760m-p-lga1700-ddr5-matx.webp",
+                    "image_filename": "msi-pro-b760m-p-lga1700-ddr5-matx.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:58:11",
+                    "product_url": "https://hard.rozetka.com.ua/ua/msi-pro-b760m-p/p386918160/",
+                    "checked_at_display": "30.03.2026 19:58"
+                  },
+                  "RAM": {
+                    "name": "Kingston Fury Beast 16GB (2x8) DDR5-6000",
+                    "price": 18059,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr5-6000.webp",
+                    "image_filename": "kingston-fury-beast-16gb-2x8-ddr5-6000.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:59:17",
+                    "product_url": "https://hard.rozetka.com.ua/ua/memory-kingston-149879101/p542800110/",
+                    "checked_at_display": "30.03.2026 19:59"
+                  },
+                  "SSD": {
+                    "name": "Kingston NV3 512GB NVMe SSD",
+                    "price": 3958,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+                    "image_filename": "kingston-nv3-512gb-nvme-ssd.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:18:13",
+                    "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/",
+                    "checked_at_display": "30.03.2026 20:18"
+                  },
+                  "PSU": {
+                    "name": "Chieftec Value APB-400B8 400W 80+ Bronze",
+                    "price": 1833,
+                    "description": null,
+                    "image": "/static/images/parts/chieftec-value-apb-400b8-400w-80-bronze.webp",
+                    "image_filename": "chieftec-value-apb-400b8-400w-80-bronze.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:18:37",
+                    "product_url": "https://hard.rozetka.com.ua/ua/chieftec_apb_400b8/p24204089/",
+                    "checked_at_display": "30.03.2026 20:18"
+                  },
+                  "Case": {
+                    "name": "NZXT H6 Flow RGB Black",
+                    "price": 5590,
+                    "description": null,
+                    "image": "/static/images/parts/nzxt-h6-flow-rgb-black.webp",
+                    "image_filename": "nzxt-h6-flow-rgb-black.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:04:27",
+                    "product_url": "https://hard.rozetka.com.ua/ua/nzxt-cc-h61fb-r1/p407832054/",
+                    "checked_at_display": "30.03.2026 20:04"
+                  }
+                },
+                "alternatives": [],
+                "notes": [
+                  "Орієнтир бюджету для режиму «Максимальна продуктивність»: 102000 грн.",
+                  "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких задач може бути на межі.",
+                  "Сценарій підбору: Word / Google Docs, Браузер / онлайн-навчання, Python / навчальні проєкти, PyCharm / IntelliJ IDEA; вкладки — 10-30; монітори — 1; збірка сформована без дискретної відеокарти.",
+                  "Пріоритет підбору: максимальна продуктивність у межах бюджету."
+                ],
+                "total": 64415,
+                "study_requirement": {
+                  "selected_apps": [
+                    "docs",
+                    "browser",
+                    "python",
+                    "pycharm"
+                  ],
+                  "required_cpu_score": 106.0,
+                  "required_ram_gb": 32,
+                  "required_ssd_gb": 512,
+                  "required_gpu_score": 5.0,
+                  "requires_dedicated_gpu": false,
+                  "tabs": "10_30",
+                  "monitors": "1"
+                },
+                "part_explanations": {
+                  "CPU": "Процесор підібраний для навчання, програмування, браузера та повсякденних задач із запасом по чуйності системи. Платформа: LGA1700; є вбудована графіка. Платформа узгоджена з материнською платою за сокетом LGA1700.",
+                  "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR5. Додатково враховано: форм-фактор mATX, підтримка DDR5.",
+                  "RAM": "Обсяг 16 ГБ підходить для навчання, програмування, відеозв’язку та повсякденної багатозадачності. Використовується пам’ять стандарту DDR5. Тип пам’яті сумісний із материнською платою: DDR5.",
+                  "SSD": "SSD на 512 ГБ дає швидкий запуск системи, навчальних програм і достатній простір для файлів та проєктів.",
+                  "PSU": "Блок живлення на 400 Вт підібраний як найближчий доступний варіант під цю конфігурацію. Орієнтовний запас потужності становить близько 155 Вт.",
+                  "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн, вищий клас виконання. Корпус розрахований на плату формату mATX у класі ATX."
+                },
+                "compatibility": {
+                  "status": "ok",
+                  "checks": [
+                    {
+                      "code": "cpu_socket",
+                      "status": "ok",
+                      "message": "Процесор і материнська плата сумісні за сокетом LGA1700."
+                    },
+                    {
+                      "code": "memory_type",
+                      "status": "ok",
+                      "message": "ОЗП і материнська плата узгоджені за стандартом DDR5."
+                    },
+                    {
+                      "code": "form_factor",
+                      "status": "ok",
+                      "message": "Корпус ATX підтримує плату mATX."
+                    },
+                    {
+                      "code": "psu_headroom",
+                      "status": "ok",
+                      "message": "Блок живлення 400 Вт має хороший запас над орієнтовною потребою 245 Вт."
+                    },
+                    {
+                      "code": "ram_capacity",
+                      "status": "ok",
+                      "message": "Обсяг ОЗП 16 ГБ відповідає сценарію study."
+                    },
+                    {
+                      "code": "ssd_capacity",
+                      "status": "ok",
+                      "message": "SSD 512 ГБ відповідає очікуваному мінімуму для сценарію study."
+                    }
+                  ],
+                  "errors": [],
+                  "warnings": [],
+                  "estimated_required_watt": 245,
+                  "psu_watt": 400
+                },
+                "compatibility_checks": [
+                  {
+                    "code": "cpu_socket",
+                    "status": "ok",
+                    "message": "Процесор і материнська плата сумісні за сокетом LGA1700."
+                  },
+                  {
+                    "code": "memory_type",
+                    "status": "ok",
+                    "message": "ОЗП і материнська плата узгоджені за стандартом DDR5."
+                  },
+                  {
+                    "code": "form_factor",
+                    "status": "ok",
+                    "message": "Корпус ATX підтримує плату mATX."
+                  },
+                  {
+                    "code": "psu_headroom",
+                    "status": "ok",
+                    "message": "Блок живлення 400 Вт має хороший запас над орієнтовною потребою 245 Вт."
+                  },
+                  {
+                    "code": "ram_capacity",
+                    "status": "ok",
+                    "message": "Обсяг ОЗП 16 ГБ відповідає сценарію study."
+                  },
+                  {
+                    "code": "ssd_capacity",
+                    "status": "ok",
+                    "message": "SSD 512 ГБ відповідає очікуваному мінімуму для сценарію study."
+                  }
+                ],
+                "priority": "best",
+                "requested_budget": 102000,
+                "budget_mode": "auto"
+              },
+              "key": "priority-best",
+              "title": "Конфігурація максимальної продуктивності",
+              "description": "Максимально продуктивний варіант у межах заданих параметрів.",
+              "total": 64415,
+              "requested_budget": 102000,
+              "tier": "upper",
+              "tier_title": "Високий",
+              "priority": "best",
+              "priority_title": "Максимальна продуктивність",
+              "delta_text": "Дорожче на 13842 грн відносно основної рекомендації",
+              "parts_excerpt": [
+                {
+                  "label": "Процесор",
+                  "name": "Intel i7-14700"
+                },
+                {
+                  "label": "Відеокарта",
+                  "name": "Вбудована графіка процесора"
+                },
+                {
+                  "label": "Оперативна пам’ять",
+                  "name": "Kingston Fury Beast 16GB (2x8) DDR5-6000"
+                },
+                {
+                  "label": "SSD",
+                  "name": "Kingston NV3 512GB NVMe SSD"
+                }
+              ],
+              "notes": [
+                "Орієнтир бюджету для режиму «Максимальна продуктивність»: 102000 грн.",
+                "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких задач може бути на межі.",
+                "Сценарій підбору: Word / Google Docs, Браузер / онлайн-навчання, Python / навчальні проєкти, PyCharm / IntelliJ IDEA; вкладки — 10-30; монітори — 1; збірка сформована без дискретної відеокарти.",
+                "Пріоритет підбору: максимальна продуктивність у межах бюджету."
+              ],
+              "card_notes": [
+                "Орієнтир бюджету для режиму «Максимальна продуктивність»: 102000 грн.",
+                "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких задач може бути на межі."
+              ],
+              "part_explanations": {
+                "CPU": "Процесор підібраний для навчання, програмування, браузера та повсякденних задач із запасом по чуйності системи. Платформа: LGA1700; є вбудована графіка. Платформа узгоджена з материнською платою за сокетом LGA1700.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR5. Додатково враховано: форм-фактор mATX, підтримка DDR5.",
+                "RAM": "Обсяг 16 ГБ підходить для навчання, програмування, відеозв’язку та повсякденної багатозадачності. Використовується пам’ять стандарту DDR5. Тип пам’яті сумісний із материнською платою: DDR5.",
+                "SSD": "SSD на 512 ГБ дає швидкий запуск системи, навчальних програм і достатній простір для файлів та проєктів.",
+                "PSU": "Блок живлення на 400 Вт підібраний як найближчий доступний варіант під цю конфігурацію. Орієнтовний запас потужності становить близько 155 Вт.",
+                "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн, вищий клас виконання. Корпус розрахований на плату формату mATX у класі ATX."
+              },
+              "changed_part_keys": [
+                "Motherboard",
+                "RAM"
+              ],
+              "changed_part_explanations": {
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR5. Додатково враховано: форм-фактор mATX, підтримка DDR5.",
+                "RAM": "Обсяг 16 ГБ підходить для навчання, програмування, відеозв’язку та повсякденної багатозадачності. Використовується пам’ять стандарту DDR5. Тип пам’яті сумісний із материнською платою: DDR5."
+              },
+              "market_summary": {
+                "total": 6,
+                "in_stock": 6,
+                "unknown": 0,
+                "out_of_stock": 0,
+                "availability_score": 1.0,
+                "status": "excellent",
+                "label": "Усі комплектуючі в наявності"
+              }
+            }
+          ],
+          "notes": [
+            "Орієнтир бюджету для режиму «Бюджетний»: 79500 грн.",
+            "Конфігурація є найкращим варіантом у межах бюджету, але для частини важких задач може бути на межі.",
+            "Сценарій підбору: Word / Google Docs, Браузер / онлайн-навчання, Python / навчальні проєкти, PyCharm / IntelliJ IDEA; вкладки — 10-30; монітори — 1; збірка сформована без дискретної відеокарти.",
+            "Пріоритет підбору: бюджетний варіант з акцентом на економію."
+          ],
+          "total": 50573,
+          "study_requirement": {
+            "selected_apps": [
+              "docs",
+              "browser",
+              "python",
+              "pycharm"
+            ],
+            "required_cpu_score": 106.0,
+            "required_ram_gb": 32,
+            "required_ssd_gb": 512,
+            "required_gpu_score": 5.0,
+            "requires_dedicated_gpu": false,
+            "tabs": "10_30",
+            "monitors": "1"
+          },
+          "part_explanations": {
+            "CPU": "Процесор підібраний для навчання, програмування, браузера та повсякденних задач із запасом по чуйності системи. Платформа: LGA1700; є вбудована графіка. Платформа узгоджена з материнською платою за сокетом LGA1700.",
+            "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет LGA1700, підтримка DDR4. Додатково враховано: форм-фактор ATX, підтримка DDR4.",
+            "RAM": "Обсяг 16 ГБ підходить для навчання, програмування, відеозв’язку та повсякденної багатозадачності. Використовується пам’ять стандарту DDR4. Тип пам’яті сумісний із материнською платою: DDR4.",
+            "SSD": "SSD на 512 ГБ дає швидкий запуск системи, навчальних програм і достатній простір для файлів та проєктів.",
+            "PSU": "Блок живлення на 400 Вт підібраний як найближчий доступний варіант під цю конфігурацію. Орієнтовний запас потужності становить близько 155 Вт.",
+            "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн, вищий клас виконання. Корпус розрахований на плату формату ATX у класі ATX."
+          },
+          "compatibility": {
+            "status": "ok",
+            "checks": [
+              {
+                "code": "cpu_socket",
+                "status": "ok",
+                "message": "Процесор і материнська плата сумісні за сокетом LGA1700."
+              },
+              {
+                "code": "memory_type",
+                "status": "ok",
+                "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+              },
+              {
+                "code": "form_factor",
+                "status": "ok",
+                "message": "Корпус ATX підтримує плату ATX."
+              },
+              {
+                "code": "psu_headroom",
+                "status": "ok",
+                "message": "Блок живлення 400 Вт має хороший запас над орієнтовною потребою 245 Вт."
+              },
+              {
+                "code": "ram_capacity",
+                "status": "ok",
+                "message": "Обсяг ОЗП 16 ГБ відповідає сценарію study."
+              },
+              {
+                "code": "ssd_capacity",
+                "status": "ok",
+                "message": "SSD 512 ГБ відповідає очікуваному мінімуму для сценарію study."
+              }
+            ],
+            "errors": [],
+            "warnings": [],
+            "estimated_required_watt": 245,
+            "psu_watt": 400
+          },
+          "compatibility_checks": [
+            {
+              "code": "cpu_socket",
+              "status": "ok",
+              "message": "Процесор і материнська плата сумісні за сокетом LGA1700."
+            },
+            {
+              "code": "memory_type",
+              "status": "ok",
+              "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+            },
+            {
+              "code": "form_factor",
+              "status": "ok",
+              "message": "Корпус ATX підтримує плату ATX."
+            },
+            {
+              "code": "psu_headroom",
+              "status": "ok",
+              "message": "Блок живлення 400 Вт має хороший запас над орієнтовною потребою 245 Вт."
+            },
+            {
+              "code": "ram_capacity",
+              "status": "ok",
+              "message": "Обсяг ОЗП 16 ГБ відповідає сценарію study."
+            },
+            {
+              "code": "ssd_capacity",
+              "status": "ok",
+              "message": "SSD 512 ГБ відповідає очікуваному мінімуму для сценарію study."
+            }
+          ],
+          "priority": "budget",
+          "requested_budget": 79500,
+          "budget_mode": "auto"
+        },
+        "saved_build_id": null
+      },
+      {
+        "id": "a29da0bea97f4e4b806a6813c9999913",
+        "created_at": "2026-04-15T10:37:57",
+        "source": "builder_form",
+        "inputs": {
+          "budget_mode": "manual",
+          "budget": 63000,
+          "purpose": "gaming",
+          "resolution": "1440p",
+          "wifi": true,
+          "games": [
+            "cs2",
+            "fortnite",
+            "cyberpunk2077"
+          ],
+          "graphics_quality": "medium",
+          "target_fps": 120,
+          "gpu_mode": "auto",
+          "cpu_brand": "auto",
+          "gpu_brand": "auto",
+          "ram_size": "16",
+          "ssd_size": "1000",
+          "memory_platform": "auto",
+          "office_apps": [],
+          "office_tabs": "auto",
+          "office_monitors": "auto",
+          "study_apps": [],
+          "study_tabs": "auto",
+          "study_monitors": "auto",
+          "creator_apps": [],
+          "creator_complexity": "auto",
+          "creator_monitors": "auto",
+          "priority": "balanced",
+          "games_titles": [
+            "Counter-Strike 2",
+            "Fortnite",
+            "Cyberpunk 2077"
+          ],
+          "office_apps_titles": [],
+          "study_apps_titles": [],
+          "creator_apps_titles": []
+        },
+        "result_summary": {
+          "tier": "upper",
+          "total_price": 56754,
+          "recommended_budget": null,
+          "parts_count": 7
+        },
+        "result_snapshot": {
+          "tier": "upper",
+          "total_price": 56754,
+          "recommended_budget": null,
+          "parts": {
+            "GPU": {
+              "name": "AMD RX 9060 XT 16GB",
+              "price": 22458,
+              "description": null,
+              "image": "/static/images/parts/amd-rx-9060-xt-16gb.webp",
+              "image_filename": "amd-rx-9060-xt-16gb.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T19:54:51",
+              "product_url": "https://hard.rozetka.com.ua/ua/copy-asus-dual-rx9060xt-16g-white/p542510090/",
+              "checked_at_display": "30.03.2026 19:54"
+            },
+            "CPU": {
+              "name": "AMD Ryzen 5 5600X",
+              "price": 6948,
+              "description": null,
+              "image": "/static/images/parts/amd-ryzen-5-5600x.webp",
+              "image_filename": "amd-ryzen-5-5600x.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T19:50:55",
+              "product_url": "https://hard.rozetka.com.ua/ua/amd_100_000000065/p296953523/",
+              "checked_at_display": "30.03.2026 19:50"
+            },
+            "Motherboard": {
+              "name": "A520M Wi-Fi (AM4, DDR4, mATX)",
+              "price": 7272,
+              "description": null,
+              "image": "/static/images/parts/a520m-wi-fi-am4-ddr4-matx.webp",
+              "image_filename": "a520m-wi-fi-am4-ddr4-matx.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T20:13:14",
+              "product_url": "https://hard.rozetka.com.ua/ua/asus-tuf-gaming-a520m-plus-wifi/p376558923/",
+              "checked_at_display": "30.03.2026 20:13"
+            },
+            "RAM": {
+              "name": "Kingston Fury Beast 16GB (2x8) DDR4-3200",
+              "price": 8786,
+              "description": null,
+              "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+              "image_filename": "kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T19:58:52",
+              "product_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bbk2_16/p310064023/",
+              "checked_at_display": "30.03.2026 19:58"
+            },
+            "SSD": {
+              "name": "Kingston NV3 1TB NVMe SSD",
+              "price": 6299,
+              "description": null,
+              "image": "/static/images/parts/kingston-nv3-1tb-nvme-ssd.webp",
+              "image_filename": "kingston-nv3-1tb-nvme-ssd.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T20:01:22",
+              "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-1000g/p444146648/",
+              "checked_at_display": "30.03.2026 20:01"
+            },
+            "PSU": {
+              "name": "MSI MAG A750BN PCIE5 750W 80+ Bronze",
+              "price": 2679,
+              "description": null,
+              "image": "/static/images/parts/msi-mag-a750bn-pcie5-750w-80-bronze.webp",
+              "image_filename": "msi-mag-a750bn-pcie5-750w-80-bronze.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T20:02:30",
+              "product_url": "https://hard.rozetka.com.ua/ua/msi-mag-a750bn-pcie5/p415380453/",
+              "checked_at_display": "30.03.2026 20:02"
+            },
+            "Case": {
+              "name": "DeepCool CC360 ARGB Black",
+              "price": 2312,
+              "description": null,
+              "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+              "image_filename": "deepcool-cc360-argb-black.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T20:03:40",
+              "product_url": "https://hard.rozetka.com.ua/ua/deepcool-r-cc360-bkapm3-g-1/p393129153/",
+              "checked_at_display": "30.03.2026 20:03"
+            }
+          },
+          "alternatives": [
+            {
+              "is_primary": true,
+              "label": null,
+              "name": null,
+              "total_price": null,
+              "parts": {
+                "GPU": {
+                  "name": "AMD RX 9060 XT 16GB",
+                  "price": 22458,
+                  "description": null,
+                  "image": "/static/images/parts/amd-rx-9060-xt-16gb.webp",
+                  "image_filename": "amd-rx-9060-xt-16gb.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:54:51",
+                  "product_url": "https://hard.rozetka.com.ua/ua/copy-asus-dual-rx9060xt-16g-white/p542510090/",
+                  "checked_at_display": "30.03.2026 19:54"
+                },
+                "CPU": {
+                  "name": "AMD Ryzen 5 5600X",
+                  "price": 6948,
+                  "description": null,
+                  "image": "/static/images/parts/amd-ryzen-5-5600x.webp",
+                  "image_filename": "amd-ryzen-5-5600x.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:50:55",
+                  "product_url": "https://hard.rozetka.com.ua/ua/amd_100_000000065/p296953523/",
+                  "checked_at_display": "30.03.2026 19:50"
+                },
+                "Motherboard": {
+                  "name": "A520M Wi-Fi (AM4, DDR4, mATX)",
+                  "price": 7272,
+                  "description": null,
+                  "image": "/static/images/parts/a520m-wi-fi-am4-ddr4-matx.webp",
+                  "image_filename": "a520m-wi-fi-am4-ddr4-matx.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:13:14",
+                  "product_url": "https://hard.rozetka.com.ua/ua/asus-tuf-gaming-a520m-plus-wifi/p376558923/",
+                  "checked_at_display": "30.03.2026 20:13"
+                },
+                "RAM": {
+                  "name": "Kingston Fury Beast 16GB (2x8) DDR4-3200",
+                  "price": 8786,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+                  "image_filename": "kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:58:52",
+                  "product_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bbk2_16/p310064023/",
+                  "checked_at_display": "30.03.2026 19:58"
+                },
+                "SSD": {
+                  "name": "Kingston NV3 1TB NVMe SSD",
+                  "price": 6299,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-nv3-1tb-nvme-ssd.webp",
+                  "image_filename": "kingston-nv3-1tb-nvme-ssd.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:01:22",
+                  "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-1000g/p444146648/",
+                  "checked_at_display": "30.03.2026 20:01"
+                },
+                "PSU": {
+                  "name": "MSI MAG A750BN PCIE5 750W 80+ Bronze",
+                  "price": 2679,
+                  "description": null,
+                  "image": "/static/images/parts/msi-mag-a750bn-pcie5-750w-80-bronze.webp",
+                  "image_filename": "msi-mag-a750bn-pcie5-750w-80-bronze.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:02:30",
+                  "product_url": "https://hard.rozetka.com.ua/ua/msi-mag-a750bn-pcie5/p415380453/",
+                  "checked_at_display": "30.03.2026 20:02"
+                },
+                "Case": {
+                  "name": "DeepCool CC360 ARGB Black",
+                  "price": 2312,
+                  "description": null,
+                  "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+                  "image_filename": "deepcool-cc360-argb-black.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:03:40",
+                  "product_url": "https://hard.rozetka.com.ua/ua/deepcool-r-cc360-bkapm3-g-1/p393129153/",
+                  "checked_at_display": "30.03.2026 20:03"
+                }
+              },
+              "result_payload": {
+                "tier": "upper",
+                "total_price": 56754,
+                "recommended_budget": null,
+                "parts": {
+                  "GPU": {
+                    "name": "AMD RX 9060 XT 16GB",
+                    "price": 22458,
+                    "description": null,
+                    "image": "/static/images/parts/amd-rx-9060-xt-16gb.webp",
+                    "image_filename": "amd-rx-9060-xt-16gb.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:54:51",
+                    "product_url": "https://hard.rozetka.com.ua/ua/copy-asus-dual-rx9060xt-16g-white/p542510090/",
+                    "checked_at_display": "30.03.2026 19:54"
+                  },
+                  "CPU": {
+                    "name": "AMD Ryzen 5 5600X",
+                    "price": 6948,
+                    "description": null,
+                    "image": "/static/images/parts/amd-ryzen-5-5600x.webp",
+                    "image_filename": "amd-ryzen-5-5600x.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:50:55",
+                    "product_url": "https://hard.rozetka.com.ua/ua/amd_100_000000065/p296953523/",
+                    "checked_at_display": "30.03.2026 19:50"
+                  },
+                  "Motherboard": {
+                    "name": "A520M Wi-Fi (AM4, DDR4, mATX)",
+                    "price": 7272,
+                    "description": null,
+                    "image": "/static/images/parts/a520m-wi-fi-am4-ddr4-matx.webp",
+                    "image_filename": "a520m-wi-fi-am4-ddr4-matx.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:13:14",
+                    "product_url": "https://hard.rozetka.com.ua/ua/asus-tuf-gaming-a520m-plus-wifi/p376558923/",
+                    "checked_at_display": "30.03.2026 20:13"
+                  },
+                  "RAM": {
+                    "name": "Kingston Fury Beast 16GB (2x8) DDR4-3200",
+                    "price": 8786,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+                    "image_filename": "kingston-fury-beast-16gb-2x8-ddr4-3200.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:58:52",
+                    "product_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bbk2_16/p310064023/",
+                    "checked_at_display": "30.03.2026 19:58"
+                  },
+                  "SSD": {
+                    "name": "Kingston NV3 1TB NVMe SSD",
+                    "price": 6299,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-nv3-1tb-nvme-ssd.webp",
+                    "image_filename": "kingston-nv3-1tb-nvme-ssd.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:01:22",
+                    "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-1000g/p444146648/",
+                    "checked_at_display": "30.03.2026 20:01"
+                  },
+                  "PSU": {
+                    "name": "MSI MAG A750BN PCIE5 750W 80+ Bronze",
+                    "price": 2679,
+                    "description": null,
+                    "image": "/static/images/parts/msi-mag-a750bn-pcie5-750w-80-bronze.webp",
+                    "image_filename": "msi-mag-a750bn-pcie5-750w-80-bronze.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:02:30",
+                    "product_url": "https://hard.rozetka.com.ua/ua/msi-mag-a750bn-pcie5/p415380453/",
+                    "checked_at_display": "30.03.2026 20:02"
+                  },
+                  "Case": {
+                    "name": "DeepCool CC360 ARGB Black",
+                    "price": 2312,
+                    "description": null,
+                    "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+                    "image_filename": "deepcool-cc360-argb-black.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:03:40",
+                    "product_url": "https://hard.rozetka.com.ua/ua/deepcool-r-cc360-bkapm3-g-1/p393129153/",
+                    "checked_at_display": "30.03.2026 20:03"
+                  }
+                },
+                "alternatives": [],
+                "notes": [
+                  "Ціль: 1440p, MEDIUM, 120 FPS у вибраних іграх.",
+                  "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх.",
+                  "Пріоритет підбору: збалансовано (ціна/якість)."
+                ],
+                "total": 56754,
+                "game_requirement": {
+                  "required_gpu_score": 274.0,
+                  "required_cpu_score": 168.8,
+                  "selected_games": [
+                    "cs2",
+                    "fortnite",
+                    "cyberpunk2077"
+                  ],
+                  "is_active": true
+                },
+                "match_info": {
+                  "match_status": "weak",
+                  "gpu_ratio": 0.68,
+                  "cpu_ratio": 0.64,
+                  "match_note": "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх."
+                },
+                "part_explanations": {
+                  "GPU": "Відеокарта відповідає цілі 1440p, середні налаштування та 120 FPS. Має 16 ГБ відеопам’яті, що важливо для сучасних ігор і текстур. Доступно 16 ГБ VRAM для цього сценарію.",
+                  "CPU": "Процесор підібраний під ігровий сценарій 1440p, середні налаштування та ціль 120 FPS. Добре поєднується з AMD RX 9060 XT 16GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM4. Платформа узгоджена з материнською платою за сокетом AM4.",
+                  "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4, є вбудований Wi‑Fi. Додатково враховано: форм-фактор mATX, підтримка DDR4.",
+                  "RAM": "Обсяг оперативної пам’яті 16 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4. Тип пам’яті сумісний із материнською платою: DDR4.",
+                  "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                  "PSU": "Блок живлення на 750 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень. Орієнтовний запас потужності становить близько 345 Вт.",
+                  "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн. Корпус розрахований на плату формату mATX у класі mATX."
+                },
+                "compatibility": {
+                  "status": "ok",
+                  "checks": [
+                    {
+                      "code": "cpu_socket",
+                      "status": "ok",
+                      "message": "Процесор і материнська плата сумісні за сокетом AM4."
+                    },
+                    {
+                      "code": "memory_type",
+                      "status": "ok",
+                      "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+                    },
+                    {
+                      "code": "form_factor",
+                      "status": "ok",
+                      "message": "Корпус mATX підтримує плату mATX."
+                    },
+                    {
+                      "code": "psu_headroom",
+                      "status": "ok",
+                      "message": "Блок живлення 750 Вт має хороший запас над орієнтовною потребою 405 Вт."
+                    },
+                    {
+                      "code": "ram_capacity",
+                      "status": "ok",
+                      "message": "Обсяг ОЗП 16 ГБ відповідає сценарію gaming."
+                    },
+                    {
+                      "code": "ssd_capacity",
+                      "status": "ok",
+                      "message": "SSD 1000 ГБ відповідає очікуваному мінімуму для сценарію gaming."
+                    },
+                    {
+                      "code": "gaming_gpu_vram",
+                      "status": "ok",
+                      "message": "Відеокарта має 16 ГБ VRAM, чого достатньо для більшості ігрових сценаріїв цього рівня."
+                    }
+                  ],
+                  "errors": [],
+                  "warnings": [],
+                  "estimated_required_watt": 405,
+                  "psu_watt": 750
+                },
+                "compatibility_checks": [
+                  {
+                    "code": "cpu_socket",
+                    "status": "ok",
+                    "message": "Процесор і материнська плата сумісні за сокетом AM4."
+                  },
+                  {
+                    "code": "memory_type",
+                    "status": "ok",
+                    "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+                  },
+                  {
+                    "code": "form_factor",
+                    "status": "ok",
+                    "message": "Корпус mATX підтримує плату mATX."
+                  },
+                  {
+                    "code": "psu_headroom",
+                    "status": "ok",
+                    "message": "Блок живлення 750 Вт має хороший запас над орієнтовною потребою 405 Вт."
+                  },
+                  {
+                    "code": "ram_capacity",
+                    "status": "ok",
+                    "message": "Обсяг ОЗП 16 ГБ відповідає сценарію gaming."
+                  },
+                  {
+                    "code": "ssd_capacity",
+                    "status": "ok",
+                    "message": "SSD 1000 ГБ відповідає очікуваному мінімуму для сценарію gaming."
+                  },
+                  {
+                    "code": "gaming_gpu_vram",
+                    "status": "ok",
+                    "message": "Відеокарта має 16 ГБ VRAM, чого достатньо для більшості ігрових сценаріїв цього рівня."
+                  }
+                ],
+                "priority": "balanced",
+                "requested_budget": 57000
+              },
+              "key": "priority-balanced",
+              "title": "Рекомендована конфігурація",
+              "description": "Основна рекомендація відповідно до обраного тобою пріоритету підбору.",
+              "total": 56754,
+              "requested_budget": 57000,
+              "tier": "upper",
+              "tier_title": "Високий",
+              "priority": "balanced",
+              "priority_title": "Ціна / якість",
+              "delta_text": "Базова рекомендація системи",
+              "parts_excerpt": [
+                {
+                  "label": "Процесор",
+                  "name": "AMD Ryzen 5 5600X"
+                },
+                {
+                  "label": "Відеокарта",
+                  "name": "AMD RX 9060 XT 16GB"
+                },
+                {
+                  "label": "Оперативна пам’ять",
+                  "name": "Kingston Fury Beast 16GB (2x8) DDR4-3200"
+                },
+                {
+                  "label": "SSD",
+                  "name": "Kingston NV3 1TB NVMe SSD"
+                }
+              ],
+              "notes": [
+                "Ціль: 1440p, MEDIUM, 120 FPS у вибраних іграх.",
+                "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх.",
+                "Пріоритет підбору: збалансовано (ціна/якість)."
+              ],
+              "card_notes": [
+                "Ціль: 1440p, MEDIUM, 120 FPS у вибраних іграх.",
+                "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх."
+              ],
+              "part_explanations": {
+                "GPU": "Відеокарта відповідає цілі 1440p, середні налаштування та 120 FPS. Має 16 ГБ відеопам’яті, що важливо для сучасних ігор і текстур. Доступно 16 ГБ VRAM для цього сценарію.",
+                "CPU": "Процесор підібраний під ігровий сценарій 1440p, середні налаштування та ціль 120 FPS. Добре поєднується з AMD RX 9060 XT 16GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM4. Платформа узгоджена з материнською платою за сокетом AM4.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4, є вбудований Wi‑Fi. Додатково враховано: форм-фактор mATX, підтримка DDR4.",
+                "RAM": "Обсяг оперативної пам’яті 16 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4. Тип пам’яті сумісний із материнською платою: DDR4.",
+                "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                "PSU": "Блок живлення на 750 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень. Орієнтовний запас потужності становить близько 345 Вт.",
+                "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн. Корпус розрахований на плату формату mATX у класі mATX."
+              },
+              "changed_part_keys": [],
+              "changed_part_explanations": {},
+              "market_summary": {
+                "total": 7,
+                "in_stock": 7,
+                "unknown": 0,
+                "out_of_stock": 0,
+                "availability_score": 1.0,
+                "status": "excellent",
+                "label": "Усі комплектуючі в наявності"
+              }
+            },
+            {
+              "is_primary": false,
+              "label": null,
+              "name": null,
+              "total_price": null,
+              "parts": {
+                "GPU": {
+                  "name": "AMD RX 6750 XT 12GB",
+                  "price": 16056,
+                  "description": null,
+                  "image": "/static/images/parts/amd-rx-6750-xt-12gb.webp",
+                  "image_filename": "amd-rx-6750-xt-12gb.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:11:26",
+                  "product_url": "https://hard.rozetka.com.ua/ua/383539194/p383539194/",
+                  "checked_at_display": "30.03.2026 20:11"
+                },
+                "CPU": {
+                  "name": "AMD Ryzen 7 5700X3D",
+                  "price": 10040,
+                  "description": null,
+                  "image": "/static/images/parts/amd-ryzen-7-5700x3d.webp",
+                  "image_filename": "amd-ryzen-7-5700x3d.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:51:18",
+                  "product_url": "https://hard.rozetka.com.ua/ua/431184515/p431184515/",
+                  "checked_at_display": "30.03.2026 19:51"
+                },
+                "Motherboard": {
+                  "name": "MSI B550-A PRO (AM4, DDR4, ATX)",
+                  "price": 8324,
+                  "description": null,
+                  "image": "/static/images/parts/msi-b550-a-pro-am4-ddr4-atx.webp",
+                  "image_filename": "msi-b550-a-pro-am4-ddr4-atx.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:56:44",
+                  "product_url": "https://hard.rozetka.com.ua/ua/msi-b550-a-pro/p415342467/",
+                  "checked_at_display": "30.03.2026 19:56"
+                },
+                "RAM": {
+                  "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+                  "price": 3458,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+                  "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:58:44",
+                  "product_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bb_8/p310064018/",
+                  "checked_at_display": "30.03.2026 19:58"
+                },
+                "SSD": {
+                  "name": "Kingston NV3 1TB NVMe SSD",
+                  "price": 6299,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-nv3-1tb-nvme-ssd.webp",
+                  "image_filename": "kingston-nv3-1tb-nvme-ssd.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:01:22",
+                  "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-1000g/p444146648/",
+                  "checked_at_display": "30.03.2026 20:01"
+                },
+                "PSU": {
+                  "name": "MSI MAG A650BN 650W 80+ Bronze",
+                  "price": 2679,
+                  "description": null,
+                  "image": "/static/images/parts/msi-mag-a650bn-650w-80-bronze.webp",
+                  "image_filename": "msi-mag-a650bn-650w-80-bronze.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:02:21",
+                  "product_url": "https://hard.rozetka.com.ua/ua/msi_mag_a650bn/p327862120/",
+                  "checked_at_display": "30.03.2026 20:02"
+                },
+                "Case": {
+                  "name": "DeepCool CC360 ARGB Black",
+                  "price": 2312,
+                  "description": null,
+                  "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+                  "image_filename": "deepcool-cc360-argb-black.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:03:40",
+                  "product_url": "https://hard.rozetka.com.ua/ua/deepcool-r-cc360-bkapm3-g-1/p393129153/",
+                  "checked_at_display": "30.03.2026 20:03"
+                }
+              },
+              "result_payload": {
+                "tier": "upper",
+                "total_price": 49168,
+                "recommended_budget": null,
+                "parts": {
+                  "GPU": {
+                    "name": "AMD RX 6750 XT 12GB",
+                    "price": 16056,
+                    "description": null,
+                    "image": "/static/images/parts/amd-rx-6750-xt-12gb.webp",
+                    "image_filename": "amd-rx-6750-xt-12gb.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:11:26",
+                    "product_url": "https://hard.rozetka.com.ua/ua/383539194/p383539194/",
+                    "checked_at_display": "30.03.2026 20:11"
+                  },
+                  "CPU": {
+                    "name": "AMD Ryzen 7 5700X3D",
+                    "price": 10040,
+                    "description": null,
+                    "image": "/static/images/parts/amd-ryzen-7-5700x3d.webp",
+                    "image_filename": "amd-ryzen-7-5700x3d.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:51:18",
+                    "product_url": "https://hard.rozetka.com.ua/ua/431184515/p431184515/",
+                    "checked_at_display": "30.03.2026 19:51"
+                  },
+                  "Motherboard": {
+                    "name": "MSI B550-A PRO (AM4, DDR4, ATX)",
+                    "price": 8324,
+                    "description": null,
+                    "image": "/static/images/parts/msi-b550-a-pro-am4-ddr4-atx.webp",
+                    "image_filename": "msi-b550-a-pro-am4-ddr4-atx.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:56:44",
+                    "product_url": "https://hard.rozetka.com.ua/ua/msi-b550-a-pro/p415342467/",
+                    "checked_at_display": "30.03.2026 19:56"
+                  },
+                  "RAM": {
+                    "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+                    "price": 3458,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+                    "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:58:44",
+                    "product_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bb_8/p310064018/",
+                    "checked_at_display": "30.03.2026 19:58"
+                  },
+                  "SSD": {
+                    "name": "Kingston NV3 1TB NVMe SSD",
+                    "price": 6299,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-nv3-1tb-nvme-ssd.webp",
+                    "image_filename": "kingston-nv3-1tb-nvme-ssd.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:01:22",
+                    "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-1000g/p444146648/",
+                    "checked_at_display": "30.03.2026 20:01"
+                  },
+                  "PSU": {
+                    "name": "MSI MAG A650BN 650W 80+ Bronze",
+                    "price": 2679,
+                    "description": null,
+                    "image": "/static/images/parts/msi-mag-a650bn-650w-80-bronze.webp",
+                    "image_filename": "msi-mag-a650bn-650w-80-bronze.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:02:21",
+                    "product_url": "https://hard.rozetka.com.ua/ua/msi_mag_a650bn/p327862120/",
+                    "checked_at_display": "30.03.2026 20:02"
+                  },
+                  "Case": {
+                    "name": "DeepCool CC360 ARGB Black",
+                    "price": 2312,
+                    "description": null,
+                    "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+                    "image_filename": "deepcool-cc360-argb-black.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:03:40",
+                    "product_url": "https://hard.rozetka.com.ua/ua/deepcool-r-cc360-bkapm3-g-1/p393129153/",
+                    "checked_at_display": "30.03.2026 20:03"
+                  }
+                },
+                "alternatives": [],
+                "notes": [
+                  "Ціль: 1440p, MEDIUM, 120 FPS у вибраних іграх.",
+                  "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх.",
+                  "Пріоритет підбору: бюджетний варіант з акцентом на економію.",
+                  "Виявлено проблеми сумісності: Корпус mATX не підходить для плати ATX."
+                ],
+                "total": 49168,
+                "game_requirement": {
+                  "required_gpu_score": 274.0,
+                  "required_cpu_score": 168.8,
+                  "selected_games": [
+                    "cs2",
+                    "fortnite",
+                    "cyberpunk2077"
+                  ],
+                  "is_active": true
+                },
+                "match_info": {
+                  "match_status": "weak",
+                  "gpu_ratio": 0.52,
+                  "cpu_ratio": 0.89,
+                  "match_note": "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх."
+                },
+                "part_explanations": {
+                  "GPU": "Відеокарта відповідає цілі 1440p, середні налаштування та 120 FPS. Має 12 ГБ відеопам’яті, що важливо для сучасних ігор і текстур. Доступно 12 ГБ VRAM для цього сценарію.",
+                  "CPU": "Процесор підібраний під ігровий сценарій 1440p, середні налаштування та ціль 120 FPS. Добре поєднується з AMD RX 6750 XT 12GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM4. Платформа узгоджена з материнською платою за сокетом AM4.",
+                  "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4. Додатково враховано: форм-фактор ATX, підтримка DDR4.",
+                  "RAM": "Обсяг оперативної пам’яті 8 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4. Тип пам’яті сумісний із материнською платою: DDR4.",
+                  "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                  "PSU": "Блок живлення на 650 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень. Орієнтовний запас потужності становить близько 145 Вт.",
+                  "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн. Корпус розрахований на плату формату ATX у класі mATX."
+                },
+                "compatibility": {
+                  "status": "error",
+                  "checks": [
+                    {
+                      "code": "cpu_socket",
+                      "status": "ok",
+                      "message": "Процесор і материнська плата сумісні за сокетом AM4."
+                    },
+                    {
+                      "code": "memory_type",
+                      "status": "ok",
+                      "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+                    },
+                    {
+                      "code": "form_factor",
+                      "status": "error",
+                      "message": "Корпус mATX не підходить для плати ATX."
+                    },
+                    {
+                      "code": "psu_headroom",
+                      "status": "ok",
+                      "message": "Блок живлення 650 Вт має хороший запас над орієнтовною потребою 505 Вт."
+                    },
+                    {
+                      "code": "ram_capacity",
+                      "status": "warning",
+                      "message": "Для сценарію gaming бажано щонайменше 16 ГБ ОЗП, зараз 8 ГБ."
+                    },
+                    {
+                      "code": "ssd_capacity",
+                      "status": "ok",
+                      "message": "SSD 1000 ГБ відповідає очікуваному мінімуму для сценарію gaming."
+                    },
+                    {
+                      "code": "gaming_gpu_vram",
+                      "status": "ok",
+                      "message": "Відеокарта має 12 ГБ VRAM, чого достатньо для більшості ігрових сценаріїв цього рівня."
+                    }
+                  ],
+                  "errors": [
+                    "Корпус mATX не підходить для плати ATX."
+                  ],
+                  "warnings": [
+                    "Для сценарію gaming бажано щонайменше 16 ГБ ОЗП, зараз 8 ГБ."
+                  ],
+                  "estimated_required_watt": 505,
+                  "psu_watt": 650
+                },
+                "compatibility_checks": [
+                  {
+                    "code": "cpu_socket",
+                    "status": "ok",
+                    "message": "Процесор і материнська плата сумісні за сокетом AM4."
+                  },
+                  {
+                    "code": "memory_type",
+                    "status": "ok",
+                    "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+                  },
+                  {
+                    "code": "form_factor",
+                    "status": "error",
+                    "message": "Корпус mATX не підходить для плати ATX."
+                  },
+                  {
+                    "code": "psu_headroom",
+                    "status": "ok",
+                    "message": "Блок живлення 650 Вт має хороший запас над орієнтовною потребою 505 Вт."
+                  },
+                  {
+                    "code": "ram_capacity",
+                    "status": "warning",
+                    "message": "Для сценарію gaming бажано щонайменше 16 ГБ ОЗП, зараз 8 ГБ."
+                  },
+                  {
+                    "code": "ssd_capacity",
+                    "status": "ok",
+                    "message": "SSD 1000 ГБ відповідає очікуваному мінімуму для сценарію gaming."
+                  },
+                  {
+                    "code": "gaming_gpu_vram",
+                    "status": "ok",
+                    "message": "Відеокарта має 12 ГБ VRAM, чого достатньо для більшості ігрових сценаріїв цього рівня."
+                  }
+                ],
+                "priority": "budget",
+                "requested_budget": 49500
+              },
+              "key": "priority-budget",
+              "title": "Бюджетна конфігурація",
+              "description": "Акцент на економнішому підборі без виходу за межі сценарію використання.",
+              "total": 49168,
+              "requested_budget": 49500,
+              "tier": "upper",
+              "tier_title": "Високий",
+              "priority": "budget",
+              "priority_title": "Бюджетний",
+              "delta_text": "Економія 7586 грн відносно основної рекомендації",
+              "parts_excerpt": [
+                {
+                  "label": "Процесор",
+                  "name": "AMD Ryzen 7 5700X3D"
+                },
+                {
+                  "label": "Відеокарта",
+                  "name": "AMD RX 6750 XT 12GB"
+                },
+                {
+                  "label": "Оперативна пам’ять",
+                  "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200"
+                },
+                {
+                  "label": "SSD",
+                  "name": "Kingston NV3 1TB NVMe SSD"
+                }
+              ],
+              "notes": [
+                "Ціль: 1440p, MEDIUM, 120 FPS у вибраних іграх.",
+                "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх.",
+                "Пріоритет підбору: бюджетний варіант з акцентом на економію.",
+                "Виявлено проблеми сумісності: Корпус mATX не підходить для плати ATX."
+              ],
+              "card_notes": [
+                "Ціль: 1440p, MEDIUM, 120 FPS у вибраних іграх.",
+                "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх."
+              ],
+              "part_explanations": {
+                "GPU": "Відеокарта відповідає цілі 1440p, середні налаштування та 120 FPS. Має 12 ГБ відеопам’яті, що важливо для сучасних ігор і текстур. Доступно 12 ГБ VRAM для цього сценарію.",
+                "CPU": "Процесор підібраний під ігровий сценарій 1440p, середні налаштування та ціль 120 FPS. Добре поєднується з AMD RX 6750 XT 12GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM4. Платформа узгоджена з материнською платою за сокетом AM4.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4. Додатково враховано: форм-фактор ATX, підтримка DDR4.",
+                "RAM": "Обсяг оперативної пам’яті 8 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4. Тип пам’яті сумісний із материнською платою: DDR4.",
+                "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                "PSU": "Блок живлення на 650 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень. Орієнтовний запас потужності становить близько 145 Вт.",
+                "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн. Корпус розрахований на плату формату ATX у класі mATX."
+              },
+              "changed_part_keys": [
+                "CPU",
+                "GPU",
+                "Motherboard",
+                "RAM",
+                "PSU"
+              ],
+              "changed_part_explanations": {
+                "CPU": "Процесор підібраний під ігровий сценарій 1440p, середні налаштування та ціль 120 FPS. Добре поєднується з AMD RX 6750 XT 12GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM4. Платформа узгоджена з материнською платою за сокетом AM4.",
+                "GPU": "Відеокарта відповідає цілі 1440p, середні налаштування та 120 FPS. Має 12 ГБ відеопам’яті, що важливо для сучасних ігор і текстур. Доступно 12 ГБ VRAM для цього сценарію.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4. Додатково враховано: форм-фактор ATX, підтримка DDR4.",
+                "RAM": "Обсяг оперативної пам’яті 8 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4. Тип пам’яті сумісний із материнською платою: DDR4.",
+                "PSU": "Блок живлення на 650 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень. Орієнтовний запас потужності становить близько 145 Вт."
+              },
+              "market_summary": {
+                "total": 7,
+                "in_stock": 7,
+                "unknown": 0,
+                "out_of_stock": 0,
+                "availability_score": 1.0,
+                "status": "excellent",
+                "label": "Усі комплектуючі в наявності"
+              }
+            },
+            {
+              "is_primary": false,
+              "label": null,
+              "name": null,
+              "total_price": null,
+              "parts": {
+                "GPU": {
+                  "name": "AMD RX 6600 XT 8GB",
+                  "price": 11275,
+                  "description": null,
+                  "image": "/static/images/parts/amd-rx-6600-xt-8gb.webp",
+                  "image_filename": "amd-rx-6600-xt-8gb.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:10:30",
+                  "product_url": "https://hard.rozetka.com.ua/ua/336348064/p336348064/",
+                  "checked_at_display": "30.03.2026 20:10"
+                },
+                "CPU": {
+                  "name": "AMD Ryzen 5 8400F",
+                  "price": 6731,
+                  "description": null,
+                  "image": "/static/images/parts/amd-ryzen-5-8400f.webp",
+                  "image_filename": "amd-ryzen-5-8400f.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:51:33",
+                  "product_url": "https://hard.rozetka.com.ua/ua/amd-100-100001591/p445294493/",
+                  "checked_at_display": "30.03.2026 19:51"
+                },
+                "Motherboard": {
+                  "name": "ASUS TUF GAMING A620-PRO WIFI (AM5, DDR5, ATX)",
+                  "price": 9203,
+                  "description": null,
+                  "image": "/static/images/parts/asus-tuf-gaming-a620-pro-wifi-am5-ddr5-atx.webp",
+                  "image_filename": "asus-tuf-gaming-a620-pro-wifi-am5-ddr5-atx.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:57:09",
+                  "product_url": "https://hard.rozetka.com.ua/ua/570974242/p570974242/",
+                  "checked_at_display": "30.03.2026 19:57"
+                },
+                "RAM": {
+                  "name": "Kingston Fury Beast 16GB (2x8) DDR5-5600",
+                  "price": 23299,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr5-5600.webp",
+                  "image_filename": "kingston-fury-beast-16gb-2x8-ddr5-5600.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:17:00",
+                  "product_url": "https://hard.rozetka.com.ua/ua/kingston_kf556c40bbak2_16/p342800104/",
+                  "checked_at_display": "30.03.2026 20:17"
+                },
+                "SSD": {
+                  "name": "WD Blue SN580 1TB NVMe SSD",
+                  "price": 7542,
+                  "description": null,
+                  "image": "/static/images/parts/wd-blue-sn580-1tb-nvme-ssd.webp",
+                  "image_filename": "wd-blue-sn580-1tb-nvme-ssd.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:01:41",
+                  "product_url": "https://hard.rozetka.com.ua/ua/western-digital-wds100t3b0e/p404969754/",
+                  "checked_at_display": "30.03.2026 20:01"
+                },
+                "PSU": {
+                  "name": "MSI MAG A550BN 550W 80+ Bronze",
+                  "price": 2499,
+                  "description": null,
+                  "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+                  "image_filename": "msi-mag-a550bn-550w-80-bronze.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:02:13",
+                  "product_url": "https://hard.rozetka.com.ua/ua/msi_mag_a550bn/p327862552/",
+                  "checked_at_display": "30.03.2026 20:02"
+                },
+                "Case": {
+                  "name": "DeepCool CC360 ARGB Black",
+                  "price": 2312,
+                  "description": null,
+                  "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+                  "image_filename": "deepcool-cc360-argb-black.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:03:40",
+                  "product_url": "https://hard.rozetka.com.ua/ua/deepcool-r-cc360-bkapm3-g-1/p393129153/",
+                  "checked_at_display": "30.03.2026 20:03"
+                }
+              },
+              "result_payload": {
+                "tier": "upper",
+                "total_price": 62861,
+                "recommended_budget": null,
+                "parts": {
+                  "GPU": {
+                    "name": "AMD RX 6600 XT 8GB",
+                    "price": 11275,
+                    "description": null,
+                    "image": "/static/images/parts/amd-rx-6600-xt-8gb.webp",
+                    "image_filename": "amd-rx-6600-xt-8gb.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:10:30",
+                    "product_url": "https://hard.rozetka.com.ua/ua/336348064/p336348064/",
+                    "checked_at_display": "30.03.2026 20:10"
+                  },
+                  "CPU": {
+                    "name": "AMD Ryzen 5 8400F",
+                    "price": 6731,
+                    "description": null,
+                    "image": "/static/images/parts/amd-ryzen-5-8400f.webp",
+                    "image_filename": "amd-ryzen-5-8400f.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:51:33",
+                    "product_url": "https://hard.rozetka.com.ua/ua/amd-100-100001591/p445294493/",
+                    "checked_at_display": "30.03.2026 19:51"
+                  },
+                  "Motherboard": {
+                    "name": "ASUS TUF GAMING A620-PRO WIFI (AM5, DDR5, ATX)",
+                    "price": 9203,
+                    "description": null,
+                    "image": "/static/images/parts/asus-tuf-gaming-a620-pro-wifi-am5-ddr5-atx.webp",
+                    "image_filename": "asus-tuf-gaming-a620-pro-wifi-am5-ddr5-atx.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:57:09",
+                    "product_url": "https://hard.rozetka.com.ua/ua/570974242/p570974242/",
+                    "checked_at_display": "30.03.2026 19:57"
+                  },
+                  "RAM": {
+                    "name": "Kingston Fury Beast 16GB (2x8) DDR5-5600",
+                    "price": 23299,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-fury-beast-16gb-2x8-ddr5-5600.webp",
+                    "image_filename": "kingston-fury-beast-16gb-2x8-ddr5-5600.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:17:00",
+                    "product_url": "https://hard.rozetka.com.ua/ua/kingston_kf556c40bbak2_16/p342800104/",
+                    "checked_at_display": "30.03.2026 20:17"
+                  },
+                  "SSD": {
+                    "name": "WD Blue SN580 1TB NVMe SSD",
+                    "price": 7542,
+                    "description": null,
+                    "image": "/static/images/parts/wd-blue-sn580-1tb-nvme-ssd.webp",
+                    "image_filename": "wd-blue-sn580-1tb-nvme-ssd.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:01:41",
+                    "product_url": "https://hard.rozetka.com.ua/ua/western-digital-wds100t3b0e/p404969754/",
+                    "checked_at_display": "30.03.2026 20:01"
+                  },
+                  "PSU": {
+                    "name": "MSI MAG A550BN 550W 80+ Bronze",
+                    "price": 2499,
+                    "description": null,
+                    "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+                    "image_filename": "msi-mag-a550bn-550w-80-bronze.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:02:13",
+                    "product_url": "https://hard.rozetka.com.ua/ua/msi_mag_a550bn/p327862552/",
+                    "checked_at_display": "30.03.2026 20:02"
+                  },
+                  "Case": {
+                    "name": "DeepCool CC360 ARGB Black",
+                    "price": 2312,
+                    "description": null,
+                    "image": "/static/images/parts/deepcool-cc360-argb-black.webp",
+                    "image_filename": "deepcool-cc360-argb-black.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:03:40",
+                    "product_url": "https://hard.rozetka.com.ua/ua/deepcool-r-cc360-bkapm3-g-1/p393129153/",
+                    "checked_at_display": "30.03.2026 20:03"
+                  }
+                },
+                "alternatives": [],
+                "notes": [
+                  "Ціль: 1440p, MEDIUM, 120 FPS у вибраних іграх.",
+                  "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх.",
+                  "Пріоритет підбору: максимальна продуктивність у межах бюджету.",
+                  "Виявлено проблеми сумісності: Корпус mATX не підходить для плати ATX."
+                ],
+                "total": 62861,
+                "game_requirement": {
+                  "required_gpu_score": 274.0,
+                  "required_cpu_score": 168.8,
+                  "selected_games": [
+                    "cs2",
+                    "fortnite",
+                    "cyberpunk2077"
+                  ],
+                  "is_active": true
+                },
+                "match_info": {
+                  "match_status": "weak",
+                  "gpu_ratio": 0.37,
+                  "cpu_ratio": 0.71,
+                  "match_note": "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх."
+                },
+                "part_explanations": {
+                  "GPU": "Відеокарта відповідає цілі 1440p, середні налаштування та 120 FPS. Має 8 ГБ відеопам’яті, що важливо для сучасних ігор і текстур. Доступно 8 ГБ VRAM для цього сценарію.",
+                  "CPU": "Процесор підібраний під ігровий сценарій 1440p, середні налаштування та ціль 120 FPS. Добре поєднується з AMD RX 6600 XT 8GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM5. Платформа узгоджена з материнською платою за сокетом AM5.",
+                  "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM5, підтримка DDR5, є вбудований Wi‑Fi. Додатково враховано: форм-фактор ATX, підтримка DDR5.",
+                  "RAM": "Обсяг оперативної пам’яті 16 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR5. Тип пам’яті сумісний із материнською платою: DDR5.",
+                  "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                  "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень. Орієнтовний запас потужності становить близько 160 Вт.",
+                  "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн. Корпус розрахований на плату формату ATX у класі mATX."
+                },
+                "compatibility": {
+                  "status": "error",
+                  "checks": [
+                    {
+                      "code": "cpu_socket",
+                      "status": "ok",
+                      "message": "Процесор і материнська плата сумісні за сокетом AM5."
+                    },
+                    {
+                      "code": "memory_type",
+                      "status": "ok",
+                      "message": "ОЗП і материнська плата узгоджені за стандартом DDR5."
+                    },
+                    {
+                      "code": "form_factor",
+                      "status": "error",
+                      "message": "Корпус mATX не підходить для плати ATX."
+                    },
+                    {
+                      "code": "psu_headroom",
+                      "status": "ok",
+                      "message": "Блок живлення 550 Вт має хороший запас над орієнтовною потребою 390 Вт."
+                    },
+                    {
+                      "code": "ram_capacity",
+                      "status": "ok",
+                      "message": "Обсяг ОЗП 16 ГБ відповідає сценарію gaming."
+                    },
+                    {
+                      "code": "ssd_capacity",
+                      "status": "ok",
+                      "message": "SSD 1000 ГБ відповідає очікуваному мінімуму для сценарію gaming."
+                    },
+                    {
+                      "code": "gaming_gpu_vram",
+                      "status": "ok",
+                      "message": "Відеокарта має 8 ГБ VRAM, чого достатньо для більшості ігрових сценаріїв цього рівня."
+                    }
+                  ],
+                  "errors": [
+                    "Корпус mATX не підходить для плати ATX."
+                  ],
+                  "warnings": [],
+                  "estimated_required_watt": 390,
+                  "psu_watt": 550
+                },
+                "compatibility_checks": [
+                  {
+                    "code": "cpu_socket",
+                    "status": "ok",
+                    "message": "Процесор і материнська плата сумісні за сокетом AM5."
+                  },
+                  {
+                    "code": "memory_type",
+                    "status": "ok",
+                    "message": "ОЗП і материнська плата узгоджені за стандартом DDR5."
+                  },
+                  {
+                    "code": "form_factor",
+                    "status": "error",
+                    "message": "Корпус mATX не підходить для плати ATX."
+                  },
+                  {
+                    "code": "psu_headroom",
+                    "status": "ok",
+                    "message": "Блок живлення 550 Вт має хороший запас над орієнтовною потребою 390 Вт."
+                  },
+                  {
+                    "code": "ram_capacity",
+                    "status": "ok",
+                    "message": "Обсяг ОЗП 16 ГБ відповідає сценарію gaming."
+                  },
+                  {
+                    "code": "ssd_capacity",
+                    "status": "ok",
+                    "message": "SSD 1000 ГБ відповідає очікуваному мінімуму для сценарію gaming."
+                  },
+                  {
+                    "code": "gaming_gpu_vram",
+                    "status": "ok",
+                    "message": "Відеокарта має 8 ГБ VRAM, чого достатньо для більшості ігрових сценаріїв цього рівня."
+                  }
+                ],
+                "priority": "best",
+                "requested_budget": 63000
+              },
+              "key": "priority-best",
+              "title": "Конфігурація максимальної продуктивності",
+              "description": "Максимально продуктивний варіант у межах заданих параметрів.",
+              "total": 62861,
+              "requested_budget": 63000,
+              "tier": "upper",
+              "tier_title": "Високий",
+              "priority": "best",
+              "priority_title": "Максимальна продуктивність",
+              "delta_text": "Дорожче на 6107 грн відносно основної рекомендації",
+              "parts_excerpt": [
+                {
+                  "label": "Процесор",
+                  "name": "AMD Ryzen 5 8400F"
+                },
+                {
+                  "label": "Відеокарта",
+                  "name": "AMD RX 6600 XT 8GB"
+                },
+                {
+                  "label": "Оперативна пам’ять",
+                  "name": "Kingston Fury Beast 16GB (2x8) DDR5-5600"
+                },
+                {
+                  "label": "SSD",
+                  "name": "WD Blue SN580 1TB NVMe SSD"
+                }
+              ],
+              "notes": [
+                "Ціль: 1440p, MEDIUM, 120 FPS у вибраних іграх.",
+                "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх.",
+                "Пріоритет підбору: максимальна продуктивність у межах бюджету.",
+                "Виявлено проблеми сумісності: Корпус mATX не підходить для плати ATX."
+              ],
+              "card_notes": [
+                "Ціль: 1440p, MEDIUM, 120 FPS у вибраних іграх.",
+                "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх."
+              ],
+              "part_explanations": {
+                "GPU": "Відеокарта відповідає цілі 1440p, середні налаштування та 120 FPS. Має 8 ГБ відеопам’яті, що важливо для сучасних ігор і текстур. Доступно 8 ГБ VRAM для цього сценарію.",
+                "CPU": "Процесор підібраний під ігровий сценарій 1440p, середні налаштування та ціль 120 FPS. Добре поєднується з AMD RX 6600 XT 8GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM5. Платформа узгоджена з материнською платою за сокетом AM5.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM5, підтримка DDR5, є вбудований Wi‑Fi. Додатково враховано: форм-фактор ATX, підтримка DDR5.",
+                "RAM": "Обсяг оперативної пам’яті 16 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR5. Тип пам’яті сумісний із материнською платою: DDR5.",
+                "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень. Орієнтовний запас потужності становить близько 160 Вт.",
+                "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн. Корпус розрахований на плату формату ATX у класі mATX."
+              },
+              "changed_part_keys": [
+                "CPU",
+                "GPU",
+                "Motherboard",
+                "RAM",
+                "SSD",
+                "PSU"
+              ],
+              "changed_part_explanations": {
+                "CPU": "Процесор підібраний під ігровий сценарій 1440p, середні налаштування та ціль 120 FPS. Добре поєднується з AMD RX 6600 XT 8GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM5. Платформа узгоджена з материнською платою за сокетом AM5.",
+                "GPU": "Відеокарта відповідає цілі 1440p, середні налаштування та 120 FPS. Має 8 ГБ відеопам’яті, що важливо для сучасних ігор і текстур. Доступно 8 ГБ VRAM для цього сценарію.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM5, підтримка DDR5, є вбудований Wi‑Fi. Додатково враховано: форм-фактор ATX, підтримка DDR5.",
+                "RAM": "Обсяг оперативної пам’яті 16 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR5. Тип пам’яті сумісний із материнською платою: DDR5.",
+                "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень. Орієнтовний запас потужності становить близько 160 Вт."
+              },
+              "market_summary": {
+                "total": 7,
+                "in_stock": 7,
+                "unknown": 0,
+                "out_of_stock": 0,
+                "availability_score": 1.0,
+                "status": "excellent",
+                "label": "Усі комплектуючі в наявності"
+              }
+            }
+          ],
+          "notes": [
+            "Ціль: 1440p, MEDIUM, 120 FPS у вибраних іграх.",
+            "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх.",
+            "Пріоритет підбору: збалансовано (ціна/якість)."
+          ],
+          "total": 56754,
+          "game_requirement": {
+            "required_gpu_score": 274.0,
+            "required_cpu_score": 168.8,
+            "selected_games": [
+              "cs2",
+              "fortnite",
+              "cyberpunk2077"
+            ],
+            "is_active": true
+          },
+          "match_info": {
+            "match_status": "weak",
+            "gpu_ratio": 0.68,
+            "cpu_ratio": 0.64,
+            "match_note": "Конфігурація може не дотягувати до заданої цілі у найважчих вибраних іграх."
+          },
+          "part_explanations": {
+            "GPU": "Відеокарта відповідає цілі 1440p, середні налаштування та 120 FPS. Має 16 ГБ відеопам’яті, що важливо для сучасних ігор і текстур. Доступно 16 ГБ VRAM для цього сценарію.",
+            "CPU": "Процесор підібраний під ігровий сценарій 1440p, середні налаштування та ціль 120 FPS. Добре поєднується з AMD RX 9060 XT 16GB і не створює помітного вузького місця для цієї відеокарти. Платформа: AM4. Платформа узгоджена з материнською платою за сокетом AM4.",
+            "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4, є вбудований Wi‑Fi. Додатково враховано: форм-фактор mATX, підтримка DDR4.",
+            "RAM": "Обсяг оперативної пам’яті 16 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4. Тип пам’яті сумісний із материнською платою: DDR4.",
+            "SSD": "SSD на 1 ТБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+            "PSU": "Блок живлення на 750 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень. Орієнтовний запас потужності становить близько 345 Вт.",
+            "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження, вітринний дизайн. Корпус розрахований на плату формату mATX у класі mATX."
+          },
+          "compatibility": {
+            "status": "ok",
+            "checks": [
+              {
+                "code": "cpu_socket",
+                "status": "ok",
+                "message": "Процесор і материнська плата сумісні за сокетом AM4."
+              },
+              {
+                "code": "memory_type",
+                "status": "ok",
+                "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+              },
+              {
+                "code": "form_factor",
+                "status": "ok",
+                "message": "Корпус mATX підтримує плату mATX."
+              },
+              {
+                "code": "psu_headroom",
+                "status": "ok",
+                "message": "Блок живлення 750 Вт має хороший запас над орієнтовною потребою 405 Вт."
+              },
+              {
+                "code": "ram_capacity",
+                "status": "ok",
+                "message": "Обсяг ОЗП 16 ГБ відповідає сценарію gaming."
+              },
+              {
+                "code": "ssd_capacity",
+                "status": "ok",
+                "message": "SSD 1000 ГБ відповідає очікуваному мінімуму для сценарію gaming."
+              },
+              {
+                "code": "gaming_gpu_vram",
+                "status": "ok",
+                "message": "Відеокарта має 16 ГБ VRAM, чого достатньо для більшості ігрових сценаріїв цього рівня."
+              }
+            ],
+            "errors": [],
+            "warnings": [],
+            "estimated_required_watt": 405,
+            "psu_watt": 750
+          },
+          "compatibility_checks": [
+            {
+              "code": "cpu_socket",
+              "status": "ok",
+              "message": "Процесор і материнська плата сумісні за сокетом AM4."
+            },
+            {
+              "code": "memory_type",
+              "status": "ok",
+              "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+            },
+            {
+              "code": "form_factor",
+              "status": "ok",
+              "message": "Корпус mATX підтримує плату mATX."
+            },
+            {
+              "code": "psu_headroom",
+              "status": "ok",
+              "message": "Блок живлення 750 Вт має хороший запас над орієнтовною потребою 405 Вт."
+            },
+            {
+              "code": "ram_capacity",
+              "status": "ok",
+              "message": "Обсяг ОЗП 16 ГБ відповідає сценарію gaming."
+            },
+            {
+              "code": "ssd_capacity",
+              "status": "ok",
+              "message": "SSD 1000 ГБ відповідає очікуваному мінімуму для сценарію gaming."
+            },
+            {
+              "code": "gaming_gpu_vram",
+              "status": "ok",
+              "message": "Відеокарта має 16 ГБ VRAM, чого достатньо для більшості ігрових сценаріїв цього рівня."
+            }
+          ],
+          "priority": "balanced",
+          "requested_budget": 57000
+        },
+        "saved_build_id": "9b400670831042fba21b4d706c379328"
+      },
+      {
+        "id": "48785c36970d4114aee274a2829ca85d",
+        "created_at": "2026-04-15T12:33:43",
+        "source": "builder_form",
+        "inputs": {
+          "budget_mode": "manual",
+          "budget": 25000,
+          "purpose": "gaming",
+          "resolution": "1080p",
+          "wifi": false,
+          "games": [
+            "lol"
+          ],
+          "graphics_quality": "high",
+          "target_fps": 60,
+          "gpu_mode": "auto",
+          "cpu_brand": "auto",
+          "gpu_brand": "auto",
+          "ram_size": "auto",
+          "ssd_size": "auto",
+          "memory_platform": "auto",
+          "office_apps": [],
+          "office_tabs": "auto",
+          "office_monitors": "auto",
+          "study_apps": [],
+          "study_tabs": "auto",
+          "study_monitors": "auto",
+          "creator_apps": [],
+          "creator_complexity": "auto",
+          "creator_monitors": "auto",
+          "priority": "balanced",
+          "games_titles": [
+            "League of Legends"
+          ],
+          "office_apps_titles": [],
+          "study_apps_titles": [],
+          "creator_apps_titles": []
+        },
+        "result_summary": {
+          "tier": "mid",
+          "total_price": 24615,
+          "recommended_budget": null,
+          "parts_count": 6
+        },
+        "result_snapshot": {
+          "tier": "mid",
+          "total_price": 24615,
+          "recommended_budget": null,
+          "parts": {
+            "CPU": {
+              "name": "AMD Ryzen 7 5700G",
+              "price": 8216,
+              "description": null,
+              "image": "/static/images/parts/amd-ryzen-7-5700g.webp",
+              "image_filename": "amd-ryzen-7-5700g.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T19:51:03",
+              "product_url": "https://hard.rozetka.com.ua/ua/316480834/p316480834/",
+              "checked_at_display": "30.03.2026 19:51"
+            },
+            "Motherboard": {
+              "name": "B550 Wi-Fi (AM4, DDR4, ATX)",
+              "price": 4599,
+              "description": null,
+              "image": "/static/images/parts/b550-wi-fi-am4-ddr4-atx.webp",
+              "image_filename": "b550-wi-fi-am4-ddr4-atx.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T20:13:54",
+              "product_url": "https://hard.rozetka.com.ua/ua/msi_b550m_pro_vdh_wifi/p266777346/",
+              "checked_at_display": "30.03.2026 20:13"
+            },
+            "RAM": {
+              "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+              "price": 3458,
+              "description": null,
+              "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+              "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T19:58:44",
+              "product_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bb_8/p310064018/",
+              "checked_at_display": "30.03.2026 19:58"
+            },
+            "SSD": {
+              "name": "Kingston NV3 512GB NVMe SSD",
+              "price": 3958,
+              "description": null,
+              "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+              "image_filename": "kingston-nv3-512gb-nvme-ssd.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T20:18:13",
+              "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/",
+              "checked_at_display": "30.03.2026 20:18"
+            },
+            "PSU": {
+              "name": "MSI MAG A550BN 550W 80+ Bronze",
+              "price": 2499,
+              "description": null,
+              "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+              "image_filename": "msi-mag-a550bn-550w-80-bronze.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T20:02:13",
+              "product_url": "https://hard.rozetka.com.ua/ua/msi_mag_a550bn/p327862552/",
+              "checked_at_display": "30.03.2026 20:02"
+            },
+            "Case": {
+              "name": "DeepCool CC560 LIMITED V2 Black",
+              "price": 1885,
+              "description": null,
+              "image": "/static/images/parts/deepcool-cc560-limited-v2-black.webp",
+              "image_filename": "deepcool-cc560-limited-v2-black.webp",
+              "store": "Rozetka",
+              "source_used": "rozetka",
+              "availability": "Є в наявності",
+              "in_stock": true,
+              "checked_at": "2026-03-30T20:03:48",
+              "product_url": "https://hard.rozetka.com.ua/ua/deepcool-cc560-limited-v2/p427512869/",
+              "checked_at_display": "30.03.2026 20:03"
+            }
+          },
+          "alternatives": [
+            {
+              "is_primary": true,
+              "label": null,
+              "name": null,
+              "total_price": null,
+              "parts": {
+                "CPU": {
+                  "name": "AMD Ryzen 7 5700G",
+                  "price": 8216,
+                  "description": null,
+                  "image": "/static/images/parts/amd-ryzen-7-5700g.webp",
+                  "image_filename": "amd-ryzen-7-5700g.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:51:03",
+                  "product_url": "https://hard.rozetka.com.ua/ua/316480834/p316480834/",
+                  "checked_at_display": "30.03.2026 19:51"
+                },
+                "Motherboard": {
+                  "name": "B550 Wi-Fi (AM4, DDR4, ATX)",
+                  "price": 4599,
+                  "description": null,
+                  "image": "/static/images/parts/b550-wi-fi-am4-ddr4-atx.webp",
+                  "image_filename": "b550-wi-fi-am4-ddr4-atx.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:13:54",
+                  "product_url": "https://hard.rozetka.com.ua/ua/msi_b550m_pro_vdh_wifi/p266777346/",
+                  "checked_at_display": "30.03.2026 20:13"
+                },
+                "RAM": {
+                  "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+                  "price": 3458,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+                  "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T19:58:44",
+                  "product_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bb_8/p310064018/",
+                  "checked_at_display": "30.03.2026 19:58"
+                },
+                "SSD": {
+                  "name": "Kingston NV3 512GB NVMe SSD",
+                  "price": 3958,
+                  "description": null,
+                  "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+                  "image_filename": "kingston-nv3-512gb-nvme-ssd.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:18:13",
+                  "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/",
+                  "checked_at_display": "30.03.2026 20:18"
+                },
+                "PSU": {
+                  "name": "MSI MAG A550BN 550W 80+ Bronze",
+                  "price": 2499,
+                  "description": null,
+                  "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+                  "image_filename": "msi-mag-a550bn-550w-80-bronze.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:02:13",
+                  "product_url": "https://hard.rozetka.com.ua/ua/msi_mag_a550bn/p327862552/",
+                  "checked_at_display": "30.03.2026 20:02"
+                },
+                "Case": {
+                  "name": "DeepCool CC560 LIMITED V2 Black",
+                  "price": 1885,
+                  "description": null,
+                  "image": "/static/images/parts/deepcool-cc560-limited-v2-black.webp",
+                  "image_filename": "deepcool-cc560-limited-v2-black.webp",
+                  "store": "Rozetka",
+                  "source_used": "rozetka",
+                  "availability": "Є в наявності",
+                  "in_stock": true,
+                  "checked_at": "2026-03-30T20:03:48",
+                  "product_url": "https://hard.rozetka.com.ua/ua/deepcool-cc560-limited-v2/p427512869/",
+                  "checked_at_display": "30.03.2026 20:03"
+                }
+              },
+              "result_payload": {
+                "tier": "mid",
+                "total_price": 24615,
+                "recommended_budget": null,
+                "parts": {
+                  "CPU": {
+                    "name": "AMD Ryzen 7 5700G",
+                    "price": 8216,
+                    "description": null,
+                    "image": "/static/images/parts/amd-ryzen-7-5700g.webp",
+                    "image_filename": "amd-ryzen-7-5700g.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:51:03",
+                    "product_url": "https://hard.rozetka.com.ua/ua/316480834/p316480834/",
+                    "checked_at_display": "30.03.2026 19:51"
+                  },
+                  "Motherboard": {
+                    "name": "B550 Wi-Fi (AM4, DDR4, ATX)",
+                    "price": 4599,
+                    "description": null,
+                    "image": "/static/images/parts/b550-wi-fi-am4-ddr4-atx.webp",
+                    "image_filename": "b550-wi-fi-am4-ddr4-atx.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:13:54",
+                    "product_url": "https://hard.rozetka.com.ua/ua/msi_b550m_pro_vdh_wifi/p266777346/",
+                    "checked_at_display": "30.03.2026 20:13"
+                  },
+                  "RAM": {
+                    "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200",
+                    "price": 3458,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+                    "image_filename": "kingston-fury-beast-8gb-1x8-ddr4-3200.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T19:58:44",
+                    "product_url": "https://hard.rozetka.com.ua/ua/kingston_fury_kf432c16bb_8/p310064018/",
+                    "checked_at_display": "30.03.2026 19:58"
+                  },
+                  "SSD": {
+                    "name": "Kingston NV3 512GB NVMe SSD",
+                    "price": 3958,
+                    "description": null,
+                    "image": "/static/images/parts/kingston-nv3-512gb-nvme-ssd.webp",
+                    "image_filename": "kingston-nv3-512gb-nvme-ssd.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:18:13",
+                    "product_url": "https://hard.rozetka.com.ua/ua/kingston-snv3s-500g/p444146633/",
+                    "checked_at_display": "30.03.2026 20:18"
+                  },
+                  "PSU": {
+                    "name": "MSI MAG A550BN 550W 80+ Bronze",
+                    "price": 2499,
+                    "description": null,
+                    "image": "/static/images/parts/msi-mag-a550bn-550w-80-bronze.webp",
+                    "image_filename": "msi-mag-a550bn-550w-80-bronze.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:02:13",
+                    "product_url": "https://hard.rozetka.com.ua/ua/msi_mag_a550bn/p327862552/",
+                    "checked_at_display": "30.03.2026 20:02"
+                  },
+                  "Case": {
+                    "name": "DeepCool CC560 LIMITED V2 Black",
+                    "price": 1885,
+                    "description": null,
+                    "image": "/static/images/parts/deepcool-cc560-limited-v2-black.webp",
+                    "image_filename": "deepcool-cc560-limited-v2-black.webp",
+                    "store": "Rozetka",
+                    "source_used": "rozetka",
+                    "availability": "Є в наявності",
+                    "in_stock": true,
+                    "checked_at": "2026-03-30T20:03:48",
+                    "product_url": "https://hard.rozetka.com.ua/ua/deepcool-cc560-limited-v2/p427512869/",
+                    "checked_at_display": "30.03.2026 20:03"
+                  }
+                },
+                "alternatives": [],
+                "notes": [
+                  "Ціль: 1080p, HIGH, 60 FPS у вибраних іграх.",
+                  "Збірка без дискретної відеокарти найкраще підходить для невибагливих ігор, esports-проєктів або дуже обмеженого бюджету.",
+                  "Бюджет використано майже повністю: 24615 грн із 25000 грн.",
+                  "Є зауваження до конфігурації: Для сценарію gaming бажано щонайменше 16 ГБ ОЗП, зараз 8 ГБ."
+                ],
+                "total": 24615,
+                "game_requirement": {
+                  "required_gpu_score": 45.0,
+                  "required_cpu_score": 78.0,
+                  "selected_games": [
+                    "lol"
+                  ],
+                  "is_active": true
+                },
+                "match_info": {
+                  "match_status": "integrated",
+                  "gpu_ratio": 1.6,
+                  "cpu_ratio": 1.44,
+                  "match_note": "Збірка без дискретної відеокарти найкраще підходить для невибагливих ігор, esports-проєктів або дуже обмеженого бюджету."
+                },
+                "part_explanations": {
+                  "CPU": "Процесор підібраний під ігровий сценарій 1080p, високі налаштування та ціль 60 FPS. Використовується разом із вбудованою графікою, тому розрахований на легші ігри або стартову конфігурацію. Платформа: AM4; є вбудована графіка. Платформа узгоджена з материнською платою за сокетом AM4.",
+                  "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4, є вбудований Wi‑Fi. Додатково враховано: форм-фактор ATX, підтримка DDR4.",
+                  "RAM": "Обсяг оперативної пам’яті 8 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4. Тип пам’яті сумісний із материнською платою: DDR4.",
+                  "SSD": "SSD на 512 ГБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                  "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень. Орієнтовний запас потужності становить близько 295 Вт.",
+                  "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження. Корпус розрахований на плату формату ATX у класі ATX."
+                },
+                "compatibility": {
+                  "status": "warning",
+                  "checks": [
+                    {
+                      "code": "cpu_socket",
+                      "status": "ok",
+                      "message": "Процесор і материнська плата сумісні за сокетом AM4."
+                    },
+                    {
+                      "code": "memory_type",
+                      "status": "ok",
+                      "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+                    },
+                    {
+                      "code": "form_factor",
+                      "status": "ok",
+                      "message": "Корпус ATX підтримує плату ATX."
+                    },
+                    {
+                      "code": "psu_headroom",
+                      "status": "ok",
+                      "message": "Блок живлення 550 Вт має хороший запас над орієнтовною потребою 255 Вт."
+                    },
+                    {
+                      "code": "ram_capacity",
+                      "status": "warning",
+                      "message": "Для сценарію gaming бажано щонайменше 16 ГБ ОЗП, зараз 8 ГБ."
+                    },
+                    {
+                      "code": "ssd_capacity",
+                      "status": "ok",
+                      "message": "SSD 512 ГБ відповідає очікуваному мінімуму для сценарію gaming."
+                    },
+                    {
+                      "code": "gaming_gpu_presence",
+                      "status": "warning",
+                      "message": "Ігрова конфігурація побудована без дискретної відеокарти; підійде лише для легких ігор або стартового рівня."
+                    }
+                  ],
+                  "errors": [],
+                  "warnings": [
+                    "Для сценарію gaming бажано щонайменше 16 ГБ ОЗП, зараз 8 ГБ.",
+                    "Ігрова конфігурація побудована без дискретної відеокарти; підійде лише для легких ігор або стартового рівня."
+                  ],
+                  "estimated_required_watt": 255,
+                  "psu_watt": 550
+                },
+                "compatibility_checks": [
+                  {
+                    "code": "cpu_socket",
+                    "status": "ok",
+                    "message": "Процесор і материнська плата сумісні за сокетом AM4."
+                  },
+                  {
+                    "code": "memory_type",
+                    "status": "ok",
+                    "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+                  },
+                  {
+                    "code": "form_factor",
+                    "status": "ok",
+                    "message": "Корпус ATX підтримує плату ATX."
+                  },
+                  {
+                    "code": "psu_headroom",
+                    "status": "ok",
+                    "message": "Блок живлення 550 Вт має хороший запас над орієнтовною потребою 255 Вт."
+                  },
+                  {
+                    "code": "ram_capacity",
+                    "status": "warning",
+                    "message": "Для сценарію gaming бажано щонайменше 16 ГБ ОЗП, зараз 8 ГБ."
+                  },
+                  {
+                    "code": "ssd_capacity",
+                    "status": "ok",
+                    "message": "SSD 512 ГБ відповідає очікуваному мінімуму для сценарію gaming."
+                  },
+                  {
+                    "code": "gaming_gpu_presence",
+                    "status": "warning",
+                    "message": "Ігрова конфігурація побудована без дискретної відеокарти; підійде лише для легких ігор або стартового рівня."
+                  }
+                ],
+                "priority": "balanced",
+                "requested_budget": 25000
+              },
+              "key": "priority-balanced",
+              "title": "Рекомендована конфігурація",
+              "description": "Основна рекомендація відповідно до обраного тобою пріоритету підбору.",
+              "total": 24615,
+              "requested_budget": 25000,
+              "tier": "mid",
+              "tier_title": "Середній",
+              "priority": "balanced",
+              "priority_title": "Ціна / якість",
+              "delta_text": "Базова рекомендація системи",
+              "parts_excerpt": [
+                {
+                  "label": "Процесор",
+                  "name": "AMD Ryzen 7 5700G"
+                },
+                {
+                  "label": "Відеокарта",
+                  "name": "Вбудована графіка процесора"
+                },
+                {
+                  "label": "Оперативна пам’ять",
+                  "name": "Kingston Fury Beast 8GB (1x8) DDR4-3200"
+                },
+                {
+                  "label": "SSD",
+                  "name": "Kingston NV3 512GB NVMe SSD"
+                }
+              ],
+              "notes": [
+                "Ціль: 1080p, HIGH, 60 FPS у вибраних іграх.",
+                "Збірка без дискретної відеокарти найкраще підходить для невибагливих ігор, esports-проєктів або дуже обмеженого бюджету.",
+                "Бюджет використано майже повністю: 24615 грн із 25000 грн.",
+                "Є зауваження до конфігурації: Для сценарію gaming бажано щонайменше 16 ГБ ОЗП, зараз 8 ГБ."
+              ],
+              "card_notes": [
+                "Ціль: 1080p, HIGH, 60 FPS у вибраних іграх.",
+                "Збірка без дискретної відеокарти найкраще підходить для невибагливих ігор, esports-проєктів або дуже обмеженого бюджету."
+              ],
+              "part_explanations": {
+                "CPU": "Процесор підібраний під ігровий сценарій 1080p, високі налаштування та ціль 60 FPS. Використовується разом із вбудованою графікою, тому розрахований на легші ігри або стартову конфігурацію. Платформа: AM4; є вбудована графіка. Платформа узгоджена з материнською платою за сокетом AM4.",
+                "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4, є вбудований Wi‑Fi. Додатково враховано: форм-фактор ATX, підтримка DDR4.",
+                "RAM": "Обсяг оперативної пам’яті 8 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4. Тип пам’яті сумісний із материнською платою: DDR4.",
+                "SSD": "SSD на 512 ГБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+                "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень. Орієнтовний запас потужності становить близько 295 Вт.",
+                "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження. Корпус розрахований на плату формату ATX у класі ATX."
+              },
+              "changed_part_keys": [],
+              "changed_part_explanations": {},
+              "market_summary": {
+                "total": 6,
+                "in_stock": 6,
+                "unknown": 0,
+                "out_of_stock": 0,
+                "availability_score": 1.0,
+                "status": "excellent",
+                "label": "Усі комплектуючі в наявності"
+              }
+            }
+          ],
+          "notes": [
+            "Ціль: 1080p, HIGH, 60 FPS у вибраних іграх.",
+            "Збірка без дискретної відеокарти найкраще підходить для невибагливих ігор, esports-проєктів або дуже обмеженого бюджету.",
+            "Бюджет використано майже повністю: 24615 грн із 25000 грн.",
+            "Є зауваження до конфігурації: Для сценарію gaming бажано щонайменше 16 ГБ ОЗП, зараз 8 ГБ."
+          ],
+          "total": 24615,
+          "game_requirement": {
+            "required_gpu_score": 45.0,
+            "required_cpu_score": 78.0,
+            "selected_games": [
+              "lol"
+            ],
+            "is_active": true
+          },
+          "match_info": {
+            "match_status": "integrated",
+            "gpu_ratio": 1.6,
+            "cpu_ratio": 1.44,
+            "match_note": "Збірка без дискретної відеокарти найкраще підходить для невибагливих ігор, esports-проєктів або дуже обмеженого бюджету."
+          },
+          "part_explanations": {
+            "CPU": "Процесор підібраний під ігровий сценарій 1080p, високі налаштування та ціль 60 FPS. Використовується разом із вбудованою графікою, тому розрахований на легші ігри або стартову конфігурацію. Платформа: AM4; є вбудована графіка. Платформа узгоджена з материнською платою за сокетом AM4.",
+            "Motherboard": "Материнська плата підібрана під процесор і пам’ять, тому забезпечує сумісність усієї платформи. Ключові параметри: сокет AM4, підтримка DDR4, є вбудований Wi‑Fi. Додатково враховано: форм-фактор ATX, підтримка DDR4.",
+            "RAM": "Обсяг оперативної пам’яті 8 ГБ достатній для ігор, фонових задач і стабільної роботи системи. Використовується пам’ять стандарту DDR4. Тип пам’яті сумісний із материнською платою: DDR4.",
+            "SSD": "SSD на 512 ГБ забезпечує швидке завантаження системи, ігор і зменшує час завантаження рівнів та великих проєктів.",
+            "PSU": "Блок живлення на 550 Вт покриває енергоспоживання системи із запасом приблизно 0 Вт, що корисно для стабільності та пікових навантажень. Орієнтовний запас потужності становить близько 295 Вт.",
+            "Case": "Корпус підібраний під габарити та клас конфігурації, щоб компоненти були сумісні між собою. Особливості: акцент на продув і охолодження. Корпус розрахований на плату формату ATX у класі ATX."
+          },
+          "compatibility": {
+            "status": "warning",
+            "checks": [
+              {
+                "code": "cpu_socket",
+                "status": "ok",
+                "message": "Процесор і материнська плата сумісні за сокетом AM4."
+              },
+              {
+                "code": "memory_type",
+                "status": "ok",
+                "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+              },
+              {
+                "code": "form_factor",
+                "status": "ok",
+                "message": "Корпус ATX підтримує плату ATX."
+              },
+              {
+                "code": "psu_headroom",
+                "status": "ok",
+                "message": "Блок живлення 550 Вт має хороший запас над орієнтовною потребою 255 Вт."
+              },
+              {
+                "code": "ram_capacity",
+                "status": "warning",
+                "message": "Для сценарію gaming бажано щонайменше 16 ГБ ОЗП, зараз 8 ГБ."
+              },
+              {
+                "code": "ssd_capacity",
+                "status": "ok",
+                "message": "SSD 512 ГБ відповідає очікуваному мінімуму для сценарію gaming."
+              },
+              {
+                "code": "gaming_gpu_presence",
+                "status": "warning",
+                "message": "Ігрова конфігурація побудована без дискретної відеокарти; підійде лише для легких ігор або стартового рівня."
+              }
+            ],
+            "errors": [],
+            "warnings": [
+              "Для сценарію gaming бажано щонайменше 16 ГБ ОЗП, зараз 8 ГБ.",
+              "Ігрова конфігурація побудована без дискретної відеокарти; підійде лише для легких ігор або стартового рівня."
+            ],
+            "estimated_required_watt": 255,
+            "psu_watt": 550
+          },
+          "compatibility_checks": [
+            {
+              "code": "cpu_socket",
+              "status": "ok",
+              "message": "Процесор і материнська плата сумісні за сокетом AM4."
+            },
+            {
+              "code": "memory_type",
+              "status": "ok",
+              "message": "ОЗП і материнська плата узгоджені за стандартом DDR4."
+            },
+            {
+              "code": "form_factor",
+              "status": "ok",
+              "message": "Корпус ATX підтримує плату ATX."
+            },
+            {
+              "code": "psu_headroom",
+              "status": "ok",
+              "message": "Блок живлення 550 Вт має хороший запас над орієнтовною потребою 255 Вт."
+            },
+            {
+              "code": "ram_capacity",
+              "status": "warning",
+              "message": "Для сценарію gaming бажано щонайменше 16 ГБ ОЗП, зараз 8 ГБ."
+            },
+            {
+              "code": "ssd_capacity",
+              "status": "ok",
+              "message": "SSD 512 ГБ відповідає очікуваному мінімуму для сценарію gaming."
+            },
+            {
+              "code": "gaming_gpu_presence",
+              "status": "warning",
+              "message": "Ігрова конфігурація побудована без дискретної відеокарти; підійде лише для легких ігор або стартового рівня."
+            }
+          ],
+          "priority": "balanced",
+          "requested_budget": 25000
+        },
+        "saved_build_id": null
+      }
+    ]
   }
 ]
