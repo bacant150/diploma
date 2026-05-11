@@ -294,10 +294,11 @@ def evaluate_build_compatibility(
                 )
         elif has_igpu:
             message = (
-                "Ігрова конфігурація побудована без дискретної відеокарти; підійде лише для легких ігор або стартового рівня."
+                "Дискретна відеокарта не додається: використовується інтегрована графіка процесора. "
+                "Для обраного стартового або невибагливого ігрового сценарію цього достатньо; "
+                "для важких ігор на високих налаштуваннях варто обрати режим із дискретною відеокартою."
             )
-            checks.append(_compatibility_record("gaming_gpu_presence", "warning", message))
-            _append_unique(warnings, message)
+            checks.append(_compatibility_record("gaming_gpu_presence", "ok", message))
         else:
             message = "Ігрова конфігурація не має ні дискретної, ні вбудованої графіки."
             checks.append(_compatibility_record("gaming_gpu_presence", "error", message))
@@ -378,6 +379,17 @@ def _merge_part_explanations(
             text = _fallback_explanation(role, part, purpose)
 
         if role == "CPU" and cpu and motherboard:
+            if (
+                purpose == "gaming"
+                and gpu is None
+                and bool(cpu.meta.get("igpu"))
+                and "інтегрована графіка" not in text.lower()
+            ):
+                text += (
+                    " Дискретна відеокарта не використовується: у процесорі є інтегрована графіка, "
+                    "якої достатньо для обраного стартового або невибагливого ігрового сценарію. "
+                    "Для важких ігор на високих налаштуваннях варто обрати режим із дискретною відеокартою."
+                )
             socket = str(cpu.meta.get("socket", "")).strip()
             if socket and socket in motherboard.name:
                 text += f" Платформа узгоджена з материнською платою за сокетом {socket}."

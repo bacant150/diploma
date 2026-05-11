@@ -129,7 +129,7 @@ def _build_gaming_pc_integrated(
         "match_status": "integrated",
         "gpu_ratio": round(_igpu_game_score(cpu) / max(float(requirement.get("required_gpu_score", 1)) or 1, 1), 2) if requirement.get("is_active") else None,
         "cpu_ratio": round(_cpu_game_score(cpu) / max(float(requirement.get("required_cpu_score", 1)) or 1, 1), 2) if requirement.get("is_active") else None,
-        "match_note": "Збірка без дискретної відеокарти найкраще підходить для невибагливих ігор, esports-проєктів або дуже обмеженого бюджету.",
+        "match_note": "Дискретна відеокарта не додається: використовується інтегрована графіка процесора, якої достатньо для невибагливих ігор, esports-проєктів або стартового рівня.",
     }
     notes.append(_gaming_target_label(requirement, graphics_quality, target_fps, resolution))
     notes.append(match_info["match_note"])

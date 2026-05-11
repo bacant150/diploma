@@ -81,3 +81,38 @@ def test_finalize_build_result_flags_socket_mismatch_and_weak_psu() -> None:
         for check in result["compatibility_checks"]
     )
     assert result["notes"]
+
+
+def test_finalize_build_result_explains_integrated_graphics_without_gpu_warning() -> None:
+    parts = {
+        "CPU": Part("cpu", "AMD Ryzen 7 5700G", 8200, {"socket": "AM4", "igpu": True}),
+        "Motherboard": Part(
+            "mb",
+            "B550 (AM4, DDR4, ATX)",
+            5000,
+            {"socket": "AM4", "ram_type": "DDR4", "wifi": False},
+        ),
+        "RAM": Part("ram", "DDR4 16GB", 2500, {"ram_type": "DDR4", "size_gb": 16}),
+        "SSD": Part("ssd", "SSD 1TB", 3500, {"size_gb": 1000}),
+        "PSU": Part("psu", "PSU 550W", 2500, {"watt": 550}),
+        "Case": Part("case", "Case ATX", 1800, {"size": "ATX", "airflow": True}),
+    }
+
+    result = finalize_build_result(
+        _result_from_parts(parts),
+        parts=parts,
+        purpose="gaming",
+        context={"resolution": "1080p", "graphics_quality": "low", "target_fps": 60},
+    )
+
+    gpu_checks = [
+        check
+        for check in result["compatibility_checks"]
+        if check["code"] == "gaming_gpu_presence"
+    ]
+
+    assert gpu_checks
+    assert gpu_checks[0]["status"] == "ok"
+    assert not any("без дискретної відеокарти" in warning for warning in result["compatibility"]["warnings"])
+    assert "інтегрована графіка" in result["part_explanations"]["CPU"]
+    assert "достатньо" in result["part_explanations"]["CPU"]
