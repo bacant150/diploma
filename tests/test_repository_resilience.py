@@ -110,3 +110,62 @@ def test_user_profiles_repository_adds_query_and_prepares_dashboard(tmp_path: Pa
     assert dashboard["query_count"] == 1
     assert dashboard["query_history"]
     assert dashboard["query_history"][0]["has_snapshot"] is True
+
+
+def test_saved_builds_repository_isolates_builds_by_profile(tmp_path: Path) -> None:
+    repository = SavedBuildsRepository(file_path=tmp_path / "saved_builds.json")
+
+    own_build = _valid_saved_build()
+    own_build["id"] = "own-build"
+    own_build["profile_id"] = "profile-1"
+
+    other_build = _valid_saved_build()
+    other_build["id"] = "other-build"
+    other_build["profile_id"] = "profile-2"
+
+    legacy_build = _valid_saved_build()
+    legacy_build["id"] = "legacy-build"
+    legacy_build["profile_id"] = None
+
+    repository.write_all([own_build, other_build, legacy_build])
+
+    visible_builds = repository.load_by_profile("profile-1")
+    assert [build["id"] for build in visible_builds] == ["own-build"]
+
+    assert repository.find_by_id("own-build", profile_id="profile-1") is not None
+    assert repository.find_by_id("other-build", profile_id="profile-1") is None
+    assert repository.find_by_id("legacy-build", profile_id="profile-1") is None
+
+    assert repository.rename_build("other-build", "Заборонена зміна", profile_id="profile-1") is None
+    assert repository.delete_build("legacy-build", profile_id="profile-1") is None
+    assert repository.clear_query_reference("legacy-build", profile_id="profile-1") is False
+
+    assert len(repository.load_all()) == 3
+
+
+def test_saved_builds_repository_clears_only_exact_profile_references(tmp_path: Path) -> None:
+    repository = SavedBuildsRepository(file_path=tmp_path / "saved_builds.json")
+
+    own_build = _valid_saved_build()
+    own_build["id"] = "own-build"
+    own_build["profile_id"] = "profile-1"
+    own_build["query_id"] = "query-1"
+
+    other_build = _valid_saved_build()
+    other_build["id"] = "other-build"
+    other_build["profile_id"] = "profile-2"
+    other_build["query_id"] = "query-2"
+
+    legacy_build = _valid_saved_build()
+    legacy_build["id"] = "legacy-build"
+    legacy_build["profile_id"] = None
+    legacy_build["query_id"] = "query-3"
+
+    repository.write_all([own_build, other_build, legacy_build])
+
+    assert repository.clear_query_references_for_profile("profile-1") == 1
+
+    builds = {build["id"]: build for build in repository.load_all()}
+    assert builds["own-build"]["query_id"] is None
+    assert builds["other-build"]["query_id"] == "query-2"
+    assert builds["legacy-build"]["query_id"] == "query-3"

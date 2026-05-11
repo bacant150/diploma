@@ -13,6 +13,15 @@ from .json_store import read_json_list, write_json_list
 logger = logging.getLogger("pcbuilder.saved_builds")
 
 
+def _normalize_id(value: Any) -> str:
+    return str(value or "").strip()
+
+
+def _matches_profile(build: dict[str, Any], profile_id: str) -> bool:
+    """Return True only when a build explicitly belongs to the requested profile."""
+    return _normalize_id(build.get("profile_id")) == profile_id
+
+
 class SavedBuildsRepository:
     def __init__(self, file_path=SAVED_BUILDS_FILE):
         self.file_path = file_path
@@ -50,7 +59,7 @@ class SavedBuildsRepository:
         builds = [
             build
             for build in self.load_all()
-            if build.get("profile_id") in {None, "", normalized_profile_id}
+            if _matches_profile(build, normalized_profile_id)
         ]
         logger.info(
             "Завантажено збірки профілю: profile_id=%s count=%s",
@@ -107,12 +116,12 @@ class SavedBuildsRepository:
         for build in builds:
             if str(build.get("id") or "").strip() != normalized_build_id:
                 continue
-            build_profile_id = str(build.get("profile_id") or "").strip()
-            if normalized_profile_id and build_profile_id and build_profile_id != normalized_profile_id:
+            build_profile_id = _normalize_id(build.get("profile_id"))
+            if normalized_profile_id and build_profile_id != normalized_profile_id:
                 logger.warning(
                     "Спроба перейменувати недоступну збірку: requested=%s actual=%s build_id=%s",
                     normalized_profile_id,
-                    build_profile_id,
+                    build_profile_id or "missing",
                     normalized_build_id,
                 )
                 return None
@@ -147,8 +156,8 @@ class SavedBuildsRepository:
                 filtered_builds.append(build)
                 continue
 
-            build_profile_id = str(build.get("profile_id") or "").strip()
-            if normalized_profile_id and build_profile_id and build_profile_id != normalized_profile_id:
+            build_profile_id = _normalize_id(build.get("profile_id"))
+            if normalized_profile_id and build_profile_id != normalized_profile_id:
                 filtered_builds.append(build)
                 continue
 
@@ -174,12 +183,12 @@ class SavedBuildsRepository:
         for build in self.load_all():
             if str(build.get("id") or "").strip() != normalized_build_id:
                 continue
-            build_profile_id = str(build.get("profile_id") or "").strip()
-            if normalized_profile_id and build_profile_id and build_profile_id != normalized_profile_id:
+            build_profile_id = _normalize_id(build.get("profile_id"))
+            if normalized_profile_id and build_profile_id != normalized_profile_id:
                 logger.warning(
                     "Збірку знайдено, але доступ до неї заборонено іншим profile_id: requested=%s actual=%s build_id=%s",
                     normalized_profile_id,
-                    build_profile_id,
+                    build_profile_id or "missing",
                     normalized_build_id,
                 )
                 continue
@@ -208,8 +217,8 @@ class SavedBuildsRepository:
         for build in builds:
             if str(build.get("id") or "").strip() != normalized_build_id:
                 continue
-            build_profile_id = str(build.get("profile_id") or "").strip()
-            if normalized_profile_id and build_profile_id and build_profile_id != normalized_profile_id:
+            build_profile_id = _normalize_id(build.get("profile_id"))
+            if normalized_profile_id and build_profile_id != normalized_profile_id:
                 continue
             if build.get("query_id") is None:
                 logger.info(
@@ -249,8 +258,8 @@ class SavedBuildsRepository:
         updated_count = 0
         updated = False
         for build in builds:
-            build_profile_id = str(build.get("profile_id") or "").strip()
-            if build_profile_id and build_profile_id != normalized_profile_id:
+            build_profile_id = _normalize_id(build.get("profile_id"))
+            if build_profile_id != normalized_profile_id:
                 continue
 
             query_id = str(build.get("query_id") or "").strip()
