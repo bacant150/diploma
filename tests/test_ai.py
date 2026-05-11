@@ -124,3 +124,28 @@ def test_detect_purpose_falls_back_to_manual_for_low_confidence(monkeypatch):
     assert payload['requires_confirmation'] is False
     assert payload['purpose'] is None
     assert payload['manual_url'].endswith('#manual-purpose-grid')
+
+
+def test_load_model_is_thread_safe(monkeypatch):
+    import time
+    from concurrent.futures import ThreadPoolExecutor
+
+    predict_module = importlib.import_module('ml.predict')
+    sentinel_model = object()
+    calls = []
+
+    monkeypatch.setattr(predict_module, '_model', None)
+    monkeypatch.setattr(predict_module, '_model_load_error', None)
+
+    def fake_load(path):
+        calls.append(path)
+        time.sleep(0.02)
+        return sentinel_model
+
+    monkeypatch.setattr(predict_module.joblib, 'load', fake_load)
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        results = list(executor.map(lambda _: predict_module.load_model(force_reload=False), range(8)))
+
+    assert results == [sentinel_model] * 8
+    assert calls == [predict_module.MODEL_PATH]

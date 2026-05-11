@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import math
+import threading
 from pathlib import Path
 from typing import Any
 
@@ -35,6 +36,7 @@ MODEL_PATH = BASE_DIR / 'model.joblib'
 
 _model = None
 _model_load_error: str | None = None
+_model_lock = threading.Lock()
 
 # Пороги прийняття рішення:
 # - AUTO_ACCEPT_THRESHOLD: одразу переходимо до конфігуратора.
@@ -83,27 +85,31 @@ def _format_exception(exc: Exception) -> str:
 def load_model(force_reload: bool = False) -> Any:
     global _model, _model_load_error
 
-    if force_reload:
-        _model = None
-        _model_load_error = None
-
-    if _model is not None:
+    if not force_reload and _model is not None:
         return _model
 
-    if not MODEL_PATH.exists():
-        _model_load_error = f'Файл моделі не знайдено: {MODEL_PATH}'
-        raise ModelUnavailableError(_model_load_error)
+    with _model_lock:
+        if force_reload:
+            _model = None
+            _model_load_error = None
 
-    try:
-        _model = joblib.load(MODEL_PATH)
-        _model_load_error = None
-        return _model
-    except Exception as exc:
-        _model_load_error = _format_exception(exc)
-        logger.exception('Не вдалося завантажити ML-модель з %s', MODEL_PATH)
-        raise ModelUnavailableError(
-            'Не вдалося завантажити локальну ML-модель. Перевір model.joblib і залежності.'
-        ) from exc
+        if _model is not None:
+            return _model
+
+        if not MODEL_PATH.exists():
+            _model_load_error = f'Файл моделі не знайдено: {MODEL_PATH}'
+            raise ModelUnavailableError(_model_load_error)
+
+        try:
+            _model = joblib.load(MODEL_PATH)
+            _model_load_error = None
+            return _model
+        except Exception as exc:
+            _model_load_error = _format_exception(exc)
+            logger.exception('Не вдалося завантажити ML-модель з %s', MODEL_PATH)
+            raise ModelUnavailableError(
+                'Не вдалося завантажити локальну ML-модель. Перевір model.joblib і залежності.'
+            ) from exc
 
 
 def warmup_model() -> None:
