@@ -39,11 +39,11 @@ _model_load_error: str | None = None
 _model_lock = threading.Lock()
 
 # Пороги прийняття рішення:
-# - AUTO_ACCEPT_THRESHOLD: одразу переходимо до конфігуратора.
+# - AUTO_ACCEPT_THRESHOLD: одразу переходимо до конфігуратора лише за високої впевненості.
 # - CONFIRM_THRESHOLD: показуємо припущення і просимо підтвердити.
 # - MARGIN_THRESHOLD: додатковий захист від «впевнених, але хибних» рішень.
 ACCEPTANCE_THRESHOLD = 0.35
-AUTO_ACCEPT_THRESHOLD = 0.55
+AUTO_ACCEPT_THRESHOLD = 0.70
 CONFIRM_THRESHOLD = 0.35
 MARGIN_THRESHOLD = 0.12
 

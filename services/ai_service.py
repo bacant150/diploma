@@ -30,7 +30,7 @@ except Exception as exc:
     logger.exception('Не вдалося імпортувати AI-модуль.')
 
     AI_ACCEPTANCE_THRESHOLD = 0.35
-    AUTO_ACCEPT_THRESHOLD = 0.55
+    AUTO_ACCEPT_THRESHOLD = 0.70
     CONFIRM_THRESHOLD = 0.35
     MARGIN_THRESHOLD = 0.12
 

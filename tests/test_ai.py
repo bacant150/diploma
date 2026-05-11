@@ -32,12 +32,12 @@ def test_detect_purpose_auto_accepts_only_high_confidence_prediction(monkeypatch
         'predict_purpose',
         lambda text: {
             'raw_purpose': 'gaming',
-            'confidence': 0.67,
+            'confidence': 0.78,
             'accepted': True,
             'decision_mode': 'auto',
             'margin': 0.22,
             'alternatives': [
-                {'purpose': 'gaming', 'confidence': 0.67},
+                {'purpose': 'gaming', 'confidence': 0.78},
                 {'purpose': 'creator', 'confidence': 0.19},
             ],
             'matched_keywords': {'gaming': ['cs2', 'dota2']},
@@ -52,8 +52,16 @@ def test_detect_purpose_auto_accepts_only_high_confidence_prediction(monkeypatch
     assert payload['decision_mode'] == 'auto'
     assert payload['purpose'] == 'gaming'
     assert payload['redirect_url'] == '/builder/gaming'
-    assert payload['auto_accept_percent'] == 55
+    assert payload['auto_accept_percent'] == 70
     assert payload['confirm_percent'] == 35
+
+
+def test_predict_decision_mode_requires_70_percent_for_auto_accept():
+    predict_module = importlib.import_module('ml.predict')
+
+    assert predict_module._decision_mode(0.69, 0.20) == 'confirm'
+    assert predict_module._decision_mode(0.70, 0.20) == 'auto'
+    assert predict_module._decision_mode(0.80, 0.05) == 'confirm'
 
 
 def test_detect_purpose_requests_confirmation_for_medium_confidence(monkeypatch):
