@@ -8,7 +8,7 @@ from config import PRIORITY_TITLES, PURPOSE_TITLES, SAVED_BUILDS_FILE, TIER_TITL
 from schemas import SavedBuildRecordSchema
 from utils.validation import validation_error_messages
 
-from .json_store import read_json_list, write_json_list
+from .json_store import locked_json_file, read_json_list, write_json_list
 
 logger = logging.getLogger("pcbuilder.saved_builds")
 
@@ -88,9 +88,10 @@ class SavedBuildsRepository:
 
     def save_record(self, build_data: dict[str, Any]) -> dict[str, Any]:
         build = SavedBuildRecordSchema.model_validate(build_data).model_dump(mode="json")
-        saved_builds = self.load_all()
-        saved_builds.append(build)
-        self.write_all(saved_builds)
+        with locked_json_file(self.file_path):
+            saved_builds = self.load_all()
+            saved_builds.append(build)
+            self.write_all(saved_builds)
         logger.info(
             "Збережено новий запис збірки: build_id=%s profile_id=%s query_id=%s",
             build.get("id"),
@@ -112,28 +113,29 @@ class SavedBuildsRepository:
         if not normalized_build_id or not cleaned_name:
             return None
 
-        builds = self.load_all()
-        for build in builds:
-            if str(build.get("id") or "").strip() != normalized_build_id:
-                continue
-            build_profile_id = _normalize_id(build.get("profile_id"))
-            if normalized_profile_id and build_profile_id != normalized_profile_id:
-                logger.warning(
-                    "Спроба перейменувати недоступну збірку: requested=%s actual=%s build_id=%s",
-                    normalized_profile_id,
-                    build_profile_id or "missing",
+        with locked_json_file(self.file_path):
+            builds = self.load_all()
+            for build in builds:
+                if str(build.get("id") or "").strip() != normalized_build_id:
+                    continue
+                build_profile_id = _normalize_id(build.get("profile_id"))
+                if normalized_profile_id and build_profile_id != normalized_profile_id:
+                    logger.warning(
+                        "Спроба перейменувати недоступну збірку: requested=%s actual=%s build_id=%s",
+                        normalized_profile_id,
+                        build_profile_id or "missing",
+                        normalized_build_id,
+                    )
+                    return None
+                build["name"] = cleaned_name
+                self.write_all(builds)
+                logger.info(
+                    "Перейменовано збірку: build_id=%s profile_id=%s new_name=%s",
                     normalized_build_id,
+                    build_profile_id or "legacy",
+                    cleaned_name,
                 )
-                return None
-            build["name"] = cleaned_name
-            self.write_all(builds)
-            logger.info(
-                "Перейменовано збірку: build_id=%s profile_id=%s new_name=%s",
-                normalized_build_id,
-                build_profile_id or "legacy",
-                cleaned_name,
-            )
-            return build
+                return build
         return None
 
     def delete_build(
@@ -147,26 +149,27 @@ class SavedBuildsRepository:
         if not normalized_build_id:
             return None
 
-        saved_builds = self.load_all()
-        filtered_builds: list[dict[str, Any]] = []
-        deleted_build: dict[str, Any] | None = None
+        with locked_json_file(self.file_path):
+            saved_builds = self.load_all()
+            filtered_builds: list[dict[str, Any]] = []
+            deleted_build: dict[str, Any] | None = None
 
-        for build in saved_builds:
-            if str(build.get("id") or "").strip() != normalized_build_id:
-                filtered_builds.append(build)
-                continue
+            for build in saved_builds:
+                if str(build.get("id") or "").strip() != normalized_build_id:
+                    filtered_builds.append(build)
+                    continue
 
-            build_profile_id = _normalize_id(build.get("profile_id"))
-            if normalized_profile_id and build_profile_id != normalized_profile_id:
-                filtered_builds.append(build)
-                continue
+                build_profile_id = _normalize_id(build.get("profile_id"))
+                if normalized_profile_id and build_profile_id != normalized_profile_id:
+                    filtered_builds.append(build)
+                    continue
 
-            deleted_build = build
+                deleted_build = build
 
-        if deleted_build is None:
-            return None
+            if deleted_build is None:
+                return None
 
-        self.write_all(filtered_builds)
+            self.write_all(filtered_builds)
         logger.info(
             "Видалено збережену збірку: build_id=%s profile_id=%s",
             normalized_build_id,
@@ -212,32 +215,33 @@ class SavedBuildsRepository:
         if not normalized_build_id:
             return False
 
-        builds = self.load_all()
-        updated = False
-        for build in builds:
-            if str(build.get("id") or "").strip() != normalized_build_id:
-                continue
-            build_profile_id = _normalize_id(build.get("profile_id"))
-            if normalized_profile_id and build_profile_id != normalized_profile_id:
-                continue
-            if build.get("query_id") is None:
-                logger.info(
-                    "У збірки вже очищено query reference: build_id=%s",
-                    normalized_build_id,
-                )
-                return True
-            build["query_id"] = None
-            updated = True
-            break
+        with locked_json_file(self.file_path):
+            builds = self.load_all()
+            updated = False
+            for build in builds:
+                if str(build.get("id") or "").strip() != normalized_build_id:
+                    continue
+                build_profile_id = _normalize_id(build.get("profile_id"))
+                if normalized_profile_id and build_profile_id != normalized_profile_id:
+                    continue
+                if build.get("query_id") is None:
+                    logger.info(
+                        "У збірки вже очищено query reference: build_id=%s",
+                        normalized_build_id,
+                    )
+                    return True
+                build["query_id"] = None
+                updated = True
+                break
 
-        if updated:
-            self.write_all(builds)
-            logger.info(
-                "Очищено query reference у збереженої збірки: build_id=%s profile_id=%s",
-                normalized_build_id,
-                normalized_profile_id or "any",
-            )
-        return updated
+            if updated:
+                self.write_all(builds)
+                logger.info(
+                    "Очищено query reference у збереженої збірки: build_id=%s profile_id=%s",
+                    normalized_build_id,
+                    normalized_profile_id or "any",
+                )
+            return updated
 
     def clear_query_references_for_profile(
         self,
@@ -254,33 +258,34 @@ class SavedBuildsRepository:
         if not normalized_profile_id:
             return 0
 
-        builds = self.load_all()
-        updated_count = 0
-        updated = False
-        for build in builds:
-            build_profile_id = _normalize_id(build.get("profile_id"))
-            if build_profile_id != normalized_profile_id:
-                continue
+        with locked_json_file(self.file_path):
+            builds = self.load_all()
+            updated_count = 0
+            updated = False
+            for build in builds:
+                build_profile_id = _normalize_id(build.get("profile_id"))
+                if build_profile_id != normalized_profile_id:
+                    continue
 
-            query_id = str(build.get("query_id") or "").strip()
-            if not query_id:
-                continue
-            if normalized_query_ids and query_id not in normalized_query_ids:
-                continue
+                query_id = str(build.get("query_id") or "").strip()
+                if not query_id:
+                    continue
+                if normalized_query_ids and query_id not in normalized_query_ids:
+                    continue
 
-            build["query_id"] = None
-            updated = True
-            updated_count += 1
+                build["query_id"] = None
+                updated = True
+                updated_count += 1
 
-        if updated:
-            self.write_all(builds)
-            logger.info(
-                "Очищено query references для профілю: profile_id=%s cleared=%s filter_count=%s",
-                normalized_profile_id,
-                updated_count,
-                len(normalized_query_ids),
-            )
-        return updated_count
+            if updated:
+                self.write_all(builds)
+                logger.info(
+                    "Очищено query references для профілю: profile_id=%s cleared=%s filter_count=%s",
+                    normalized_profile_id,
+                    updated_count,
+                    len(normalized_query_ids),
+                )
+            return updated_count
 
     def prepare_for_list(self, build: dict[str, Any]) -> dict[str, Any]:
         prepared = dict(build)

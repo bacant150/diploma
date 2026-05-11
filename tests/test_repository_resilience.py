@@ -169,3 +169,41 @@ def test_saved_builds_repository_clears_only_exact_profile_references(tmp_path: 
     assert builds["own-build"]["query_id"] is None
     assert builds["other-build"]["query_id"] == "query-2"
     assert builds["legacy-build"]["query_id"] == "query-3"
+
+
+def test_json_store_lock_preserves_concurrent_saved_build_writes(tmp_path: Path) -> None:
+    from concurrent.futures import ThreadPoolExecutor
+
+    repository = SavedBuildsRepository(file_path=tmp_path / "saved_builds.json")
+    repository.write_all([])
+
+    def save_build(index: int) -> None:
+        build = _valid_saved_build()
+        build["id"] = f"build-{index}"
+        build["profile_id"] = f"profile-{index}"
+        repository.save_record(build)
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        list(executor.map(save_build, range(24)))
+
+    saved_ids = {build["id"] for build in repository.load_all()}
+    assert saved_ids == {f"build-{index}" for index in range(24)}
+
+
+def test_json_store_lock_preserves_concurrent_profile_history_writes(tmp_path: Path) -> None:
+    from concurrent.futures import ThreadPoolExecutor
+
+    repository = UserProfilesRepository(file_path=tmp_path / "user_profiles.json")
+    profile, _ = repository.get_or_create(None)
+
+    def add_query(index: int) -> None:
+        inputs = _valid_inputs()
+        inputs["budget"] = 22000 + index
+        repository.add_query(profile["id"], inputs, _valid_result())
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        list(executor.map(add_query, range(24)))
+
+    loaded_profile = repository.find_by_id(profile["id"])
+    assert loaded_profile is not None
+    assert len(loaded_profile["query_history"]) == 24

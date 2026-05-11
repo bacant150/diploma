@@ -14,7 +14,7 @@ from schemas import (
 )
 from utils.validation import validation_error_messages
 
-from .json_store import read_json_list, write_json_list
+from .json_store import locked_json_file, read_json_list, write_json_list
 
 logger = logging.getLogger("pcbuilder.user_profiles")
 
@@ -72,28 +72,29 @@ class UserProfilesRepository:
 
     def get_or_create(self, profile_id: str | None) -> tuple[dict[str, Any], bool]:
         normalized_profile_id = str(profile_id or "").strip()
-        profiles = self.load_all()
-        now = datetime.now()
+        with locked_json_file(self.file_path):
+            profiles = self.load_all()
+            now = datetime.now()
 
-        for profile in profiles:
-            if profile.get("id") == normalized_profile_id:
-                profile["last_seen_at"] = now.isoformat(timespec="seconds")
-                self.write_all(profiles)
-                logger.info("Оновлено активність профілю: profile_id=%s", normalized_profile_id)
-                return profile, False
+            for profile in profiles:
+                if profile.get("id") == normalized_profile_id:
+                    profile["last_seen_at"] = now.isoformat(timespec="seconds")
+                    self.write_all(profiles)
+                    logger.info("Оновлено активність профілю: profile_id=%s", normalized_profile_id)
+                    return profile, False
 
-        profile = UserProfileRecordSchema.model_validate(
-            {
-                "id": uuid4().hex,
-                "name": self._default_profile_name(now),
-                "created_at": now.isoformat(timespec="seconds"),
-                "last_seen_at": now.isoformat(timespec="seconds"),
-                "saved_build_ids": [],
-                "query_history": [],
-            }
-        ).model_dump(mode="json")
-        profiles.append(profile)
-        self.write_all(profiles)
+            profile = UserProfileRecordSchema.model_validate(
+                {
+                    "id": uuid4().hex,
+                    "name": self._default_profile_name(now),
+                    "created_at": now.isoformat(timespec="seconds"),
+                    "last_seen_at": now.isoformat(timespec="seconds"),
+                    "saved_build_ids": [],
+                    "query_history": [],
+                }
+            ).model_dump(mode="json")
+            profiles.append(profile)
+            self.write_all(profiles)
         logger.info("Створено новий профіль: profile_id=%s", profile.get("id"))
         return profile, True
 
@@ -112,19 +113,20 @@ class UserProfilesRepository:
         if not normalized_profile_id or not cleaned_name:
             return None
 
-        profiles = self.load_all()
-        for profile in profiles:
-            if profile.get("id") != normalized_profile_id:
-                continue
-            profile["name"] = cleaned_name
-            profile["last_seen_at"] = datetime.now().isoformat(timespec="seconds")
-            self.write_all(profiles)
-            logger.info(
-                "Перейменовано профіль: profile_id=%s new_name=%s",
-                normalized_profile_id,
-                cleaned_name,
-            )
-            return profile
+        with locked_json_file(self.file_path):
+            profiles = self.load_all()
+            for profile in profiles:
+                if profile.get("id") != normalized_profile_id:
+                    continue
+                profile["name"] = cleaned_name
+                profile["last_seen_at"] = datetime.now().isoformat(timespec="seconds")
+                self.write_all(profiles)
+                logger.info(
+                    "Перейменовано профіль: profile_id=%s new_name=%s",
+                    normalized_profile_id,
+                    cleaned_name,
+                )
+                return profile
         return None
 
     def add_query(
@@ -136,7 +138,6 @@ class UserProfilesRepository:
         source: str = "builder_form",
     ) -> dict[str, Any]:
         normalized_profile_id = str(profile_id or "").strip()
-        profiles = self.load_all()
         now = datetime.now()
 
         summary = QueryResultSummarySchema.model_validate(
@@ -161,21 +162,23 @@ class UserProfilesRepository:
             }
         ).model_dump(mode="json")
 
-        for profile in profiles:
-            if profile.get("id") != normalized_profile_id:
-                continue
-            history = list(profile.get("query_history", []))
-            history.append(query_record)
-            profile["query_history"] = history[-MAX_HISTORY_ITEMS:]
-            profile["last_seen_at"] = now.isoformat(timespec="seconds")
-            self.write_all(profiles)
-            logger.info(
-                "Додано запис в історію профілю: profile_id=%s query_id=%s history_size=%s",
-                normalized_profile_id,
-                query_record.get("id"),
-                len(profile["query_history"]),
-            )
-            return query_record
+        with locked_json_file(self.file_path):
+            profiles = self.load_all()
+            for profile in profiles:
+                if profile.get("id") != normalized_profile_id:
+                    continue
+                history = list(profile.get("query_history", []))
+                history.append(query_record)
+                profile["query_history"] = history[-MAX_HISTORY_ITEMS:]
+                profile["last_seen_at"] = now.isoformat(timespec="seconds")
+                self.write_all(profiles)
+                logger.info(
+                    "Додано запис в історію профілю: profile_id=%s query_id=%s history_size=%s",
+                    normalized_profile_id,
+                    query_record.get("id"),
+                    len(profile["query_history"]),
+                )
+                return query_record
 
         raise ValueError("Профіль не знайдено для додавання історії запитів.")
 
@@ -199,32 +202,33 @@ class UserProfilesRepository:
         if not normalized_profile_id or not normalized_query_id:
             return None
 
-        profiles = self.load_all()
-        for profile in profiles:
-            if profile.get("id") != normalized_profile_id:
-                continue
-
-            history = list(profile.get("query_history", []))
-            remaining_history: list[dict[str, Any]] = []
-            deleted_entry: dict[str, Any] | None = None
-            for entry in history:
-                if str(entry.get("id") or "").strip() == normalized_query_id and deleted_entry is None:
-                    deleted_entry = entry
+        with locked_json_file(self.file_path):
+            profiles = self.load_all()
+            for profile in profiles:
+                if profile.get("id") != normalized_profile_id:
                     continue
-                remaining_history.append(entry)
 
-            if deleted_entry is None:
-                return None
+                history = list(profile.get("query_history", []))
+                remaining_history: list[dict[str, Any]] = []
+                deleted_entry: dict[str, Any] | None = None
+                for entry in history:
+                    if str(entry.get("id") or "").strip() == normalized_query_id and deleted_entry is None:
+                        deleted_entry = entry
+                        continue
+                    remaining_history.append(entry)
 
-            profile["query_history"] = remaining_history
-            profile["last_seen_at"] = datetime.now().isoformat(timespec="seconds")
-            self.write_all(profiles)
-            logger.info(
-                "Видалено запис історії профілю: profile_id=%s query_id=%s",
-                normalized_profile_id,
-                normalized_query_id,
-            )
-            return deleted_entry
+                if deleted_entry is None:
+                    return None
+
+                profile["query_history"] = remaining_history
+                profile["last_seen_at"] = datetime.now().isoformat(timespec="seconds")
+                self.write_all(profiles)
+                logger.info(
+                    "Видалено запис історії профілю: profile_id=%s query_id=%s",
+                    normalized_profile_id,
+                    normalized_query_id,
+                )
+                return deleted_entry
 
         return None
 
@@ -233,20 +237,21 @@ class UserProfilesRepository:
         if not normalized_profile_id:
             return []
 
-        profiles = self.load_all()
-        for profile in profiles:
-            if profile.get("id") != normalized_profile_id:
-                continue
-            removed_history = list(profile.get("query_history", []))
-            profile["query_history"] = []
-            profile["last_seen_at"] = datetime.now().isoformat(timespec="seconds")
-            self.write_all(profiles)
-            logger.info(
-                "Очищено історію профілю: profile_id=%s removed=%s",
-                normalized_profile_id,
-                len(removed_history),
-            )
-            return removed_history
+        with locked_json_file(self.file_path):
+            profiles = self.load_all()
+            for profile in profiles:
+                if profile.get("id") != normalized_profile_id:
+                    continue
+                removed_history = list(profile.get("query_history", []))
+                profile["query_history"] = []
+                profile["last_seen_at"] = datetime.now().isoformat(timespec="seconds")
+                self.write_all(profiles)
+                logger.info(
+                    "Очищено історію профілю: profile_id=%s removed=%s",
+                    normalized_profile_id,
+                    len(removed_history),
+                )
+                return removed_history
 
         return []
 
@@ -263,30 +268,31 @@ class UserProfilesRepository:
         if not normalized_profile_id or not normalized_build_id:
             return
 
-        profiles = self.load_all()
-        for profile in profiles:
-            if profile.get("id") != normalized_profile_id:
-                continue
-            saved_build_ids = list(profile.get("saved_build_ids", []))
-            if normalized_build_id not in saved_build_ids:
-                saved_build_ids.append(normalized_build_id)
-                profile["saved_build_ids"] = saved_build_ids
+        with locked_json_file(self.file_path):
+            profiles = self.load_all()
+            for profile in profiles:
+                if profile.get("id") != normalized_profile_id:
+                    continue
+                saved_build_ids = list(profile.get("saved_build_ids", []))
+                if normalized_build_id not in saved_build_ids:
+                    saved_build_ids.append(normalized_build_id)
+                    profile["saved_build_ids"] = saved_build_ids
 
-            if normalized_query_id:
-                for query in profile.get("query_history", []):
-                    if query.get("id") == normalized_query_id:
-                        query["saved_build_id"] = normalized_build_id
-                        break
+                if normalized_query_id:
+                    for query in profile.get("query_history", []):
+                        if query.get("id") == normalized_query_id:
+                            query["saved_build_id"] = normalized_build_id
+                            break
 
-            profile["last_seen_at"] = datetime.now().isoformat(timespec="seconds")
-            self.write_all(profiles)
-            logger.info(
-                "Прив’язано збережену збірку до профілю: profile_id=%s build_id=%s query_id=%s",
-                normalized_profile_id,
-                normalized_build_id,
-                normalized_query_id or "none",
-            )
-            return
+                profile["last_seen_at"] = datetime.now().isoformat(timespec="seconds")
+                self.write_all(profiles)
+                logger.info(
+                    "Прив’язано збережену збірку до профілю: profile_id=%s build_id=%s query_id=%s",
+                    normalized_profile_id,
+                    normalized_build_id,
+                    normalized_query_id or "none",
+                )
+                return
 
     def unlink_saved_build(self, profile_id: str, build_id: str) -> None:
         normalized_profile_id = str(profile_id or "").strip()
@@ -294,26 +300,27 @@ class UserProfilesRepository:
         if not normalized_profile_id or not normalized_build_id:
             return
 
-        profiles = self.load_all()
-        for profile in profiles:
-            if profile.get("id") != normalized_profile_id:
-                continue
-            profile["saved_build_ids"] = [
-                existing_id
-                for existing_id in profile.get("saved_build_ids", [])
-                if existing_id != normalized_build_id
-            ]
-            for query in profile.get("query_history", []):
-                if query.get("saved_build_id") == normalized_build_id:
-                    query["saved_build_id"] = None
-            profile["last_seen_at"] = datetime.now().isoformat(timespec="seconds")
-            self.write_all(profiles)
-            logger.info(
-                "Відв’язано збережену збірку від профілю: profile_id=%s build_id=%s",
-                normalized_profile_id,
-                normalized_build_id,
-            )
-            return
+        with locked_json_file(self.file_path):
+            profiles = self.load_all()
+            for profile in profiles:
+                if profile.get("id") != normalized_profile_id:
+                    continue
+                profile["saved_build_ids"] = [
+                    existing_id
+                    for existing_id in profile.get("saved_build_ids", [])
+                    if existing_id != normalized_build_id
+                ]
+                for query in profile.get("query_history", []):
+                    if query.get("saved_build_id") == normalized_build_id:
+                        query["saved_build_id"] = None
+                profile["last_seen_at"] = datetime.now().isoformat(timespec="seconds")
+                self.write_all(profiles)
+                logger.info(
+                    "Відв’язано збережену збірку від профілю: profile_id=%s build_id=%s",
+                    normalized_profile_id,
+                    normalized_build_id,
+                )
+                return
 
     def prepare_for_dashboard(
         self,
