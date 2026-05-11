@@ -38,7 +38,8 @@ def _set_profile_cookie(response: HTMLResponse | JSONResponse, *, profile_id: st
         PROFILE_COOKIE_NAME,
         profile_id,
         max_age=PROFILE_COOKIE_MAX_AGE,
-        httponly=False,
+        httponly=True,
+        secure=True,
         samesite='lax',
     )
 

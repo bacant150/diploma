@@ -3,6 +3,14 @@ from __future__ import annotations
 import importlib
 
 
+def _assert_secure_profile_cookie(response):
+    set_cookie = response.headers.get('set-cookie', '')
+    assert 'pcoll_profile_id=profile-1' in set_cookie
+    assert 'HttpOnly' in set_cookie
+    assert 'Secure' in set_cookie
+    assert 'SameSite=lax' in set_cookie
+
+
 def test_health_ai_route_returns_json(client, monkeypatch):
     web_routes = importlib.import_module('routes.web')
     monkeypatch.setattr(
@@ -72,6 +80,7 @@ def test_build_route_returns_result_page_without_500_and_sets_profile_cookie(cli
 
     assert response.status_code == 200
     assert response.cookies.get('pcoll_profile_id') == 'profile-1'
+    _assert_secure_profile_cookie(response)
 
 
 
@@ -111,6 +120,7 @@ def test_build_route_handles_failure_result_without_500(client, monkeypatch):
 
     assert response.status_code == 200
     assert response.cookies.get('pcoll_profile_id') == 'profile-1'
+    _assert_secure_profile_cookie(response)
 
 
 
@@ -148,6 +158,7 @@ def test_saved_builds_page_opens(client, monkeypatch):
     response = client.get('/saved-builds')
 
     assert response.status_code == 200
+    _assert_secure_profile_cookie(response)
 
 
 

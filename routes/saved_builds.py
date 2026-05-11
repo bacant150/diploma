@@ -49,7 +49,8 @@ def _set_profile_cookie(
         PROFILE_COOKIE_NAME,
         profile_id,
         max_age=PROFILE_COOKIE_MAX_AGE,
-        httponly=False,
+        httponly=True,
+        secure=True,
         samesite="lax",
     )
 
