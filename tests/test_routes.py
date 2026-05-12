@@ -252,3 +252,17 @@ def test_clear_profile_history_redirects_and_clears_query_references(client, mon
     assert response.status_code == 303
     assert response.headers['location'] == '/saved-builds?status=history_cleared'
     assert called['query_ids'] == ['query-1', 'query-2']
+
+
+def test_profile_cookie_helper_sets_shared_secure_flags():
+    from fastapi.responses import Response
+    from utils.profile_cookie import PROFILE_COOKIE_NAME, set_profile_cookie
+
+    response = Response()
+    set_profile_cookie(response, profile_id='profile-1', current_cookie=None)
+
+    set_cookie = response.headers.get('set-cookie', '')
+    assert f'{PROFILE_COOKIE_NAME}=profile-1' in set_cookie
+    assert 'HttpOnly' in set_cookie
+    assert 'Secure' in set_cookie
+    assert 'SameSite=lax' in set_cookie

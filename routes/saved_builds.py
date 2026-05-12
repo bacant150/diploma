@@ -14,10 +14,8 @@ from repositories.user_profiles_repository import user_profiles_repository
 from schemas import BuildInputsViewSchema, BuildResultSchema
 from services.build_service import budget_limits_for_purpose, normalize_build_name, result_page_context
 from utils.assets import attach_part_images
+from utils.profile_cookie import PROFILE_COOKIE_NAME, ensure_profile, set_profile_cookie
 from utils.validation import extract_json_object
-
-PROFILE_COOKIE_NAME = "pcoll_profile_id"
-PROFILE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365
 
 logger = logging.getLogger("pcbuilder.routes.saved_builds")
 
@@ -25,40 +23,11 @@ templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 router = APIRouter()
 
 
-def _ensure_profile(request: Request) -> tuple[dict, bool]:
-    profile, created = user_profiles_repository.get_or_create(
-        request.cookies.get(PROFILE_COOKIE_NAME)
-    )
-    if created:
-        logger.info(
-            "Створено новий профіль у saved-builds маршрутах: profile_id=%s",
-            profile.get("id"),
-        )
-    return profile, created
-
-
-def _set_profile_cookie(
-    response: Response,
-    *,
-    profile_id: str,
-    current_cookie: str | None,
-) -> None:
-    if str(current_cookie or "").strip() == str(profile_id or "").strip():
-        return
-    response.set_cookie(
-        PROFILE_COOKIE_NAME,
-        profile_id,
-        max_age=PROFILE_COOKIE_MAX_AGE,
-        httponly=True,
-        secure=True,
-        samesite="lax",
-    )
-
 
 @router.get("/saved-builds", response_class=HTMLResponse)
 def saved_builds_page(request: Request) -> HTMLResponse:
     status = request.query_params.get("status", "")
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger, log_context='у saved-builds маршрутах')
     saved_builds = [
         saved_builds_repository.prepare_for_list(build)
         for build in reversed(saved_builds_repository.load_by_profile(profile["id"]))
@@ -84,7 +53,7 @@ def saved_builds_page(request: Request) -> HTMLResponse:
             "status_message": STATUS_MESSAGES.get(status, ""),
         },
     )
-    _set_profile_cookie(
+    set_profile_cookie(
         response,
         profile_id=profile["id"],
         current_cookie=request.cookies.get(PROFILE_COOKIE_NAME),
@@ -96,14 +65,14 @@ def saved_builds_page(request: Request) -> HTMLResponse:
 def saved_build_view_page(request: Request) -> RedirectResponse:
     build_id = str(request.query_params.get("id", "") or "").strip()
     target = f"/saved-builds/{build_id}" if build_id else "/saved-builds"
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger, log_context='у saved-builds маршрутах')
     logger.info(
         "Redirect на перегляд збереженої збірки: profile_id=%s build_id=%s",
         profile.get("id"),
         build_id or "missing",
     )
     response = RedirectResponse(target, status_code=303)
-    _set_profile_cookie(
+    set_profile_cookie(
         response,
         profile_id=profile["id"],
         current_cookie=request.cookies.get(PROFILE_COOKIE_NAME),
@@ -113,7 +82,7 @@ def saved_build_view_page(request: Request) -> RedirectResponse:
 
 @router.get("/profile/history/{query_id}", response_class=HTMLResponse, response_model=None)
 def open_profile_history_entry(request: Request, query_id: str) -> Response:
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger, log_context='у saved-builds маршрутах')
     entry = user_profiles_repository.find_query(profile["id"], query_id)
     if not entry:
         logger.warning(
@@ -146,7 +115,7 @@ def open_profile_history_entry(request: Request, query_id: str) -> Response:
                     is_saved_build_view=True,
                 ),
             )
-            _set_profile_cookie(
+            set_profile_cookie(
                 response,
                 profile_id=profile["id"],
                 current_cookie=request.cookies.get(PROFILE_COOKIE_NAME),
@@ -182,7 +151,7 @@ def open_profile_history_entry(request: Request, query_id: str) -> Response:
             is_saved_build_view=False,
         ),
     )
-    _set_profile_cookie(
+    set_profile_cookie(
         response,
         profile_id=profile["id"],
         current_cookie=request.cookies.get(PROFILE_COOKIE_NAME),
@@ -192,7 +161,7 @@ def open_profile_history_entry(request: Request, query_id: str) -> Response:
 
 @router.post("/profile/history/{query_id}/delete")
 def delete_profile_history_entry(request: Request, query_id: str) -> RedirectResponse:
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger, log_context='у saved-builds маршрутах')
     deleted_entry = user_profiles_repository.delete_query(profile["id"], query_id)
     if not deleted_entry:
         logger.warning(
@@ -213,7 +182,7 @@ def delete_profile_history_entry(request: Request, query_id: str) -> RedirectRes
         linked_build_id or "none",
     )
     response = RedirectResponse(url="/saved-builds?status=history_deleted", status_code=303)
-    _set_profile_cookie(
+    set_profile_cookie(
         response,
         profile_id=profile["id"],
         current_cookie=request.cookies.get(PROFILE_COOKIE_NAME),
@@ -223,7 +192,7 @@ def delete_profile_history_entry(request: Request, query_id: str) -> RedirectRes
 
 @router.post("/profile/history/clear")
 def clear_profile_history(request: Request) -> RedirectResponse:
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger, log_context='у saved-builds маршрутах')
     removed_entries = user_profiles_repository.clear_query_history(profile["id"])
     query_ids = [
         str(entry.get("id") or "").strip()
@@ -244,7 +213,7 @@ def clear_profile_history(request: Request) -> RedirectResponse:
         cleared_links,
     )
     response = RedirectResponse(url="/saved-builds?status=history_cleared", status_code=303)
-    _set_profile_cookie(
+    set_profile_cookie(
         response,
         profile_id=profile["id"],
         current_cookie=request.cookies.get(PROFILE_COOKIE_NAME),
@@ -254,7 +223,7 @@ def clear_profile_history(request: Request) -> RedirectResponse:
 
 @router.post("/saved-builds/save")
 async def save_build(request: Request) -> RedirectResponse:
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger, log_context='у saved-builds маршрутах')
     form = await request.form()
 
     raw_inputs = extract_json_object(form.get("inputs_json", "{}"), field_name="inputs_json")
@@ -295,7 +264,7 @@ async def save_build(request: Request) -> RedirectResponse:
         result.get("total") or result.get("total_price"),
     )
     response = RedirectResponse(url="/saved-builds?status=saved", status_code=303)
-    _set_profile_cookie(
+    set_profile_cookie(
         response,
         profile_id=profile["id"],
         current_cookie=request.cookies.get(PROFILE_COOKIE_NAME),
@@ -305,7 +274,7 @@ async def save_build(request: Request) -> RedirectResponse:
 
 @router.get("/saved-builds/{build_id}", response_class=HTMLResponse)
 def open_saved_build(request: Request, build_id: str) -> HTMLResponse:
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger, log_context='у saved-builds маршрутах')
     saved_build = saved_builds_repository.find_by_id(build_id, profile_id=profile["id"])
     if not saved_build:
         logger.warning(
@@ -334,7 +303,7 @@ def open_saved_build(request: Request, build_id: str) -> HTMLResponse:
             is_saved_build_view=True,
         ),
     )
-    _set_profile_cookie(
+    set_profile_cookie(
         response,
         profile_id=profile["id"],
         current_cookie=request.cookies.get(PROFILE_COOKIE_NAME),
@@ -348,7 +317,7 @@ def rename_saved_build(
     build_id: str,
     build_name: str = Form(...),
 ) -> RedirectResponse:
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger, log_context='у saved-builds маршрутах')
     existing_build = saved_builds_repository.find_by_id(build_id, profile_id=profile["id"])
     normalized_name = normalize_build_name(build_name, existing_build.get("inputs", {}) if existing_build else {})
     updated_build = saved_builds_repository.rename_build(
@@ -371,7 +340,7 @@ def rename_saved_build(
         updated_build.get("name"),
     )
     response = RedirectResponse(url="/saved-builds?status=renamed", status_code=303)
-    _set_profile_cookie(
+    set_profile_cookie(
         response,
         profile_id=profile["id"],
         current_cookie=request.cookies.get(PROFILE_COOKIE_NAME),
@@ -381,7 +350,7 @@ def rename_saved_build(
 
 @router.post("/saved-builds/{build_id}/delete")
 def delete_saved_build(request: Request, build_id: str) -> RedirectResponse:
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger, log_context='у saved-builds маршрутах')
     deleted_build = saved_builds_repository.delete_build(build_id, profile_id=profile["id"])
     if not deleted_build:
         logger.warning(
@@ -398,7 +367,7 @@ def delete_saved_build(request: Request, build_id: str) -> RedirectResponse:
         build_id,
     )
     response = RedirectResponse(url="/saved-builds?status=deleted", status_code=303)
-    _set_profile_cookie(
+    set_profile_cookie(
         response,
         profile_id=profile["id"],
         current_cookie=request.cookies.get(PROFILE_COOKIE_NAME),

@@ -157,3 +157,21 @@ def test_load_model_is_thread_safe(monkeypatch):
 
     assert results == [sentinel_model] * 8
     assert calls == [predict_module.MODEL_PATH]
+
+
+def test_model_status_exposes_model_version(monkeypatch):
+    predict_module = importlib.import_module('ml.predict')
+
+    class VersionedModel:
+        model_version = predict_module.MODEL_VERSION
+
+    monkeypatch.setattr(predict_module, '_model', VersionedModel())
+    monkeypatch.setattr(predict_module, '_model_version', predict_module.MODEL_VERSION)
+    monkeypatch.setattr(predict_module, '_model_load_error', None)
+
+    status = predict_module.get_model_status(probe=False)
+
+    assert status['available'] is True
+    assert status['model_version'] == predict_module.MODEL_VERSION
+    assert status['expected_model_version'] == predict_module.MODEL_VERSION
+    assert status['version_matches'] is True

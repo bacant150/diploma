@@ -15,33 +15,11 @@ from services.ai_service import (
     get_ai_health_status,
 )
 from services.build_service import build_configuration_from_form, builder_template_context, result_page_context
-
-PROFILE_COOKIE_NAME = 'pcoll_profile_id'
-PROFILE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365
+from utils.profile_cookie import PROFILE_COOKIE_NAME, ensure_profile, set_profile_cookie
 
 logger = logging.getLogger('pcbuilder.routes.web')
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 router = APIRouter()
-
-
-def _ensure_profile(request: Request) -> tuple[dict, bool]:
-    profile, created = user_profiles_repository.get_or_create(request.cookies.get(PROFILE_COOKIE_NAME))
-    if created:
-        logger.info('Створено новий профіль користувача: profile_id=%s', profile.get('id'))
-    return profile, created
-
-
-def _set_profile_cookie(response: HTMLResponse | JSONResponse, *, profile_id: str, current_cookie: str | None) -> None:
-    if str(current_cookie or '').strip() == str(profile_id or '').strip():
-        return
-    response.set_cookie(
-        PROFILE_COOKIE_NAME,
-        profile_id,
-        max_age=PROFILE_COOKIE_MAX_AGE,
-        httponly=True,
-        secure=True,
-        samesite='lax',
-    )
 
 
 def _client_ip(request: Request) -> str:
@@ -50,22 +28,22 @@ def _client_ip(request: Request) -> str:
 
 @router.get('/', response_class=HTMLResponse)
 def landing(request: Request) -> HTMLResponse:
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger)
     response = templates.TemplateResponse('landing.html', {'request': request})
-    _set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
+    set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
     return response
 
 
 @router.get('/choose-purpose', response_class=HTMLResponse)
 def choose_purpose(request: Request) -> HTMLResponse:
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger)
     logger.info(
         'Відкрито сторінку вибору призначення ПК: profile_id=%s client_ip=%s',
         profile.get('id'),
         _client_ip(request),
     )
     response = templates.TemplateResponse('choose-purpose.html', build_choose_purpose_context(request))
-    _set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
+    set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
     return response
 
 
@@ -75,7 +53,7 @@ async def detect_purpose(request: Request) -> JSONResponse:
     description = str(form.get('description', '') or '')
     payload, status_code = detect_purpose_from_description(description)
 
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger)
     logger.info(
         'Запит AI-визначення сценарію: profile_id=%s status=%s accepted=%s purpose=%s confidence=%s text_len=%s client_ip=%s',
         profile.get('id'),
@@ -88,7 +66,7 @@ async def detect_purpose(request: Request) -> JSONResponse:
     )
 
     response = JSONResponse(payload, status_code=status_code)
-    _set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
+    set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
     return response
 
 
@@ -102,7 +80,7 @@ def ai_health() -> JSONResponse:
 
 @router.get('/builder/{purpose}', response_class=HTMLResponse)
 def builder_page(request: Request, purpose: str) -> HTMLResponse:
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger)
     logger.info(
         'Відкрито конфігуратор: purpose=%s profile_id=%s client_ip=%s',
         purpose,
@@ -111,14 +89,14 @@ def builder_page(request: Request, purpose: str) -> HTMLResponse:
     )
     context = {'request': request, **builder_template_context(purpose)}
     response = templates.TemplateResponse('index.html', context)
-    _set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
+    set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
     return response
 
 
 @router.post('/build', response_class=HTMLResponse)
 async def build(request: Request) -> HTMLResponse:
     form = await request.form()
-    profile, _ = _ensure_profile(request)
+    profile, _ = ensure_profile(request, repository=user_profiles_repository, logger=logger)
 
     logger.info(
         'Початок побудови конфігурації: profile_id=%s purpose=%s budget_mode=%s client_ip=%s',
@@ -151,7 +129,7 @@ async def build(request: Request) -> HTMLResponse:
             profile_name=profile.get('name'),
         ),
     )
-    _set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
+    set_profile_cookie(response, profile_id=profile['id'], current_cookie=request.cookies.get(PROFILE_COOKIE_NAME))
     return response
 
 

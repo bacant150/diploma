@@ -18,6 +18,7 @@ try:
         strong_keyword_override,
         to_probabilities,
     )
+    from .model_metadata import MODEL_FILENAME, MODEL_VERSION
 except ImportError:
     from text_utils import (
         PURPOSES,
@@ -28,14 +29,16 @@ except ImportError:
         strong_keyword_override,
         to_probabilities,
     )
+    from model_metadata import MODEL_FILENAME, MODEL_VERSION
 
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / 'model.joblib'
+MODEL_PATH = BASE_DIR / MODEL_FILENAME
 
 _model = None
 _model_load_error: str | None = None
+_model_version: str | None = None
 _model_lock = threading.Lock()
 
 # Пороги прийняття рішення:
@@ -82,8 +85,13 @@ def _format_exception(exc: Exception) -> str:
     return f'{type(exc).__name__}: {exc}'
 
 
+def _extract_model_version(model: Any) -> str | None:
+    version = getattr(model, "model_version", None)
+    return str(version) if version else None
+
+
 def load_model(force_reload: bool = False) -> Any:
-    global _model, _model_load_error
+    global _model, _model_load_error, _model_version
 
     if not force_reload and _model is not None:
         return _model
@@ -92,6 +100,7 @@ def load_model(force_reload: bool = False) -> Any:
         if force_reload:
             _model = None
             _model_load_error = None
+            _model_version = None
 
         if _model is not None:
             return _model
@@ -101,7 +110,16 @@ def load_model(force_reload: bool = False) -> Any:
             raise ModelUnavailableError(_model_load_error)
 
         try:
-            _model = joblib.load(MODEL_PATH)
+            loaded_model = joblib.load(MODEL_PATH)
+            loaded_version = _extract_model_version(loaded_model)
+            if loaded_version != MODEL_VERSION:
+                logger.warning(
+                    "Версія ML-моделі не збігається з очікуваною: expected=%s actual=%s",
+                    MODEL_VERSION,
+                    loaded_version or "unknown",
+                )
+            _model = loaded_model
+            _model_version = loaded_version
             _model_load_error = None
             return _model
         except Exception as exc:
@@ -137,6 +155,9 @@ def get_model_status(*, probe: bool = False) -> dict[str, Any]:
         'loaded': available,
         'model_exists': model_exists,
         'model_path': str(MODEL_PATH),
+        'model_version': _model_version,
+        'expected_model_version': MODEL_VERSION,
+        'version_matches': (_model_version == MODEL_VERSION) if available else None,
         'reason': reason,
     }
 
