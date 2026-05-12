@@ -111,12 +111,7 @@
 {"text": "Ігри", "label": "gaming"}
 {"text": "Гулятись в ігри на ПК", "label": "gaming"}
 {"text": "ПК для ігр", "label": "gaming"}
-{"text": "іграти", "label": "gaming"}
-{"text": "іграть", "label": "gaming"}
 {"text": "кс, дота 2, пк для доти", "label": "gaming"}
-
-
-
 {"text": "системний блок для google docs і slack", "label": "office"}
 {"text": "системний блок для google sheets і онлайн-звітності", "label": "office"}
 {"text": "системний блок для 1с і crm", "label": "office"}
@@ -191,7 +186,6 @@
 {"text": "пк для пошти і таблиць", "label": "office"}
 {"text": "комп для excel і powerpoint", "label": "office"}
 {"text": "пк для кабінету клієнтів і google sheets", "label": "office"}
-{"text": "пк для пошти і документів", "label": "office"}
 {"text": "комп для outlook і crm", "label": "office"}
 {"text": "офісний пк для powerpoint і google docs", "label": "office"}
 {"text": "системник для пошти і slack", "label": "office"}
@@ -219,12 +213,10 @@
 {"text": "Тихий ПК для офісу", "label": "office"}
 {"text": "бюджетний пк для офісу", "label": "office"}
 {"text": "офісний пк", "label": "office"}
-{"text": "бухгалтерський пк", "label": "office"}
 {"text": "ПК для людини з офісу", "label": "office"}
 {"text": "системний блок для керівника відділу для документообігу і документів", "label": "office"}
 {"text": "системний блок для оператора для excel і google docs", "label": "office"}
 {"text": "пк для компанії для внутрішньої системи компанії, crm та онлайн сервісів", "label": "office"}
-{"text": "системний блок для керівника відділу для документообігу і документообігу", "label": "office"}
 {"text": "робочий комп'ютер для працівника кол-центру для google sheets", "label": "office"}
 {"text": "комп'ютер для онлайн таблиць і друку документів", "label": "office"}
 {"text": "офісна збірка для pdf, внутрішньої системи компанії, відеозв'язку і браузера", "label": "office"}
@@ -439,63 +431,57 @@
 {"text": "офісний системник для повсякденних задач", "label": "office"}
 {"text": "пк для роботи з документами, браузером та принтером", "label": "office"}
 {"text": "комп для таблиць, пошти та офісних нарад", "label": "office"}
-{"text":"комп для бухгалтера, excel, medoc і bas","label":"office"}
-{"text":"пк для бухгалтерії та електронної звітності","label":"office"}
-{"text":"комп'ютер для medoc, word і таблиць","label":"office"}
-{"text":"робочий пк для bas бухгалтерія","label":"office"}
-{"text":"системник для 1с, excel і друку документів","label":"office"}
-{"text":"пк для бухобліку, накладних і актів","label":"office"}
-{"text":"комп для клієнт банку, medoc і excel","label":"office"}
-{"text":"потрібен комп для рахунків, звітів і документів","label":"office"}
-{"text":"офісний комп для фінансового обліку","label":"office"}
-{"text":"комп'ютер для податкової звітності та excel","label":"office"}
-{"text":"пк для ведення первинної документації","label":"office"}
-{"text":"робоча машина для бухгалтера і офісних програм","label":"office"}
-{"text":"пк для 1с, medoc, pdf і браузера","label":"office"}
-{"text":"комп'ютер для роботи з договорами і актами","label":"office"}
-{"text":"системник для бухгалтерії, crm і пошти","label":"office"}
-{"text":"комп для офіс менеджера, word, excel і email","label":"office"}
-{"text":"офісний пк для таблиць, документів і звітності","label":"office"}
-{"text":"потрібен комп для медок, bas і word","label":"office"}
-{"text":"комп'ютер для офісу, рахунків і накладних","label":"office"}
-{"text":"пк для документів, клієнт банку і excel","label":"office"}
-{"text":"робота в medoc, bas і онлайн банкінгу","label":"office"}
-{"text":"комп для бухгалтера по зарплаті","label":"office"}
-{"text":"пк для кадровика, документів і таблиць","label":"office"}
-{"text":"комп'ютер для hr менеджера і офісної роботи","label":"office"}
-{"text":"офісний комп для вакансій, пошти і браузера","label":"office"}
-{"text":"пк для crm системи, excel і телефонії","label":"office"}
-{"text":"комп для call center і браузерної crm","label":"office"}
-{"text":"системник для менеджера з продажу","label":"office"}
-{"text":"комп'ютер для замовлень, рахунків і пошти","label":"office"}
-{"text":"офісний пк для закупівель і документів","label":"office"}
-{"text":"пк для тендерів, pdf файлів і excel","label":"office"}
-{"text":"комп для роботи з комерційними пропозиціями","label":"office"}
-{"text":"робочий комп для офісу і внутрішньої системи","label":"office"}
-{"text":"комп'ютер для документообігу та браузера","label":"office"}
-{"text":"пк для офісної роботи з двома моніторами","label":"office"}
-{"text":"комп для word, excel, zoom і email","label":"office"}
-{"text":"офісний системник для щоденної роботи","label":"office"}
-{"text":"комп'ютер для пошти, таблиць і друку","label":"office"}
-{"text":"пк для роботи в microsoft office","label":"office"}
-{"text":"комп для менеджера, crm, word і excel","label":"office"}
-{"text":"системник для секретаря і документів","label":"office"}
-{"text":"офісний комп для реєстрації договорів","label":"office"}
-{"text":"комп'ютер для архіву документів і pdf","label":"office"}
-{"text":"пк для звітності, браузера і таблиць","label":"office"}
-{"text":"робочий пк для підприємства","label":"office"}
-{"text":"комп для офісу, bas, medoc і excel","label":"office"}
-{"text":"пк для бухгалтера, 1с і електронного кабінету","label":"office"}
-{"text":"комп'ютер для накладних, рахунків і друку","label":"office"}
-{"text":"офісний пк для crm, телефонії і пошти","label":"office"}
-{"text":"офіс","label":"office"}
-{"text":"офісний комп'ютер","label":"office"}
-{"text":"офісний пк","label":"office"}
-{"text":"системник доля офісу","label":"office"}
-
-
-
-
+{"text": "комп для бухгалтера, excel, medoc і bas", "label": "office"}
+{"text": "пк для бухгалтерії та електронної звітності", "label": "office"}
+{"text": "комп'ютер для medoc, word і таблиць", "label": "office"}
+{"text": "робочий пк для bas бухгалтерія", "label": "office"}
+{"text": "системник для 1с, excel і друку документів", "label": "office"}
+{"text": "пк для бухобліку, накладних і актів", "label": "office"}
+{"text": "комп для клієнт банку, medoc і excel", "label": "office"}
+{"text": "потрібен комп для рахунків, звітів і документів", "label": "office"}
+{"text": "офісний комп для фінансового обліку", "label": "office"}
+{"text": "комп'ютер для податкової звітності та excel", "label": "office"}
+{"text": "пк для ведення первинної документації", "label": "office"}
+{"text": "робоча машина для бухгалтера і офісних програм", "label": "office"}
+{"text": "пк для 1с, medoc, pdf і браузера", "label": "office"}
+{"text": "комп'ютер для роботи з договорами і актами", "label": "office"}
+{"text": "системник для бухгалтерії, crm і пошти", "label": "office"}
+{"text": "комп для офіс менеджера, word, excel і email", "label": "office"}
+{"text": "офісний пк для таблиць, документів і звітності", "label": "office"}
+{"text": "потрібен комп для медок, bas і word", "label": "office"}
+{"text": "пк для документів, клієнт банку і excel", "label": "office"}
+{"text": "робота в medoc, bas і онлайн банкінгу", "label": "office"}
+{"text": "комп для бухгалтера по зарплаті", "label": "office"}
+{"text": "пк для кадровика, документів і таблиць", "label": "office"}
+{"text": "комп'ютер для hr менеджера і офісної роботи", "label": "office"}
+{"text": "офісний комп для вакансій, пошти і браузера", "label": "office"}
+{"text": "пк для crm системи, excel і телефонії", "label": "office"}
+{"text": "комп для call center і браузерної crm", "label": "office"}
+{"text": "системник для менеджера з продажу", "label": "office"}
+{"text": "комп'ютер для замовлень, рахунків і пошти", "label": "office"}
+{"text": "офісний пк для закупівель і документів", "label": "office"}
+{"text": "пк для тендерів, pdf файлів і excel", "label": "office"}
+{"text": "комп для роботи з комерційними пропозиціями", "label": "office"}
+{"text": "робочий комп для офісу і внутрішньої системи", "label": "office"}
+{"text": "комп'ютер для документообігу та браузера", "label": "office"}
+{"text": "пк для офісної роботи з двома моніторами", "label": "office"}
+{"text": "комп для word, excel, zoom і email", "label": "office"}
+{"text": "офісний системник для щоденної роботи", "label": "office"}
+{"text": "комп'ютер для пошти, таблиць і друку", "label": "office"}
+{"text": "пк для роботи в microsoft office", "label": "office"}
+{"text": "комп для менеджера, crm, word і excel", "label": "office"}
+{"text": "системник для секретаря і документів", "label": "office"}
+{"text": "офісний комп для реєстрації договорів", "label": "office"}
+{"text": "комп'ютер для архіву документів і pdf", "label": "office"}
+{"text": "пк для звітності, браузера і таблиць", "label": "office"}
+{"text": "робочий пк для підприємства", "label": "office"}
+{"text": "комп для офісу, bas, medoc і excel", "label": "office"}
+{"text": "пк для бухгалтера, 1с і електронного кабінету", "label": "office"}
+{"text": "комп'ютер для накладних, рахунків і друку", "label": "office"}
+{"text": "офісний пк для crm, телефонії і пошти", "label": "office"}
+{"text": "офіс", "label": "office"}
+{"text": "офісний комп'ютер", "label": "office"}
+{"text": "системник доля офісу", "label": "office"}
 {"text": "навчальний пк для занять", "label": "study"}
 {"text": "системник для навчання і програмування для python і moodle", "label": "study"}
 {"text": "комп для занять, браузера і презентацій", "label": "study"}
@@ -525,7 +511,6 @@
 {"text": "навчальний пк для навчання та проектів для word і vscode", "label": "study"}
 {"text": "комп'ютер для університету для google meet і онлайн-курси", "label": "study"}
 {"text": "навчальний пк для університету", "label": "study"}
-{"text": "системник для студента", "label": "study"}
 {"text": "комп для занять", "label": "study"}
 {"text": "пк для університету для excel і навчальні платформи", "label": "study"}
 {"text": "комп'ютер для навчання та проектів для python і jupyter notebook", "label": "study"}
@@ -550,7 +535,6 @@
 {"text": "збірка для навчання та проектів", "label": "study"}
 {"text": "комп'ютер для навчання для google meet і notion", "label": "study"}
 {"text": "навчальний пк для навчання вдома", "label": "study"}
-{"text": "пк для університету", "label": "study"}
 {"text": "навчальний пк для навчання і програмування для google classroom і notion", "label": "study"}
 {"text": "комп'ютер для уроків для zoom і онлайн-курси", "label": "study"}
 {"text": "навчальний пк для університету для c++ і навчальні платформи", "label": "study"}
@@ -582,8 +566,6 @@
 {"text": "збірка для школяра для zoom і домашні завдання", "label": "study"}
 {"text": "навчальний пк для школяра для браузер і навчальні платформи", "label": "study"}
 {"text": "пк для занять для лекції і google classroom", "label": "study"}
-{"text": "комп для уроків", "label": "study"}
-{"text": "комп для університету", "label": "study"}
 {"text": "комп для уроків для презентації і moodle", "label": "study"}
 {"text": "системник для навчання вдома для презентації і google meet", "label": "study"}
 {"text": "навчальний пк для навчання та проектів для pycharm і лекції", "label": "study"}
@@ -713,7 +695,6 @@
 {"text": "навчання", "label": "study"}
 {"text": "Комп'ютер для дитини, для школи", "label": "study"}
 {"text": "ПК для школи для дитини", "label": "study"}
-
 {"text": "системник для solidworks і unity", "label": "creator"}
 {"text": "пк для figma і maya", "label": "creator"}
 {"text": "системник для after effects і 3ds max", "label": "creator"}
@@ -791,7 +772,6 @@
 {"text": "системник для solidworks і cinema 4d", "label": "creator"}
 {"text": "пк для illustrator і unity", "label": "creator"}
 {"text": "системник для blender і рендеру сцен", "label": "creator"}
-{"text": "пк для графіки", "label": "creator"}
 {"text": "системник для lightroom і 3d моделювання", "label": "creator"}
 {"text": "комп'ютер для after effects і davinci resolve", "label": "creator"}
 {"text": "системник для illustrator і maya", "label": "creator"}
@@ -1035,3 +1015,43 @@
 {"text": "монтаж", "label": "creator"}
 {"text": "3д", "label": "creator"}
 {"text": "дизайн", "label": "creator"}
+{"text": "пк для fortnite на високих налаштуваннях", "label": "gaming"}
+{"text": "ігровий комп'ютер для cyberpunk 2077 у full hd", "label": "gaming"}
+{"text": "збірка для gta 5 і valorant", "label": "gaming"}
+{"text": "комп для apex legends і warzone", "label": "gaming"}
+{"text": "пк для pubg і rainbow six siege", "label": "gaming"}
+{"text": "ігрова збірка для 144 fps у valorant", "label": "gaming"}
+{"text": "системник для dota 2 і стрімів", "label": "gaming"}
+{"text": "комп'ютер для ігор у 1080p", "label": "gaming"}
+{"text": "потрібен пк для сучасних ігор", "label": "gaming"}
+{"text": "хочу збірку для ігор і discord", "label": "gaming"}
+{"text": "комп для elden ring і cyberpunk", "label": "gaming"}
+{"text": "ігровий системний блок для steam", "label": "gaming"}
+{"text": "пк для forza horizon і fifa", "label": "gaming"}
+{"text": "комп'ютер для minecraft з шейдерами", "label": "gaming"}
+{"text": "пк для кіберспортивних ігор", "label": "gaming"}
+{"text": "системник для cs2 на 144 герц", "label": "gaming"}
+{"text": "ігровий пк для full hd монітора", "label": "gaming"}
+{"text": "комп для fortnite і apex legends", "label": "gaming"}
+{"text": "пк для warzone і battlefield", "label": "gaming"}
+{"text": "збірка для ігор на середніх налаштуваннях", "label": "gaming"}
+{"text": "комп'ютер для ігор і запису геймплею", "label": "gaming"}
+{"text": "ігрова збірка для 2k монітора", "label": "gaming"}
+{"text": "пк для rdr2 і witcher 3", "label": "gaming"}
+{"text": "комп для ігор на високому fps", "label": "gaming"}
+{"text": "системник для gaming і streaming", "label": "gaming"}
+{"text": "пк для league of legends і valorant", "label": "gaming"}
+{"text": "ігровий комп для школяра", "label": "gaming"}
+{"text": "пк для ігор після навчання", "label": "gaming"}
+{"text": "комп'ютер для fortnite і roblox", "label": "gaming"}
+{"text": "збірка для ігор з дискретною відеокартою", "label": "gaming"}
+{"text": "пк для online games і voice chat", "label": "gaming"}
+{"text": "комп для шутерів і симуляторів", "label": "gaming"}
+{"text": "ігрова машина для steam і epic games", "label": "gaming"}
+{"text": "пк для ігрового клубу", "label": "gaming"}
+{"text": "комп для mmorpg і rpg ігор", "label": "gaming"}
+{"text": "збірка для valorant на максимальному fps", "label": "gaming"}
+{"text": "пк для overwatch 2 і apex", "label": "gaming"}
+{"text": "комп для ігор з хорошою відеокартою", "label": "gaming"}
+{"text": "ігровий пк для підлітка", "label": "gaming"}
+{"text": "системний блок для сучасних aaa ігор", "label": "gaming"}
